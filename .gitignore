@@ -1,0 +1,7 @@
+# local-only
+_deploy/
+*.zip
+index.backup-*.html
+*.backup-*.html
+.DS_Store
+Thumbs.db
