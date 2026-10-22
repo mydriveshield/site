@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment Confirmed – MyDriveShield</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://js.stripe.com/v3/"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#f8fafc;color:#1e293b;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+.card{background:#fff;border-radius:16px;padding:48px 40px;max-width:560px;width:100%;box-shadow:0 10px 40px rgba(0,0,0,.1);text-align:center}
+.icon{font-size:64px;margin-bottom:20px}
+h1{font-size:28px;font-weight:800;color:#0f2d5e;margin-bottom:12px}
+p{font-size:15px;color:#475569;line-height:1.7;margin-bottom:16px}
+.detail-box{background:#f1f5f9;border-radius:8px;padding:18px;margin:20px 0;text-align:left;font-size:14px;color:#475569}
+.detail-box div{padding:4px 0}
+.detail-box strong{color:#0f2d5e}
+.btn{display:inline-flex;padding:13px 26px;background:#e8431c;color:#fff;border-radius:8px;font-size:15px;font-weight:600;text-decoration:none;margin-top:20px}
+.btn:hover{background:#c7350f}
+#loading{color:#64748b;font-size:15px}
+</style>
+<!-- Google tag (gtag.js): GA4 + Google Ads. Single loader, placed in <head> on every page. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HZMK5CPS6Z"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-HZMK5CPS6Z');
+gtag('config', 'AW-18308478534');
+
+// === MyDriveShield conversion tracking ===
+// LABELS: Google Ads conversion labels (Goals > Conversions > action > Tag setup > "Use Google tag" > event snippet).
+// An empty label means "GA4 event only, no Google Ads conversion" so nothing breaks before the actions exist.
+window.MDS_TRACK = {
+  ADS_ID: 'AW-18308478534',
+  LABELS: {
+    purchase:         'tcI1CKDY99IcEMbslJpE',   // existing: Purchase (fires on /confirmation)
+    quote_request:    '_mIwCMPciOscEMbslJpE',                       // Request a callback / quote form submitted (PRIMARY)
+    partner_lead:     'e_flCMbciOscEMbslJpE',                       // Partner portal lead submitted (PRIMARY)
+    checkout_details: 'dGKwCMnciOscEMbslJpE',                       // Customer details entered at payment step (secondary)
+    phone_click:      'NZGqCMzciOscEMbslJpE'                        // Tap on a tel: link (secondary)
+  }
+};
+// mdsTrack(name, params): sends a GA4 event and, when a label is configured, a Google Ads conversion.
+window.mdsTrack = function(name, params){
+  try{
+    var p = Object.assign({}, params || {});
+    gtag('event', name, p);
+    if(name === 'quote_request' || name === 'partner_lead') gtag('event', 'generate_lead', p);
+    var lbl = window.MDS_TRACK.LABELS[name];
+    if(lbl){
+      gtag('event', 'conversion', Object.assign({ send_to: window.MDS_TRACK.ADS_ID + '/' + lbl }, p));
+    }
+  }catch(e){}
+};
+// Phone click tracking on any tel: link
+document.addEventListener('click', function(ev){
+  var a = ev.target && ev.target.closest ? ev.target.closest('a[href^="tel:"]') : null;
+  if(a) window.mdsTrack('phone_click', { phone_number: a.getAttribute('href').replace('tel:',''), page_path: location.pathname });
+}, true);
+</script>
+</head>
+<body>
+<div class="card" id="card">
+  <div id="loading">Confirming your payment…</div>
+</div>
+<script>
+const stripe = Stripe('pk_live_51Tm4jMDGdlEAcSBwrosEcx9f5IYiW04BtT5TT2zmnp5klHlMtDxhBi1EgLfT0H9V2IGxHqPctQ0fljQ3tPdaMXDA008FZ69ZuB');
+const params = new URLSearchParams(window.location.search);
+const clientSecret = params.get('payment_intent_client_secret');
+
+async function checkPayment() {
+  if (!clientSecret) {
+    showError('No payment reference found.');
+    return;
+  }
+  const { paymentIntent } = await stripe.retrievePaymentIntent(clientSecret);
+  const card = document.getElementById('card');
+  if (paymentIntent && paymentIntent.status === 'succeeded') {
+    const meta = paymentIntent.metadata || {};
+    try{ gtag('event','conversion',{ send_to: MDS_TRACK.ADS_ID+'/'+MDS_TRACK.LABELS.purchase, value: paymentIntent.amount/100, currency:'AUD', transaction_id: paymentIntent.id }); gtag('event','purchase',{ transaction_id: paymentIntent.id, value: paymentIntent.amount/100, currency:'AUD', items:[{ item_name: meta.product || 'Absolute Warranty', price: paymentIntent.amount/100, quantity:1 }] }); }catch(e){}
+    card.innerHTML = `
+      <div class="icon">✅</div>
+      <h1>You're covered!</h1>
+      <p>Your MyDriveShield warranty payment has been confirmed. Your warranty certificate will be issued by Integrity Car Care within 1–2 business days.</p>
+      <div class="detail-box">
+        <div><strong>Product:</strong> ${meta.product || 'Absolute Warranty'}</div>
+        <div><strong>Vehicle:</strong> ${meta.vehicle_make || ''} ${meta.vehicle_year || ''}</div>
+        <div><strong>Duration:</strong> ${meta.duration_years || ''} year(s)</div>
+        <div><strong>Amount paid:</strong> AUD $${(paymentIntent.amount / 100).toFixed(2)}</div>
+        <div><strong>Reference:</strong> ${paymentIntent.id}</div>
+      </div>
+      <p style="font-size:13px">To make a claim, have your repairer call Integrity Car Care on <strong>03 9120 6666</strong>.</p>
+      <a href="/" class="btn">Back to MyDriveShield</a>`;
+  } else {
+    showError('Payment not completed. Please return and try again.');
+  }
+}
+
+function showError(msg) {
+  document.getElementById('card').innerHTML = `<div class="icon">❌</div><h1>Something went wrong</h1><p>${msg}</p><a href="/" class="btn">Return to site</a>`;
+}
+
+checkPayment();
+</script>
+</body>
+</html>

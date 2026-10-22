@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Partner Portal – DriveShield | Dealer & Broker Referral Programme</title>
+<meta name="description" content="Join the DriveShield partner programme. Earn commissions by referring your clients to extended vehicle warranty and roadside assistance products.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#0f2d5e;--primary-dark:#091d3e;--accent:#e8431c;--gold:#f59e0b;--success:#10b981;--light:#f8fafc;--gray-100:#f1f5f9;--gray-200:#e2e8f0;--gray-400:#94a3b8;--gray-600:#475569;--gray-800:#1e293b;--white:#fff;--r:12px;--r-sm:8px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',-apple-system,sans-serif;color:var(--gray-800);line-height:1.6;background:#fff}
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
+
+/* NAV */
+.navbar{background:#fff;border-bottom:1px solid var(--gray-200);padding:14px 0;position:sticky;top:0;z-index:100}
+.nav-inner{display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-mark{width:36px;height:36px;background:var(--primary);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:16px}
+.logo-name{font-size:20px;font-weight:800;color:var(--primary)}
+.logo-name em{color:var(--accent);font-style:normal}
+.back-link{color:var(--gray-600);font-size:14px;font-weight:500;text-decoration:none;display:flex;align-items:center;gap:6px}
+.back-link:hover{color:var(--primary)}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 60%,#1a5094 100%);color:#fff;padding:64px 0 90px;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:70px;background:#fff;clip-path:ellipse(55% 100% at 50% 100%)}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;padding:5px 14px;border-radius:100px;font-size:13px;font-weight:600;margin-bottom:20px}
+.hero h1{font-size:clamp(30px,4vw,50px);font-weight:800;line-height:1.15;margin-bottom:18px}
+.hero h1 span{color:var(--gold)}
+.hero p{font-size:17px;color:rgba(255,255,255,.85);max-width:580px;line-height:1.75}
+.hero-stats{display:flex;gap:40px;margin-top:40px;flex-wrap:wrap}
+.stat-val{font-size:36px;font-weight:800;color:var(--gold)}
+.stat-lbl{font-size:13px;color:rgba(255,255,255,.65);margin-top:4px}
+
+/* SECTIONS */
+section{padding:64px 0}
+.section-label{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px}
+.section-title{font-size:clamp(24px,3vw,36px);font-weight:800;color:var(--primary);margin-bottom:14px;line-height:1.2}
+.section-sub{font-size:16px;color:var(--gray-600);max-width:580px;line-height:1.7;margin-bottom:40px}
+.section-head{text-align:center}.section-head .section-sub{margin:0 auto 40px}
+
+/* BENEFITS */
+.benefits-bg{background:var(--light)}
+.benefits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.benefit-card{background:#fff;border-radius:var(--r);padding:28px;border:1px solid var(--gray-200)}
+.benefit-icon{font-size:36px;margin-bottom:14px}
+.benefit-card h3{font-size:17px;font-weight:700;color:var(--primary);margin-bottom:8px}
+.benefit-card p{font-size:14px;color:var(--gray-600);line-height:1.65}
+
+/* HOW IT WORKS */
+.steps{display:flex;flex-direction:column;gap:0;max-width:640px;margin:0 auto}
+.step-item{display:flex;gap:20px;padding-bottom:32px;position:relative}
+.step-item::before{content:'';position:absolute;left:19px;top:44px;bottom:0;width:2px;background:var(--gray-200)}
+.step-item:last-child::before{display:none}
+.step-num{width:40px;height:40px;border-radius:50%;background:var(--primary);color:#fff;font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1}
+.step-content h4{font-size:16px;font-weight:700;color:var(--primary);margin-bottom:6px}
+.step-content p{font-size:14px;color:var(--gray-600);line-height:1.6}
+
+/* COMMISSION TABLE */
+.comm-table{width:100%;border-collapse:collapse;font-size:14px;margin-top:24px}
+.comm-table th{background:var(--primary);color:#fff;padding:13px 18px;text-align:left;font-weight:600}
+.comm-table th:first-child{border-radius:8px 0 0 0}.comm-table th:last-child{border-radius:0 8px 0 0}
+.comm-table td{padding:12px 18px;border-bottom:1px solid var(--gray-200);color:var(--gray-700)}
+.comm-table tr:last-child td{border-bottom:none}
+.comm-table tr:hover td{background:var(--gray-100)}
+.comm-table td.highlight{font-weight:700;color:var(--success)}
+
+/* PARTNER TYPES */
+.partner-types{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.partner-type{border:2px solid var(--gray-200);border-radius:var(--r);padding:24px;text-align:center;transition:all .2s}
+.partner-type:hover{border-color:var(--primary);box-shadow:0 4px 20px rgba(0,0,0,.1)}
+.pt-icon{font-size:40px;margin-bottom:12px}
+.partner-type h3{font-size:16px;font-weight:700;color:var(--primary);margin-bottom:8px}
+.partner-type p{font-size:13px;color:var(--gray-600);line-height:1.6}
+
+/* LEAD FORM */
+.form-bg{background:var(--light)}
+.form-wrap{max-width:680px;margin:0 auto;background:#fff;border-radius:16px;padding:40px;box-shadow:0 4px 30px rgba(0,0,0,.1);border:1px solid var(--gray-200)}
+.form-section-title{font-size:16px;font-weight:700;color:var(--primary);margin:24px 0 16px;padding-bottom:8px;border-bottom:2px solid var(--gray-100)}
+.form-section-title:first-of-type{margin-top:0}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.form-group label{font-size:13px;font-weight:600;color:var(--gray-700)}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:11px 14px;border:2px solid var(--gray-200);border-radius:var(--r-sm);font-size:15px;color:var(--gray-800);background:#fff;transition:border .2s;outline:none;font-family:inherit}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--primary)}
+.form-group textarea{resize:vertical;min-height:100px}
+.consent-box{background:var(--light);border-radius:var(--r-sm);padding:14px;font-size:13px;color:var(--gray-600);line-height:1.6;margin-bottom:20px}
+.consent-box label{display:flex;gap:10px;cursor:pointer}
+.consent-box input[type=checkbox]{margin-top:2px;flex-shrink:0}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:var(--r-sm);font-size:15px;font-weight:600;border:none;cursor:pointer;transition:all .2s}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#c7350f;transform:translateY(-1px)}
+.btn-lg{padding:16px 32px;font-size:17px}
+#form-success{display:none;text-align:center;padding:40px 20px}
+#form-success .success-icon{font-size:60px;margin-bottom:16px}
+#form-success h3{font-size:22px;font-weight:800;color:var(--primary);margin-bottom:10px}
+#form-success p{font-size:15px;color:var(--gray-600)}
+#form-error{display:none;color:var(--accent);font-size:14px;margin-top:12px}
+
+/* FOOTER */
+footer{background:var(--primary-dark);color:rgba(255,255,255,.6);padding:36px 0;font-size:13px;line-height:1.7;text-align:center}
+footer a{color:rgba(255,255,255,.7)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .benefits-grid,.partner-types{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .form-wrap{padding:24px}
+  .hero-stats{gap:24px}
+}
+</style>
+<!-- Google tag (gtag.js): GA4 + Google Ads. Single loader, placed in <head> on every page. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HZMK5CPS6Z"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-HZMK5CPS6Z');
+gtag('config', 'AW-18308478534');
+
+// === MyDriveShield conversion tracking ===
+// LABELS: Google Ads conversion labels (Goals > Conversions > action > Tag setup > "Use Google tag" > event snippet).
+// An empty label means "GA4 event only, no Google Ads conversion" so nothing breaks before the actions exist.
+window.MDS_TRACK = {
+  ADS_ID: 'AW-18308478534',
+  LABELS: {
+    purchase:         'tcI1CKDY99IcEMbslJpE',   // existing: Purchase (fires on /confirmation)
+    quote_request:    '_mIwCMPciOscEMbslJpE',                       // Request a callback / quote form submitted (PRIMARY)
+    partner_lead:     'e_flCMbciOscEMbslJpE',                       // Partner portal lead submitted (PRIMARY)
+    checkout_details: 'dGKwCMnciOscEMbslJpE',                       // Customer details entered at payment step (secondary)
+    phone_click:      'NZGqCMzciOscEMbslJpE'                        // Tap on a tel: link (secondary)
+  }
+};
+// mdsTrack(name, params): sends a GA4 event and, when a label is configured, a Google Ads conversion.
+window.mdsTrack = function(name, params){
+  try{
+    var p = Object.assign({}, params || {});
+    gtag('event', name, p);
+    if(name === 'quote_request' || name === 'partner_lead') gtag('event', 'generate_lead', p);
+    var lbl = window.MDS_TRACK.LABELS[name];
+    if(lbl){
+      gtag('event', 'conversion', Object.assign({ send_to: window.MDS_TRACK.ADS_ID + '/' + lbl }, p));
+    }
+  }catch(e){}
+};
+// Phone click tracking on any tel: link
+document.addEventListener('click', function(ev){
+  var a = ev.target && ev.target.closest ? ev.target.closest('a[href^="tel:"]') : null;
+  if(a) window.mdsTrack('phone_click', { phone_number: a.getAttribute('href').replace('tel:',''), page_path: location.pathname });
+}, true);
+</script>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="/" class="logo">
+      <div class="logo-mark">DS</div>
+      <div class="logo-name">Drive<em>Shield</em></div>
+    </a>
+    <a href="/" class="back-link">← Back to main site</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge">🤝 Partner Programme</div>
+    <h1>Earn Commission.<br><span>Protect Your Clients.</span></h1>
+    <p>Join Australia's fastest-growing vehicle warranty distribution network. Whether you're a car dealer, finance broker, mortgage broker or fleet manager — DriveShield makes it simple to add value and earn.</p>
+    <div class="hero-stats">
+      <div><div class="stat-val">$50–$300+</div><div class="stat-lbl">Commission per referral</div></div>
+      <div><div class="stat-val">48hr</div><div class="stat-lbl">Response time</div></div>
+      <div><div class="stat-val">5yr</div><div class="stat-lbl">Max coverage period</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNER TYPES -->
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Who We Work With</div>
+      <h2 class="section-title">Built for Every Referral Partner</h2>
+      <p class="section-sub">Our programme is designed to fit naturally into your existing customer relationships.</p>
+    </div>
+    <div class="partner-types">
+      <div class="partner-type">
+        <div class="pt-icon">🚗</div>
+        <h3>Car Dealers</h3>
+        <p>Offer warranty and roadside at point of sale or delivery. Add genuine value to every used car transaction and increase gross profit per deal.</p>
+      </div>
+      <div class="partner-type">
+        <div class="pt-icon">💰</div>
+        <h3>Finance & Mortgage Brokers</h3>
+        <p>Your clients buy cars too. Refer them to DriveShield at settlement or when refinancing — and earn a referral fee with zero extra admin.</p>
+      </div>
+      <div class="partner-type">
+        <div class="pt-icon">🏢</div>
+        <h3>Fleet Managers</h3>
+        <p>Protect your entire fleet with bulk warranty cover. Simplify maintenance budgeting and eliminate unexpected repair bills.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits-bg">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Why Partner with DriveShield</div>
+      <h2 class="section-title">Everything You Need. Nothing You Don't.</h2>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon">💵</div>
+        <h3>Competitive Commission</h3>
+        <p>Earn meaningful commission on every referred warranty or roadside policy. Tiered rates reward volume partners with higher percentages.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">⚡</div>
+        <h3>Zero Admin</h3>
+        <p>Submit leads in under 2 minutes. Our team handles quoting, issuance, and customer onboarding. You earn — we do the work.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🛡️</div>
+        <h3>Premium Product</h3>
+        <p>Backed by Integrity Car Care Pty Ltd — a respected Australian warranty provider. Comprehensive cover that actually pays claims.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">📊</div>
+        <h3>Real-Time Tracking</h3>
+        <p>Track every lead and referral through your partner dashboard. Know exactly where your clients are in the process at all times.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🎓</div>
+        <h3>Training & Support</h3>
+        <p>Dedicated partner onboarding, marketing materials, and a direct line to your DriveShield account manager for product questions.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🤝</div>
+        <h3>Trusted Relationship</h3>
+        <p>We never poach your clients. Your referral is protected — we deal with DriveShield, not directly with your customer base.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Process</div>
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-sub">From lead submission to commission payment — the whole process is designed to be frictionless.</p>
+    </div>
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h4>Submit a Lead</h4>
+          <p>Fill in the lead form below with your client's vehicle and contact details. Takes under 2 minutes. You can also email or call us directly.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h4>We Quote Your Client</h4>
+          <p>A DriveShield consultant contacts your client within one business day with a tailored quote and product explanation.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h4>Policy Issued</h4>
+          <p>If your client proceeds, the warranty is issued immediately by Integrity Car Care. You receive confirmation of the sale.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h4>Commission Paid</h4>
+          <p>Commission is calculated and paid to you by the agreed schedule (typically monthly). All tracked in your partner portal.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMISSION TABLE -->
+<section style="background:var(--light);padding:52px 0">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Commission Structure</div>
+      <h2 class="section-title">Indicative Commission Rates</h2>
+      <p class="section-sub">Rates are indicative and subject to your partner agreement. Volume bonuses available for high-referring partners.</p>
+    </div>
+    <div style="overflow-x:auto;max-width:700px;margin:0 auto">
+      <table class="comm-table">
+        <thead>
+          <tr><th>Product</th><th>Example Sale Price</th><th>Typical Commission</th><th>Your Earnings</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Absolute Warranty — Cat 1, 2yr</td><td>$916</td><td>Up to 15%</td><td class="highlight">~$137</td></tr>
+          <tr><td>Absolute Warranty — Cat 1, 5yr</td><td>$1,478</td><td>Up to 15%</td><td class="highlight">~$222</td></tr>
+          <tr><td>Absolute Warranty — Cat 2, 3yr</td><td>$2,023</td><td>Up to 15%</td><td class="highlight">~$303</td></tr>
+          <tr><td>Absolute Warranty — Cat 3–4, any</td><td>$2,371+</td><td>Up to 15%</td><td class="highlight">~$355+</td></tr>
+          <tr><td>Roadside Assistance add-on</td><td>$88–$610</td><td>Up to 10%</td><td class="highlight">~$9–$61</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12px;color:var(--gray-400);text-align:center;margin-top:14px">* Indicative only. Final commission rates are specified in your partner agreement. Subject to settlement and clawback conditions.</p>
+  </div>
+</section>
+
+<!-- LEAD SUBMISSION FORM -->
+<section id="submit-lead" class="form-bg">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Submit a Lead</div>
+      <h2 class="section-title">Refer a Client Now</h2>
+      <p class="section-sub">Fill in the form and we'll take it from here. You'll receive a confirmation email and be notified when your client is contacted.</p>
+    </div>
+    <div class="form-wrap">
+      <div id="form-success">
+        <div class="success-icon">✅</div>
+        <h3>Lead Received!</h3>
+        <p>Thanks for the referral. A DriveShield consultant will contact your client within one business day. You'll receive a copy of this lead to your email.</p>
+        <button class="btn btn-primary" style="margin-top:20px" onclick="resetForm()">Submit Another Lead</button>
+      </div>
+      <form id="partner-form" onsubmit="submitLead(event)">
+        <!-- PARTNER INFO -->
+        <div class="form-section-title">Your Details (Partner)</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="p-first">Your First Name *</label>
+            <input type="text" id="p-first" required placeholder="John">
+          </div>
+          <div class="form-group">
+            <label for="p-last">Your Last Name *</label>
+            <input type="text" id="p-last" required placeholder="Smith">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="p-email">Your Email *</label>
+            <input type="email" id="p-email" required placeholder="john@dealership.com.au">
+          </div>
+          <div class="form-group">
+            <label for="p-phone">Your Phone *</label>
+            <input type="tel" id="p-phone" required placeholder="04XX XXX XXX">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="p-company">Company / Business Name *</label>
+            <input type="text" id="p-company" required placeholder="Smith Motor Group">
+          </div>
+          <div class="form-group">
+            <label for="p-type">Partner Type *</label>
+            <select id="p-type" required>
+              <option value="">— Select type —</option>
+              <option>Car Dealer</option>
+              <option>Finance Broker</option>
+              <option>Mortgage Broker</option>
+              <option>Fleet Manager</option>
+              <option>Insurance Broker</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- CLIENT INFO -->
+        <div class="form-section-title">Client Details</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="c-first">Client First Name *</label>
+            <input type="text" id="c-first" required placeholder="Jane">
+          </div>
+          <div class="form-group">
+            <label for="c-last">Client Last Name *</label>
+            <input type="text" id="c-last" required placeholder="Doe">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="c-email">Client Email *</label>
+            <input type="email" id="c-email" required placeholder="jane.doe@email.com">
+          </div>
+          <div class="form-group">
+            <label for="c-phone">Client Mobile *</label>
+            <input type="tel" id="c-phone" required placeholder="04XX XXX XXX">
+          </div>
+        </div>
+
+        <!-- VEHICLE INFO -->
+        <div class="form-section-title">Vehicle Details</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="v-make">Vehicle Make *</label>
+            <input type="text" id="v-make" required placeholder="Toyota">
+          </div>
+          <div class="form-group">
+            <label for="v-model">Vehicle Model *</label>
+            <input type="text" id="v-model" required placeholder="Camry">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="v-year">Year *</label>
+            <input type="number" id="v-year" required placeholder="2020" min="2000" max="2026">
+          </div>
+          <div class="form-group">
+            <label for="v-odo">Odometer (km) *</label>
+            <input type="number" id="v-odo" required placeholder="65000" min="0">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="v-awd">4WD / AWD?</label>
+            <select id="v-awd">
+              <option value="no">No</option>
+              <option value="yes">Yes (+$110 surcharge)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="product-interest">Product Interest</label>
+            <select id="product-interest">
+              <option>Absolute Warranty</option>
+              <option>Endurance Warranty</option>
+              <option>Roadside Assistance only</option>
+              <option>Not sure — advise client</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="p-notes">Additional Notes</label>
+          <textarea id="p-notes" placeholder="Any context that may help our consultant (e.g. client is a first-time buyer, preferred contact times, specific concerns)…"></textarea>
+        </div>
+
+        <div class="consent-box">
+          <label>
+            <input type="checkbox" id="consent-check" required>
+            <span>I confirm I have permission from my client to share their details with DriveShield for the purpose of providing a warranty quote. I understand DriveShield will contact the client directly. I agree to the DriveShield Partner Terms &amp; Conditions.</span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center" id="submit-btn">
+          <span id="submit-text">Submit Lead →</span>
+        </button>
+        <div id="form-error">There was an error submitting your lead. Please try again or email us directly at info@mydriveshield.com.au</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p>© 2026 MyDriveShield — Authorised distribution partner of Integrity Car Care Pty Ltd (P: 03 9120 6666)</p>
+    <p style="margin-top:6px">Commission rates are indicative and subject to signed partner agreement. Partner programme subject to DriveShield Partner Terms &amp; Conditions.</p>
+    <p style="margin-top:10px"><a href="/">Main Site</a> · <a href="mailto:info@mydriveshield.com.au">info@mydriveshield.com.au</a></p>
+  </div>
+</footer>
+
+<script>
+const N8N_PARTNER_LEAD = 'https://layden.app.n8n.cloud/webhook/driveshield-partner-lead';
+
+async function submitLead(e){
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  const errEl = document.getElementById('form-error');
+  btn.disabled = true;
+  document.getElementById('submit-text').textContent = 'Submitting…';
+  errEl.style.display = 'none';
+
+  const payload = {
+    partner: {
+      firstName: document.getElementById('p-first').value,
+      lastName:  document.getElementById('p-last').value,
+      email:     document.getElementById('p-email').value,
+      phone:     document.getElementById('p-phone').value,
+      company:   document.getElementById('p-company').value,
+      type:      document.getElementById('p-type').value
+    },
+    client: {
+      firstName: document.getElementById('c-first').value,
+      lastName:  document.getElementById('c-last').value,
+      email:     document.getElementById('c-email').value,
+      phone:     document.getElementById('c-phone').value
+    },
+    vehicle: {
+      make:  document.getElementById('v-make').value,
+      model: document.getElementById('v-model').value,
+      year:  document.getElementById('v-year').value,
+      odo:   document.getElementById('v-odo').value,
+      awd:   document.getElementById('v-awd').value === 'yes'
+    },
+    productInterest: document.getElementById('product-interest').value,
+    notes: document.getElementById('p-notes').value,
+    submittedAt: new Date().toISOString()
+  };
+
+  try {
+    const res = await fetch(N8N_PARTNER_LEAD, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload)
+    });
+    if(!res.ok) throw new Error('Server error');
+    document.getElementById('partner-form').style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+    if(window.mdsTrack) window.mdsTrack('partner_lead', { partner_type: payload.partner.type || '', product: payload.productInterest || '', lead_source: 'partner-portal' });
+  } catch(err) {
+    errEl.style.display = 'block';
+    btn.disabled = false;
+    document.getElementById('submit-text').textContent = 'Submit Lead →';
+  }
+}
+
+function resetForm(){
+  document.getElementById('partner-form').reset();
+  document.getElementById('partner-form').style.display = 'block';
+  document.getElementById('form-success').style.display = 'none';
+}
+</script>
+</body>
+</html>

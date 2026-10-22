@@ -1,0 +1,2064 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MyDriveShield — Extended Warranty & Roadside Assistance Australia</title>
+<script src="https://js.stripe.com/v3/"></script>
+<meta name="description" content="Simple protection for used vehicle owners. Extended vehicle warranty and 24/7 emergency roadside assistance across Australia. Backed by Integrity Car Care. Get a quote in minutes.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B2545; --navy2:#0F2D5E; --navy3:#16386f;
+    --blue:#2563EB; --blue-light:#3B82F6; --blue-soft:#EFF4FF;
+    --orange:#F97316; --orange-dark:#EA6207; --orange-soft:#FFF3E8;
+    --ink:#0F172A; --muted:#5A6B85; --line:#E6ECF5;
+    --bg:#FFFFFF; --bg-soft:#EEF2F8;
+    --shadow-sm:0 4px 14px rgba(15,45,94,.06);
+    --shadow:0 18px 46px rgba(15,45,94,.14);
+    --shadow-lg:0 34px 80px rgba(11,37,69,.22);
+    --r:16px; --r-lg:22px; --pill:999px; --maxw:1220px;
+    /* Drop a photo named hero.jpg beside this file to fill the hero */
+    --hero-img:url('hero.jpg');
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{text-decoration:none;color:inherit}
+  img,svg{display:block;max-width:100%}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .eyebrow{font-size:13px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--blue)}
+  h1,h2,h3{line-height:1.12;letter-spacing:-.02em;color:var(--navy)}
+  h2{font-size:clamp(28px,3.6vw,42px);font-weight:800}
+  .lead{color:var(--muted);font-size:clamp(16px,1.5vw,18.5px)}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:15.5px;padding:14px 26px;border-radius:8px;border:1px solid transparent;cursor:pointer;transition:.2s ease;white-space:nowrap;font-family:inherit}
+  .btn svg{width:18px;height:18px}
+  .btn-primary{background:var(--orange);color:#fff;box-shadow:0 8px 22px rgba(249,115,22,.34)}
+  .btn-primary:hover{background:var(--orange-dark);transform:translateY(-2px);box-shadow:0 14px 28px rgba(249,115,22,.42)}
+  .btn-blue{background:var(--blue);color:#fff}
+  .btn-blue:hover{background:#1d4ed8;transform:translateY(-2px)}
+  .btn-navy{background:var(--navy);color:#fff}
+  .btn-navy:hover{background:var(--navy2);transform:translateY(-2px)}
+  .btn-ghost{background:#fff;color:var(--navy);border-color:var(--line);box-shadow:var(--shadow-sm)}
+  .btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
+  .btn-lg{padding:16px 32px;font-size:16.5px}
+  .btn-pill{border-radius:var(--pill)}
+
+  /* Nav */
+  header{position:sticky;top:0;z-index:60;background:var(--navy);transition:.25s}
+  header.scrolled{box-shadow:0 6px 24px rgba(11,37,69,.35)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:76px}
+  .logo{display:flex;align-items:center;gap:11px;font-weight:600;font-size:25px;color:#fff;letter-spacing:-.01em}
+  .logo .mark{height:40px;width:40px;flex:none;filter:drop-shadow(0 3px 8px rgba(0,0,0,.28))}
+  .logo b{font-family:'Fraunces',Georgia,serif;font-weight:600;font-style:normal;line-height:1}
+  .logo .o{color:#F97316}
+  .menu{display:flex;align-items:center;gap:34px}
+  .menu a{font-size:15px;font-weight:600;color:#cdd9ef;transition:.15s;padding:6px 0;border-bottom:2px solid transparent}
+  .menu a:hover,.menu a.active{color:#fff;border-bottom-color:var(--orange)}
+  .nav-cta{display:flex;align-items:center;gap:14px;padding-left:22px}
+  .burger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+  .burger span{display:block;width:24px;height:2.5px;background:#fff;border-radius:2px;margin:5px 0;transition:.25s}
+
+  /* Hero */
+  .hero{position:relative;min-height:600px;display:flex;align-items:center;color:#fff;overflow:hidden;
+    background:
+      linear-gradient(180deg, rgba(9,26,52,.52) 0%, rgba(9,26,52,.22) 30%, rgba(9,26,52,.16) 62%, rgba(11,37,69,.42) 100%),
+      var(--hero-img) center center/cover no-repeat,
+      radial-gradient(120% 90% at 80% 20%, #1b4a8f 0%, #0F2D5E 45%, #0B2545 100%);
+  }
+  .hero .wrap{position:relative;z-index:2;padding:88px 28px}
+  .hero-copy{max-width:780px;margin:0 auto;text-align:center}
+  .hero h1{color:#fff;font-size:clamp(36px,5.2vw,56px);font-weight:900;text-shadow:0 2px 22px rgba(0,0,0,.45)}
+  .hero h1 .sm{font-weight:600;font-size:.62em;opacity:.85}
+  .hero .rule{width:120px;height:4px;background:var(--orange);border-radius:2px;margin:22px auto 20px}
+  .hero p.sub{font-size:clamp(16px,1.7vw,20px);color:#eef4fd;max-width:560px;font-weight:500;margin:0 auto;text-shadow:0 1px 12px rgba(0,0,0,.5)}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px;justify-content:center}
+  .hero-chips{display:flex;flex-wrap:wrap;gap:20px;margin-top:34px;color:#e3ecfa;font-size:14px;font-weight:600;justify-content:center;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+  .hero-chips span{display:inline-flex;align-items:center;gap:8px}
+  .hero-chips svg{width:15px;height:15px;color:var(--orange)}
+  /* shield watermark */
+  .hero .shield-wm{display:none}
+  @media(min-width:961px){.hero .shield-wm{opacity:.08}}
+
+  /* Floating cards */
+  .cardband{background:var(--bg-soft);padding:70px 0}
+  .cardrow{max-width:var(--maxw);margin:0 auto;padding:0 28px;display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .fcard{background:#fff;border-radius:var(--r-lg);padding:32px;box-shadow:var(--shadow);border:1px solid #eef2f8;transition:.25s}
+  .fcard:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+  .fcard .fc-top{display:flex;align-items:center;gap:14px;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--line)}
+  .fcard .fc-ic{width:44px;height:44px;border-radius:12px;background:var(--navy);color:#fff;display:grid;place-items:center;flex:none}
+  .fcard.alt .fc-ic{background:var(--orange)}
+  .fcard.blue .fc-ic{background:var(--blue)}
+  .fcard .fc-ic svg{width:22px;height:22px}
+  .fcard h3{font-size:19px;font-weight:800}
+  .fcard p{color:var(--muted);font-size:15px}
+
+  /* Sub features */
+  .subfeat{max-width:var(--maxw);margin:34px auto 0;padding:26px 10px;display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-sm)}
+  .sf{display:flex;align-items:flex-start;gap:13px;padding:6px 24px;border-right:1px solid var(--line)}
+  .sf:last-child{border-right:none}
+  .sf .sfi{width:38px;height:38px;flex:none;border-radius:10px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center}
+  .sf .sfi svg{width:20px;height:20px}
+  .sf b{display:block;font-size:15px;font-weight:800;color:var(--navy)}
+  .sf small{color:var(--muted);font-size:13px;font-weight:500}
+
+  /* generic section */
+  section.pad{padding:82px 0}
+  .sec-head{text-align:center;max-width:680px;margin:0 auto 50px}
+  .sec-head .lead{margin-top:14px}
+
+  /* Protection detail */
+  .prot{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+  .pcard{border-radius:var(--r-lg);padding:38px;border:1px solid var(--line);background:#fff;box-shadow:var(--shadow-sm);transition:.25s}
+  .pcard:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+  .pcard.warranty{background:linear-gradient(160deg,var(--navy),var(--navy2));border-color:transparent;color:#fff}
+  .pcard.warranty h3{color:#fff}
+  .pcard .p-top{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+  .p-icon{width:54px;height:54px;border-radius:14px;display:grid;place-items:center;flex:none}
+  .warranty .p-icon{background:rgba(255,255,255,.12)}
+  .roadside .p-icon{background:var(--orange-soft)}
+  .pcard h3{font-size:23px;font-weight:800}
+  .pcard .p-sub{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+  .warranty .p-sub{color:var(--blue-light)} .roadside .p-sub{color:var(--orange)}
+  .pcard p.desc{margin:6px 0 20px;font-size:15.5px}
+  .warranty p.desc{color:#c6d4ec} .roadside p.desc{color:var(--muted)}
+  .plist{list-style:none;display:grid;gap:12px;margin-bottom:26px}
+  .plist li{display:flex;gap:11px;font-size:15px;font-weight:500}
+  .warranty .plist li{color:#dbe6f7} .roadside .plist li{color:#37455f}
+  .tick{width:22px;height:22px;border-radius:50%;flex:none;display:grid;place-items:center;margin-top:1px}
+  .warranty .tick{background:rgba(59,130,246,.25);color:#93c5fd} .roadside .tick{background:var(--blue-soft);color:var(--blue)}
+  .tick svg{width:13px;height:13px}
+  .pcard .btn{width:100%;justify-content:center}
+  .warranty .btn-ghost{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.25);box-shadow:none}
+  .warranty .btn-ghost:hover{background:rgba(255,255,255,.2);color:#fff;border-color:#fff}
+
+  /* why */
+  .why{background:var(--bg-soft)}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .feature{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:30px;box-shadow:var(--shadow-sm);transition:.25s}
+  .feature:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+  .feature .fi{width:58px;height:58px;border-radius:14px;background:var(--blue-soft);display:grid;place-items:center;margin-bottom:18px}
+  .feature .fi img{width:40px;height:40px;display:block}
+  .feature h3{font-size:18.5px;font-weight:800;margin-bottom:8px}
+  .feature p{font-size:15px;color:var(--muted)}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;counter-reset:s}
+  .step{padding:32px 26px;border-radius:var(--r);background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-sm)}
+  .step-ic{display:block;margin-bottom:16px}
+  .step-ic img{height:64px;width:auto;display:block}
+  .step h3{font-size:18px;font-weight:800;margin-bottom:6px}
+  .step p{font-size:14.5px;color:var(--muted)}
+
+  /* roadside band */
+  .band{background:linear-gradient(150deg,var(--navy),var(--navy2));color:#fff;border-radius:var(--r-lg);overflow:hidden}
+  .band .inner{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:48px}
+  .band h2{color:#fff} .band p{color:#c6d4ec;margin-top:14px;font-size:16.5px}
+  .band .tag{display:inline-block;background:var(--orange);color:#fff;font-size:12.5px;font-weight:700;padding:5px 12px;border-radius:var(--pill);margin-bottom:14px}
+  .band .price-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:var(--r);padding:26px}
+  .band .price-card .row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.12);font-size:15px}
+  .band .price-card .row:last-child{border-bottom:none}
+  .band .price-card b{color:#fff} .band .price-card .amt{color:var(--orange);font-weight:800}
+
+  /* faq */
+  .faq{max-width:820px;margin:0 auto;display:grid;gap:14px}
+  .qa{border:1px solid var(--line);border-radius:16px;background:#fff;overflow:hidden;box-shadow:var(--shadow-sm)}
+  .qa button{width:100%;text-align:left;background:none;border:none;cursor:pointer;padding:22px 24px;font-size:17px;font-weight:700;color:var(--navy);display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:inherit}
+  .qa .ans{max-height:0;overflow:hidden;transition:max-height .3s ease;color:var(--muted);font-size:15.5px}
+  .qa .ans p{padding:0 24px 22px}
+  .qa.open .ans{max-height:280px}
+  .qa .plus{flex:none;width:26px;height:26px;border-radius:50%;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-size:20px;transition:.25s}
+  .qa.open .plus{background:var(--orange);color:#fff;transform:rotate(45deg)}
+
+  /* CTA band */
+  .cta{background:linear-gradient(135deg,var(--navy),var(--navy2));text-align:center;padding:72px 24px}
+  .cta h2{color:#fff;font-size:clamp(26px,3.4vw,38px)}
+  .cta .rule{width:120px;height:4px;background:var(--orange);border-radius:2px;margin:20px auto 26px}
+  .cta p{color:#c6d4ec;max-width:520px;margin:0 auto 26px;font-size:17px}
+
+  /* contact */
+  .contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .cc{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:28px;text-align:center;box-shadow:var(--shadow-sm)}
+  .cc .ci{width:52px;height:52px;border-radius:14px;background:var(--orange-soft);color:var(--orange);display:grid;place-items:center;margin:0 auto 14px}
+  .cc h3{font-size:16px;font-weight:800;margin-bottom:4px}
+  .cc a,.cc p{color:var(--muted);font-size:15px;font-weight:600}
+  .cc a:hover{color:var(--blue)}
+
+  /* footer */
+  footer{background:var(--navy);color:#a9bbd8;padding:58px 0 28px}
+  .f-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;padding-bottom:38px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .f-about{font-size:14.5px;max-width:300px;margin-top:16px}
+  .f-col h4{color:#fff;font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px}
+  .f-col a{display:block;font-size:14.5px;padding:5px 0;color:#a9bbd8}
+  .f-col a:hover{color:#fff}
+  .f-legal{font-size:12.5px;color:#7f93b5;padding-top:22px;line-height:1.7}
+  .f-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-top:20px;font-size:13.5px;color:#8ba0c2}
+
+  @media(max-width:960px){
+    .hero{min-height:auto}
+    .hero .shield-wm{display:none}
+    .cardrow,.grid3,.steps,.contact-grid,.band .inner,.prot{grid-template-columns:1fr}
+    .subfeat{grid-template-columns:1fr 1fr;gap:20px 0}
+    .sf:nth-child(2n){border-right:none}
+    .f-top{grid-template-columns:1fr 1fr}
+    .band .inner{padding:34px}
+  }
+  @media(max-width:720px){
+    html,body{overflow-x:clip}
+    .wrap{padding:0 18px}
+    nav{height:64px;gap:8px}
+    .logo{font-size:18px;gap:8px;min-width:0}
+    .logo .mark{height:34px;width:34px}
+    .nav-cta{gap:8px;padding-left:0;flex:none}
+    .nav-cta .btn{padding:10px 16px;font-size:14px}
+    .menu,.nav-cta .btn-ghost{display:none}
+    .burger{display:block;padding:6px}
+    .menu.open{display:flex;position:absolute;top:64px;left:0;right:0;flex-direction:column;background:var(--navy);padding:18px 20px;gap:4px;border-top:1px solid rgba(255,255,255,.1);box-shadow:0 18px 30px rgba(11,37,69,.35)}
+    .menu.open a{padding:12px 0;width:100%;border-bottom:1px solid rgba(255,255,255,.08)}
+    .subfeat{grid-template-columns:1fr} .sf{border-right:none;border-bottom:1px solid var(--line);padding-bottom:16px}
+    .sf:last-child{border-bottom:none}
+    .f-top{grid-template-columns:1fr} .pcard{padding:28px}
+    .hero .wrap{padding:56px 20px}
+    .hero-actions .btn{flex:1 1 100%;justify-content:center}
+    input,select,textarea{font-size:16px !important}
+    .cardband{padding:48px 0}
+    .cardrow{padding:0 18px;gap:18px}
+    .fcard{padding:26px}
+    section.pad{padding:56px 0}
+    .sec-head{margin-bottom:36px}
+    .band .inner{padding:26px 20px;gap:26px}
+    .cta{padding:56px 20px}
+    .qa button{padding:18px 18px;font-size:16px}
+    .qa .ans p{padding:0 18px 18px}
+    .f-bottom{flex-direction:column;gap:6px}
+  }
+  @media(max-width:400px){
+    .logo{font-size:16.5px}
+    .logo .mark{height:30px;width:30px}
+    .nav-cta .btn{padding:9px 13px;font-size:13px}
+    .wrap{padding:0 16px}
+  }
+
+/* ---- Products (Absolute vs Endurance) ---- */
+  .prodgrid{display:grid;grid-template-columns:1fr 1fr;gap:26px;max-width:1000px;margin:0 auto}
+  .prodcard{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:38px;box-shadow:var(--shadow-sm);transition:.25s;display:flex;flex-direction:column}
+  .prodcard:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+  .prodcard.featured{border:2px solid var(--blue);box-shadow:var(--shadow)}
+  .prod-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--orange);color:#fff;font-size:12px;font-weight:800;letter-spacing:.08em;padding:6px 16px;border-radius:var(--pill);white-space:nowrap}
+  .prod-ic{width:54px;height:54px;border-radius:14px;display:grid;place-items:center;font-size:26px;margin-bottom:16px;background:var(--blue-soft)}
+  .prodcard.alt .prod-ic{background:var(--orange-soft)}
+  .prodcard h3{font-size:23px;font-weight:800;margin-bottom:10px}
+  .prodcard p.pd{color:var(--muted);font-size:15px;margin-bottom:20px}
+  .prod-feats{list-style:none;display:grid;gap:10px;margin-bottom:24px}
+  .prod-feats li{display:flex;gap:10px;font-size:14.5px;color:#37455f;font-weight:500;align-items:flex-start}
+  .prod-feats .tick{background:var(--blue-soft);color:var(--blue)}
+  .prod-from{font-size:13px;color:var(--muted);font-weight:600;margin-top:auto}
+  .prod-price{font-size:30px;font-weight:900;color:var(--navy);margin-bottom:4px}
+  .prod-price span{font-size:14px;color:var(--muted);font-weight:600}
+
+  /* ---- Coverage tabs & tiers ---- */
+  .tabrow{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:34px}
+  .coverage-tab,.pricing-tab{padding:11px 22px;border-radius:var(--pill);border:1px solid var(--line);background:#fff;font-family:inherit;font-size:14.5px;font-weight:700;color:var(--muted);cursor:pointer;transition:.2s}
+  .coverage-tab:hover,.pricing-tab:hover{border-color:var(--blue);color:var(--blue)}
+  .coverage-tab.active,.pricing-tab.active{background:var(--navy);border-color:var(--navy);color:#fff}
+  .coverage-panel{display:none}
+  .coverage-panel.active{display:block}
+  .coverage-tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .tier-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:24px 20px;text-align:center;box-shadow:var(--shadow-sm)}
+  .tier-card.best{border:2px solid var(--orange)}
+  .tier-card h4{font-size:13.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);font-weight:800;margin-bottom:8px}
+  .tier-limit{font-size:21px;font-weight:900;color:var(--navy);line-height:1.25}
+  .tier-limit small{font-size:12px;font-weight:600;color:var(--muted)}
+  .tier-qual{margin-top:10px;display:inline-block;background:var(--blue-soft);color:var(--blue);font-size:12.5px;font-weight:700;padding:4px 10px;border-radius:var(--pill)}
+  .tier-card p{font-size:13.5px;color:var(--muted)}
+  .coverage-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+  .coverage-item{display:flex;align-items:center;gap:9px;font-size:14px;color:#37455f;font-weight:500;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .coverage-item svg{color:var(--blue);flex:none}
+  .covbox{margin-top:28px;background:var(--bg-soft);border-radius:var(--r);padding:24px;border:1px solid var(--line)}
+  .covbox h4{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:12px}
+  .qual-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+  .qual-card{padding:14px;background:#fff;border-radius:10px;border:1px solid var(--line)}
+  .qual-card strong{color:var(--navy);display:block;margin-bottom:4px}
+  .qual-card span{font-size:13px;color:var(--muted)}
+
+  /* ---- Pricing tables ---- */
+  .pricing-panel{display:none}
+  .pricing-panel.active{display:block}
+  .pt-vehicles{text-align:center;font-size:14px;color:var(--muted);max-width:760px;margin:0 auto 22px}
+  .pt-vehicles b{color:var(--navy)}
+  .ptable-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow-sm);background:#fff}
+  table.ptable{width:100%;border-collapse:collapse;min-width:640px;font-size:14.5px}
+  .ptable th{background:var(--navy);color:#fff;font-weight:700;text-align:left;padding:13px 16px;font-size:13.5px;white-space:nowrap}
+  .ptable td{padding:13px 16px;border-top:1px solid var(--line);color:#37455f;vertical-align:top}
+  .ptable td.price{font-weight:800;color:var(--navy);white-space:nowrap}
+  .ptable tbody tr:nth-child(even){background:#F8FAFD}
+  .ptable small{color:var(--muted);font-weight:500}
+  .pricing2col{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:28px}
+  .ptable-mini{min-width:0}
+  .price-note{text-align:center;font-size:12.5px;color:var(--muted);margin-top:22px}
+
+  /* ---- Wizard level selector ---- */
+  .level-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+  .lv-btn{padding:14px 10px;text-align:center;border:2px solid var(--gray-200,#E2E8F0);border-radius:10px;cursor:pointer;transition:all .2s;background:#fff}
+  .lv-btn:hover{border-color:var(--navy)}
+  .lv-btn.selected{border-color:var(--navy);background:#f0f5ff}
+  .lv-btn.disabled{opacity:.4;cursor:not-allowed}
+  .lv-btn .lv-name{font-size:14px;font-weight:800;color:var(--navy)}
+  .lv-btn .lv-limit{font-size:12.5px;font-weight:700;color:var(--orange);margin-top:2px}
+  .lv-btn .lv-qual{font-size:11px;color:#64748B;margin-top:4px;line-height:1.4}
+
+  @media(max-width:1280px){.menu{gap:20px}.menu a{font-size:14px}}
+  @media(max-width:960px){
+    .prodgrid{grid-template-columns:1fr}
+    .coverage-tiers{grid-template-columns:repeat(2,1fr)}
+    .pricing2col{grid-template-columns:1fr}
+  }
+  @media(max-width:720px){
+    .prodcard{padding:28px}
+    .level-grid{grid-template-columns:repeat(2,1fr)}
+  }
+
+/* ---- Quote wizard (ported from live site) ---- */
+#quote{--primary:#0B2545;--primary-dark:#081B33;--accent:#F97316;--accent-hover:#EA6207;--light:#F7F9FC;
+ --gray-100:#F1F5F9;--gray-200:#E2E8F0;--gray-300:#CBD5E1;--gray-400:#94A3B8;--gray-500:#64748B;
+ --gray-600:#475569;--gray-700:#334155;--gray-800:#1E293B;--r-sm:10px}
+.container{max-width:1180px;margin:0 auto;padding:0 20px}
+.btn-outline{background:transparent;color:var(--primary);border:2px solid var(--primary)}
+.btn-outline:hover{background:var(--primary);color:#fff}
+.section-label{font-size:13px;font-weight:700;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px}
+.section-title{font-size:clamp(26px,3.5vw,40px);font-weight:800;color:var(--primary);line-height:1.2;margin-bottom:16px}
+.section-sub{font-size:17px;color:var(--gray-600);max-width:580px;line-height:1.7}
+.section-head{text-align:center;margin-bottom:52px}
+.section-head .section-sub{margin:0 auto}
+/* QUOTE WIZARD */
+.wizard-bg{background:linear-gradient(180deg,#fff 0%,var(--light) 100%)}
+.wizard-wrap{max-width:780px;margin:0 auto}
+.wizard-progress{display:flex;gap:0;margin-bottom:40px}
+.wizard-step-dot{flex:1;display:flex;flex-direction:column;align-items:center;position:relative}
+.wizard-step-dot::before{content:'';position:absolute;top:18px;left:-50%;right:50%;height:2px;background:var(--gray-200);z-index:0}
+.wizard-step-dot:first-child::before{display:none}
+.wizard-step-dot.done::before,.wizard-step-dot.active::before{background:var(--primary)}
+.step-circle{width:36px;height:36px;border-radius:50%;border:2px solid var(--gray-200);background:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--gray-400);z-index:1;position:relative;transition:all .3s}
+.wizard-step-dot.done .step-circle{background:var(--primary);border-color:var(--primary);color:#fff}
+.wizard-step-dot.active .step-circle{background:var(--primary);border-color:var(--primary);color:#fff;box-shadow:0 0 0 4px rgba(15,45,94,.15)}
+.step-label{font-size:12px;font-weight:600;color:var(--gray-400);margin-top:6px;text-align:center}
+.wizard-step-dot.active .step-label,.wizard-step-dot.done .step-label{color:var(--primary)}
+.wizard-card{background:#fff;border-radius:16px;padding:40px;box-shadow:var(--shadow-lg);border:1px solid var(--gray-200)}
+.wizard-card h2{font-size:22px;font-weight:800;color:var(--primary);margin-bottom:6px}
+.wizard-card>p{font-size:15px;color:var(--gray-600);margin-bottom:28px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-row-3{grid-template-columns:2fr 1fr 1fr}
+.form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
+.form-group label{font-size:13px;font-weight:600;color:var(--gray-700)}
+.form-group input,.form-group select{width:100%;padding:12px 14px;border:2px solid var(--gray-200);border-radius:var(--r-sm);font-size:15px;color:var(--gray-800);background:#fff;transition:border .2s;outline:none;font-family:inherit}
+.form-group input:focus,.form-group select:focus{border-color:var(--primary)}
+.form-group .hint{font-size:12px;color:var(--gray-400)}
+.category-badge{display:inline-flex;align-items:center;gap:6px;background:var(--gray-100);border:1px solid var(--gray-200);padding:6px 12px;border-radius:100px;font-size:13px;font-weight:600;color:var(--gray-700);margin-top:6px}
+.awd-toggle{display:flex;align-items:center;gap:12px;padding:14px;background:var(--gray-100);border-radius:var(--r-sm);cursor:pointer}
+.toggle-sw{width:44px;height:24px;background:var(--gray-300);border-radius:100px;position:relative;transition:background .2s;flex-shrink:0}
+.toggle-sw::after{content:'';width:18px;height:18px;background:#fff;border-radius:50%;position:absolute;top:3px;left:3px;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.toggle-sw.on{background:var(--primary)}
+.toggle-sw.on::after{transform:translateX(20px)}
+.toggle-label{font-size:14px;font-weight:500;color:var(--gray-700)}
+.duration-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px}
+.dur-btn{padding:14px 8px;text-align:center;border:2px solid var(--gray-200);border-radius:var(--r-sm);cursor:pointer;transition:all .2s;background:#fff}
+.dur-btn:hover{border-color:var(--primary)}
+.dur-btn.selected{border-color:var(--primary);background:var(--primary);color:#fff}
+.dur-btn .yr{font-size:20px;font-weight:800}
+.dur-btn .yr-label{font-size:11px;color:var(--gray-400);margin-top:2px}
+.dur-btn.selected .yr-label{color:rgba(255,255,255,.7)}
+.product-sel-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+.product-sel{border:2px solid var(--gray-200);border-radius:var(--r);padding:20px;cursor:pointer;transition:all .2s;background:#fff}
+.product-sel:hover{border-color:var(--primary)}
+.product-sel.selected{border-color:var(--primary);background:#f0f5ff}
+.product-sel h4{font-size:16px;font-weight:700;color:var(--primary);margin-bottom:4px}
+.product-sel p{font-size:13px;color:var(--gray-500)}
+.roadside-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
+.roadside-opt{border:2px solid var(--gray-200);border-radius:var(--r);padding:20px;cursor:pointer;transition:all .2s;background:#fff;text-align:center}
+.roadside-opt:hover{border-color:var(--primary)}
+.roadside-opt.selected{border-color:var(--primary);background:#f0f5ff}
+.roadside-opt .ro-icon{font-size:28px;margin-bottom:8px}
+.roadside-opt h4{font-size:15px;font-weight:700;color:var(--primary);margin-bottom:4px}
+.roadside-opt p{font-size:12px;color:var(--gray-500)}
+.roadside-opt .ro-price{font-size:18px;font-weight:800;color:var(--accent);margin-top:8px}
+.price-summary{background:var(--light);border-radius:var(--r-sm);padding:20px;margin-bottom:24px;border:1px solid var(--gray-200)}
+.price-summary h4{font-size:14px;font-weight:700;color:var(--gray-700);margin-bottom:12px}
+#payment-element{margin-bottom:20px}
+.wizard-nav{display:flex;justify-content:space-between;align-items:center;margin-top:24px}
+.step-back{background:none;border:none;color:var(--gray-500);font-size:15px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;padding:8px 0}
+.step-back:hover{color:var(--gray-800)}
+#payment-message{color:var(--accent);font-size:14px;margin-top:10px;display:none}
+.price-line{display:flex;justify-content:space-between;gap:12px;padding:7px 0;font-size:14.5px;color:var(--gray-600)}
+.price-line.total{border-top:1px solid var(--gray-200);margin-top:8px;padding-top:12px;font-weight:800;color:var(--primary);font-size:16px}
+.price-line .amount{color:var(--accent);font-weight:800}
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;vertical-align:-3px;margin-right:6px}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:640px){
+  .nav-links{display:none}
+  .hamburger{display:block}
+  .form-row{grid-template-columns:1fr}
+  .form-row-3{grid-template-columns:1fr}
+  .duration-grid{grid-template-columns:repeat(3,1fr)}
+  .product-sel-grid{grid-template-columns:1fr}
+  .roadside-grid{grid-template-columns:1fr}
+  .coverage-tiers{grid-template-columns:1fr}
+  section{padding:52px 0}
+  .wizard-card{padding:26px 18px}
+  .wizard-progress{margin-bottom:28px}
+  .step-circle{width:32px;height:32px;font-size:13px}
+  .step-label{font-size:11px}
+  .wizard-step-dot::before{top:16px}
+  .duration-grid{gap:8px}
+  .dur-btn{padding:12px 6px}
+  .dur-btn .yr{font-size:18px}
+  .wizard-nav{flex-wrap:wrap;gap:12px}
+  .wizard-nav .btn{flex:1 1 auto;justify-content:center;white-space:normal;text-align:center}
+  .section-head{margin-bottom:36px}
+  .container{padding:0 16px}
+}
+</style>
+<!-- Google tag (gtag.js): GA4 + Google Ads. Single loader, placed in <head> on every page. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HZMK5CPS6Z"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-HZMK5CPS6Z');
+gtag('config', 'AW-18308478534');
+
+// === MyDriveShield conversion tracking ===
+// LABELS: Google Ads conversion labels (Goals > Conversions > action > Tag setup > "Use Google tag" > event snippet).
+// An empty label means "GA4 event only, no Google Ads conversion" so nothing breaks before the actions exist.
+window.MDS_TRACK = {
+  ADS_ID: 'AW-18308478534',
+  LABELS: {
+    purchase:         'tcI1CKDY99IcEMbslJpE',   // existing: Purchase (fires on /confirmation)
+    quote_request:    '_mIwCMPciOscEMbslJpE',                       // Request a callback / quote form submitted (PRIMARY)
+    partner_lead:     'e_flCMbciOscEMbslJpE',                       // Partner portal lead submitted (PRIMARY)
+    checkout_details: 'dGKwCMnciOscEMbslJpE',                       // Customer details entered at payment step (secondary)
+    phone_click:      'NZGqCMzciOscEMbslJpE'                        // Tap on a tel: link (secondary)
+  }
+};
+// mdsTrack(name, params): sends a GA4 event and, when a label is configured, a Google Ads conversion.
+window.mdsTrack = function(name, params){
+  try{
+    var p = Object.assign({}, params || {});
+    gtag('event', name, p);
+    if(name === 'quote_request' || name === 'partner_lead') gtag('event', 'generate_lead', p);
+    var lbl = window.MDS_TRACK.LABELS[name];
+    if(lbl){
+      gtag('event', 'conversion', Object.assign({ send_to: window.MDS_TRACK.ADS_ID + '/' + lbl }, p));
+    }
+  }catch(e){}
+};
+// Phone click tracking on any tel: link
+document.addEventListener('click', function(ev){
+  var a = ev.target && ev.target.closest ? ev.target.closest('a[href^="tel:"]') : null;
+  if(a) window.mdsTrack('phone_click', { phone_number: a.getAttribute('href').replace('tel:',''), page_path: location.pathname });
+}, true);
+</script>
+</head>
+<body>
+
+<!-- Nav -->
+<header id="hdr">
+  <div class="wrap">
+    <nav>
+      <a href="#home" class="logo">
+        <svg class="mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MyDriveShield"><circle cx="24" cy="24" r="21" fill="#F97316"/><circle cx="24" cy="24" r="17.5" stroke="#0B2545" stroke-width="1.3" opacity=".5"/><path d="M10 33c9-2.5 19-2.5 28 0" stroke="#0B2545" stroke-width="2" stroke-linecap="round" opacity=".8"/><path d="M19 33c1.2-7.5 3-13.5 5-19 2 5.5 3.8 11.5 5 19" stroke="#0B2545" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 20v2.6M24 27v2.6" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <b>MyDrive<span class="o">Shield</span></b>
+      </a>
+      <div class="menu" id="menu">
+        <a href="#home" class="active">Home</a>
+        <a href="#warranty">Warranty</a>
+        <a href="#roadside">Roadside</a>
+        <a href="#coverage">What's Covered</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#why">Why Us</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="nav-cta">
+        <a href="#quote" class="btn btn-primary btn-pill">Get a Quote</a>
+        <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero" id="home">
+  <svg class="shield-wm" viewBox="0 0 200 240" fill="none"><path d="M100 8 16 40v72c0 66 46 124 84 148 38-24 84-82 84-148V40L100 8Z" stroke="#fff" stroke-width="3" opacity="0.9"/><path d="M64 120l26 26 52-58" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div class="wrap">
+    <div class="hero-copy">
+      <h1>Protect Your Drive <span class="sm">with</span><br>Warranty &amp; Roadside Support</h1>
+      <div class="rule"></div>
+      <p class="sub">Simple protection options for used vehicle owners — request a quote in minutes and drive with confidence anywhere in Australia.</p>
+      <div class="hero-actions">
+        <a href="#quote" class="btn btn-primary btn-lg">Get My Quote
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#warranty" class="btn btn-blue btn-lg">Explore Protection Options</a>
+      </div>
+      <div class="hero-chips">
+        <span><svg viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/></svg> Unlimited claims &amp; kms</span>
+        <span><svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11Z" stroke="currentColor" stroke-width="2"/></svg> All makes &amp; models</span>
+        <span><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg> 24/7 roadside</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Floating cards -->
+<div class="cardband">
+  <div class="cardrow">
+    <div class="fcard">
+      <div class="fc-top"><div class="fc-ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11Z" stroke="#fff" stroke-width="2"/><path d="M9 11l2 2 4-4" stroke="#3B82F6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Extended Vehicle Warranty</h3></div>
+      <p>Affordable coverage for your car's vital mechanical &amp; electrical components.</p>
+    </div>
+    <div class="fcard alt">
+      <div class="fc-top"><div class="fc-ic"><svg viewBox="0 0 24 24" fill="none"><path d="M3 13l2-5h11l3 5M5 13h15v4h-2M5 17H4v-4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="18" r="2" stroke="#fff" stroke-width="2"/><circle cx="17" cy="18" r="2" stroke="#fff" stroke-width="2"/></svg></div><h3>Emergency Roadside Assistance</h3></div>
+      <p>24/7 help for breakdowns, flat batteries, flat tyres, fuel and lockouts.</p>
+    </div>
+    <div class="fcard blue">
+      <div class="fc-top"><div class="fc-ic"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="14" height="18" rx="2" stroke="#fff" stroke-width="2"/><path d="M9 3h6v3H9zM8 12l2 2 4-4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Quick Quote Pathway</h3></div>
+      <p>Get a fast, no-obligation quote today — tailored to your vehicle in minutes.</p>
+    </div>
+  </div>
+
+  <!-- Sub features -->
+  <div class="wrap">
+    <div class="subfeat">
+      <div class="sf"><div class="sfi"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></div><div><b>Fast Quote Follow-up</b><small>Quick response times.</small></div></div>
+      <div class="sf"><div class="sfi"><svg viewBox="0 0 24 24" fill="none"><path d="M3 13l2-5h11l3 5M5 13h15v3H5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="8" cy="18" r="1.5" stroke="currentColor" stroke-width="2"/><circle cx="17" cy="18" r="1.5" stroke="currentColor" stroke-width="2"/></svg></div><div><b>Vehicle-Based Assessment</b><small>Tailored to your car's needs.</small></div></div>
+      <div class="sf"><div class="sfi"><svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11Z" stroke="currentColor" stroke-width="2"/><path d="M9 11l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><b>Warranty &amp; Roadside Options</b><small>Flexible protection plans.</small></div></div>
+      <div class="sf"><div class="sfi"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg></div><div><b>Privacy-Aware Enquiry</b><small>Your info stays secure.</small></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Protection detail -->
+<section class="pad" id="warranty">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Protection Options</span><h2 style="margin-top:12px">Two ways to protect your vehicle</h2><p class="lead">Choose extended mechanical warranty, emergency roadside assistance, or bundle both for complete peace of mind.</p></div>
+    <div class="prot">
+      <div class="pcard warranty">
+        <div class="p-top"><div class="p-icon"><svg viewBox="0 0 24 24" width="26" fill="none"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11Z" stroke="#fff" stroke-width="2"/><path d="M9 11l2 2 4-4" stroke="#3B82F6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><span class="p-sub">Extended Warranty</span><h3>Warranty Protection</h3></div></div>
+        <p class="desc">Cover for major mechanical &amp; electrical components when your manufacturer warranty ends — ideal for privately-bought or dealer-sold used cars.</p>
+        <ul class="plist">
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Unlimited claims &amp; unlimited kilometres</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Flexible cover levels for most vehicle ages</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Repairs at approved workshops nationwide</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Backed by Integrity Car Care Pty Ltd</li>
+        </ul>
+        <a href="#quote" class="btn btn-primary">Get warranty quote</a>
+      </div>
+      <div class="pcard roadside" id="roadside">
+        <div class="p-top"><div class="p-icon"><svg viewBox="0 0 24 24" width="26" fill="none"><circle cx="12" cy="12" r="9" stroke="#F97316" stroke-width="2"/><path d="M12 7v5l3 2" stroke="#F97316" stroke-width="2.2" stroke-linecap="round"/></svg></div><div><span class="p-sub">Emergency Support</span><h3>Roadside Assistance</h3></div></div>
+        <p class="desc">Round-the-clock help when you break down — towing, battery, tyre, fuel and lockout support wherever you are in Australia.</p>
+        <ul class="plist">
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> 24/7 breakdown &amp; towing assistance</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Flat battery, flat tyre &amp; fuel delivery</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Locksmith &amp; emergency call-out</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> 3-Star &amp; 5-Star cover from under $2/week</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Available on its own — no warranty required</li>
+        </ul>
+        <a href="#quote" class="btn btn-navy" onclick="startRoadsideOnly();return false;">Buy roadside only</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Products -->
+<section class="pad" id="products" style="padding-top:10px">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Our Products</span><h2 style="margin-top:12px">Two Products. Complete Protection.</h2><p class="lead">Whether you want total peace of mind or focused coverage on key components, there's a warranty to suit every driver and budget.</p></div>
+    <div class="prodgrid">
+      <div class="prodcard featured">
+        <div class="prod-badge">MOST POPULAR</div>
+        <div class="prod-ic">🛡️</div>
+        <h3>Absolute Warranty</h3>
+        <p class="pd">Comprehensive mechanical and electrical protection. Covers all major components not excluded by the product terms — the closest thing to a manufacturer's warranty available in the aftermarket.</p>
+        <ul class="prod-feats">
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> All major mechanical &amp; electrical systems</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Per-claim limits apply and vary by cover level</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Unlimited claims, unlimited kilometres</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Parts &amp; labour covered — Australia-wide</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Accommodation &amp; car hire allowance</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Fully transferable on private sale</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> 4 coverage levels — matched to your vehicle</li>
+        </ul>
+        <div class="prod-from">From (Category 1, Level 1, 1 year)</div>
+        <div class="prod-price">$746 <span>incl. GST</span></div>
+        <a href="#quote" class="btn btn-primary" style="margin-top:16px;width:100%;justify-content:center">Get Absolute Quote →</a>
+      </div>
+      <div class="prodcard alt">
+        <div class="prod-ic">🔧</div>
+        <h3>Endurance Warranty</h3>
+        <p class="pd">Named-component warranty covering 20 specific mechanical systems. Designed for vehicles that may not qualify for Absolute cover — with Option 1 available regardless of age or kilometres.</p>
+        <ul class="prod-feats">
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> 20 named components covered (see below)</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Engine, gearbox, turbo, ABS &amp; more</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Option 1: no vehicle age or mileage limits</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Unlimited claims, unlimited kilometres</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Parts &amp; labour covered — Australia-wide</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Fully transferable on private sale</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> 4 qualification options available</li>
+        </ul>
+        <div class="prod-from">Custom pricing</div>
+        <div class="prod-price" style="font-size:20px">Contact for quote</div>
+        <a href="#quote" class="btn btn-ghost" style="margin-top:16px;width:100%;justify-content:center">Enquire About Endurance →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Coverage breakdown -->
+<section class="pad why" id="coverage">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">What's Covered</span><h2 style="margin-top:12px">Detailed Coverage Breakdown</h2></div>
+    <div class="tabrow">
+      <button class="coverage-tab active" onclick="showCoverage('absolute')">Absolute Warranty</button>
+      <button class="coverage-tab" onclick="showCoverage('endurance')">Endurance Warranty</button>
+    </div>
+
+    <div id="cov-absolute" class="coverage-panel active">
+      <p style="color:var(--muted);margin-bottom:24px;font-size:15px;text-align:center;max-width:720px;margin-left:auto;margin-right:auto">The Absolute Warranty provides <strong>comprehensive mechanical and electrical cover</strong> — all components not specifically excluded by the product terms. Four levels with increasing claim limits and qualification criteria (assessed at date of purchase):</p>
+      <div class="coverage-tiers">
+        <div class="tier-card">
+          <h4>Level 1</h4>
+          <div class="tier-limit">Essential<br><small>cover</small></div>
+          <div class="tier-qual">≤15 yrs · &lt;220,000 km</div>
+          <p style="margin-top:10px">Entry-level cover for older high-km vehicles</p>
+        </div>
+        <div class="tier-card">
+          <h4>Level 2</h4>
+          <div class="tier-limit">Standard<br><small>cover</small></div>
+          <div class="tier-qual">≤12 yrs · &lt;180,000 km</div>
+          <p style="margin-top:10px">Mid-range cover for most used vehicles</p>
+        </div>
+        <div class="tier-card">
+          <h4>Level 3</h4>
+          <div class="tier-limit">Premium<br><small>cover</small></div>
+          <div class="tier-qual">≤10 yrs · &lt;140,000 km</div>
+          <p style="margin-top:10px">High-limit cover for newer, lower-km vehicles</p>
+        </div>
+        <div class="tier-card best">
+          <h4>Level 4</h4>
+          <div class="tier-limit">Ultimate<br><small>cover</small></div>
+          <div class="tier-qual">≤8 yrs · &lt;120,000 km</div>
+          <p style="margin-top:10px">Our highest level of cover for newer, low-kilometre vehicles</p>
+        </div>
+      </div>
+      <div class="covbox">
+        <h4>Included Benefits (All Levels)</h4>
+        <div class="coverage-grid">
+          <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>All mechanical systems</div>
+          <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>All electrical systems</div>
+          <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Engine &amp; drivetrain</div>
+          <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Transmission &amp; gearbox</div>
+          <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Air conditioning</div>
+          <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Turbo / supercharger</div>
+          <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Cooling system</div>
+          <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Fuel system</div>
+          <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Brakes &amp; ABS</div>
+          <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Suspension system</div>
+          <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Steering system</div>
+          <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Parts &amp; labour costs</div>
+          <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Accommodation allowance</div>
+          <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Car hire allowance</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="cov-endurance" class="coverage-panel">
+      <p style="color:var(--muted);margin-bottom:24px;font-size:15px;text-align:center;max-width:720px;margin-left:auto;margin-right:auto">The Endurance Warranty covers <strong>20 named mechanical components</strong>. Four options based on vehicle age and kilometres — with Option 1 available for any vehicle regardless of age or odometer.</p>
+      <div class="coverage-grid">
+        <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Engine</div>
+        <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Differential</div>
+        <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Gearbox / Transmission</div>
+        <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Turbo / Supercharger</div>
+        <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>ABS Brake System</div>
+        <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Air Conditioning</div>
+        <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Brakes</div>
+        <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Clutch</div>
+        <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Cooling System</div>
+        <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Computers / ECU</div>
+        <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Cylinder Head &amp; Gasket</div>
+        <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Driveshaft &amp; Universals</div>
+        <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Electrical Systems</div>
+        <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Fuel System</div>
+        <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Ignition System</div>
+        <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Power Windows</div>
+        <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Radiator</div>
+        <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Steering</div>
+        <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Suspension</div>
+        <div class="coverage-item"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Transmission Computer</div>
+      </div>
+      <div class="covbox">
+        <h4>Endurance Qualification Options</h4>
+        <div class="qual-grid">
+          <div class="qual-card"><strong>Option 1</strong><span>No vehicle age or km limits</span></div>
+          <div class="qual-card"><strong>Option 2</strong><span>≤15 years · &lt;200,000 km</span></div>
+          <div class="qual-card"><strong>Option 3</strong><span>≤10 years · &lt;160,000 km</span></div>
+          <div class="qual-card"><strong>Option 4</strong><span>≤8 years · &lt;120,000 km</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why -->
+<section class="pad why" id="why">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Why Choose Us</span><h2 style="margin-top:12px">Protection built for used-car owners</h2><p class="lead">Straightforward cover, transparent pricing and real support — designed for the way Australians buy and drive second-hand vehicles.</p></div>
+    <div class="grid3">
+      <div class="feature"><div class="fi"><img loading="lazy" decoding="async" src="feat-heart.png" alt="Peace of mind"></div><h3>Genuine peace of mind</h3><p>Cover the repair bills that matter most — with no upfront excess when you claim — so an unexpected breakdown doesn't become an unexpected expense.</p></div>
+      <div class="feature"><div class="fi"><img loading="lazy" decoding="async" src="feat-speed.png" alt="Fast quotes"></div><h3>Fast, simple quotes</h3><p>Answer a few quick questions about your vehicle and get a tailored quote online in under two minutes.</p></div>
+      <div class="feature"><div class="fi"><img loading="lazy" decoding="async" src="feat-flex.png" alt="Flexible options"></div><h3>Flexible options</h3><p>Choose warranty, roadside, or both — with cover levels that suit your vehicle's age, kilometres and budget.</p></div>
+      <div class="feature"><div class="fi"><img loading="lazy" decoding="async" src="feat-integrity.png" alt="Backed by Integrity Car Care"></div><h3>Backed by Integrity Car Care</h3><p>Warranty products are provided and administered by an established Australian automotive protection provider.</p></div>
+      <div class="feature"><div class="fi"><img loading="lazy" decoding="async" src="feat-network.png" alt="Australia-wide network"></div><h3>Australia-wide network</h3><p>Parts and labour covered at approved repairers Australia-wide, plus 24/7 roadside support — city or country.</p></div>
+      <div class="feature"><div class="fi"><img loading="lazy" decoding="async" src="feat-dealers.png" alt="Buyers, sellers and dealers"></div><h3>Buyers, sellers &amp; dealers</h3><p>Buying privately, selling with added value, or offering protection to your customers — there's an option for you.</p></div>
+    </div>
+    <div style="margin-top:34px;background:var(--gray-50,#f8fafc);border:1px solid var(--gray-200,#e2e8f0);border-radius:14px;padding:22px 26px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px 24px;font-size:14.5px;font-weight:600">
+        <div>&#10003;&nbsp; Parts &amp; labour covered Australia-wide</div>
+        <div>&#10003;&nbsp; No upfront excess on claims</div>
+        <div>&#10003;&nbsp; Service with any licensed mechanic</div>
+        <div>&#10003;&nbsp; Transferable to a private buyer if you sell</div>
+      </div>
+      <p style="margin-top:12px;font-size:12px;color:var(--gray-400,#94a3b8)">Benefits depend on the product and cover level. Per-claim limits, eligibility and conditions are set out in the relevant warranty terms.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Steps -->
+<section class="pad">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">How It Works</span><h2 style="margin-top:12px">Covered in three simple steps</h2></div>
+    <div class="steps">
+      <div class="step">
+        <span class="step-ic"><img loading="lazy" decoding="async" src="step-car.png" alt="Step 1 — tell us about your car"></span>
+        <h3>Tell us about your car</h3><p>Enter your vehicle make, year and kilometres — no lengthy paperwork required.</p>
+      </div>
+      <div class="step">
+        <span class="step-ic"><img loading="lazy" decoding="async" src="step-shield.png" alt="Step 2 — choose your protection"></span>
+        <h3>Choose your protection</h3><p>Pick a warranty level, add 24/7 roadside assistance, and see your price instantly.</p>
+      </div>
+      <div class="step">
+        <span class="step-ic"><img loading="lazy" decoding="async" src="step-wheel.png" alt="Step 3 — drive with confidence"></span>
+        <h3>Drive with confidence</h3><p>Complete your quote online and you're covered — with support a phone call away.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Roadside band -->
+<section class="pad" style="padding-top:10px">
+  <div class="wrap">
+    <div class="band"><div class="inner">
+      <div>
+        <span class="tag">EMERGENCY ROADSIDE</span>
+        <h2>Never stranded, day or night</h2>
+        <p>24/7 emergency roadside assistance for the cost of a coffee a month — on its own, or bundled with your warranty. From breakdowns to flat batteries, help is one call away, anywhere in Australia.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px"><a href="#quote" class="btn btn-primary btn-lg" onclick="startRoadsideOnly();return false;">Buy roadside only</a><a href="#quote" class="btn btn-navy btn-lg">Bundle with warranty</a></div>
+        <p style="font-size:13px;margin-top:12px;opacity:.85">Prefer to talk it through first? <a href="#quote" onclick="showCallback('roadside');return false;" style="color:#fff;text-decoration:underline">Request a callback</a>.</p>
+      </div>
+      <div class="price-card">
+        <div class="row"><b>3-Star Roadside</b><span class="amt">from $88/yr</span></div>
+        <div class="row"><b>5-Star Roadside</b><span class="amt">from $154/yr</span></div>
+        <div class="row"><span>Towing &amp; recovery</span><b>Included</b></div>
+        <div class="row"><span>Battery · Tyre · Fuel</span><b>Included</b></div>
+        <div class="row"><span>Lockout &amp; locksmith</span><b>Included</b></div>
+      </div>
+    </div></div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section class="pad" id="pricing">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Absolute Warranty Pricing</span><h2 style="margin-top:12px">Transparent Pricing — No Surprises</h2><p class="lead">All prices include GST. Your vehicle category is determined by make and model; your cover level is determined by vehicle age and kilometres. Add optional roadside assistance for complete cover.</p></div>
+    <div class="tabrow">
+      <button class="pricing-tab active" onclick="showPricing(1)">Category 1</button>
+      <button class="pricing-tab" onclick="showPricing(2)">Category 2</button>
+      <button class="pricing-tab" onclick="showPricing(3)">Category 3</button>
+      <button class="pricing-tab" onclick="showPricing(4)">Category 4</button>
+    </div>
+
+    <div class="pricing-panel active" id="pricecat-1">
+      <p class="pt-vehicles"><b>Typical Category 1 vehicles:</b> Toyota, Ford, Holden, Mazda, Kia, Hyundai, Honda, Mitsubishi, Nissan, Subaru, Suzuki, LDV, GWM, Haval, MG. Performance models (e.g. Mustang, WRX, GR, i30 N, Raptor) are rated Category 2 or 3; hybrids are Category 3 and electric vehicles Category 4.</p>
+      <div class="ptable-wrap">
+        <table class="ptable">
+          <thead><tr><th>Cover Level</th><th>1 Year</th><th>2 Years</th><th>3 Years</th><th>4 Years</th><th>5 Years</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Level 1</strong><br><small>≤15 yrs · &lt;220,000 km</small></td><td class="price">$746</td><td class="price">$916</td><td class="price">$1,103</td><td class="price">$1,291</td><td class="price">$1,478</td></tr>
+            <tr><td><strong>Level 2</strong><br><small>≤12 yrs · &lt;180,000 km</small></td><td class="price">$1,032</td><td class="price">$1,255</td><td class="price">$1,478</td><td class="price">$1,657</td><td class="price">$1,835</td></tr>
+            <tr><td><strong>Level 3</strong><br><small>≤10 yrs · &lt;140,000 km</small></td><td class="price">$1,353</td><td class="price">$1,567</td><td class="price">$1,782</td><td class="price">$2,005</td><td class="price">$2,192</td></tr>
+            <tr><td><strong>Level 4</strong><br><small>≤8 yrs · &lt;120,000 km</small></td><td class="price">$1,567</td><td class="price">$1,782</td><td class="price">$1,996</td><td class="price">$2,228</td><td class="price">$2,460</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="pricing-panel" id="pricecat-2">
+      <p class="pt-vehicles"><b>Typical Category 2 vehicles:</b> BMW, Mercedes-Benz, Audi, Volkswagen, Lexus, Jaguar, Jeep, Volvo, Mini, Alfa Romeo, Renault, Skoda, Genesis, Infiniti</p>
+      <div class="ptable-wrap">
+        <table class="ptable">
+          <thead><tr><th>Cover Level</th><th>1 Year</th><th>2 Years</th><th>3 Years</th><th>4 Years</th><th>5 Years</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Level 1</strong><br><small>≤15 yrs · &lt;220,000 km</small></td><td class="price">$1,496</td><td class="price">$1,728</td><td class="price">$1,951</td><td class="price">$2,255</td><td class="price">$2,550</td></tr>
+            <tr><td><strong>Level 2</strong><br><small>≤12 yrs · &lt;180,000 km</small></td><td class="price">$1,889</td><td class="price">$2,112</td><td class="price">$2,326</td><td class="price">$2,621</td><td class="price">$2,907</td></tr>
+            <tr><td><strong>Level 3</strong><br><small>≤10 yrs · &lt;140,000 km</small></td><td class="price">$2,219</td><td class="price">$2,433</td><td class="price">$2,648</td><td class="price">$2,960</td><td class="price">$3,264</td></tr>
+            <tr><td><strong>Level 4</strong><br><small>≤8 yrs · &lt;120,000 km</small></td><td class="price">$2,433</td><td class="price">$2,648</td><td class="price">$2,871</td><td class="price">$3,157</td><td class="price">$3,442</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="pricing-panel" id="pricecat-3">
+      <p class="pt-vehicles"><b>Typical Category 3 vehicles:</b> Land Rover (Range Rover, Defender, Discovery), BMW M/7/8 Series, Audi A7/A8/Q7/Q8/S models, Mercedes S-Class, Cadillac, Hummer, Jaguar F-Type, RAM, hybrid vehicles</p>
+      <div class="ptable-wrap">
+        <table class="ptable">
+          <thead><tr><th>Cover Level</th><th>1 Year</th><th>2 Years</th><th>3 Years</th><th>4 Years</th><th>5 Years</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Level 1</strong><br><small>≤15 yrs · &lt;220,000 km</small></td><td class="price">$2,371</td><td class="price">$2,701</td><td class="price">$3,032</td><td class="price">$3,416</td><td class="price">$3,800</td></tr>
+            <tr><td><strong>Level 2</strong><br><small>≤12 yrs · &lt;180,000 km</small></td><td class="price">$2,764</td><td class="price">$3,085</td><td class="price">$3,407</td><td class="price">$3,782</td><td class="price">$4,157</td></tr>
+            <tr><td><strong>Level 3</strong><br><small>≤10 yrs · &lt;140,000 km</small></td><td class="price">$3,192</td><td class="price">$3,942</td><td class="price">$4,692</td><td class="price">$5,407</td><td class="price">$6,121</td></tr>
+            <tr><td><strong>Level 4</strong><br><small>≤8 yrs · &lt;120,000 km</small></td><td class="price">$3,621</td><td class="price">$4,746</td><td class="price">$5,389</td><td class="price">$6,291</td><td class="price">$7,192</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="pricing-panel" id="pricecat-4">
+      <p class="pt-vehicles"><b>Typical Category 4 vehicles:</b> Ferrari, Lamborghini, McLaren, Porsche, Bentley, Rolls-Royce, Maserati, Aston Martin, Lotus, Audi R8/RS, Nissan GT-R, electric vehicles (incl. Tesla)</p>
+      <div class="ptable-wrap">
+        <table class="ptable">
+          <thead><tr><th>Cover Level</th><th>1 Year</th><th>2 Years</th><th>3 Years</th><th>4 Years</th><th>5 Years</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Level 1</strong><br><small>≤15 yrs · &lt;220,000 km</small></td><td class="price">$3,085</td><td class="price">$3,433</td><td class="price">$3,960</td><td class="price">$4,380</td><td class="price">$4,800</td></tr>
+            <tr><td><strong>Level 2</strong><br><small>≤12 yrs · &lt;180,000 km</small></td><td class="price">$3,469</td><td class="price">$3,800</td><td class="price">$4,326</td><td class="price">$4,728</td><td class="price">$5,166</td></tr>
+            <tr><td><strong>Level 3</strong><br><small>≤10 yrs · &lt;140,000 km</small></td><td class="price">$4,005</td><td class="price">$4,585</td><td class="price">$5,398</td><td class="price">$6,282</td><td class="price">$6,960</td></tr>
+            <tr><td><strong>Level 4</strong><br><small>≤8 yrs · &lt;120,000 km</small></td><td class="price">POA</td><td class="price">POA</td><td class="price">POA</td><td class="price">POA</td><td class="price">POA</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="pricing2col">
+      <div>
+        <h4 style="font-size:15px;font-weight:800;color:var(--navy);margin-bottom:12px">Roadside Assistance Add-On</h4>
+        <div class="ptable-wrap">
+          <table class="ptable ptable-mini">
+            <thead><tr><th>Plan</th><th>1 yr</th><th>2 yrs</th><th>3 yrs</th><th>4 yrs</th><th>5 yrs</th></tr></thead>
+            <tbody>
+              <tr><td><strong>3 Star</strong></td><td class="price">$88</td><td class="price">$176</td><td class="price">$264</td><td class="price">$352</td><td class="price">$440</td></tr>
+              <tr><td><strong>5 Star</strong></td><td class="price">$154</td><td class="price">$300</td><td class="price">$398</td><td class="price">$510</td><td class="price">$610</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="covbox" style="margin-top:0">
+        <h4>Surcharges &amp; Notes</h4>
+        <div style="font-size:14px;color:var(--muted);line-height:1.8">
+          <div>🚙 <strong style="color:var(--navy)">4WD / AWD surcharge:</strong> +$110 (one-off)</div>
+          <div style="margin-top:8px">✅ All prices include GST</div>
+          <div>✅ Cover begins when the manufacturer's warranty expires</div>
+          <div>✅ Warranty issued by Integrity Car Care Pty Ltd</div>
+          <div style="margin-top:8px;font-size:12px">* Category is assigned by vehicle make and model, and cover level by vehicle age and kilometres at date of purchase. Some models vary — your exact category and eligible levels are confirmed in your quote.</div>
+        </div>
+      </div>
+    </div>
+    <p class="price-note">Prices current as at 29/07/2026, per Integrity Car Care Absolute Retail Pricelist V2.0. POA — price on application, contact us for a personalised quote. Per-claim limits apply and vary by cover level; full details are set out in the product terms and confirmed with your quote.</p>
+  </div>
+</section>
+
+<!-- Quote wizard -->
+<section id="quote" class="wizard-bg">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Get a Quote</div>
+      <h2 class="section-title">Your Price in Under 2 Minutes</h2>
+      <p class="section-sub">Select your vehicle, choose your cover, and pay securely online. Your certificate is emailed once your details are checked and lodged.</p>
+    </div>
+    <div class="wizard-wrap">
+      <div class="wizard-progress">
+        <div class="wizard-step-dot active" id="dot-1"><div class="step-circle">1</div><div class="step-label">Vehicle</div></div>
+        <div class="wizard-step-dot" id="dot-2"><div class="step-circle">2</div><div class="step-label">Product</div></div>
+        <div class="wizard-step-dot" id="dot-3"><div class="step-circle">3</div><div class="step-label">Roadside</div></div>
+        <div class="wizard-step-dot" id="dot-4"><div class="step-circle">4</div><div class="step-label">Payment</div></div>
+      </div>
+
+      <!-- STEP 1: Vehicle -->
+      <div class="wizard-card" id="step-1">
+        <h2>Tell us about your vehicle</h2>
+        <p>We'll automatically determine your warranty category based on make and model.</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="v-make">Vehicle Make *</label>
+            <select id="v-make" onchange="onMakeChange()">
+              <option value="">— Select make —</option>
+              <option>ABARTH</option><option>ALFA ROMEO</option><option>ASTON MARTIN</option>
+              <option>AUDI</option><option>BENTLEY</option><option>BMW</option>
+              <option>CADILLAC</option><option>CATERHAM</option><option>CHERY</option>
+              <option>CHEVROLET</option><option>CHRYSLER</option><option>CITROEN</option>
+              <option>DODGE</option><option>FERRARI</option><option>FIAT</option>
+              <option>FORD</option><option>GENESIS</option><option>GREAT WALL</option>
+              <option>GWM</option><option>HAVAL</option><option>HOLDEN</option>
+              <option>HONDA</option><option>HSV</option><option>HUMMER</option>
+              <option>HYUNDAI</option><option>INFINITI</option><option>INEOS</option>
+              <option>ISUZU</option><option>JAGUAR</option><option>JEEP</option>
+              <option>KIA</option><option>KOENIGSEGG</option><option>LAMBORGHINI</option>
+              <option>LAND ROVER</option><option>LDV</option><option>LEXUS</option>
+              <option>LOTUS</option><option>MAHINDRA</option><option>MASERATI</option>
+              <option>MAZDA</option><option>MCLAREN</option><option>MERCEDES-BENZ</option>
+              <option>MG</option><option>MINI</option><option>MITSUBISHI</option>
+              <option>MORGAN</option><option>NISSAN</option><option>OPEL</option>
+              <option>PEUGEOT</option><option>PORSCHE</option><option>PROTON</option>
+              <option>RAM</option><option>RENAULT</option><option>ROLLS-ROYCE</option>
+              <option>SAAB</option><option>SKODA</option><option>SMART</option>
+              <option>SSANGYONG</option><option>SUBARU</option><option>SUZUKI</option>
+              <option>TATA</option><option>TESLA</option><option>TOYOTA</option>
+              <option>VOLKSWAGEN</option><option>VOLVO</option><option>ZX AUTO</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="v-year">Year of Manufacture *</label>
+            <select id="v-year" onchange="recalcCategory()">
+              <option value="">— Select year —</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="v-model">Vehicle Model *</label>
+            <input type="text" id="v-model" placeholder="e.g. Ranger XLT" maxlength="60" autocomplete="off" oninput="recalcCategory()">
+          </div>
+          <div class="form-group">
+            <label for="v-odo">Odometer (km) *</label>
+            <input type="number" id="v-odo" placeholder="e.g. 85000" min="0" max="500000">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="v-fuel">Fuel type *</label>
+            <select id="v-fuel" onchange="recalcCategory()">
+              <option value="ice">Petrol / Diesel / LPG</option>
+              <option value="hybrid">Hybrid (incl. plug-in)</option>
+              <option value="ev">Fully electric</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Vehicle Category</label>
+            <div id="cat-display" class="category-badge" style="display:none"></div>
+            <p class="hint" id="cat-hint">Select make above to auto-detect</p>
+          </div>
+        </div>
+        <div class="awd-toggle" onclick="toggleAWD()" id="awd-toggle">
+          <div class="toggle-sw" id="awd-sw"></div>
+          <div class="toggle-label">Vehicle is 4WD / AWD <span style="color:var(--gray-400);font-size:13px">(+$110 surcharge)</span></div>
+        </div>
+        <div class="wizard-nav">
+          <span></span>
+          <button class="btn btn-primary" onclick="goStep(2)">Next: Choose Product →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Product & Duration -->
+      <div class="wizard-card" id="step-2" style="display:none">
+        <h2>Choose your warranty</h2>
+        <p>Select product type and coverage duration. Price updates instantly.</p>
+        <div class="product-sel-grid">
+          <div class="product-sel selected" id="ps-absolute" onclick="selectProduct('absolute')">
+            <h4>🛡️ Absolute Warranty</h4>
+            <p>Comprehensive — all systems covered</p>
+          </div>
+          <div class="product-sel" id="ps-endurance" onclick="selectProduct('endurance')">
+            <h4>🔧 Endurance Warranty</h4>
+            <p>20 named components — any age vehicle</p>
+          </div>
+          <div class="product-sel" id="ps-roadside" onclick="selectProduct('roadside')">
+            <h4>🚨 Roadside Only</h4>
+            <p>24/7 assistance — no warranty required</p>
+          </div>
+        </div>
+        <div id="roadside-only-note" style="display:none;background:var(--light);border-radius:var(--r);padding:20px;border:1px dashed var(--gray-300);margin-bottom:8px">
+          <p style="font-size:14.5px;color:var(--gray-600)">24/7 emergency roadside assistance on its own — towing, flat battery, flat tyre, fuel delivery and lockout support, Australia-wide. Choose your plan and term on the next step. From <strong>$88/year</strong>.</p>
+        </div>
+        <div id="absolute-duration">
+          <label style="font-size:13px;font-weight:600;color:var(--gray-700);display:block;margin-bottom:12px">Cover Level <span style="color:var(--gray-400);font-weight:500">(eligibility based on your vehicle's age &amp; kilometres)</span></label>
+          <div class="level-grid">
+            <div class="lv-btn" id="lv1" onclick="selectLevel(1)"><div class="lv-name">Level 1</div><div class="lv-limit">$2,000/claim</div><div class="lv-qual">≤15 yrs<br>&lt;220,000 km</div></div>
+            <div class="lv-btn" id="lv2" onclick="selectLevel(2)"><div class="lv-name">Level 2</div><div class="lv-limit">$5,000/claim</div><div class="lv-qual">≤12 yrs<br>&lt;180,000 km</div></div>
+            <div class="lv-btn" id="lv3" onclick="selectLevel(3)"><div class="lv-name">Level 3</div><div class="lv-limit">$8,000/claim</div><div class="lv-qual">≤10 yrs<br>&lt;140,000 km</div></div>
+            <div class="lv-btn" id="lv4" onclick="selectLevel(4)"><div class="lv-name">Level 4</div><div class="lv-limit">Market value</div><div class="lv-qual">≤8 yrs<br>&lt;120,000 km</div></div>
+          </div>
+          <div id="lv-poa-note" style="display:none;background:var(--gray-100);border-radius:var(--r-sm);padding:14px;margin-bottom:20px;font-size:13.5px;color:var(--gray-600)">Level 4 pricing for Category 4 vehicles is available on application — <a href="mailto:info@mydriveshield.com.au?subject=Category 4 Level 4 Warranty Enquiry" style="color:var(--accent);font-weight:700">contact us</a> for a personalised quote.</div>
+          <label id="dur-label" style="font-size:13px;font-weight:600;color:var(--gray-700);display:block;margin-bottom:12px">Coverage Duration</label>
+          <div class="duration-grid">
+            <div class="dur-btn" onclick="selectDuration(1)" id="d1"><div class="yr">1</div><div class="yr-label">Year</div></div>
+            <div class="dur-btn selected" onclick="selectDuration(2)" id="d2"><div class="yr">2</div><div class="yr-label">Years</div></div>
+            <div class="dur-btn" onclick="selectDuration(3)" id="d3"><div class="yr">3</div><div class="yr-label">Years</div></div>
+            <div class="dur-btn" onclick="selectDuration(4)" id="d4"><div class="yr">4</div><div class="yr-label">Years</div></div>
+            <div class="dur-btn" onclick="selectDuration(5)" id="d5"><div class="yr">5</div><div class="yr-label">Years</div></div>
+          </div>
+          <div class="price-summary" id="price-sum-2">
+            <h4>Price Summary</h4>
+            <div id="ps2-lines"></div>
+          </div>
+        </div>
+        <div id="no-level-note" style="display:none;background:#FFF7ED;border:1px solid #FDBA74;border-radius:var(--r);padding:20px;margin-bottom:8px">
+          <p style="font-size:14.5px;color:var(--gray-700)">Based on the age and kilometres entered, your vehicle may not qualify for Absolute cover. The <strong>Endurance Warranty (Option 1)</strong> has no age or kilometre limits — select it above to enquire, or call us on <a href="tel:0477666500" style="color:var(--accent);font-weight:700">0477 666 500</a>.</p>
+        </div>
+        <div id="endurance-enquiry" style="display:none;background:var(--light);border-radius:var(--r);padding:24px;border:1px dashed var(--gray-300)">
+          <p style="font-size:15px;color:var(--gray-600);margin-bottom:16px">Endurance Warranty pricing is customised based on your vehicle and coverage option. A MyDriveShield consultant will contact you within one business day with a personalised quote.</p>
+          <button type="button" class="btn btn-primary" onclick="showCallback('endurance')">Request a Quote →</button> <a href="tel:0477666500" class="btn btn-outline">Call 0477 666 500</a>
+        </div>
+        <div class="wizard-nav">
+          <button class="step-back" onclick="goStep(1)">← Back</button>
+          <button class="btn btn-primary" id="next2" onclick="goStep(3)">Next: Roadside →</button>
+        </div>
+        <p style="font-size:13.5px;color:var(--gray-500);margin-top:10px;text-align:right">Prefer to talk it through? <a href="#quote" onclick="showCallback('absolute');return false" style="color:var(--accent);font-weight:600">Request a callback</a></p>
+      </div>
+
+      <!-- STEP 3: Roadside -->
+      <div class="wizard-card" id="step-3" style="display:none">
+        <h2>Add Roadside Assistance?</h2>
+        <p>24/7 emergency breakdown service — towing, flat battery, flat tyre, fuel delivery and locksmith.</p>
+        <div class="roadside-grid">
+          <div class="roadside-opt" id="rs-none" onclick="selectRoadside('none')">
+            <div class="ro-icon">❌</div>
+            <h4>No Thanks</h4>
+            <p>Warranty only</p>
+            <div class="ro-price">+$0</div>
+          </div>
+          <div class="roadside-opt selected" id="rs-star3" onclick="selectRoadside('star3')">
+            <div class="ro-icon">⭐⭐⭐</div>
+            <h4>3 Star Roadside</h4>
+            <p>Core emergency cover — 24/7 towing, battery, tyre &amp; fuel</p>
+            <div class="ro-price" id="rs3-price">+$176</div>
+          </div>
+          <div class="roadside-opt" id="rs-star5" onclick="selectRoadside('star5')">
+            <div class="ro-icon">⭐⭐⭐⭐⭐</div>
+            <h4>5 Star Roadside</h4>
+            <p>Premium cover — all 3 Star benefits plus priority service &amp; extras</p>
+            <div class="ro-price" id="rs5-price">+$268</div>
+          </div>
+        </div>
+        <div id="rs-duration" style="display:none">
+          <label style="font-size:13px;font-weight:600;color:var(--gray-700);display:block;margin-bottom:12px">Cover Term</label>
+          <div class="duration-grid">
+            <div class="dur-btn selected" onclick="selectDuration(1)" id="rd1"><div class="yr">1</div><div class="yr-label">Year</div></div>
+            <div class="dur-btn" onclick="selectDuration(2)" id="rd2"><div class="yr">2</div><div class="yr-label">Years</div></div>
+            <div class="dur-btn" onclick="selectDuration(3)" id="rd3"><div class="yr">3</div><div class="yr-label">Years</div></div>
+            <div class="dur-btn" onclick="selectDuration(4)" id="rd4"><div class="yr">4</div><div class="yr-label">Years</div></div>
+            <div class="dur-btn" onclick="selectDuration(5)" id="rd5"><div class="yr">5</div><div class="yr-label">Years</div></div>
+          </div>
+        </div>
+        <div class="price-summary">
+          <h4>Price Summary</h4>
+          <div id="ps3-lines"></div>
+        </div>
+        <div class="wizard-nav">
+          <button class="step-back" onclick="goStep(2)">← Back</button>
+          <button class="btn btn-primary" onclick="goStep(4)">Next: Your Details →</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: Details + Payment -->
+      <div class="wizard-card" id="step-4" style="display:none">
+        <h2>Your Details &amp; Payment</h2>
+        <p id="step4-intro">Secure payment processed by Stripe. Pay by card, Google Pay, Apple Pay, or split your payment into interest-free instalments with Klarna (subject to eligibility). Once we have checked your details, your cover is lodged and your certificate is emailed to you.</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="c-first">First Name *</label>
+            <input type="text" id="c-first" placeholder="Jane">
+          </div>
+          <div class="form-group">
+            <label for="c-last">Last Name *</label>
+            <input type="text" id="c-last" placeholder="Smith">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="c-email">Email *</label>
+            <input type="email" id="c-email" placeholder="jane@example.com.au">
+          </div>
+          <div class="form-group">
+            <label for="c-phone">Mobile *</label>
+            <input type="tel" id="c-phone" placeholder="04XX XXX XXX">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="c-street">Street address *</label>
+            <input type="text" id="c-street" placeholder="12 Example Street" autocomplete="street-address" maxlength="80">
+          </div>
+          <div class="form-group">
+            <label for="c-company">Company name <span style="font-weight:400;color:var(--gray-500)">(if the vehicle is owned by a business)</span></label>
+            <input type="text" id="c-company" placeholder="Optional" autocomplete="organization" maxlength="80">
+          </div>
+        </div>
+        <div class="form-row form-row-3">
+          <div class="form-group">
+            <label for="c-suburb">Suburb *</label>
+            <input type="text" id="c-suburb" placeholder="Melbourne">
+          </div>
+          <div class="form-group">
+            <label for="c-postcode">Postcode *</label>
+            <input type="text" id="c-postcode" placeholder="3000" inputmode="numeric" maxlength="4" autocomplete="postal-code">
+          </div>
+          <div class="form-group">
+            <label for="c-state">State *</label>
+            <select id="c-state">
+              <option value="">— State —</option>
+              <option>VIC</option><option>NSW</option><option>QLD</option>
+              <option>WA</option><option>SA</option><option>TAS</option>
+              <option>ACT</option><option>NT</option>
+            </select>
+          </div>
+        </div>
+        <div id="w-extra">
+          <h3 style="font-size:17px;margin:22px 0 12px;color:var(--navy)">Vehicle details</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="c-rego">Registration number *</label>
+              <input type="text" id="c-rego" placeholder="ABC123" maxlength="9" autocomplete="off" style="text-transform:uppercase">
+            </div>
+            <div class="form-group">
+              <label for="c-regostate">State of registration *</label>
+              <select id="c-regostate"><option value="">— State —</option><option>VIC</option><option>NSW</option><option>QLD</option><option>WA</option><option>SA</option><option>TAS</option><option>ACT</option><option>NT</option></select>
+            </div>
+          </div>
+          <div class="form-row wo">
+            <div class="form-group">
+              <label for="c-vin">VIN (17 characters) *</label>
+              <input type="text" id="c-vin" placeholder="e.g. 6FPAAAJGCM8D12345" maxlength="17" autocomplete="off" style="text-transform:uppercase">
+            </div>
+            <div class="form-group">
+              <label for="c-odophoto">Photo of the odometer *</label>
+              <input type="file" id="c-odophoto" accept="image/*">
+              <p class="hint" style="margin-top:4px">A clear photo of the dashboard showing the current kilometres.</p>
+            </div>
+          </div>
+          <div class="wo">
+            <h3 style="font-size:17px;margin:18px 0 12px;color:var(--navy)">About the purchase</h3>
+            <div class="q-item" style="padding:12px 14px;border:1px solid var(--gray-200);border-radius:var(--r-sm);margin-bottom:10px">
+            <p style="margin:0 0 8px;font-size:14px;line-height:1.5;color:var(--gray-800)">Are you buying this vehicle now? (Choose No if you already own it.)</p>
+            <label style="display:inline-flex;align-items:center;gap:6px;margin-right:18px;font-weight:600;font-size:14px"><input type="radio" name="p-buying" value="yes" style="width:auto"> Yes</label>
+            <label style="display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px"><input type="radio" name="p-buying" value="no" style="width:auto"> No</label>
+          </div>
+            <div class="q-item" style="padding:12px 14px;border:1px solid var(--gray-200);border-radius:var(--r-sm);margin-bottom:10px">
+              <p style="margin:0 0 8px;font-size:14px;line-height:1.5;color:var(--gray-800)">Was the vehicle bought (or is it being bought) privately or from a dealer?</p>
+              <label style="display:inline-flex;align-items:center;gap:6px;margin-right:18px;font-weight:600;font-size:14px"><input type="radio" name="p-from" value="private" style="width:auto"> Privately</label>
+              <label style="display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px"><input type="radio" name="p-from" value="dealer" style="width:auto"> From a dealer</label>
+            </div>
+            <div class="form-group">
+              <label for="c-vcr">Vehicle condition report <span style="font-weight:400;color:var(--gray-500)">(upload if you have one)</span></label>
+              <input type="file" id="c-vcr" accept="image/*,application/pdf">
+              <p class="hint" style="margin-top:4px">Depending on the vehicle's age and kilometres, a condition report from a licensed mechanic may be required before cover is confirmed. We'll let you know if it is.</p>
+            </div>
+            <h3 style="font-size:17px;margin:18px 0 6px;color:var(--navy)">Before you buy, please confirm</h3>
+            <p style="font-size:13.5px;color:var(--gray-600);margin:0 0 12px">You must answer Yes to all of these to purchase online.</p>
+            <div class="q-item" style="padding:12px 14px;border:1px solid var(--gray-200);border-radius:var(--r-sm);margin-bottom:10px">
+            <p style="margin:0 0 8px;font-size:14px;line-height:1.5;color:var(--gray-800)">Do you understand that you need to have your vehicle serviced to maintain your warranty, within the requirements detailed in the terms and conditions?</p>
+            <label style="display:inline-flex;align-items:center;gap:6px;margin-right:18px;font-weight:600;font-size:14px"><input type="radio" name="q1" value="yes" style="width:auto"> Yes</label>
+            <label style="display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px"><input type="radio" name="q1" value="no" style="width:auto"> No</label>
+          </div><div class="q-item" style="padding:12px 14px;border:1px solid var(--gray-200);border-radius:var(--r-sm);margin-bottom:10px">
+            <p style="margin:0 0 8px;font-size:14px;line-height:1.5;color:var(--gray-800)">Do you understand that this extended warranty has some specific exclusions listed in the terms and conditions?</p>
+            <label style="display:inline-flex;align-items:center;gap:6px;margin-right:18px;font-weight:600;font-size:14px"><input type="radio" name="q2" value="yes" style="width:auto"> Yes</label>
+            <label style="display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px"><input type="radio" name="q2" value="no" style="width:auto"> No</label>
+          </div><div class="q-item" style="padding:12px 14px;border:1px solid var(--gray-200);border-radius:var(--r-sm);margin-bottom:10px">
+            <p style="margin:0 0 8px;font-size:14px;line-height:1.5;color:var(--gray-800)">Are you able to contribute to the diagnostic costs and repair cost of the vehicle if the failure is excluded under the terms and conditions, or if the claim is declined on a discretionary basis?</p>
+            <label style="display:inline-flex;align-items:center;gap:6px;margin-right:18px;font-weight:600;font-size:14px"><input type="radio" name="q3" value="yes" style="width:auto"> Yes</label>
+            <label style="display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px"><input type="radio" name="q3" value="no" style="width:auto"> No</label>
+          </div><div class="q-item" style="padding:12px 14px;border:1px solid var(--gray-200);border-radius:var(--r-sm);margin-bottom:10px">
+            <p style="margin:0 0 8px;font-size:14px;line-height:1.5;color:var(--gray-800)">Are you able to contribute to the repair cost of the vehicle if the total cost exceeds the claim limit or amount approved, or if the claim is declined on a discretionary basis?</p>
+            <label style="display:inline-flex;align-items:center;gap:6px;margin-right:18px;font-weight:600;font-size:14px"><input type="radio" name="q4" value="yes" style="width:auto"> Yes</label>
+            <label style="display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px"><input type="radio" name="q4" value="no" style="width:auto"> No</label>
+          </div><div class="q-item" style="padding:12px 14px;border:1px solid var(--gray-200);border-radius:var(--r-sm);margin-bottom:10px">
+            <p style="margin:0 0 8px;font-size:14px;line-height:1.5;color:var(--gray-800)">Do you understand that you do not have to buy an extended warranty, and there may be consumer guarantees under the Australian Consumer Law that give you rights to parts and components of your vehicle being repaired or replaced?</p>
+            <label style="display:inline-flex;align-items:center;gap:6px;margin-right:18px;font-weight:600;font-size:14px"><input type="radio" name="q5" value="yes" style="width:auto"> Yes</label>
+            <label style="display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px"><input type="radio" name="q5" value="no" style="width:auto"> No</label>
+          </div><div class="q-item" style="padding:12px 14px;border:1px solid var(--gray-200);border-radius:var(--r-sm);margin-bottom:10px">
+            <p style="margin:0 0 8px;font-size:14px;line-height:1.5;color:var(--gray-800)">Do you know that if you finance the cost of your vehicle and you select this extended warranty, the cost of the warranty will also be financed and will include an interest charge?</p>
+            <label style="display:inline-flex;align-items:center;gap:6px;margin-right:18px;font-weight:600;font-size:14px"><input type="radio" name="q6" value="yes" style="width:auto"> Yes</label>
+            <label style="display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px"><input type="radio" name="q6" value="no" style="width:auto"> No</label>
+          </div>
+            <div id="q-stop" style="display:none;background:#fff7ed;border:1px solid #fed7aa;border-radius:var(--r-sm);padding:14px 16px;margin-bottom:12px;font-size:14px;color:var(--gray-800)">Based on your answers, we can't sell this warranty online. <a href="#quote" onclick="showCallback('absolute');return false" style="color:var(--accent);font-weight:700">Request a callback</a> and a consultant will talk you through your options.</div>
+          </div>
+        </div>
+        <div class="price-summary">
+          <h4>Order Summary</h4>
+          <div id="ps4-lines"></div>
+        </div>
+        <!-- Accepted payment methods -->
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:16px;padding:12px 14px;background:var(--gray-100);border-radius:var(--r-sm)">
+          <span style="font-size:12px;color:var(--gray-600);font-weight:600;margin-right:4px">We accept:</span>
+          <span style="font-size:12px;font-weight:700;background:#1A1F71;color:#fff;padding:4px 10px;border-radius:5px;letter-spacing:.5px">VISA</span>
+          <span style="font-size:12px;font-weight:700;background:#EB001B;color:#fff;padding:4px 10px;border-radius:5px;letter-spacing:.5px">Mastercard</span>
+          <span style="font-size:12px;font-weight:700;background:#FFB3C7;color:#000;padding:4px 10px;border-radius:5px;letter-spacing:.5px">Klarna</span>
+          <span style="font-size:12px;font-weight:700;background:#fff;color:#1a73e8;padding:4px 10px;border-radius:5px;border:1px solid var(--gray-200);letter-spacing:.5px"><span style="color:#4285F4">G</span><span style="color:#EA4335">o</span><span style="color:#FBBC05">o</span><span style="color:#4285F4">g</span><span style="color:#34A853">l</span><span style="color:#EA4335">e</span> Pay</span>
+          <span style="font-size:12px;font-weight:700;background:#000;color:#fff;padding:4px 10px;border-radius:5px;letter-spacing:.5px"> Apple Pay</span>
+        </div>
+        <div id="payment-element"></div>
+        <div id="payment-message"></div>
+        <div id="pay-terms" style="display:flex;gap:10px;align-items:flex-start;padding:14px;background:var(--gray-100);border-radius:var(--r-sm);margin:14px 0 12px">
+          <input type="checkbox" id="pay-accept" style="width:auto;margin-top:3px">
+          <label for="pay-accept" style="font-weight:500;font-size:13.5px;line-height:1.5">I have read the <a href="/docs/integrity-absolute-warranty-pds-v3.5.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">Integrity Absolute Motor Vehicle Warranty PDS and Terms and Conditions</a> (including the servicing requirements and the need to obtain Integrity's authorisation before any repair) and I agree to them. I confirm the vehicle details I entered are accurate. *</label>
+        </div>
+        <button class="btn btn-primary btn-lg" id="pay-btn" onclick="submitPayment()" style="width:100%;justify-content:center;margin-top:4px">
+          <span id="pay-btn-text">Pay Securely Now</span>
+        </button>
+        <p style="font-size:14px;text-align:center;margin-top:14px">Not ready to pay today? <a href="#quote" onclick="showCallback('absolute');return false" style="color:var(--accent);font-weight:700">Request a callback instead →</a></p>
+        <p style="font-size:12px;color:var(--gray-400);text-align:center;margin-top:12px">🔒 Payments secured by Stripe. We never store your card details. Instalment options with Klarna are shown at checkout for eligible orders.</p>
+        <p style="font-size:12px;color:var(--gray-400);text-align:center;margin-top:8px">Cover is subject to vehicle eligibility and provider approval. Depending on the vehicle’s age and model, a vehicle condition report may be required before cover is confirmed.</p>
+        <div class="wizard-nav" style="margin-top:12px">
+          <button class="step-back" onclick="goStep(3)">← Back</button>
+          <span></span>
+        </div>
+      </div>
+      <!-- CALLBACK / QUOTE REQUEST (lead capture without payment) -->
+      <div class="wizard-card" id="step-callback" style="display:none">
+        <h2>Request a callback</h2>
+        <p id="cb-intro">Not ready to pay today? Leave your details and a MyDriveShield consultant will call you within one business day with a personalised quote.</p>
+        <div id="cb-instant" style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:var(--r-sm);padding:16px 18px;margin-bottom:18px">
+          <p id="cb-instant-text" style="font-size:14.5px;color:var(--gray-700);margin:0 0 12px"><strong>Just after a price?</strong> You don’t need to wait for an email — your price is calculated instantly on this page from your vehicle details.</p>
+          <a href="#quote" class="btn btn-navy" onclick="cbInstantQuote();return false;">See my price instantly →</a>
+          <p style="font-size:12.5px;color:var(--gray-500);margin:12px 0 0">Want cover details, eligibility confirmed or anything in writing? Continue below and we’ll come back to you.</p>
+        </div>
+        <div id="cb-success" style="display:none;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:var(--r-sm);padding:22px;margin-bottom:18px">
+          <h3 style="color:#166534;margin-bottom:6px">Thanks, we have your request.</h3>
+          <p style="font-size:14.5px;color:var(--gray-700)">A consultant will contact you within one business day. If it is urgent, call <a href="tel:0477666500" style="color:var(--accent);font-weight:700">0477 666 500</a>.</p>
+        </div>
+        <form id="callback-form" onsubmit="submitCallback(event)" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cb-first">First Name *</label>
+              <input type="text" id="cb-first" autocomplete="given-name" placeholder="Jane">
+            </div>
+            <div class="form-group">
+              <label for="cb-last">Last Name *</label>
+              <input type="text" id="cb-last" autocomplete="family-name" placeholder="Smith">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cb-phone">Mobile *</label>
+              <input type="tel" id="cb-phone" autocomplete="tel" placeholder="04XX XXX XXX">
+            </div>
+            <div class="form-group">
+              <label for="cb-email">Email *</label>
+              <input type="email" id="cb-email" autocomplete="email" placeholder="jane@example.com.au">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cb-model">Vehicle Model</label>
+              <input type="text" id="cb-model" placeholder="e.g. Hilux SR5">
+            </div>
+            <div class="form-group">
+              <label for="cb-state">State *</label>
+              <select id="cb-state">
+                <option value="">— State —</option>
+                <option>VIC</option><option>NSW</option><option>QLD</option>
+                <option>WA</option><option>SA</option><option>TAS</option>
+                <option>ACT</option><option>NT</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cb-contact">Preferred contact *</label>
+              <select id="cb-contact">
+                <option value="">&mdash; Please choose &mdash;</option><option>Email</option><option>SMS</option><option>Phone call</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="cb-time">Best time</label>
+              <select id="cb-time">
+                <option>Any time</option><option>Morning</option><option>Afternoon</option><option>Evening</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="cb-notes">Anything we should know? (optional)</label>
+            <input type="text" id="cb-notes" placeholder="e.g. car is still under manufacturer warranty until March">
+          </div>
+          <div id="cb-price-hint" style="display:none;background:#fffbeb;border:1px solid #fde68a;border-radius:var(--r-sm);padding:10px 14px;margin:-6px 0 14px;font-size:13.5px;color:var(--gray-700)">💡 After a price? <a href="#quote" onclick="cbInstantQuote();return false;" style="color:var(--accent);font-weight:700">See it instantly on this page</a> — no waiting for a reply.</div>
+          <!-- honeypot: bots fill this, humans never see it -->
+          <div style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden" aria-hidden="true">
+            <label for="cb-website">Website</label><input type="text" id="cb-website" tabindex="-1" autocomplete="off">
+          </div>
+          <div class="form-group" style="flex-direction:row;align-items:flex-start;gap:10px">
+            <input type="checkbox" id="cb-consent" style="width:auto;margin-top:3px">
+            <label for="cb-consent" style="font-weight:500;font-size:13.5px;line-height:1.5">I agree to MyDriveShield contacting me by phone, SMS or email about vehicle warranty and roadside assistance products, and to the collection and use of my details in accordance with the Privacy Policy. *</label>
+          </div>
+          <div id="cb-message" style="display:none;color:var(--accent);font-size:14px;margin-bottom:10px"></div>
+          <button type="submit" class="btn btn-primary btn-lg" id="cb-btn" style="width:100%;justify-content:center">
+            <span id="cb-btn-text">Request My Callback →</span>
+          </button>
+          <p style="font-size:12px;color:var(--gray-400);text-align:center;margin-top:12px">No obligation. Quotes are subject to vehicle eligibility and provider approval.</p>
+        </form>
+        <div class="wizard-nav" style="margin-top:12px">
+          <button class="step-back" id="cb-back" onclick="goStep(callbackReturnStep)">← Back</button>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pad why" id="faq">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">FAQ</span><h2 style="margin-top:12px">Questions, answered</h2></div>
+    <div class="faq">
+      <div class="qa"><button>What is an extended vehicle warranty?<span class="plus">+</span></button><div class="ans"><p>It's mechanical protection that helps cover the cost of repairing major components — like the engine, transmission and electrical systems — after your manufacturer warranty ends. Cover, eligibility and exclusions depend on the product documentation.</p></div></div>
+      <div class="qa"><button>Can I get cover if I bought my car privately?<span class="plus">+</span></button><div class="ans"><p>Yes. MyDriveShield is designed for used-vehicle owners whether you bought from a dealer or privately. Enter your vehicle details for an instant quote to see the options available for your car.</p></div></div>
+      <div class="qa"><button>Does roadside assistance cover all of Australia?<span class="plus">+</span></button><div class="ans"><p>Yes — 24/7 emergency roadside assistance operates Australia-wide, covering towing, flat battery, flat tyre, fuel delivery and lockout support. Benefits and limits are set out in the relevant product terms.</p></div></div>
+      <div class="qa"><button>How much does it cost?<span class="plus">+</span></button><div class="ans"><p>Warranty pricing depends on your vehicle's age, kilometres and chosen cover level. Roadside assistance starts from under $2 a week. Get an online quote in under two minutes to see your exact price.</p></div></div>
+      <div class="qa"><button>Do I have to pay an excess when I claim?<span class="plus">+</span></button><div class="ans"><p>No — there is no upfront excess. Simply call the claims team before any repairs are carried out and they will direct you to an approved repairer for diagnosis and assessment. Covered repairs are paid for parts and labour in line with your warranty terms.</p></div></div>
+      <div class="qa"><button>Do I have to service my car at a dealership?<span class="plus">+</span></button><div class="ans"><p>No. You can have your vehicle serviced by any licensed, GST-registered mechanic. Servicing is required at most every 6 months or 10,000&nbsp;km (or to the manufacturer's schedule if it is more frequent) to keep your warranty valid.</p></div></div>
+      <div class="qa"><button>What happens if I sell my car?<span class="plus">+</span></button><div class="ans"><p>Your warranty's benefits can be transferred to the new private owner, which can add real value when you sell. The transfer needs to be lodged within 7 days of the sale, an administration fee applies, and service records plus a mechanical inspection report are required.</p></div></div>
+      <div class="qa"><button>How many claims can I make?<span class="plus">+</span></button><div class="ans"><p>You can claim multiple times during the warranty term — there is no set number of claims. Per-claim limits apply and vary by cover level; your exact limits are shown in your quote and warranty documents.</p></div></div>
+      <div class="qa"><button>Are you providing financial or insurance advice?<span class="plus">+</span></button><div class="ans"><p>No. MyDriveShield provides information about protection products and helps you request a quote. We don't provide personal financial or insurance advice. Coverage, terms and eligibility are subject to the applicable product documentation and provider approval.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA band -->
+<section class="cta">
+  <h2>Ready to protect your drive?</h2>
+  <div class="rule"></div>
+  <p>Tell us about your vehicle and see warranty and roadside options tailored to you — no obligation, no paperwork.</p>
+  <a href="#quote" class="btn btn-primary btn-lg">Start My Quote
+    <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+</section>
+
+<!-- Contact -->
+<section class="pad" id="contact">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Contact</span><h2 style="margin-top:12px">Talk to a real person</h2></div>
+    <div class="contact-grid">
+      <div class="cc"><div class="ci"><svg viewBox="0 0 24 24" width="24" fill="none"><path d="M4 5c0 9 6 15 15 15l1-4-5-2-2 2c-3-1.5-4.5-3-6-6l2-2-2-5-3 1Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div><h3>Call us</h3><a href="tel:0477666500">0477 666 500</a></div>
+      <div class="cc"><div class="ci"><svg viewBox="0 0 24 24" width="24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2"/><path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><h3>Email us</h3><a href="mailto:info@mydriveshield.com.au">info@mydriveshield.com.au</a></div>
+      <div class="cc"><div class="ci"><svg viewBox="0 0 24 24" width="24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></div><h3>Support hours</h3><p>Roadside 24/7 · Office Mon–Fri</p></div>
+      <div class="cc"><div class="ci"><svg viewBox="0 0 24 24" width="24" fill="none"><path d="M4 4h16v12H7l-3 3V4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div><h3>Request a callback</h3><a href="#quote" onclick="showCallback('contact');return false">We call you within 1 business day</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="wrap">
+    <div class="f-top">
+      <div>
+        <a href="#home" class="logo"><svg class="mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MyDriveShield"><circle cx="24" cy="24" r="21" fill="#F97316"/><circle cx="24" cy="24" r="17.5" stroke="#0B2545" stroke-width="1.3" opacity=".5"/><path d="M10 33c9-2.5 19-2.5 28 0" stroke="#0B2545" stroke-width="2" stroke-linecap="round" opacity=".8"/><path d="M19 33c1.2-7.5 3-13.5 5-19 2 5.5 3.8 11.5 5 19" stroke="#0B2545" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 20v2.6M24 27v2.6" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg><b>MyDrive<span class="o">Shield</span></b></a>
+        <p class="f-about">Extended vehicle warranty and emergency roadside assistance for used-car owners across Australia. Backed by Integrity Car Care Pty Ltd.</p>
+      </div>
+      <div class="f-col"><h4>Protection</h4><a href="#warranty">Warranty Protection</a><a href="#roadside">Roadside Assistance</a><a href="#products">Our Products</a><a href="#coverage">What's Covered</a><a href="#pricing">Pricing</a><a href="#quote">Get a Quote</a></div>
+      <div class="f-col"><h4>Company</h4><a href="#why">Why Choose Us</a><a href="#faq">FAQ</a><a href="#contact">Contact</a><a href="/partners">Partner Portal</a></div>
+      <div class="f-col"><h4>Get in touch</h4><a href="tel:0477666500">0477 666 500</a><a href="mailto:info@mydriveshield.com.au">info@mydriveshield.com.au</a><a href="#quote" onclick="showCallback('contact');return false">Request a callback</a></div>
+    </div>
+    <p class="f-legal">MyDriveShield provides information about vehicle warranty and roadside assistance products and facilitates quote requests. We do not provide personal financial, insurance or legal advice. Coverage, exclusions, eligibility, waiting periods, claim limits and terms depend on the relevant product documentation and provider approval. Warranty products are issued by Integrity Car Care Pty Ltd (PO Box 2122 Traralgon VIC 3844 · 03 9120 6666 · admin@integritywarranty.com.au). Assetia Pty Ltd (ABN 94 668 837 983), trading as MyDriveShield, is the authorised distribution partner of Integrity Car Care Pty Ltd and does not hold an Australian Financial Services Licence in respect of warranty products, which are consumer goods warranties and not financial products. All prices include GST. Cover is subject to the full terms and conditions of the relevant warranty product, available upon request. Pre-existing conditions are excluded. Vehicle category and eligibility are subject to approval. Please read the product terms before purchasing. All quotes are subject to assessment and approval.</p>
+    <div class="f-bottom"><span>© 2026 MyDriveShield. All rights reserved.</span><span>Privacy Policy · Terms of Use · Complaints</span></div>
+  </div>
+</footer>
+
+<script>
+const CONFIG = {
+  STRIPE_PK: 'pk_live_51Tm4jMDGdlEAcSBwrosEcx9f5IYiW04BtT5TT2zmnp5klHlMtDxhBi1EgLfT0H9V2IGxHqPctQ0fljQ3tPdaMXDA008FZ69ZuB',
+  N8N_CREATE_INTENT: 'https://layden.app.n8n.cloud/webhook/driveshield-create-intent',
+  N8N_PARTNER_LEAD:  'https://layden.app.n8n.cloud/webhook/driveshield-partner-lead',
+  N8N_UPLOAD:        'https://layden.app.n8n.cloud/webhook/driveshield-upload'
+};
+
+// === PRICING DATA ===
+// Source: Integrity Car Care — Absolute Retail Pricelist V2.0 (prices current as at 29/07/2026).
+// ABSOLUTE[category][level] = [1yr, 2yr, 3yr, 4yr, 5yr]. null = POA.
+const ABSOLUTE = {
+  1:{1:[746,916,1103,1291,1478],   2:[1032,1255,1478,1657,1835],  3:[1353,1567,1782,2005,2192],  4:[1567,1782,1996,2228,2460]},
+  2:{1:[1496,1728,1951,2255,2550], 2:[1889,2112,2326,2621,2907],  3:[2219,2433,2648,2960,3264],  4:[2433,2648,2871,3157,3442]},
+  3:{1:[2371,2701,3032,3416,3800], 2:[2764,3085,3407,3782,4157],  3:[3192,3942,4692,5407,6121],  4:[3621,4746,5389,6291,7192]},
+  4:{1:[3085,3433,3960,4380,4800], 2:[3469,3800,4326,4728,5166],  3:[4005,4585,5398,6282,6960],  4:null}
+};
+const CLAIM_LIMIT = {1:'$2,000', 2:'$5,000', 3:'$8,000', 4:'Market value'};
+// Level qualification (at date of purchase): [max vehicle age yrs, max odometer km]
+const LEVEL_QUAL = {1:[15,220000], 2:[12,180000], 3:[10,140000], 4:[8,120000]};
+const ROADSIDE = { star3:[88,176,264,352,440], star5:[154,300,398,510,610] };
+const AWD_SURCHARGE = 110;
+
+// Make → default category
+const MAKE_CAT = {
+  'ABARTH':3,'ALFA ROMEO':2,'ASTON MARTIN':4,'AUDI':2,'BENTLEY':4,'BMW':2,
+  'CADILLAC':3,'CATERHAM':3,'CHERY':2,'CHEVROLET':3,'CHRYSLER':2,'CITROEN':2,
+  'DODGE':3,'FERRARI':4,'FIAT':2,'FORD':1,'GENESIS':2,'GREAT WALL':1,
+  'GWM':1,'HAVAL':1,'HOLDEN':1,'HONDA':1,'HSV':2,'HUMMER':3,
+  'HYUNDAI':1,'INFINITI':2,'INEOS':2,'ISUZU':1,'JAGUAR':2,'JEEP':2,
+  'KIA':1,'KOENIGSEGG':4,'LAMBORGHINI':4,'LAND ROVER':3,'LDV':1,'LEXUS':2,
+  'LOTUS':4,'MAHINDRA':2,'MASERATI':4,'MAZDA':1,'MCLAREN':4,'MERCEDES-BENZ':2,
+  'MG':1,'MINI':2,'MITSUBISHI':1,'MORGAN':3,'NISSAN':1,'OPEL':2,
+  'PEUGEOT':2,'PORSCHE':4,'PROTON':1,'RAM':3,'RENAULT':2,'ROLLS-ROYCE':4,
+  'SAAB':2,'SKODA':2,'SMART':3,'SSANGYONG':2,'SUBARU':1,'SUZUKI':1,
+  'TATA':2,'TESLA':4,'TOYOTA':1,'VOLKSWAGEN':2,'VOLVO':2,'ZX AUTO':3
+};
+
+// Model / fuel exceptions per Integrity Absolute booklet IABSI V3.5, Appendix A.
+// Tested against the model text the customer types (case-insensitive). First match wins.
+const MODEL_CAT = {
+  'ALFA ROMEO':[[/\b4C\b/i,4]],
+  'AUDI':[[/\bR8\b/i,4],[/\bRS\s?\d|\bRS\b/i,4],[/\bSQ\s?\d/i,4],[/\bA7\b/i,3],[/\bA8\b/i,3],[/ALLROAD/i,3],[/\bQ7\b/i,3],[/\bQ8\b/i,3],[/\bS\s?[1-8]\b/i,3],[/\bTT\b/i,3]],
+  'BMW':[[/\b7\s?SERIES\b|\b7[0-9]{2}\s?[A-Z]*\b/i,3],[/\b8\s?SERIES\b|\b8[0-9]{2}\s?[A-Z]*\b/i,3],[/\bI\s?[0-9X]/i,3],[/\bM\s?[0-9]\b|\bM\s?SERIES|\bX[0-9]\s?M\b/i,3],[/\bX7\b/i,3],[/\bX8\b/i,3]],
+  'CHEVROLET':[[/CORVETTE/i,4]],
+  'CHRYSLER':[[/\bSRT\b/i,3]],
+  'DODGE':[[/CHALLENGER/i,4],[/VIPER/i,4]],
+  'FORD':[[/\bF-?\s?(150|250|350|450)\b|F-?TRUCK/i,4],[/RAPTOR/i,3],[/MUSTANG/i,'mustang'],[/\bRS\b/i,2],[/TRANSIT/i,2]],
+  'HONDA':[[/\bNSX\b/i,4]],
+  'HYUNDAI':[[/\bN\b|\bN\s?LINE|\bI30\s?N|\bI20\s?N|\bKONA\s?N/i,2]],
+  'ISUZU':[[/\bNPR\b/i,2]],
+  'JAGUAR':[[/\bF[\s-]?TYPE\b/i,3],[/\bSVR\b/i,3]],
+  'JEEP':[[/\bSRT\b|TRACKHAWK/i,3]],
+  'LAND ROVER':[[/DISCOVERY\s?SPORT/i,2],[/EVOQUE/i,2],[/FREELANDER/i,2]],
+  'LEXUS':[[/\bLFA\b/i,4],[/\bF\s?SPORT\b/i,2],[/\b(IS|RC|GS)\s?F\b/i,3]],
+  'MERCEDES-BENZ':[[/AMG\s?GT\b/i,4],[/G\s?63/i,4],[/MAYBACH/i,4],[/\bSL\s?[0-9]|\bSL\b/i,4],[/\bAMG\b|\b[A-Z]{1,3}\s?63\b|\b[A-Z]{1,3}\s?43\b|\b[A-Z]{1,3}\s?45\b|\b[A-Z]{1,3}\s?53\b|\b[A-Z]{1,3}\s?55\b/i,3],[/\bS\s?[0-9]{3}|\bS[\s-]?CLASS/i,3]],
+  'MITSUBISHI':[[/EVOLUTION|\bEVO\b/i,2],[/FUSO/i,2]],
+  'NISSAN':[[/GT-?R\b/i,4],[/\b(350|370|400)\s?Z\b|\bZ\b/i,2]],
+  'PORSCHE':[[/CAYENNE\s?GTS|MACAN\s?GTS|CAYMAN\s?GT4/i,4],[/BOXSTER/i,3],[/CAYENNE/i,3],[/CAYMAN/i,3],[/MACAN/i,3]],
+  'SUBARU':[[/\bSTI\b/i,2],[/\bWRX\b/i,2]],
+  'TOYOTA':[[/\bGR\b/i,2],[/SUPRA/i,2],[/TUNDRA/i,3]],
+  'VOLKSWAGEN':[[/\bR[\s-]?LINE\b/i,2],[/\bR\b/i,3],[/TOUAREG/i,3]]
+};
+
+function resolveCategory(make, model, year, fuel){
+  if(fuel==='ev') return 4;
+  if(fuel==='hybrid') return 3;
+  const base = MAKE_CAT[make] || 0;
+  const rules = MODEL_CAT[make];
+  if(rules && model){
+    for(const [re, cat] of rules){
+      if(re.test(model)){
+        if(cat==='mustang') return (parseInt(year,10)||0) >= 2015 ? 2 : 3;
+        return cat;
+      }
+    }
+  }
+  return base;
+}
+
+
+// === STATE ===
+let state = {
+  make:'', model:'', year:'', odo:'', fuel:'ice', cat:1, awd:false,
+  product:'absolute', level:1, duration:2, roadside:'star3'
+};
+let stripe = null, elements = null, paymentElement = null;
+
+// === INIT ===
+(function(){
+  const sel = document.getElementById('v-year');
+  const cur = new Date().getFullYear();
+  for(let y = cur; y >= cur-25; y--){
+    const o = document.createElement('option');
+    o.value = y; o.text = y; sel.appendChild(o);
+  }
+})();
+
+// === NAV ===
+function toggleNav(){
+  document.getElementById('mobileNav').classList.toggle('open');
+}
+
+// === COVERAGE TABS ===
+function showCoverage(type){
+  document.querySelectorAll('.coverage-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.coverage-panel').forEach(p=>p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('cov-'+type).classList.add('active');
+}
+
+// === FAQ ===
+function toggleFAQ(btn){
+  const item = btn.closest('.faq-item');
+  item.classList.toggle('open');
+}
+
+// === VEHICLE MAKE ===
+function onMakeChange(){ recalcCategory(); }
+function recalcCategory(){
+  const make = document.getElementById('v-make').value;
+  const model = (document.getElementById('v-model').value||'').trim();
+  const year = document.getElementById('v-year').value;
+  const fuelEl = document.getElementById('v-fuel');
+  const fuel = fuelEl ? fuelEl.value : 'ice';
+  state.make = make; state.model = model; state.fuel = fuel;
+  const cat = resolveCategory(make, model, year, fuel);
+  const el = document.getElementById('cat-display');
+  const hint = document.getElementById('cat-hint');
+  if(cat){
+    state.cat = cat;
+    el.textContent = 'Category '+cat;
+    el.style.display = 'inline-flex';
+    hint.style.display = 'block';
+    hint.textContent = fuel==='ev' ? 'Electric vehicles are Category 4' : fuel==='hybrid' ? 'Hybrid vehicles are Category 3' : (cat!==MAKE_CAT[make] ? 'Based on make and model' : 'Based on make; some models are rated higher');
+    if(state.product==='absolute' && document.getElementById('step-2').style.display!=='none') updateLevelAvail();
+  } else {
+    el.style.display = 'none'; hint.style.display='block'; hint.textContent = 'Select make above to auto-detect';
+  }
+}
+
+// === AWD TOGGLE ===
+function toggleAWD(){
+  state.awd = !state.awd;
+  document.getElementById('awd-sw').classList.toggle('on', state.awd);
+}
+
+// === PRODUCT SELECT ===
+function selectProduct(p){
+  state.product = p;
+  document.getElementById('ps-absolute').classList.toggle('selected', p==='absolute');
+  document.getElementById('ps-endurance').classList.toggle('selected', p==='endurance');
+  document.getElementById('ps-roadside').classList.toggle('selected', p==='roadside');
+  document.getElementById('absolute-duration').style.display = p==='absolute'?'block':'none';
+  document.getElementById('endurance-enquiry').style.display = p==='endurance'?'block':'none';
+  document.getElementById('roadside-only-note').style.display = p==='roadside'?'block':'none';
+  document.getElementById('no-level-note').style.display = p==='absolute' ? document.getElementById('no-level-note').style.display : 'none';
+  document.getElementById('next2').style.display = (p==='absolute'||p==='roadside')?'inline-flex':'none';
+  document.getElementById('next2').textContent = p==='roadside' ? 'Next: Choose Plan →' : 'Next: Roadside →';
+  if(p==='roadside'){ if(state.roadside==='none') state.roadside='star3'; }
+  if(p==='absolute') updateLevelAvail();
+  applyRoadsideOnlyUI();
+  updatePrices();
+}
+
+function applyRoadsideOnlyUI(){
+  const ro = state.product==='roadside';
+  const h = document.querySelector('#step-3 h2'); if(h) h.textContent = ro ? 'Choose your roadside plan' : 'Add Roadside Assistance?';
+  const noneCard = document.getElementById('rs-none'); if(noneCard) noneCard.style.display = ro ? 'none' : '';
+  const durRow = document.getElementById('rs-duration'); if(durRow) durRow.style.display = ro ? 'block' : 'none';
+  if(ro){ for(let i=1;i<=5;i++){ const rd=document.getElementById('rd'+i); if(rd) rd.classList.toggle('selected', i===state.duration); } }
+  if(ro && state.roadside==='none') selectRoadside('star3');
+  const termsLbl = document.querySelector('label[for="pay-accept"]');
+  if(termsLbl) termsLbl.innerHTML = ro
+    ? 'I have read the <a href="/docs/integrity-absolute-warranty-pds-v3.5.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">product terms and conditions</a> for the roadside assistance plan I am buying and I agree to them. I confirm the details I entered are accurate. *'
+    : 'I have read the <a href="/docs/integrity-absolute-warranty-pds-v3.5.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">Integrity Absolute Motor Vehicle Warranty PDS and Terms and Conditions</a> (including the servicing requirements and the need to obtain Integrity\'s authorisation before any repair) and I agree to them. I confirm the vehicle details I entered are accurate. *';
+  const payIntro = document.getElementById('step4-intro');
+  if(payIntro) payIntro.textContent = 'Secure payment processed by Stripe. Pay by card, Google Pay, Apple Pay, or split your payment into interest-free instalments with Klarna (subject to eligibility). Once we have checked your details, your cover is lodged and your certificate is emailed to you.';
+}
+
+function roadsideProductLabel(){
+  return (state.roadside==='star5'?'5':'3')+' Star Roadside Assistance '+state.duration+'yr (standalone)';
+}
+
+// === COVER LEVEL ===
+function levelAvailable(n){
+  const priced = ABSOLUTE[state.cat][n] !== null;
+  if(!state.year || !state.odo) return priced;
+  const age = new Date().getFullYear() - parseInt(state.year,10);
+  const [maxAge, maxKm] = LEVEL_QUAL[n];
+  return priced && age <= maxAge && parseInt(state.odo,10) < maxKm;
+}
+
+function updateLevelAvail(){
+  let firstOk = 0;
+  for(let n=1;n<=4;n++){
+    const ok = levelAvailable(n);
+    document.getElementById('lv'+n).classList.toggle('disabled', !ok);
+    if(ok && !firstOk) firstOk = n;
+  }
+  document.getElementById('lv-poa-note').style.display =
+    (state.cat===4 && !levelAvailable(4) && ABSOLUTE[4][4]===null) ? 'block' : 'none';
+  const none = firstOk === 0;
+  document.getElementById('no-level-note').style.display = none ? 'block' : 'none';
+  const durEl = document.getElementById('absolute-duration');
+  const durBits = durEl.querySelectorAll('#dur-label,.duration-grid,.price-summary');
+  if(none){
+    durBits.forEach(e=>e.style.display='none');
+    if(state.product==='absolute') document.getElementById('next2').style.display='none';
+  } else {
+    durBits.forEach(e=>e.style.display='');
+    if(state.product==='absolute') document.getElementById('next2').style.display='inline-flex';
+    let lastOk = 0; for(let n=1;n<=4;n++){ if(levelAvailable(n)) lastOk = n; }
+    if(!levelAvailable(state.level)) selectLevel(lastOk || firstOk); else selectLevel(state.level);
+  }
+}
+
+function selectLevel(n){
+  if(!levelAvailable(n)) return;
+  state.level = n;
+  for(let i=1;i<=4;i++) document.getElementById('lv'+i).classList.toggle('selected', i===n);
+  updatePrices();
+}
+
+// === PRICING TABS (public pricing section) ===
+function showPricing(n){
+  document.querySelectorAll('.pricing-tab').forEach((t,i)=>t.classList.toggle('active', i===n-1));
+  for(let i=1;i<=4;i++) document.getElementById('pricecat-'+i).classList.toggle('active', i===n);
+}
+
+// === DURATION ===
+function selectDuration(n){
+  state.duration = n;
+  for(let i=1;i<=5;i++){
+    document.getElementById('d'+i).classList.toggle('selected',i===n);
+    const rd=document.getElementById('rd'+i); if(rd) rd.classList.toggle('selected',i===n);
+  }
+  updatePrices();
+}
+
+// === ROADSIDE ===
+function selectRoadside(r){
+  state.roadside = r;
+  ['none','star3','star5'].forEach(x=>document.getElementById('rs-'+x).classList.toggle('selected',x===r));
+  updatePrices();
+}
+
+// === PRICE CALC ===
+function calcTotal(){
+  const rs = state.roadside==='star3' ? ROADSIDE.star3[state.duration-1]
+           : state.roadside==='star5' ? ROADSIDE.star5[state.duration-1] : 0;
+  if(state.product==='roadside') return {base:0, awd:0, rs, total: rs};
+  const prices = ABSOLUTE[state.cat][state.level];
+  const base = prices ? prices[state.duration-1] : 0;
+  const awd = state.awd ? AWD_SURCHARGE : 0;
+  return {base, awd, rs, total: base+awd+rs};
+}
+
+function fmt(n){ return '$'+n.toLocaleString('en-AU'); }
+
+function updatePrices(){
+  if(state.product === 'roadside'){
+    const {rs} = calcTotal();
+    const dur = state.duration===1?'1 Year':state.duration+' Years';
+    const rsLabel = state.roadside==='star5'?'5 Star Roadside':'3 Star Roadside';
+    ['ps2-lines','ps3-lines','ps4-lines'].forEach(id=>{
+      const el=document.getElementById(id); if(!el) return;
+      el.innerHTML = `
+      <div class="price-line"><span>Vehicle</span><span>${[state.make,state.model,state.year].filter(Boolean).join(' ')}${state.odo?' · '+Number(state.odo).toLocaleString()+' km':''}</span></div>
+      <div class="price-line"><span>${rsLabel} Assistance (${dur})</span><span>${fmt(rs)}</span></div>
+      <div class="price-line"><span>24/7 towing · battery · tyre · fuel · lockout</span><span>Included</span></div>
+      <div class="price-line total"><span>Total (incl. GST)</span><span class="amount">${fmt(rs)}</span></div>`;
+    });
+    document.getElementById('rs3-price').textContent = '+'+fmt(ROADSIDE.star3[state.duration-1]);
+    document.getElementById('rs5-price').textContent = '+'+fmt(ROADSIDE.star5[state.duration-1]);
+    return;
+  }
+  if(state.product !== 'absolute') return;
+  const {base,awd,rs,total} = calcTotal();
+  const dur = state.duration===1?'1 Year':state.duration+' Years';
+  const rsLabel = state.roadside==='star3'?'3 Star Roadside':state.roadside==='star5'?'5 Star Roadside':null;
+
+  const lines = (id) => {
+    const el = document.getElementById(id); if(!el) return;
+    el.innerHTML = `
+      <div class="price-line"><span>Vehicle</span><span>${[state.make,state.model,state.year].filter(Boolean).join(' ')}${state.odo?' · '+Number(state.odo).toLocaleString()+' km':''}</span></div>
+      <div class="price-line"><span>Absolute Warranty (Cat ${state.cat}, Level ${state.level}, ${dur})</span><span>${fmt(base)}</span></div>
+      <div class="price-line"><span>Claim limit</span><span>${CLAIM_LIMIT[state.level]} per claim</span></div>
+      ${awd?`<div class="price-line"><span>4WD/AWD surcharge</span><span>${fmt(awd)}</span></div>`:''}
+      ${rs?`<div class="price-line"><span>${rsLabel} (${dur})</span><span>${fmt(rs)}</span></div>`:''}
+      <div class="price-line total"><span>Total (incl. GST)</span><span class="amount">${fmt(total)}</span></div>`;
+  };
+  lines('ps2-lines'); lines('ps3-lines'); lines('ps4-lines');
+
+  // Roadside price previews
+  document.getElementById('rs3-price').textContent = '+'+fmt(ROADSIDE.star3[state.duration-1]);
+  document.getElementById('rs5-price').textContent = '+'+fmt(ROADSIDE.star5[state.duration-1]);
+}
+
+// === WIZARD NAVIGATION ===
+function goStep(n){
+  // Validate step 1
+  if(n>1 && !validateStep1()) return;
+  // Refresh level eligibility from vehicle details
+  if(n===2) updateLevelAvail();
+  // Init Stripe when hitting step 4
+  if(n===3) applyRoadsideOnlyUI();
+  if(n===4 && state.product==='roadside' && state.roadside==='none') selectRoadside('star3');
+  if(n===4) syncWarrantyOnly();
+  if(n===4 && (state.product==='absolute'||state.product==='roadside')) initStripe();
+  if(n===4 && window.mdsTrack) window.mdsTrack('begin_checkout', { value: calcTotal().total, currency:'AUD', product: state.product==='roadside' ? roadsideProductLabel() : 'Absolute Cat '+state.cat+' L'+state.level });
+
+  for(let i=1;i<=4;i++){
+    const el = document.getElementById('step-'+i);
+    if(el) el.style.display = i===n?'block':'none';
+    const dot = document.getElementById('dot-'+i);
+    dot.classList.toggle('active', i===n);
+    dot.classList.toggle('done', i<n);
+  }
+  if(n<=3) updatePrices();
+  window.scrollTo({top: document.getElementById('quote').offsetTop - 80, behavior:'smooth'});
+}
+
+function validateStep1(){
+  const make = document.getElementById('v-make').value;
+  const year = document.getElementById('v-year').value;
+  const odo  = document.getElementById('v-odo').value;
+  const model = (document.getElementById('v-model').value||'').trim();
+  if(!make){ alert('Please select a vehicle make.'); return false; }
+  if(!model || model.length < 2){ alert('Please enter the vehicle model (for example Ranger, Corolla, X5).'); return false; }
+  if(!year){ alert('Please select the year of manufacture.'); return false; }
+  if(odo === '' || isNaN(parseInt(odo,10)) || parseInt(odo,10) < 0){ alert('Please enter the current odometer reading in kilometres.'); return false; }
+  state.year = year; state.odo = String(parseInt(odo,10)); state.model = model;
+  recalcCategory();
+  return true;
+}
+
+// Vehicle + cover details sent to n8n with every PaymentIntent (lands in Stripe metadata)
+function vehiclePayload(){
+  // Compact on purpose: n8n packs the order into one Stripe metadata value (500 char limit).
+  return {
+    vehicleMake: state.make, vehicleModel: state.model, vehicleYear: state.year,
+    odometer: state.odo, drive: state.awd ? '4WD/AWD' : '2WD', fuel: state.fuel,
+    cat: state.cat, level: state.product==='absolute' ? state.level : '',
+    duration: state.duration, roadside: state.roadside, awd: state.awd
+  };
+}
+
+
+// === WARRANTY SIGN-UP QUESTIONS (Integrity lodgement requirements) ===
+function isWarrantySale(){ return state.product !== 'roadside'; }
+function syncWarrantyOnly(){
+  document.querySelectorAll('#w-extra .wo').forEach(el=>{ el.style.display = isWarrantySale() ? '' : 'none'; });
+}
+function radioVal(name){ const r=document.querySelector('input[name="'+name+'"]:checked'); return r ? r.value : ''; }
+function qualifyingAnswers(){ return [1,2,3,4,5,6].map(i=>radioVal('q'+i)); }
+document.addEventListener('change', e=>{
+  if(e.target && /^q[1-6]$/.test(e.target.name)){
+    const stop=document.getElementById('q-stop');
+    if(stop) stop.style.display = qualifyingAnswers().includes('no') ? 'block' : 'none';
+  }
+});
+function fileToPayload(file, maxDim, quality){
+  return new Promise((resolve,reject)=>{
+    if(!file) return resolve(null);
+    const name = (file.name||'upload').replace(/[^\w.\-]/g,'_').slice(0,60);
+    if(file.type && file.type.indexOf('image/')===0){
+      const img = new Image(); const url = URL.createObjectURL(file);
+      img.onload = ()=>{
+        const s = Math.min(1, maxDim/Math.max(img.width,img.height));
+        const c = document.createElement('canvas'); c.width=Math.round(img.width*s); c.height=Math.round(img.height*s);
+        c.getContext('2d').drawImage(img,0,0,c.width,c.height); URL.revokeObjectURL(url);
+        resolve({ name: name.replace(/\.\w+$/,'')+'.jpg', type:'image/jpeg', data: c.toDataURL('image/jpeg', quality).split(',')[1] });
+      };
+      img.onerror = ()=>reject(new Error('Could not read the photo. Please try a different image.'));
+      img.src = url;
+    } else {
+      if(file.size > 8*1024*1024) return reject(new Error('The condition report file is too large (max 8 MB).'));
+      const fr = new FileReader();
+      fr.onload = ()=>resolve({ name, type: file.type||'application/octet-stream', data: String(fr.result).split(',')[1] });
+      fr.onerror = ()=>reject(new Error('Could not read the condition report file.'));
+      fr.readAsDataURL(file);
+    }
+  });
+}
+function validateSignup(){
+  const v = id => (document.getElementById(id).value||'').trim();
+  const rego = v('c-rego').toUpperCase().replace(/\s+/g,'');
+  if(!/^[A-Z0-9]{2,9}$/.test(rego)) return 'Please enter the vehicle registration number.';
+  if(!v('c-regostate')) return 'Please select the state the vehicle is registered in.';
+  if(v('c-street').length < 4) return 'Please enter your street address.';
+  if(!isWarrantySale()) return '';
+  const vin = v('c-vin').toUpperCase().replace(/\s+/g,'');
+  if(!/^[A-HJ-NPR-Z0-9]{17}$/.test(vin)) return 'Please enter the 17-character VIN (it does not contain the letters I, O or Q).';
+  const photo = document.getElementById('c-odophoto').files[0];
+  if(!photo) return 'Please upload a photo of the odometer showing the current kilometres.';
+  if(!radioVal('p-buying')) return 'Please tell us whether you are buying the vehicle now.';
+  if(!radioVal('p-from')) return 'Please tell us whether the vehicle was bought privately or from a dealer.';
+  const qa = qualifyingAnswers();
+  if(qa.includes('')) return 'Please answer all six questions under "Before you buy, please confirm".';
+  if(qa.includes('no')) return "Based on your answers, we can't sell this warranty online. Please request a callback instead.";
+  return '';
+}
+function signupPayload(){
+  const v = id => (document.getElementById(id).value||'').trim();
+  const p = { rego: v('c-rego').toUpperCase().replace(/\s+/g,''), regoState: v('c-regostate'), street: v('c-street'), company: v('c-company') };
+  if(isWarrantySale()){
+    p.vin = v('c-vin').toUpperCase().replace(/\s+/g,'');
+    p.buyingNow = radioVal('p-buying'); p.purchaseFrom = radioVal('p-from');
+    p.qualifying = qualifyingAnswers().map(a=>a==='yes'?'Y':'N').join(''); p.qualifyingAt = new Date().toISOString();
+  }
+  return p;
+}
+
+// === STRIPE INIT ===
+async function initStripe(){
+  if(paymentElement) return; // already initialised
+  const {base,awd,rs,total} = calcTotal();
+  const amountCents = Math.round(total * 100);
+
+  // Call n8n to create PaymentIntent
+  let clientSecret;
+  try {
+    const res = await fetch(CONFIG.N8N_CREATE_INTENT, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        amount: amountCents,
+        customerName: document.getElementById('c-first').value+' '+document.getElementById('c-last').value,
+        email: document.getElementById('c-email').value,
+        phone: document.getElementById('c-phone').value,
+        product: state.product==='roadside' ? roadsideProductLabel() : 'Absolute Warranty Cat '+state.cat+' Level '+state.level,
+        ...vehiclePayload()
+      })
+    });
+    const data = await res.json();
+    clientSecret = data.clientSecret;
+  } catch(e){
+    // Fallback for development — show element without real intent
+    console.warn('n8n not reachable, using test mode');
+    clientSecret = null;
+  }
+
+  stripe = Stripe(CONFIG.STRIPE_PK);
+  if(clientSecret){
+    elements = stripe.elements({clientSecret});
+  } else {
+    elements = stripe.elements({mode:'payment', amount: amountCents, currency:'aud'});
+  }
+  paymentElement = elements.create('payment', {
+    layout: 'tabs',
+    wallets: { googlePay: 'auto', applePay: 'auto' }
+  });
+  paymentElement.mount('#payment-element');
+}
+
+// === PAYMENT SUBMIT ===
+async function submitPayment(){
+  const btn = document.getElementById('pay-btn');
+  const msg = document.getElementById('payment-message');
+  const first = document.getElementById('c-first').value.trim();
+  const last  = document.getElementById('c-last').value.trim();
+  const email = document.getElementById('c-email').value.trim();
+  const phone = document.getElementById('c-phone').value.trim();
+  const suburb = document.getElementById('c-suburb').value.trim();
+  const stateV = document.getElementById('c-state').value;
+  const postcode = document.getElementById('c-postcode').value.trim();
+  const accepted = document.getElementById('pay-accept').checked;
+
+  if(!first||!last||!email||!phone||!suburb||!stateV||!postcode){
+    msg.style.display='block'; msg.textContent='Please fill in all required fields.'; return;
+  }
+  const signupErr = validateSignup();
+  if(signupErr){ msg.style.display='block'; msg.textContent=signupErr; return; }
+  if(!accepted){
+    msg.style.display='block'; msg.textContent='Please read the warranty PDS and Terms and Conditions and tick the box to confirm you agree to them.'; return;
+  }
+  state.termsAcceptedAt = new Date().toISOString();
+  if(!/^\d{4}$/.test(postcode)){
+    msg.style.display='block'; msg.textContent='Please enter a valid 4-digit Australian postcode.'; return;
+  }
+
+  btn.disabled = true;
+  document.getElementById('pay-btn-text').innerHTML = '<span class="spinner"></span> Processing…';
+  if(window.mdsTrack) window.mdsTrack('checkout_details', { value: calcTotal().total, currency:'AUD', product: state.product==='roadside' ? roadsideProductLabel() : 'Absolute Cat '+state.cat+' L'+state.level });
+
+  const {error} = await elements.submit();
+  if(error){ showError(error.message); return; }
+
+  const {base,awd,rs,total} = calcTotal();
+  const amountCents = Math.round(total*100);
+
+  let uploads = {};
+  try{
+    if(isWarrantySale()){
+      const files = { odoPhoto: await fileToPayload(document.getElementById('c-odophoto').files[0], 1600, 0.8) };
+      const vcrFile = document.getElementById('c-vcr').files[0];
+      if(vcrFile) files.vcr = await fileToPayload(vcrFile, 2000, 0.85);
+      // Files go to a separate n8n intake (emailed to admin@); only the upload id travels with the payment.
+      try{
+        const ur = await fetch(CONFIG.N8N_UPLOAD, { method:'POST', headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({ customerName: first+' '+last, email, phone, rego: document.getElementById('c-rego').value.trim().toUpperCase(), vehicle: [state.make, state.model, state.year].join(' '), files }) });
+        const uj = await ur.json(); uploads = { uploadId: uj.uploadId || '', uploadStatus: ur.ok ? 'received' : 'failed' };
+      } catch(err){ uploads = { uploadId:'', uploadStatus:'failed' }; }
+      uploads.vcrProvided = !!files.vcr;
+    }
+  } catch(e){ showError(e.message); return; }
+
+  let clientSecret;
+  try{
+    const res = await fetch(CONFIG.N8N_CREATE_INTENT,{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        amount: amountCents,
+        customerName: first+' '+last,
+        email, phone,
+        product: state.product==='roadside' ? roadsideProductLabel() : 'Absolute Warranty Cat '+state.cat+' Level '+state.level,
+        firstName:first, lastName:last, suburb, state:stateV, postcode,
+        termsAccepted: true, termsAcceptedAt: state.termsAcceptedAt, pdsVersion: 'IABSI V3.5',
+        ...vehiclePayload(), ...signupPayload(), ...uploads
+      })
+    });
+    const data = await res.json();
+    clientSecret = data.clientSecret;
+  } catch(e){ showError('Could not connect to payment server. Please try again.'); return; }
+
+  const result = await stripe.confirmPayment({
+    elements, clientSecret,
+    confirmParams:{
+      return_url: window.location.origin+'/confirmation.html?amount='+(amountCents/100),
+      payment_method_data:{billing_details:{name:first+' '+last, email, phone, address:{city:suburb,state:stateV,postal_code:postcode,country:'AU'}}}
+    }
+  });
+  if(result.error) showError(result.error.message);
+}
+
+function showError(msg){
+  const el = document.getElementById('payment-message');
+  el.style.display='block'; el.textContent=msg;
+  const btn = document.getElementById('pay-btn');
+  btn.disabled=false;
+  document.getElementById('pay-btn-text').textContent='Pay Securely Now';
+}
+
+function startRoadsideOnly(){
+  selectProduct('roadside');
+  goStep(1);
+  window.mdsTrack && window.mdsTrack('roadside_only_start', {});
+}
+
+// === CALLBACK / QUOTE REQUEST (lead capture) ===
+let callbackReturnStep = 1;
+let callbackSource = '';
+function showCallback(from){
+  callbackSource = from || '';
+  callbackReturnStep = (from === 'absolute') ? 4 : (from === 'endurance') ? 2 : 1;
+  // Prefill from wizard state where possible
+  const first = document.getElementById('c-first'); if(first && first.value && !document.getElementById('cb-first').value) document.getElementById('cb-first').value = first.value;
+  const last  = document.getElementById('c-last');  if(last  && last.value  && !document.getElementById('cb-last').value)  document.getElementById('cb-last').value  = last.value;
+  const email = document.getElementById('c-email'); if(email && email.value && !document.getElementById('cb-email').value) document.getElementById('cb-email').value = email.value;
+  const phone = document.getElementById('c-phone'); if(phone && phone.value && !document.getElementById('cb-phone').value) document.getElementById('cb-phone').value = phone.value;
+  const stateSel = document.getElementById('c-state'); if(stateSel && stateSel.value) document.getElementById('cb-state').value = stateSel.value;
+  const cbm = document.getElementById('cb-model'); if(cbm && !cbm.value && state.model) cbm.value = state.model;
+  const intro = document.getElementById('cb-intro');
+  if(from === 'roadside') intro.textContent = 'Just want roadside assistance? Leave your details and a MyDriveShield consultant will call you within one business day to set up 3-Star or 5-Star cover — no warranty required.';
+  else if(from === 'endurance') intro.textContent = 'Endurance Warranty pricing is customised to your vehicle and coverage option. Leave your details and a MyDriveShield consultant will contact you within one business day with a personalised quote.';
+  else if(from === 'absolute') intro.textContent = 'Not ready to pay today? Leave your details and a MyDriveShield consultant will call you within one business day to confirm eligibility and finalise your cover.';
+  else intro.textContent = 'Leave your details and a MyDriveShield consultant will call you within one business day with a personalised quote.';
+  const instantBox = document.getElementById('cb-instant');
+  if(instantBox) instantBox.style.display = (from === 'endurance') ? 'none' : 'block';
+  for(let i=1;i<=4;i++){ const el=document.getElementById('step-'+i); if(el) el.style.display='none'; }
+  document.getElementById('step-callback').style.display='block';
+  document.getElementById('cb-success').style.display='none';
+  document.getElementById('callback-form').style.display='block';
+  window.mdsTrack && window.mdsTrack('callback_form_open', { source: from || 'direct' });
+  window.scrollTo({top: document.getElementById('quote').offsetTop - 80, behavior:'smooth'});
+}
+// Instant-quote prompt: send price-seekers back to the wizard instead of waiting on email
+function cbInstantQuote(){
+  window.mdsTrack && window.mdsTrack('callback_instant_quote_click', { source: callbackSource || 'direct' });
+  if(callbackSource==='roadside'){ startRoadsideOnly(); } else { goStep(1); }
+  const q=document.getElementById('quote'); if(q) window.scrollTo({top:q.offsetTop-80,behavior:'smooth'});
+}
+(function(){
+  const notes=document.getElementById('cb-notes');
+  if(!notes) return;
+  const re=/(price|pricing|quote|cost|how much)/i;
+  let fired=false;
+  notes.addEventListener('input',function(){
+    const hint=document.getElementById('cb-price-hint');
+    if(!hint) return;
+    if(re.test(notes.value) && callbackSource!=='endurance'){
+      hint.style.display='block';
+      if(!fired){ fired=true; window.mdsTrack && window.mdsTrack('callback_price_keyword', {}); }
+    } else { hint.style.display='none'; }
+  });
+})();
+// goStep() hides only step-1..4, so make sure the callback card is hidden when navigating
+(function(){
+  const _goStep = goStep;
+  goStep = function(n){ const cb=document.getElementById('step-callback'); if(cb) cb.style.display='none'; return _goStep(n); };
+})();
+
+function attributionData(){
+  const q = new URLSearchParams(location.search);
+  const keys = ['gclid','gbraid','wbraid','utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
+  const out = {};
+  keys.forEach(k=>{ const v = q.get(k) || sessionStorage.getItem('mds_'+k); if(v){ out[k]=v; try{ sessionStorage.setItem('mds_'+k, v);}catch(e){} } });
+  out.landing = location.href.split('#')[0];
+  out.referrer = document.referrer || '';
+  return out;
+}
+// Capture attribution on first load so it survives in-page navigation
+try{ attributionData(); }catch(e){}
+
+async function submitCallback(e){
+  e.preventDefault();
+  const msg = document.getElementById('cb-message');
+  const btn = document.getElementById('cb-btn');
+  const v = id => (document.getElementById(id).value || '').trim();
+  const first=v('cb-first'), last=v('cb-last'), phone=v('cb-phone'), email=v('cb-email'), stateV=v('cb-state'), contact=v('cb-contact');
+  const consent = document.getElementById('cb-consent').checked;
+  msg.style.display='none';
+  if(document.getElementById('cb-website').value){ return; } // honeypot
+  if(!first||!last||!phone||!email||!stateV){ msg.style.display='block'; msg.textContent='Please fill in all required fields.'; return; }
+  if(!/^(\+?61|0)[2-9]\d{8}$/.test(phone.replace(/[\s\-()]/g,''))){ msg.style.display='block'; msg.textContent='Please enter a valid Australian phone number.'; return; }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ msg.style.display='block'; msg.textContent='Please enter a valid email address.'; return; }
+  if(!contact){ msg.style.display='block'; msg.textContent='Please choose how you would like us to contact you: email, SMS or phone call.'; return; }
+  if(!consent){ msg.style.display='block'; msg.textContent='Please tick the consent box so we are allowed to contact you.'; return; }
+
+  btn.disabled = true;
+  document.getElementById('cb-btn-text').innerHTML = '<span class="spinner"></span> Sending…';
+
+  const est = (callbackSource!=='roadside' && state.product==='absolute' && ABSOLUTE[state.cat] && ABSOLUTE[state.cat][state.level]) ? calcTotal().total : 0;
+  const product = callbackSource==='roadside' ? 'Roadside Assistance ONLY (3 or 5 Star — confirm on call)'
+                : state.product==='endurance' ? 'Endurance Warranty (POA)'
+                : 'Absolute Warranty Cat '+state.cat+' Level '+state.level+' '+state.duration+'yr'+(state.roadside!=='none'?' + '+state.roadside.replace('star',' ')+' Star Roadside':'');
+  const notes = [
+    'WEBSITE CALLBACK REQUEST',
+    'Preferred contact: '+v('cb-contact')+' ('+v('cb-time')+')',
+    est ? 'Indicative price shown on site: $'+est.toLocaleString('en-AU')+' incl. GST' : 'Price: on enquiry',
+    v('cb-notes') ? 'Customer note: '+v('cb-notes') : '',
+    'Consent given: '+new Date().toISOString()
+  ].filter(Boolean).join(' | ');
+
+  const payload = {
+    source: 'website-quote',
+    leadType: 'private-callback',
+    partner: { firstName:'Website', lastName:'Callback', email:'info@mydriveshield.com.au', phone:'', company:'mydriveshield.com.au', type:'website' },
+    client: { firstName:first, lastName:last, email:email, phone:phone, state:stateV, preferredContact:v('cb-contact'), bestTime:v('cb-time') },
+    vehicle: { make:state.make||'', model:v('cb-model')||state.model||'', year:state.year||'', odo:state.odo||'', awd:!!state.awd, category:state.cat },
+    productInterest: product,
+    estimatedValue: est,
+    notes: notes,
+    consent: { marketingContact:true, privacy:true, timestamp:new Date().toISOString(), text:document.querySelector('label[for="cb-consent"]').textContent.trim() },
+    attribution: attributionData(),
+    submittedAt: new Date().toISOString()
+  };
+
+  try{
+    const res = await fetch(CONFIG.N8N_PARTNER_LEAD, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
+    if(!res.ok) throw new Error('Server error '+res.status);
+    document.getElementById('callback-form').style.display='none';
+    document.getElementById('cb-success').style.display='block';
+    window.mdsTrack && window.mdsTrack('quote_request', { value: est || 0, currency:'AUD', product: state.product, lead_source: 'website-quote' });
+  }catch(err){
+    msg.style.display='block';
+    msg.textContent='Sorry, we could not send your request. Please call 0477 666 500 or email info@mydriveshield.com.au.';
+    btn.disabled=false;
+    document.getElementById('cb-btn-text').textContent='Request My Callback →';
+  }
+}
+
+// Init
+updatePrices();
+</script>
+<script>
+  const hdr=document.getElementById('hdr');
+  addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>10));
+  const burger=document.getElementById('burger'),menu=document.getElementById('menu');
+  burger.addEventListener('click',()=>menu.classList.toggle('open'));
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>menu.classList.remove('open')));
+  document.querySelectorAll('.qa button').forEach(b=>b.addEventListener('click',()=>{
+    const qa=b.parentElement, open=qa.classList.contains('open');
+    document.querySelectorAll('.qa').forEach(x=>x.classList.remove('open'));
+    if(!open) qa.classList.add('open');
+  }));
+</script>
+</body>
+</html>
