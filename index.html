@@ -610,9 +610,9 @@ document.addEventListener('click', function(ev){
           <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Fully transferable on private sale</li>
           <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> 4 qualification options available</li>
         </ul>
-        <div class="prod-from">Custom pricing</div>
-        <div class="prod-price" style="font-size:20px">Contact for quote</div>
-        <a href="#quote" class="btn btn-ghost" style="margin-top:16px;width:100%;justify-content:center">Enquire About Endurance →</a>
+        <div class="prod-from">From (Option 1, 12 months)</div>
+        <div class="prod-price">$746 <span>incl. GST</span></div>
+        <a href="#quote" class="btn btn-ghost" style="margin-top:16px;width:100%;justify-content:center" onclick="startEndurance();return false">Get Endurance Quote →</a>
       </div>
     </div>
   </div>
@@ -851,6 +851,22 @@ document.addEventListener('click', function(ev){
       </div>
     </div>
 
+    <div style="margin-bottom:28px">
+      <h4 style="font-size:15px;font-weight:800;color:var(--navy);margin-bottom:6px">Endurance Warranty Pricing</h4>
+      <p style="font-size:13.5px;color:var(--muted);margin-bottom:12px">Flat price for all makes and models (no vehicle category). Covers 20 named components. Your option is set by vehicle age and kilometres at purchase; Option 1 has no limits.</p>
+      <div class="ptable-wrap">
+        <table class="ptable">
+          <thead><tr><th>Option</th><th>Eligibility</th><th>Claim limit: engine, gearbox, diff, turbo</th><th>Claim limit: other components</th><th>12 months</th><th>36 months</th><th>60 months</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Option 1</strong></td><td>Any age or km</td><td>$2,000</td><td>$750</td><td class="price">$746</td><td class="price">$942</td><td class="price">$1,121</td></tr>
+            <tr><td><strong>Option 2</strong></td><td>≤15 yrs · &lt;200,000 km</td><td>$3,000</td><td>$1,250</td><td class="price">$942</td><td class="price">$1,300</td><td class="price">$1,478</td></tr>
+            <tr><td><strong>Option 3</strong></td><td>≤10 yrs · &lt;160,000 km</td><td>$5,000</td><td>$1,500</td><td class="price">$1,308</td><td class="price">$1,541</td><td class="price">$1,933</td></tr>
+            <tr><td><strong>Option 4</strong></td><td>≤8 yrs · &lt;120,000 km</td><td>$7,000</td><td>$2,500</td><td class="price">$1,657</td><td class="price">$1,933</td><td class="price">$2,291</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
     <div class="pricing2col">
       <div>
         <h4 style="font-size:15px;font-weight:800;color:var(--navy);margin-bottom:12px">Roadside Assistance Add-On</h4>
@@ -875,7 +891,7 @@ document.addEventListener('click', function(ev){
         </div>
       </div>
     </div>
-    <p class="price-note">Prices current as at 29/07/2026, per Integrity Car Care Absolute Retail Pricelist V2.0. POA — price on application, contact us for a personalised quote. Per-claim limits apply and vary by cover level; full details are set out in the product terms and confirmed with your quote.</p>
+    <p class="price-note">Prices current as at 29/07/2026, per Integrity Car Care Absolute Retail Pricelist V2.0 and Endurance Retail Pricelist V2.0. POA — price on application, contact us for a personalised quote. Per-claim limits apply and vary by cover level; full details are set out in the product terms and confirmed with your quote.</p>
   </div>
 </section>
 
@@ -1014,7 +1030,27 @@ document.addEventListener('click', function(ev){
           </div>
         </div>
         <div id="no-level-note" style="display:none;background:#FFF7ED;border:1px solid #FDBA74;border-radius:var(--r);padding:20px;margin-bottom:8px">
-          <p style="font-size:14.5px;color:var(--gray-700)">Based on the age and kilometres entered, your vehicle may not qualify for Absolute cover. The <strong>Endurance Warranty (Option 1)</strong> has no age or kilometre limits — select it above to enquire, or call us on <a href="tel:0477666500" style="color:var(--accent);font-weight:700">0477 666 500</a>.</p>
+          <p style="font-size:14.5px;color:var(--gray-700)">Based on the age and kilometres entered, your vehicle may not qualify for Absolute cover. The <strong>Endurance Warranty (Option 1)</strong> has no age or kilometre limits — select it above for an instant price, or call us on <a href="tel:0477666500" style="color:var(--accent);font-weight:700">0477 666 500</a>.</p>
+        </div>
+        <div id="endurance-duration" style="display:none">
+          <label style="font-size:13px;font-weight:600;color:var(--gray-700);display:block;margin-bottom:12px">Cover Option <span style="color:var(--gray-400);font-weight:500">(eligibility based on your vehicle's age &amp; kilometres)</span></label>
+          <div class="level-grid">
+            <div class="lv-btn" id="eo1" onclick="selectEndOption(1)"><div class="lv-name">Option 1</div><div class="lv-limit">$2,000 / $750</div><div class="lv-qual">Any age<br>Any km</div></div>
+            <div class="lv-btn" id="eo2" onclick="selectEndOption(2)"><div class="lv-name">Option 2</div><div class="lv-limit">$3,000 / $1,250</div><div class="lv-qual">≤15 yrs<br>&lt;200,000 km</div></div>
+            <div class="lv-btn" id="eo3" onclick="selectEndOption(3)"><div class="lv-name">Option 3</div><div class="lv-limit">$5,000 / $1,500</div><div class="lv-qual">≤10 yrs<br>&lt;160,000 km</div></div>
+            <div class="lv-btn" id="eo4" onclick="selectEndOption(4)"><div class="lv-name">Option 4</div><div class="lv-limit">$7,000 / $2,500</div><div class="lv-qual">≤8 yrs<br>&lt;120,000 km</div></div>
+          </div>
+          <p style="font-size:12.5px;color:var(--gray-500);margin:-8px 0 16px">Claim limits per claim: engine, gearbox, differential and turbo / all other listed components. 20 named components covered; see <a href="#coverage" style="color:var(--accent);font-weight:600">What's Covered</a>.</p>
+          <label style="font-size:13px;font-weight:600;color:var(--gray-700);display:block;margin-bottom:12px">Coverage Duration</label>
+          <div class="duration-grid" style="grid-template-columns:repeat(3,1fr)">
+            <div class="dur-btn" onclick="selectDuration(1)" id="ed1"><div class="yr">1</div><div class="yr-label">Year</div></div>
+            <div class="dur-btn selected" onclick="selectDuration(3)" id="ed3"><div class="yr">3</div><div class="yr-label">Years</div></div>
+            <div class="dur-btn" onclick="selectDuration(5)" id="ed5"><div class="yr">5</div><div class="yr-label">Years</div></div>
+          </div>
+          <div class="price-summary" id="price-sum-2e">
+            <h4>Price Summary</h4>
+            <div id="ps2e-lines"></div>
+          </div>
         </div>
         <div id="endurance-enquiry" style="display:none;background:var(--light);border-radius:var(--r);padding:24px;border:1px dashed var(--gray-300)">
           <p style="font-size:15px;color:var(--gray-600);margin-bottom:16px">Endurance Warranty pricing is customised based on your vehicle and coverage option. A MyDriveShield consultant will contact you within one business day with a personalised quote.</p>
@@ -1393,6 +1429,12 @@ const CLAIM_LIMIT = {1:'$2,000', 2:'$5,000', 3:'$8,000', 4:'Market value'};
 // Level qualification (at date of purchase): [max vehicle age yrs, max odometer km]
 const LEVEL_QUAL = {1:[15,220000], 2:[12,180000], 3:[10,140000], 4:[8,120000]};
 const ROADSIDE = { star3:[88,176,264,352,440], star5:[154,300,398,510,610] };
+// ENDURANCE per Integrity Endurance Retail Pricelist V2.0 (flat price, no vehicle category). Terms 12 / 36 / 60 months.
+const ENDURANCE = { 1:{1:746,3:942,5:1121}, 2:{1:942,3:1300,5:1478}, 3:{1:1308,3:1541,5:1933}, 4:{1:1657,3:1933,5:2291} };
+// Option qualification: [max age yrs, max km]. Option 1 has no limits.
+const END_QUAL = { 1:[999,Infinity], 2:[15,200000], 3:[10,160000], 4:[8,120000] };
+// Claim limits: [engine/gearbox/diff/turbo, all other listed components]
+const END_LIMIT = { 1:['$2,000','$750'], 2:['$3,000','$1,250'], 3:['$5,000','$1,500'], 4:['$7,000','$2,500'] };
 const AWD_SURCHARGE = 110;
 
 // Make → default category
@@ -1456,7 +1498,7 @@ function resolveCategory(make, model, year, fuel){
 // === STATE ===
 let state = {
   make:'', model:'', year:'', odo:'', fuel:'ice', cat:1, awd:false,
-  product:'absolute', level:1, duration:2, roadside:'star3'
+  product:'absolute', level:1, eopt:1, duration:2, roadside:'star3'
 };
 let stripe = null, elements = null, paymentElement = null;
 
@@ -1526,13 +1568,15 @@ function selectProduct(p){
   document.getElementById('ps-endurance').classList.toggle('selected', p==='endurance');
   document.getElementById('ps-roadside').classList.toggle('selected', p==='roadside');
   document.getElementById('absolute-duration').style.display = p==='absolute'?'block':'none';
-  document.getElementById('endurance-enquiry').style.display = p==='endurance'?'block':'none';
+  document.getElementById('endurance-duration').style.display = p==='endurance'?'block':'none';
+  document.getElementById('endurance-enquiry').style.display = 'none';
   document.getElementById('roadside-only-note').style.display = p==='roadside'?'block':'none';
   document.getElementById('no-level-note').style.display = p==='absolute' ? document.getElementById('no-level-note').style.display : 'none';
-  document.getElementById('next2').style.display = (p==='absolute'||p==='roadside')?'inline-flex':'none';
+  document.getElementById('next2').style.display = 'inline-flex';
   document.getElementById('next2').textContent = p==='roadside' ? 'Next: Choose Plan →' : 'Next: Roadside →';
   if(p==='roadside'){ if(state.roadside==='none') state.roadside='star3'; }
   if(p==='absolute') updateLevelAvail();
+  if(p==='endurance'){ if(![1,3,5].includes(state.duration)) selectDuration(3); updateEndAvail(true); }
   applyRoadsideOnlyUI();
   updatePrices();
 }
@@ -1545,7 +1589,9 @@ function applyRoadsideOnlyUI(){
   if(ro){ for(let i=1;i<=5;i++){ const rd=document.getElementById('rd'+i); if(rd) rd.classList.toggle('selected', i===state.duration); } }
   if(ro && state.roadside==='none') selectRoadside('star3');
   const termsLbl = document.querySelector('label[for="pay-accept"]');
-  if(termsLbl) termsLbl.innerHTML = ro
+  if(termsLbl) termsLbl.innerHTML = state.product==='endurance'
+    ? 'I have read the ' + (window.END_TERMS_OK ? '<a href="/docs/integrity-endurance-warranty-terms.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">Integrity Endurance Motor Vehicle Warranty terms and conditions</a>' : '<strong>Integrity Endurance Motor Vehicle Warranty terms and conditions</strong> (emailed with your certificate, or call 0477 666 500 for a copy now)') + ' (including the 20 covered components, claim limits, servicing requirements and the need to obtain Integrity\'s authorisation before any repair) and I agree to them. I confirm the vehicle details I entered are accurate. *'
+    : ro
     ? 'I have read the <a href="/docs/integrity-absolute-warranty-pds-v3.5.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">product terms and conditions</a> for the roadside assistance plan I am buying and I agree to them. I confirm the details I entered are accurate. *'
     : 'I have read the <a href="/docs/integrity-absolute-warranty-pds-v3.5.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">Integrity Absolute Motor Vehicle Warranty PDS and Terms and Conditions</a> (including the servicing requirements and the need to obtain Integrity\'s authorisation before any repair) and I agree to them. I confirm the vehicle details I entered are accurate. *';
   const payIntro = document.getElementById('step4-intro');
@@ -1565,7 +1611,7 @@ function levelAvailable(n){
   return priced && age <= maxAge && parseInt(state.odo,10) < maxKm;
 }
 
-function updateLevelAvail(){
+function updateLevelAvail(pickBest){
   let firstOk = 0;
   for(let n=1;n<=4;n++){
     const ok = levelAvailable(n);
@@ -1585,7 +1631,7 @@ function updateLevelAvail(){
     durBits.forEach(e=>e.style.display='');
     if(state.product==='absolute') document.getElementById('next2').style.display='inline-flex';
     let lastOk = 0; for(let n=1;n<=4;n++){ if(levelAvailable(n)) lastOk = n; }
-    if(!levelAvailable(state.level)) selectLevel(lastOk || firstOk); else selectLevel(state.level);
+    if(pickBest || !levelAvailable(state.level)) selectLevel(lastOk || firstOk); else selectLevel(state.level);
   }
 }
 
@@ -1596,6 +1642,37 @@ function selectLevel(n){
   updatePrices();
 }
 
+// === ENDURANCE OPTIONS ===
+function endOptionAvailable(n){
+  if(n===1) return true;
+  if(!state.year || !state.odo) return true;
+  const age = new Date().getFullYear() - parseInt(state.year,10);
+  const [maxAge, maxKm] = END_QUAL[n];
+  return age <= maxAge && parseInt(state.odo,10) < maxKm;
+}
+function updateEndAvail(pickBest){
+  let best = 1;
+  for(let n=1;n<=4;n++){
+    const ok = endOptionAvailable(n);
+    document.getElementById('eo'+n).classList.toggle('disabled', !ok);
+    if(ok) best = n;
+  }
+  if(pickBest || !endOptionAvailable(state.eopt)) selectEndOption(best); else selectEndOption(state.eopt);
+}
+function selectEndOption(n){
+  if(!endOptionAvailable(n)) return;
+  state.eopt = n;
+  for(let i=1;i<=4;i++) document.getElementById('eo'+i).classList.toggle('selected', i===n);
+  updatePrices();
+}
+
+// One label for every product, used for Stripe, tracking and the callback form
+function productLabel(){
+  if(state.product==='roadside') return roadsideProductLabel();
+  if(state.product==='endurance') return 'Endurance Warranty Option '+state.eopt+' '+state.duration+'yr';
+  return 'Absolute Warranty Cat '+state.cat+' Level '+state.level;
+}
+
 // === PRICING TABS (public pricing section) ===
 function showPricing(n){
   document.querySelectorAll('.pricing-tab').forEach((t,i)=>t.classList.toggle('active', i===n-1));
@@ -1604,10 +1681,12 @@ function showPricing(n){
 
 // === DURATION ===
 function selectDuration(n){
+  if(state.product==='endurance' && ![1,3,5].includes(n)) return;
   state.duration = n;
   for(let i=1;i<=5;i++){
     document.getElementById('d'+i).classList.toggle('selected',i===n);
     const rd=document.getElementById('rd'+i); if(rd) rd.classList.toggle('selected',i===n);
+    const ed=document.getElementById('ed'+i); if(ed) ed.classList.toggle('selected',i===n);
   }
   updatePrices();
 }
@@ -1624,6 +1703,11 @@ function calcTotal(){
   const rs = state.roadside==='star3' ? ROADSIDE.star3[state.duration-1]
            : state.roadside==='star5' ? ROADSIDE.star5[state.duration-1] : 0;
   if(state.product==='roadside') return {base:0, awd:0, rs, total: rs};
+  if(state.product==='endurance'){
+    const base = (ENDURANCE[state.eopt]||{})[state.duration] || 0;
+    const awd = state.awd ? AWD_SURCHARGE : 0;
+    return {base, awd, rs, total: base+awd+rs};
+  }
   const prices = ABSOLUTE[state.cat][state.level];
   const base = prices ? prices[state.duration-1] : 0;
   const awd = state.awd ? AWD_SURCHARGE : 0;
@@ -1644,6 +1728,24 @@ function updatePrices(){
       <div class="price-line"><span>${rsLabel} Assistance (${dur})</span><span>${fmt(rs)}</span></div>
       <div class="price-line"><span>24/7 towing · battery · tyre · fuel · lockout</span><span>Included</span></div>
       <div class="price-line total"><span>Total (incl. GST)</span><span class="amount">${fmt(rs)}</span></div>`;
+    });
+    document.getElementById('rs3-price').textContent = '+'+fmt(ROADSIDE.star3[state.duration-1]);
+    document.getElementById('rs5-price').textContent = '+'+fmt(ROADSIDE.star5[state.duration-1]);
+    return;
+  }
+  if(state.product === 'endurance'){
+    const {base,awd,rs,total} = calcTotal();
+    const dur = state.duration===1?'1 Year':state.duration+' Years';
+    const rsLabel = state.roadside==='star3'?'3 Star Roadside':state.roadside==='star5'?'5 Star Roadside':null;
+    ['ps2e-lines','ps3-lines','ps4-lines'].forEach(id=>{
+      const el=document.getElementById(id); if(!el) return;
+      el.innerHTML = `
+      <div class="price-line"><span>Vehicle</span><span>${[state.make,state.model,state.year].filter(Boolean).join(' ')}${state.odo?' · '+Number(state.odo).toLocaleString()+' km':''}</span></div>
+      <div class="price-line"><span>Endurance Warranty (Option ${state.eopt}, ${dur})</span><span>${fmt(base)}</span></div>
+      <div class="price-line"><span>Claim limits</span><span>${END_LIMIT[state.eopt][0]} engine/gearbox/diff/turbo · ${END_LIMIT[state.eopt][1]} other</span></div>
+      ${awd?`<div class="price-line"><span>4WD/AWD surcharge</span><span>${fmt(awd)}</span></div>`:''}
+      ${rs?`<div class="price-line"><span>${rsLabel} (${dur})</span><span>${fmt(rs)}</span></div>`:''}
+      <div class="price-line total"><span>Total (incl. GST)</span><span class="amount">${fmt(total)}</span></div>`;
     });
     document.getElementById('rs3-price').textContent = '+'+fmt(ROADSIDE.star3[state.duration-1]);
     document.getElementById('rs5-price').textContent = '+'+fmt(ROADSIDE.star5[state.duration-1]);
@@ -1676,13 +1778,13 @@ function goStep(n){
   // Validate step 1
   if(n>1 && !validateStep1()) return;
   // Refresh level eligibility from vehicle details
-  if(n===2) updateLevelAvail();
+  if(n===2){ updateLevelAvail(true); updateEndAvail(true); }
   // Init Stripe when hitting step 4
   if(n===3) applyRoadsideOnlyUI();
   if(n===4 && state.product==='roadside' && state.roadside==='none') selectRoadside('star3');
   if(n===4) syncWarrantyOnly();
-  if(n===4 && (state.product==='absolute'||state.product==='roadside')) initStripe();
-  if(n===4 && window.mdsTrack) window.mdsTrack('begin_checkout', { value: calcTotal().total, currency:'AUD', product: state.product==='roadside' ? roadsideProductLabel() : 'Absolute Cat '+state.cat+' L'+state.level });
+  if(n===4) initStripe();
+  if(n===4 && window.mdsTrack) window.mdsTrack('begin_checkout', { value: calcTotal().total, currency:'AUD', product: productLabel() });
 
   for(let i=1;i<=4;i++){
     const el = document.getElementById('step-'+i);
@@ -1715,7 +1817,7 @@ function vehiclePayload(){
   return {
     vehicleMake: state.make, vehicleModel: state.model, vehicleYear: state.year,
     odometer: state.odo, drive: state.awd ? '4WD/AWD' : '2WD', fuel: state.fuel,
-    cat: state.cat, level: state.product==='absolute' ? state.level : '',
+    cat: state.cat, level: state.product==='absolute' ? state.level : state.product==='endurance' ? 'Opt'+state.eopt : '',
     duration: state.duration, roadside: state.roadside, awd: state.awd
   };
 }
@@ -1805,7 +1907,7 @@ async function initStripe(){
         customerName: document.getElementById('c-first').value+' '+document.getElementById('c-last').value,
         email: document.getElementById('c-email').value,
         phone: document.getElementById('c-phone').value,
-        product: state.product==='roadside' ? roadsideProductLabel() : 'Absolute Warranty Cat '+state.cat+' Level '+state.level,
+        product: productLabel(),
         ...vehiclePayload()
       })
     });
@@ -1858,7 +1960,7 @@ async function submitPayment(){
 
   btn.disabled = true;
   document.getElementById('pay-btn-text').innerHTML = '<span class="spinner"></span> Processing…';
-  if(window.mdsTrack) window.mdsTrack('checkout_details', { value: calcTotal().total, currency:'AUD', product: state.product==='roadside' ? roadsideProductLabel() : 'Absolute Cat '+state.cat+' L'+state.level });
+  if(window.mdsTrack) window.mdsTrack('checkout_details', { value: calcTotal().total, currency:'AUD', product: productLabel() });
 
   const {error} = await elements.submit();
   if(error){ showError(error.message); return; }
@@ -1891,7 +1993,7 @@ async function submitPayment(){
         amount: amountCents,
         customerName: first+' '+last,
         email, phone,
-        product: state.product==='roadside' ? roadsideProductLabel() : 'Absolute Warranty Cat '+state.cat+' Level '+state.level,
+        product: productLabel(),
         firstName:first, lastName:last, suburb, state:stateV, postcode,
         termsAccepted: true, termsAcceptedAt: state.termsAcceptedAt, pdsVersion: 'IABSI V3.5',
         ...vehiclePayload(), ...signupPayload(), ...uploads
@@ -1919,6 +2021,15 @@ function showError(msg){
   document.getElementById('pay-btn-text').textContent='Pay Securely Now';
 }
 
+// Endurance T&Cs: if the hosted PDF is not up yet, do not show a dead link at checkout.
+window.END_TERMS_OK = true;
+fetch('/docs/integrity-endurance-warranty-terms.pdf',{method:'HEAD'}).then(r=>{ window.END_TERMS_OK = r.ok && /pdf/i.test(r.headers.get('content-type')||''); }).catch(()=>{ window.END_TERMS_OK = false; });
+function startEndurance(){
+  selectProduct('endurance');
+  goStep(1);
+  document.getElementById('quote').scrollIntoView({behavior:'smooth'});
+  window.mdsTrack && window.mdsTrack('endurance_start', {});
+}
 function startRoadsideOnly(){
   selectProduct('roadside');
   goStep(1);
@@ -2008,9 +2119,9 @@ async function submitCallback(e){
   btn.disabled = true;
   document.getElementById('cb-btn-text').innerHTML = '<span class="spinner"></span> Sending…';
 
-  const est = (callbackSource!=='roadside' && state.product==='absolute' && ABSOLUTE[state.cat] && ABSOLUTE[state.cat][state.level]) ? calcTotal().total : 0;
+  const est = (callbackSource!=='roadside' && (state.product==='endurance' || (state.product==='absolute' && ABSOLUTE[state.cat] && ABSOLUTE[state.cat][state.level]))) ? calcTotal().total : 0;
   const product = callbackSource==='roadside' ? 'Roadside Assistance ONLY (3 or 5 Star — confirm on call)'
-                : state.product==='endurance' ? 'Endurance Warranty (POA)'
+                : state.product==='endurance' ? 'Endurance Warranty Option '+state.eopt+' '+state.duration+'yr'+(state.roadside!=='none'?' + '+state.roadside.replace('star',' ')+' Star Roadside':'')
                 : 'Absolute Warranty Cat '+state.cat+' Level '+state.level+' '+state.duration+'yr'+(state.roadside!=='none'?' + '+state.roadside.replace('star',' ')+' Star Roadside':'');
   const notes = [
     'WEBSITE CALLBACK REQUEST',
