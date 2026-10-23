@@ -1097,7 +1097,7 @@ document.addEventListener('click', function(ev){
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label for="c-street">Street address *</label>
+            <label for="c-street">Street address (number and street name) *</label>
             <input type="text" id="c-street" placeholder="12 Example Street" autocomplete="street-address" maxlength="80">
           </div>
           <div class="form-group">
@@ -1762,7 +1762,9 @@ function validateSignup(){
   const rego = v('c-rego').toUpperCase().replace(/\s+/g,'');
   if(!/^[A-Z0-9]{2,9}$/.test(rego)) return 'Please enter the vehicle registration number.';
   if(!v('c-regostate')) return 'Please select the state the vehicle is registered in.';
-  if(v('c-street').length < 4) return 'Please enter your street address.';
+  const street = v('c-street');
+  if(/^\s*(p\.?\s*o\.?\s*box|gpo\b|locked bag|private bag)/i.test(street)) return 'Please enter the street address where the vehicle is kept. A PO Box cannot be used on the warranty schedule.';
+  if(!/\d/.test(street) || !/[A-Za-z]{3,}/.test(street) || street.toLowerCase() === v('c-suburb').toLowerCase()) return 'Please enter your full street address, including the number and street name (for example 12 Example Street). The suburb on its own is not enough for the warranty schedule.';
   if(!isWarrantySale()) return '';
   const vin = v('c-vin').toUpperCase().replace(/\s+/g,'');
   if(!/^[A-HJ-NPR-Z0-9]{17}$/.test(vin)) return 'Please enter the 17-character VIN (it does not contain the letters I, O or Q).';
@@ -1877,6 +1879,7 @@ async function submitPayment(){
         const uj = await ur.json(); uploads = { uploadId: uj.uploadId || '', uploadStatus: ur.ok ? 'received' : 'failed' };
       } catch(err){ uploads = { uploadId:'', uploadStatus:'failed' }; }
       uploads.vcrProvided = !!files.vcr;
+      if(uploads.uploadStatus !== 'received'){ showError('We could not upload your odometer photo, so we have not taken payment. Please check your connection and press Pay again.'); return; }
     }
   } catch(e){ showError(e.message); return; }
 
