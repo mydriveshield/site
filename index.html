@@ -1195,10 +1195,13 @@ document.addEventListener('click', function(ev){
               <label style="display:inline-flex;align-items:center;gap:6px;margin-right:18px;font-weight:600;font-size:14px"><input type="radio" name="p-from" value="private" style="width:auto"> Privately</label>
               <label style="display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px"><input type="radio" name="p-from" value="dealer" style="width:auto"> From a dealer</label>
             </div>
-            <div class="form-group">
-              <label for="c-vcr">Vehicle condition report <span style="font-weight:400;color:var(--gray-500)">(upload if you have one)</span></label>
+            <div class="form-group" id="c-vcr-group">
+              <label for="c-vcr">Vehicle condition report <span id="c-vcr-tag" style="font-weight:400;color:var(--gray-500)">(upload if you have one)</span></label>
+              <div id="vcr-required" style="display:none;margin:0 0 10px;padding:12px 14px;border:1px solid #F3C98B;background:#FFF7EA;border-radius:var(--r-sm);font-size:13.5px;line-height:1.55;color:var(--gray-800)">
+                <strong>A Vehicle Condition Report is required for privately purchased vehicles.</strong> The warranty provider needs a condition report from a licensed mechanic before your warranty can be lodged. Upload it now if you already have one. If you don't, you can still complete your purchase today and we will contact you to arrange the report before lodgement. An inspection fee may apply; we will confirm the amount with you before anything is booked.
+              </div>
               <input type="file" id="c-vcr" accept="image/*,application/pdf">
-              <p class="hint" style="margin-top:4px">Depending on the vehicle's age and kilometres, a condition report from a licensed mechanic may be required before cover is confirmed. We'll let you know if it is.</p>
+              <p class="hint" id="c-vcr-hint" style="margin-top:4px">Depending on the vehicle's age and kilometres, a condition report from a licensed mechanic may be required before cover is confirmed. We'll let you know if it is.</p>
             </div>
             <h3 style="font-size:17px;margin:18px 0 6px;color:var(--navy)">Before you buy, please confirm</h3>
             <p style="font-size:13.5px;color:var(--gray-600);margin:0 0 12px">You must answer Yes to all of these to purchase online.</p>
@@ -1254,7 +1257,7 @@ document.addEventListener('click', function(ev){
         </button>
         <p style="font-size:14px;text-align:center;margin-top:14px">Not ready to pay today? <a href="#quote" onclick="showCallback('absolute');return false" style="color:var(--accent);font-weight:700">Request a callback instead →</a></p>
         <p style="font-size:12px;color:var(--gray-400);text-align:center;margin-top:12px">🔒 Payments secured by Stripe. We never store your card details. Instalment options with Klarna are shown at checkout for eligible orders.</p>
-        <p style="font-size:12px;color:var(--gray-400);text-align:center;margin-top:8px">Cover is subject to vehicle eligibility and provider approval. Depending on the vehicle’s age and model, a vehicle condition report may be required before cover is confirmed.</p>
+        <p style="font-size:12px;color:var(--gray-400);text-align:center;margin-top:8px">Cover is subject to vehicle eligibility and provider approval. A vehicle condition report is required for privately purchased vehicles, and may be requested for other vehicles depending on age and model, before your warranty is lodged. An inspection fee may apply and will be confirmed with you first.</p>
         <div class="wizard-nav" style="margin-top:12px">
           <button class="step-back" onclick="goStep(3)">← Back</button>
           <span></span>
@@ -1830,10 +1833,22 @@ function syncWarrantyOnly(){
 }
 function radioVal(name){ const r=document.querySelector('input[name="'+name+'"]:checked'); return r ? r.value : ''; }
 function qualifyingAnswers(){ return [1,2,3,4,5,6].map(i=>radioVal('q'+i)); }
+function vcrRequired(){ return isWarrantySale() && radioVal('p-from') === 'private'; }
+function syncVcrNotice(){
+  const req = vcrRequired();
+  const box = document.getElementById('vcr-required'), tag = document.getElementById('c-vcr-tag'), hint = document.getElementById('c-vcr-hint');
+  if(box) box.style.display = req ? 'block' : 'none';
+  if(tag) tag.textContent = req ? '(required for private purchases)' : '(upload if you have one)';
+  if(hint) hint.style.display = req ? 'none' : '';
+}
 document.addEventListener('change', e=>{
   if(e.target && /^q[1-6]$/.test(e.target.name)){
     const stop=document.getElementById('q-stop');
     if(stop) stop.style.display = qualifyingAnswers().includes('no') ? 'block' : 'none';
+  }
+  if(e.target && e.target.name === 'p-from'){
+    syncVcrNotice();
+    if(e.target.value === 'private' && !document.getElementById('c-vcr').files[0] && window.mdsTrack) window.mdsTrack('vcr_required_flagged', { purchaseFrom: 'private' });
   }
 });
 function fileToPayload(file, maxDim, quality){
@@ -1885,6 +1900,7 @@ function signupPayload(){
   if(isWarrantySale()){
     p.vin = v('c-vin').toUpperCase().replace(/\s+/g,'');
     p.buyingNow = radioVal('p-buying'); p.purchaseFrom = radioVal('p-from');
+    p.vcrRequired = vcrRequired();
     p.qualifying = qualifyingAnswers().map(a=>a==='yes'?'Y':'N').join(''); p.qualifyingAt = new Date().toISOString();
   }
   return p;
