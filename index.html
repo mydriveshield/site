@@ -171,7 +171,24 @@
   .qa button{width:100%;text-align:left;background:none;border:none;cursor:pointer;padding:22px 24px;font-size:17px;font-weight:700;color:var(--navy);display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:inherit}
   .qa .ans{max-height:0;overflow:hidden;transition:max-height .3s ease;color:var(--muted);font-size:15.5px}
   .qa .ans p{padding:0 24px 22px}
-  .qa.open .ans{max-height:280px}
+  .qa.open .ans{max-height:900px}
+  .faq-grp{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin:14px 0 -4px;font-weight:800}
+  .faq-grp:first-child{margin-top:0}
+  .qa .ans a{color:var(--blue);font-weight:600}
+  .xfer{max-width:820px;margin:44px auto 0;background:#fff;border:1px solid var(--line);border-radius:20px;padding:32px;box-shadow:var(--shadow-sm);scroll-margin-top:90px}
+  .xfer h3{font-size:22px;color:var(--navy);margin:10px 0 8px}
+  .xfer-head p{color:var(--muted);font-size:15.5px}
+  .xfer-steps{margin:18px 0 22px 20px;display:grid;gap:8px;color:var(--muted);font-size:15px}
+  .xfer-steps b{color:var(--navy)}
+  .dl-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .dl-card{display:flex;gap:12px;align-items:center;padding:14px 16px;border:1px solid var(--line);border-radius:14px;text-decoration:none;color:var(--navy);transition:.2s}
+  .dl-card:hover{border-color:var(--orange);box-shadow:var(--shadow-sm)}
+  .dl-card b{display:block;font-size:15px}
+  .dl-card small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+  .dl-ic{flex:none;width:42px;height:42px;border-radius:10px;background:var(--orange);color:#fff;font-size:11.5px;font-weight:800;display:grid;place-items:center}
+  .xfer-note{margin-top:18px;font-size:13px;color:var(--muted)}
+  .xfer-note a{color:var(--blue);font-weight:600}
+  @media(max-width:640px){.xfer{padding:22px 18px}.dl-grid{grid-template-columns:1fr}}
   .qa .plus{flex:none;width:26px;height:26px;border-radius:50%;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-size:20px;transition:.25s}
   .qa.open .plus{background:var(--orange);color:#fff;transform:rotate(45deg)}
 
@@ -1198,10 +1215,10 @@ document.addEventListener('click', function(ev){
             <div class="form-group" id="c-vcr-group">
               <label for="c-vcr">Vehicle condition report <span id="c-vcr-tag" style="font-weight:400;color:var(--gray-500)">(upload if you have one)</span></label>
               <div id="vcr-required" style="display:none;margin:0 0 10px;padding:12px 14px;border:1px solid #F3C98B;background:#FFF7EA;border-radius:var(--r-sm);font-size:13.5px;line-height:1.55;color:var(--gray-800)">
-                <strong>A Vehicle Condition Report is required for privately purchased vehicles.</strong> The warranty provider needs a condition report from a licensed mechanic before your warranty can be lodged. Upload it now if you already have one. If you don't, you can still complete your purchase today and we will contact you to arrange the report before lodgement. An inspection fee may apply; we will confirm the amount with you before anything is booked.
+                <strong>A Vehicle Condition Report is required for privately purchased vehicles.</strong> The warranty provider needs a condition report from a licensed mechanic before your warranty can be lodged. Upload it now if you already have one. If you don't, you can still complete your purchase today and we will contact you to arrange the report before lodgement. An inspection fee may apply; we will confirm the amount with you before anything is booked. <a href="https://integritywarranty.com.au/public/assets/images/broucher/Inspection%20Form.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">Download the condition report form</a> for your mechanic.
               </div>
               <input type="file" id="c-vcr" accept="image/*,application/pdf">
-              <p class="hint" id="c-vcr-hint" style="margin-top:4px">Depending on the vehicle's age and kilometres, a condition report from a licensed mechanic may be required before cover is confirmed. We'll let you know if it is.</p>
+              <p class="hint" id="c-vcr-hint" style="margin-top:4px">For dealer purchases a condition report is not usually needed. If the provider asks for one, we'll let you know.</p>
             </div>
             <h3 style="font-size:17px;margin:18px 0 6px;color:var(--navy)">Before you buy, please confirm</h3>
             <p style="font-size:13.5px;color:var(--gray-600);margin:0 0 12px">You must answer Yes to all of these to purchase online.</p>
@@ -1358,15 +1375,52 @@ document.addEventListener('click', function(ev){
   <div class="wrap">
     <div class="sec-head"><span class="eyebrow">FAQ</span><h2 style="margin-top:12px">Questions, answered</h2></div>
     <div class="faq">
-      <div class="qa"><button>What is an extended vehicle warranty?<span class="plus">+</span></button><div class="ans"><p>It's mechanical protection that helps cover the cost of repairing major components — like the engine, transmission and electrical systems — after your manufacturer warranty ends. Cover, eligibility and exclusions depend on the product documentation.</p></div></div>
-      <div class="qa"><button>Can I get cover if I bought my car privately?<span class="plus">+</span></button><div class="ans"><p>Yes. MyDriveShield is designed for used-vehicle owners whether you bought from a dealer or privately. Enter your vehicle details for an instant quote to see the options available for your car.</p></div></div>
-      <div class="qa"><button>Does roadside assistance cover all of Australia?<span class="plus">+</span></button><div class="ans"><p>Yes — 24/7 emergency roadside assistance operates Australia-wide, covering towing, flat battery, flat tyre, fuel delivery and lockout support. Benefits and limits are set out in the relevant product terms.</p></div></div>
-      <div class="qa"><button>How much does it cost?<span class="plus">+</span></button><div class="ans"><p>Warranty pricing depends on your vehicle's age, kilometres and chosen cover level. Roadside assistance starts from under $2 a week. Get an online quote in under two minutes to see your exact price.</p></div></div>
-      <div class="qa"><button>Do I have to pay an excess when I claim?<span class="plus">+</span></button><div class="ans"><p>No — there is no upfront excess. Simply call the claims team before any repairs are carried out and they will direct you to an approved repairer for diagnosis and assessment. Covered repairs are paid for parts and labour in line with your warranty terms.</p></div></div>
-      <div class="qa"><button>Do I have to service my car at a dealership?<span class="plus">+</span></button><div class="ans"><p>No. You can have your vehicle serviced by any licensed, GST-registered mechanic. Servicing is required at most every 6 months or 10,000&nbsp;km (or to the manufacturer's schedule if it is more frequent) to keep your warranty valid.</p></div></div>
-      <div class="qa"><button>What happens if I sell my car?<span class="plus">+</span></button><div class="ans"><p>Your warranty's benefits can be transferred to the new private owner, which can add real value when you sell. The transfer needs to be lodged within 7 days of the sale, an administration fee applies, and service records plus a mechanical inspection report are required.</p></div></div>
-      <div class="qa"><button>How many claims can I make?<span class="plus">+</span></button><div class="ans"><p>You can claim multiple times during the warranty term — there is no set number of claims. Per-claim limits apply and vary by cover level; your exact limits are shown in your quote and warranty documents.</p></div></div>
-      <div class="qa"><button>Are you providing financial or insurance advice?<span class="plus">+</span></button><div class="ans"><p>No. MyDriveShield provides information about protection products and helps you request a quote. We don't provide personal financial or insurance advice. Coverage, terms and eligibility are subject to the applicable product documentation and provider approval.</p></div></div>
+      <h3 class="faq-grp">Buying cover</h3>
+      <div class="qa"><button>What is an extended vehicle warranty?<span class="plus">+</span></button><div class="ans"><p>It's mechanical protection that helps cover the cost of repairing major components, like the engine, transmission and electrical systems, after your manufacturer warranty ends. Cover, eligibility, claim limits and exclusions depend on the product terms.</p></div></div>
+      <div class="qa"><button>Who issues the warranty and handles claims?<span class="plus">+</span></button><div class="ans"><p>The warranty is issued by Integrity Car Care Pty Ltd (ABN 58 056 621 893, AFSL 247069). MyDriveShield helps you compare options, get a price and arrange your cover. Claims are assessed and paid by Integrity.</p></div></div>
+      <div class="qa"><button>Can I get cover if I bought my car privately?<span class="plus">+</span></button><div class="ans"><p>Yes. Private purchases are welcome. The warranty provider requires a Vehicle Condition Report from a licensed mechanic before a warranty for a privately purchased vehicle can be lodged. You can upload it at checkout, or pay first and we will help you arrange it before lodgement. <a href="https://integritywarranty.com.au/public/assets/images/broucher/Inspection%20Form.pdf" target="_blank" rel="noopener">Download the Vehicle Condition Report form</a> to take to your mechanic. An inspection fee may apply.</p></div></div>
+      <div class="qa"><button>How much does it cost?<span class="plus">+</span></button><div class="ans"><p>It depends on the product. Absolute Warranty is priced by vehicle category, cover level and term. Endurance Warranty is a flat price for all makes, set by the option your vehicle qualifies for and the term. A $110 surcharge applies to 4WD and AWD vehicles. Roadside assistance starts from $88 a year. Get an instant online quote to see your exact price.</p></div></div>
+      <div class="qa"><button>Will my vehicle qualify?<span class="plus">+</span></button><div class="ans"><p>Your vehicle must be registered for and used on Australian roads and be within the age and kilometre limits of the cover level or option you choose. Endurance Option 1 has no age or kilometre limits. The online quote only shows the options your vehicle qualifies for, and cover is subject to the provider's acceptance.</p></div></div>
+      <div class="qa"><button>How long can I cover my vehicle for?<span class="plus">+</span></button><div class="ans"><p>Absolute Warranty is available for 1 to 5 years. Endurance Warranty is available for 1, 3 or 5 years. Roadside assistance can be added for the same term or bought on its own.</p></div></div>
+      <div class="qa"><button>Can I renew my warranty when it expires?<span class="plus">+</span></button><div class="ans"><p>Warranties are not automatically renewed. Contact us before your cover ends and we will check what is available for your vehicle at that time.</p></div></div>
+      <div class="qa"><button>Can I pay in instalments?<span class="plus">+</span></button><div class="ans"><p>Online purchases are paid in full by card at checkout. If you are financing your vehicle, some financiers can include a warranty in the loan. We can't advise on finance arrangements, so please speak to your financier.</p></div></div>
+      <div class="qa"><button>Can I cancel?<span class="plus">+</span></button><div class="ans"><p>Yes. Under the Integrity warranty terms you can cancel at any time by writing to Integrity. If you cancel within 30 days of purchase, or before your cover starts, and no claims have been paid, you receive a full refund. After that, the refund is pro-rata for the unexpired cover, less any accepted claims and a $62.50 administration fee. Check your warranty terms for the rules that apply to your product.</p></div></div>
+      <h3 class="faq-grp">Claims</h3>
+      <div class="qa"><button>Do I have to pay an excess when I claim?<span class="plus">+</span></button><div class="ans"><p>No. There is no upfront excess. You are responsible for diagnosis costs unless they form part of an approved claim, and for any amount above the approved claim, for example if you choose to repair beyond the vehicle's previous condition.</p></div></div>
+      <div class="qa"><button>How do I make a claim?<span class="plus">+</span></button><div class="ans"><p>Before any repair work starts, contact Integrity Claims on <a href="tel:0391206666">03 9120 6666</a> or <a href="mailto:claims@integritywarranty.com.au">claims@integritywarranty.com.au</a>. Integrity will direct you to an approved repairer, who diagnoses the fault and sends the details through. Claims are assessed within 24 hours of receiving all the required information, and approved repairs are paid directly to the repairer. Repairs carried out without prior approval are not covered.</p><p><a href="https://integritywarranty.com.au/pdf/Claim%20checklist%20-%20Integrity.pdf" target="_blank" rel="noopener">Download the claims checklist</a>.</p></div></div>
+      <div class="qa"><button>What if I break down interstate?<span class="plus">+</span></button><div class="ans"><p>Your warranty covers you anywhere in Australia. Contact Integrity before authorising any work and have the repairer call the Claims team. Integrity deals with the repairer directly and pays them, with no claim forms for you to fill in.</p></div></div>
+      <div class="qa"><button>Who are the approved repairers?<span class="plus">+</span></button><div class="ans"><p>Integrity maintains an Australia-wide network of approved repairers that is regularly reviewed for workmanship, pricing and customer satisfaction. Contact Integrity Claims for the nearest approved repairer when you need one.</p></div></div>
+      <div class="qa"><button>How many claims can I make?<span class="plus">+</span></button><div class="ans"><p>You can claim multiple times during the warranty term. Per-claim limits apply and vary by cover level or option. Your limits are shown in your quote and warranty documents.</p></div></div>
+      <h3 class="faq-grp">Servicing</h3>
+      <div class="qa"><button>Do I have to service my car at a dealership?<span class="plus">+</span></button><div class="ans"><p>No. Any licensed mechanical workshop can service your vehicle. Keep every service invoice showing the date and odometer reading, because proof of servicing is needed when you claim. <a href="https://integritywarranty.com.au/public/assets/images/broucher/Service%20Records.pdf" target="_blank" rel="noopener">Download a service record log</a>.</p></div></div>
+      <div class="qa"><button>How often do I need to service my vehicle?<span class="plus">+</span></button><div class="ans"><p>Follow the service schedule set out in your warranty terms. For Absolute Warranty that is the vehicle manufacturer's recommended schedule. If a service is more than 30 days or 1,000 km overdue, whichever comes first, the warranty becomes inactive until it is reactivated with a satisfactory mechanical inspection report.</p></div></div>
+      <h3 class="faq-grp">Selling your car</h3>
+      <div class="qa"><button>Can I transfer my warranty if I sell my car?<span class="plus">+</span></button><div class="ans"><p>Yes, to a new private owner (dealers and traders do not qualify), as long as the transfer is requested within 7 days of the sale. You and the buyer complete the Warranty Transfer form and send it to Integrity with a Vehicle Condition Report from a licensed mechanical workshop, the service records and the transfer fee ($62.50 under the Absolute terms). A warranty cannot be moved to a different vehicle. See <a href="#forms">Transfers and forms</a> below.</p></div></div>
+      <h3 class="faq-grp">Roadside assistance</h3>
+      <div class="qa"><button>Does roadside assistance cover all of Australia?<span class="plus">+</span></button><div class="ans"><p>Yes. 24/7 emergency roadside assistance operates Australia-wide, covering towing, flat battery, flat tyre, fuel delivery and lockout support. Benefits and limits are set out in the product terms.</p></div></div>
+      <div class="qa"><button>Can I buy roadside assistance on its own?<span class="plus">+</span></button><div class="ans"><p>Yes. Roadside assistance can be bought with a warranty or on its own, in 3 Star or 5 Star, for 1 to 5 years.</p></div></div>
+      <h3 class="faq-grp">Advice</h3>
+      <div class="qa"><button>Are you providing financial or insurance advice?<span class="plus">+</span></button><div class="ans"><p>No. MyDriveShield provides general information about protection products and helps you get a quote. We don't provide personal financial or insurance advice. This information is an overview only. Cover, terms and eligibility are set out in the product documentation and are subject to the provider's approval.</p></div></div>
+    </div>
+    <div class="xfer" id="forms">
+      <div class="xfer-head">
+        <span class="eyebrow">Transfers and forms</span>
+        <h3>Selling your car? Your warranty can go with it.</h3>
+        <p>A transferable warranty can make your car easier to sell. Request the transfer within <strong>7 days of the sale</strong>. The new owner must be a private buyer, not a dealer or trader.</p>
+      </div>
+      <ol class="xfer-steps">
+        <li><b>Complete the transfer form</b> together with the buyer.</li>
+        <li><b>Get a Vehicle Condition Report</b> from a licensed mechanical workshop.</li>
+        <li><b>Gather the service records</b> showing dates and odometer readings.</li>
+        <li><b>Send everything to Integrity</b> with the transfer fee within 7 days. Integrity will tell you within 2 business days if the transfer can't be approved, and refund the fee.</li>
+      </ol>
+      <div class="dl-grid">
+        <a class="dl-card" href="https://integritywarranty.com.au/public/assets/images/broucher/Transfer%20Form.pdf" target="_blank" rel="noopener"><span class="dl-ic">PDF</span><span><b>Warranty transfer form</b><small>Transfer of ownership</small></span></a>
+        <a class="dl-card" href="https://integritywarranty.com.au/public/assets/images/broucher/Inspection%20Form.pdf" target="_blank" rel="noopener"><span class="dl-ic">PDF</span><span><b>Vehicle condition report</b><small>For your mechanic. Also needed for private purchases</small></span></a>
+        <a class="dl-card" href="https://integritywarranty.com.au/public/assets/images/broucher/Service%20Records.pdf" target="_blank" rel="noopener"><span class="dl-ic">PDF</span><span><b>Service record log</b><small>Keep with your invoices</small></span></a>
+        <a class="dl-card" href="https://integritywarranty.com.au/pdf/Claim%20checklist%20-%20Integrity.pdf" target="_blank" rel="noopener"><span class="dl-ic">PDF</span><span><b>Claims checklist</b><small>What the repairer needs to send</small></span></a>
+      </div>
+      <p class="xfer-note">These are Integrity Car Care's official forms, opened from Integrity's website so you always get the current version. Need a hand? Call <a href="tel:0477666500">0477 666 500</a> or email <a href="mailto:info@mydriveshield.com.au">info@mydriveshield.com.au</a>.</p>
     </div>
   </div>
 </section>
@@ -1403,7 +1457,7 @@ document.addEventListener('click', function(ev){
         <p class="f-about">Extended vehicle warranty and emergency roadside assistance for used-car owners across Australia. Backed by Integrity Car Care Pty Ltd.</p>
       </div>
       <div class="f-col"><h4>Protection</h4><a href="#warranty">Warranty Protection</a><a href="#roadside">Roadside Assistance</a><a href="#products">Our Products</a><a href="#coverage">What's Covered</a><a href="#pricing">Pricing</a><a href="#quote">Get a Quote</a></div>
-      <div class="f-col"><h4>Company</h4><a href="#why">Why Choose Us</a><a href="#faq">FAQ</a><a href="#contact">Contact</a><a href="/partners">Partner Portal</a></div>
+      <div class="f-col"><h4>Company</h4><a href="#why">Why Choose Us</a><a href="#faq">FAQ</a><a href="#forms">Transfers &amp; forms</a><a href="#contact">Contact</a><a href="/partners">Partner Portal</a></div>
       <div class="f-col"><h4>Get in touch</h4><a href="tel:0477666500">0477 666 500</a><a href="mailto:info@mydriveshield.com.au">info@mydriveshield.com.au</a><a href="#quote" onclick="showCallback('contact');return false">Request a callback</a></div>
     </div>
     <p class="f-legal">MyDriveShield provides information about vehicle warranty and roadside assistance products and facilitates quote requests. We do not provide personal financial, insurance or legal advice. Coverage, exclusions, eligibility, waiting periods, claim limits and terms depend on the relevant product documentation and provider approval. Warranty products are issued by Integrity Car Care Pty Ltd (PO Box 2122 Traralgon VIC 3844 · 03 9120 6666 · admin@integritywarranty.com.au). Assetia Pty Ltd (ABN 94 668 837 983), trading as MyDriveShield, is the authorised distribution partner of Integrity Car Care Pty Ltd and does not hold an Australian Financial Services Licence in respect of warranty products, which are consumer goods warranties and not financial products. All prices include GST. Cover is subject to the full terms and conditions of the relevant warranty product, available upon request. Pre-existing conditions are excluded. Vehicle category and eligibility are subject to approval. Please read the product terms before purchasing. All quotes are subject to assessment and approval.</p>
