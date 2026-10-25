@@ -186,6 +186,9 @@
   .dl-card b{display:block;font-size:15px}
   .dl-card small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
   .dl-ic{flex:none;width:42px;height:42px;border-radius:10px;background:var(--orange);color:#fff;font-size:11.5px;font-weight:800;display:grid;place-items:center}
+  .xfer-who{margin:0 0 18px;padding:16px 18px;background:#F3F7FD;border:1px solid #D6E2F5;border-radius:14px;font-size:14.5px;color:var(--navy);line-height:1.6}
+  .xfer-who ul{margin:8px 0 0 18px;display:grid;gap:3px;color:var(--muted)}
+  .xfer-who a{color:var(--blue);font-weight:600}
   .xfer-note{margin-top:18px;font-size:13px;color:var(--muted)}
   .xfer-note a{color:var(--blue);font-weight:600}
   @media(max-width:640px){.xfer{padding:22px 18px}.dl-grid{grid-template-columns:1fr}}
@@ -1384,7 +1387,7 @@ document.addEventListener('click', function(ev){
       <div class="qa"><button>How long can I cover my vehicle for?<span class="plus">+</span></button><div class="ans"><p>Absolute Warranty is available for 1 to 5 years. Endurance Warranty is available for 1, 3 or 5 years. Roadside assistance can be added for the same term or bought on its own.</p></div></div>
       <div class="qa"><button>Can I renew my warranty when it expires?<span class="plus">+</span></button><div class="ans"><p>Warranties are not automatically renewed. Contact us before your cover ends and we will check what is available for your vehicle at that time.</p></div></div>
       <div class="qa"><button>Can I pay in instalments?<span class="plus">+</span></button><div class="ans"><p>Online purchases are paid in full by card at checkout. If you are financing your vehicle, some financiers can include a warranty in the loan. We can't advise on finance arrangements, so please speak to your financier.</p></div></div>
-      <div class="qa"><button>Can I cancel?<span class="plus">+</span></button><div class="ans"><p>Yes. Under the Integrity warranty terms you can cancel at any time by writing to Integrity. If you cancel within 30 days of purchase, or before your cover starts, and no claims have been paid, you receive a full refund. After that, the refund is pro-rata for the unexpired cover, less any accepted claims and a $62.50 administration fee. Check your warranty terms for the rules that apply to your product.</p></div></div>
+      <div class="qa"><button>Can I cancel?<span class="plus">+</span></button><div class="ans"><p>Yes. Under the Integrity warranty terms you can cancel at any time by writing to Integrity at <a href="mailto:requests@integritywarranty.com.au">requests@integritywarranty.com.au</a>. If you cancel within 30 days of purchase, or before your cover starts, and no claims have been paid, you receive a full refund. After that, the refund is pro-rata for the unexpired cover, less any accepted claims and a $62.50 administration fee.</p></div></div>
       <h3 class="faq-grp">Claims</h3>
       <div class="qa"><button>Do I have to pay an excess when I claim?<span class="plus">+</span></button><div class="ans"><p>No. There is no upfront excess. You are responsible for diagnosis costs unless they form part of an approved claim, and for any amount above the approved claim, for example if you choose to repair beyond the vehicle's previous condition.</p></div></div>
       <div class="qa"><button>How do I make a claim?<span class="plus">+</span></button><div class="ans"><p>Before any repair work starts, contact Integrity Claims on <a href="tel:0391206666">03 9120 6666</a> or <a href="mailto:claims@integritywarranty.com.au">claims@integritywarranty.com.au</a>. Integrity will direct you to an approved repairer, who diagnoses the fault and sends the details through. Claims are assessed within 24 hours of receiving all the required information, and approved repairs are paid directly to the repairer. Repairs carried out without prior approval are not covered.</p><p><a href="https://integritywarranty.com.au/pdf/Claim%20checklist%20-%20Integrity.pdf" target="_blank" rel="noopener">Download the claims checklist</a>.</p></div></div>
@@ -1393,9 +1396,9 @@ document.addEventListener('click', function(ev){
       <div class="qa"><button>How many claims can I make?<span class="plus">+</span></button><div class="ans"><p>You can claim multiple times during the warranty term. Per-claim limits apply and vary by cover level or option. Your limits are shown in your quote and warranty documents.</p></div></div>
       <h3 class="faq-grp">Servicing</h3>
       <div class="qa"><button>Do I have to service my car at a dealership?<span class="plus">+</span></button><div class="ans"><p>No. Any licensed mechanical workshop can service your vehicle. Keep every service invoice showing the date and odometer reading, because proof of servicing is needed when you claim. <a href="https://integritywarranty.com.au/public/assets/images/broucher/Service%20Records.pdf" target="_blank" rel="noopener">Download a service record log</a>.</p></div></div>
-      <div class="qa"><button>How often do I need to service my vehicle?<span class="plus">+</span></button><div class="ans"><p>Follow the service schedule set out in your warranty terms. For Absolute Warranty that is the vehicle manufacturer's recommended schedule. If a service is more than 30 days or 1,000 km overdue, whichever comes first, the warranty becomes inactive until it is reactivated with a satisfactory mechanical inspection report.</p></div></div>
+      <div class="qa"><button>How often do I need to service my vehicle?<span class="plus">+</span></button><div class="ans"><p>Follow the service schedule in your warranty terms. Absolute Warranty and Endurance Options 3 and 4 follow the vehicle manufacturer's recommended schedule. Endurance Options 1 and 2 must be serviced every 6 months or 10,000 km, whichever comes first. If a service is more than 30 days or 1,000 km overdue, whichever comes first, the warranty becomes inactive until it is reactivated with a satisfactory mechanical inspection report.</p></div></div>
       <h3 class="faq-grp">Selling your car</h3>
-      <div class="qa"><button>Can I transfer my warranty if I sell my car?<span class="plus">+</span></button><div class="ans"><p>Yes, to a new private owner (dealers and traders do not qualify), as long as the transfer is requested within 7 days of the sale. You and the buyer complete the Warranty Transfer form and send it to Integrity with a Vehicle Condition Report from a licensed mechanical workshop, the service records and the transfer fee ($62.50 under the Absolute terms). A warranty cannot be moved to a different vehicle. See <a href="#forms">Transfers and forms</a> below.</p></div></div>
+      <div class="qa"><button>Can I transfer my warranty if I sell my car?<span class="plus">+</span></button><div class="ans"><p>Yes, to a new private owner (dealers and traders do not qualify), as long as the transfer is requested within 7 days of the sale. You and the buyer complete the Warranty Transfer form and send it to Integrity with a Vehicle Condition Report from a licensed mechanical workshop, the service records and the $62.50 transfer fee. Transfers are handled directly by Integrity Car Care, not MyDriveShield: call Integrity on <a href="tel:0391206666">03 9120 6666</a> or email <a href="mailto:admin@integritywarranty.com.au">admin@integritywarranty.com.au</a>. A warranty cannot be moved to a different vehicle. See <a href="#forms">Transfers and forms</a> below.</p></div></div>
       <h3 class="faq-grp">Roadside assistance</h3>
       <div class="qa"><button>Does roadside assistance cover all of Australia?<span class="plus">+</span></button><div class="ans"><p>Yes. 24/7 emergency roadside assistance operates Australia-wide, covering towing, flat battery, flat tyre, fuel delivery and lockout support. Benefits and limits are set out in the product terms.</p></div></div>
       <div class="qa"><button>Can I buy roadside assistance on its own?<span class="plus">+</span></button><div class="ans"><p>Yes. Roadside assistance can be bought with a warranty or on its own, in 3 Star or 5 Star, for 1 to 5 years.</p></div></div>
@@ -1412,15 +1415,25 @@ document.addEventListener('click', function(ev){
         <li><b>Complete the transfer form</b> together with the buyer.</li>
         <li><b>Get a Vehicle Condition Report</b> from a licensed mechanical workshop.</li>
         <li><b>Gather the service records</b> showing dates and odometer readings.</li>
-        <li><b>Send everything to Integrity</b> with the transfer fee within 7 days. Integrity will tell you within 2 business days if the transfer can't be approved, and refund the fee.</li>
+        <li><b>Send everything to Integrity Car Care</b> with the $62.50 transfer fee within 7 days. Integrity will tell you within 2 business days if the transfer can't be approved, and refund the fee.</li>
       </ol>
+      <div class="xfer-who">
+        <b>Transfers, claims and these forms are handled directly by Integrity Car Care, the warranty provider.</b> MyDriveShield provides the forms here for convenience but does not process them. Send completed forms to Integrity and contact them with any questions:
+        <ul>
+          <li>Phone <a href="tel:0391206666">03 9120 6666</a> (Mon to Fri, 9am to 5pm AEST)</li>
+          <li>General and transfers <a href="mailto:admin@integritywarranty.com.au">admin@integritywarranty.com.au</a></li>
+          <li>Claims <a href="mailto:claims@integritywarranty.com.au">claims@integritywarranty.com.au</a></li>
+          <li>Post: Integrity Car Care Pty Ltd, PO Box 2122, Traralgon VIC 3844</li>
+          <li>Web <a href="https://integritywarranty.com.au/forms" target="_blank" rel="noopener">integritywarranty.com.au/forms</a></li>
+        </ul>
+      </div>
       <div class="dl-grid">
         <a class="dl-card" href="https://integritywarranty.com.au/public/assets/images/broucher/Transfer%20Form.pdf" target="_blank" rel="noopener"><span class="dl-ic">PDF</span><span><b>Warranty transfer form</b><small>Transfer of ownership</small></span></a>
         <a class="dl-card" href="https://integritywarranty.com.au/public/assets/images/broucher/Inspection%20Form.pdf" target="_blank" rel="noopener"><span class="dl-ic">PDF</span><span><b>Vehicle condition report</b><small>For your mechanic. Also needed for private purchases</small></span></a>
         <a class="dl-card" href="https://integritywarranty.com.au/public/assets/images/broucher/Service%20Records.pdf" target="_blank" rel="noopener"><span class="dl-ic">PDF</span><span><b>Service record log</b><small>Keep with your invoices</small></span></a>
         <a class="dl-card" href="https://integritywarranty.com.au/pdf/Claim%20checklist%20-%20Integrity.pdf" target="_blank" rel="noopener"><span class="dl-ic">PDF</span><span><b>Claims checklist</b><small>What the repairer needs to send</small></span></a>
       </div>
-      <p class="xfer-note">These are Integrity Car Care's official forms, opened from Integrity's website so you always get the current version. Need a hand? Call <a href="tel:0477666500">0477 666 500</a> or email <a href="mailto:info@mydriveshield.com.au">info@mydriveshield.com.au</a>.</p>
+      <p class="xfer-note">These are Integrity Car Care's official forms, opened from Integrity's website so you always get the current version. Not sure which form you need? MyDriveShield can point you in the right direction on <a href="tel:0477666500">0477 666 500</a>, but the forms themselves go to Integrity.</p>
     </div>
   </div>
 </section>
