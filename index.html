@@ -1279,6 +1279,7 @@ document.addEventListener('click', function(ev){
         </button>
         <p style="font-size:14px;text-align:center;margin-top:14px">Not ready to pay today? <a href="#quote" onclick="showCallback('absolute');return false" style="color:var(--accent);font-weight:700">Request a callback instead →</a></p>
         <p style="font-size:12px;color:var(--gray-400);text-align:center;margin-top:12px">🔒 Payments secured by Stripe. We never store your card details. Instalment options with Klarna are shown at checkout for eligible orders.</p>
+        <p style="font-size:12px;color:var(--gray-400);text-align:center;margin-top:8px">We collect your details to arrange your cover with Integrity Car Care, take payment and contact you about your order. Some of our service providers store data overseas. See our <a href="/privacy.html" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">Privacy Policy</a> for how we use and share your information, and how to access or correct it.</p>
         <p style="font-size:12px;color:var(--gray-400);text-align:center;margin-top:8px">Cover is subject to vehicle eligibility and provider approval. A vehicle condition report is required for privately purchased vehicles, and may be requested for other vehicles depending on age and model, before your warranty is lodged. An inspection fee may apply and will be confirmed with you first.</p>
         <div class="wizard-nav" style="margin-top:12px">
           <button class="step-back" onclick="goStep(3)">← Back</button>
@@ -1359,7 +1360,7 @@ document.addEventListener('click', function(ev){
           </div>
           <div class="form-group" style="flex-direction:row;align-items:flex-start;gap:10px">
             <input type="checkbox" id="cb-consent" style="width:auto;margin-top:3px">
-            <label for="cb-consent" style="font-weight:500;font-size:13.5px;line-height:1.5">I agree to MyDriveShield contacting me by phone, SMS or email about vehicle warranty and roadside assistance products, and to the collection and use of my details in accordance with the Privacy Policy. *</label>
+            <label for="cb-consent" style="font-weight:500;font-size:13.5px;line-height:1.5">I agree to MyDriveShield contacting me by phone, SMS or email about vehicle warranty and roadside assistance products, and to the collection and use of my details in accordance with the <a href="/privacy.html" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">Privacy Policy</a>. *</label>
           </div>
           <div id="cb-message" style="display:none;color:var(--accent);font-size:14px;margin-bottom:10px"></div>
           <button type="submit" class="btn btn-primary btn-lg" id="cb-btn" style="width:100%;justify-content:center">
