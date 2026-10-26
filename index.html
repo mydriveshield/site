@@ -1200,9 +1200,9 @@ document.addEventListener('click', function(ev){
               <input type="text" id="c-vin" placeholder="e.g. 6FPAAAJGCM8D12345" maxlength="17" autocomplete="off" style="text-transform:uppercase">
             </div>
             <div class="form-group">
-              <label for="c-odophoto">Photo of the odometer *</label>
+              <label for="c-odophoto">Photo of the odometer</label>
               <input type="file" id="c-odophoto" accept="image/*">
-              <p class="hint" style="margin-top:4px">A clear photo of the dashboard showing the current kilometres.</p>
+              <p class="hint" style="margin-top:4px">A clear photo of the dashboard showing the current kilometres. No photo handy? Pay now and upload it later using the link in your confirmation email. Your warranty is lodged once we have it.</p>
             </div>
           </div>
           <div class="wo">
@@ -2044,8 +2044,6 @@ function validateSignup(){
   if(!isWarrantySale()) return '';
   const vin = v('c-vin').toUpperCase().replace(/\s+/g,'');
   if(!/^[A-HJ-NPR-Z0-9]{17}$/.test(vin)) return 'Please enter the 17-character VIN (it does not contain the letters I, O or Q).';
-  const photo = document.getElementById('c-odophoto').files[0];
-  if(!photo) return 'Please upload a photo of the odometer showing the current kilometres.';
   if(!radioVal('p-buying')) return 'Please tell us whether you are buying the vehicle now.';
   if(!radioVal('p-from')) return 'Please tell us whether the vehicle was bought privately or from a dealer.';
   const qa = qualifyingAnswers();
@@ -2146,17 +2144,22 @@ async function submitPayment(){
   let uploads = {};
   try{
     if(isWarrantySale()){
-      const files = { odoPhoto: await fileToPayload(document.getElementById('c-odophoto').files[0], 1600, 0.8) };
+      const files = {};
+      const odoFile = document.getElementById('c-odophoto').files[0];
+      if(odoFile) files.odoPhoto = await fileToPayload(odoFile, 1600, 0.8);
       const vcrFile = document.getElementById('c-vcr').files[0];
       if(vcrFile) files.vcr = await fileToPayload(vcrFile, 2000, 0.85);
+      if(!files.odoPhoto && !files.vcr){ uploads = { uploadId:'', uploadStatus:'pending', vcrProvided:false }; }
+      else {
       // Files go to a separate n8n intake (emailed to admin@); only the upload id travels with the payment.
       try{
         const ur = await fetch(CONFIG.N8N_UPLOAD, { method:'POST', headers:{'Content-Type':'application/json'},
           body: JSON.stringify({ customerName: first+' '+last, email, phone, rego: document.getElementById('c-rego').value.trim().toUpperCase(), vehicle: [state.make, state.model, state.year].join(' '), files }) });
         const uj = await ur.json(); uploads = { uploadId: uj.uploadId || '', uploadStatus: ur.ok ? 'received' : 'failed' };
       } catch(err){ uploads = { uploadId:'', uploadStatus:'failed' }; }
-      uploads.vcrProvided = !!files.vcr;
-      if(uploads.uploadStatus !== 'received'){ showError('We could not upload your odometer photo, so we have not taken payment. Please check your connection and press Pay again.'); return; }
+      uploads.vcrProvided = !!files.vcr && uploads.uploadStatus === 'received';
+      if(!files.odoPhoto && uploads.uploadStatus === 'received') uploads.uploadStatus = 'pending';
+      }
     }
   } catch(e){ showError(e.message); return; }
 
@@ -2181,7 +2184,7 @@ async function submitPayment(){
   const result = await stripe.confirmPayment({
     elements, clientSecret,
     confirmParams:{
-      return_url: window.location.origin+'/confirmation.html?amount='+(amountCents/100),
+      return_url: window.location.origin+'/confirmation.html?amount='+(amountCents/100)+(isWarrantySale() && uploads.uploadStatus !== 'received' ? '&photo=pending' : ''),
       payment_method_data:{billing_details:{name:first+' '+last, email, phone, address:{city:suburb,state:stateV,postal_code:postcode,country:'AU'}}}
     }
   });

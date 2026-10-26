@@ -72,6 +72,7 @@ document.addEventListener('click', function(ev){
 const stripe = Stripe('pk_live_51Tm4jMDGdlEAcSBwrosEcx9f5IYiW04BtT5TT2zmnp5klHlMtDxhBi1EgLfT0H9V2IGxHqPctQ0fljQ3tPdaMXDA008FZ69ZuB');
 const params = new URLSearchParams(window.location.search);
 const clientSecret = params.get('payment_intent_client_secret');
+const photoPending = params.get('photo') === 'pending';
 
 async function checkPayment() {
   if (!clientSecret) {
@@ -85,8 +86,9 @@ async function checkPayment() {
     try{ gtag('event','conversion',{ send_to: MDS_TRACK.ADS_ID+'/'+MDS_TRACK.LABELS.purchase, value: paymentIntent.amount/100, currency:'AUD', transaction_id: paymentIntent.id }); gtag('event','purchase',{ transaction_id: paymentIntent.id, value: paymentIntent.amount/100, currency:'AUD', items:[{ item_name: meta.product || 'Absolute Warranty', price: paymentIntent.amount/100, quantity:1 }] }); }catch(e){}
     card.innerHTML = `
       <div class="icon">✅</div>
-      <h1>You're covered!</h1>
-      <p>Your MyDriveShield warranty payment has been confirmed. Your warranty certificate will be issued by Integrity Car Care within 1–2 business days.</p>
+      <h1>Payment received</h1>
+      <p>Thank you. We'll lodge your cover with Integrity Car Care and email your schedule and certificate, usually within 1 to 2 business days of having everything we need. Cover starts from the date on your schedule.</p>
+      ${photoPending ? `<div class="detail-box" style="border:1px solid #F3C98B;background:#FFF7EA"><strong>One more step: your odometer photo.</strong><div style="padding-top:6px">We can't lodge your warranty until we have a clear photo of the odometer. Upload it now, or use the link in your confirmation email.</div><a class="btn" style="margin-top:12px" href="/upload.html?pi=${encodeURIComponent(paymentIntent.id)}">Upload odometer photo</a></div>` : ''}
       <div class="detail-box">
         <div><strong>Product:</strong> ${meta.product || 'Absolute Warranty'}</div>
         <div><strong>Vehicle:</strong> ${meta.vehicle_make || ''} ${meta.vehicle_year || ''}</div>
