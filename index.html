@@ -2173,7 +2173,7 @@ async function submitPayment(){
         email, phone,
         product: productLabel(),
         firstName:first, lastName:last, suburb, state:stateV, postcode,
-        termsAccepted: true, termsAcceptedAt: state.termsAcceptedAt, pdsVersion: 'IABSI V3.5',
+        termsAccepted: true, termsAcceptedAt: state.termsAcceptedAt, pdsVersion: state.product==='endurance' ? 'IENDI V2.2' : 'IABSI V3.5',
         ...vehiclePayload(), ...signupPayload(), ...uploads
       })
     });
