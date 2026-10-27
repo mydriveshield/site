@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /upload.html
+Disallow: /confirmation
+Disallow: /confirmation.html
+
+Sitemap: https://mydriveshield.com.au/sitemap.xml

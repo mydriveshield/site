@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warranty and Roadside FAQ, Transfers and Forms | MyDriveShield</title>
+<meta name="description" content="Answers about extended car warranty and roadside assistance: cost, eligibility, claims, servicing, cancelling, transfers and Integrity Car Care forms.">
+<link rel="canonical" href="https://mydriveshield.com.au/faq/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Warranty and Roadside FAQ, Transfers and Forms | MyDriveShield">
+<meta property="og:description" content="Answers about extended car warranty and roadside assistance: cost, eligibility, claims, servicing, cancelling, transfers and Integrity Car Care forms.">
+<meta property="og:url" content="https://mydriveshield.com.au/faq/">
+<meta property="og:image" content="https://mydriveshield.com.au/img/hero-1440.webp">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://mydriveshield.com.au/"}, {"@type": "ListItem", "position": 2, "name": "FAQ", "item": "https://mydriveshield.com.au/faq/"}]}]</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HZMK5CPS6Z"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-HZMK5CPS6Z');
+gtag('config', 'AW-18308478534');
+
+// === MyDriveShield conversion tracking ===
+// LABELS: Google Ads conversion labels (Goals > Conversions > action > Tag setup > "Use Google tag" > event snippet).
+// An empty label means "GA4 event only, no Google Ads conversion" so nothing breaks before the actions exist.
+window.MDS_TRACK = {
+  ADS_ID: 'AW-18308478534',
+  LABELS: {
+    purchase:         'tcI1CKDY99IcEMbslJpE',   // existing: Purchase (fires on /confirmation)
+    quote_request:    '_mIwCMPciOscEMbslJpE',                       // Request a callback / quote form submitted (PRIMARY)
+    partner_lead:     'e_flCMbciOscEMbslJpE',                       // Partner portal lead submitted (PRIMARY)
+    checkout_details: 'dGKwCMnciOscEMbslJpE',                       // Customer details entered at payment step (secondary)
+    phone_click:      'NZGqCMzciOscEMbslJpE'                        // Tap on a tel: link (secondary)
+  }
+};
+// mdsTrack(name, params): sends a GA4 event and, when a label is configured, a Google Ads conversion.
+window.mdsTrack = function(name, params){
+  try{
+    var p = Object.assign({}, params || {});
+    gtag('event', name, p);
+    if(name === 'quote_request' || name === 'partner_lead') gtag('event', 'generate_lead', p);
+    var lbl = window.MDS_TRACK.LABELS[name];
+    if(lbl){
+      gtag('event', 'conversion', Object.assign({ send_to: window.MDS_TRACK.ADS_ID + '/' + lbl }, p));
+    }
+  }catch(e){}
+};
+// Phone click tracking on any tel: link
+document.addEventListener('click', function(ev){
+  var a = ev.target && ev.target.closest ? ev.target.closest('a[href^="tel:"]') : null;
+  if(a) window.mdsTrack('phone_click', { phone_number: a.getAttribute('href').replace('tel:',''), page_path: location.pathname });
+}, true);
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="ic-repair" viewBox="0 0 64 64">
+      <rect x="4" y="4" width="56" height="56" rx="16" fill="#EAF0FA"/>
+      <path d="M12 40v-6.5c0-1.3.8-2.4 2-2.8l5.2-1.7 5.3-7.2c.8-1.1 2-1.8 3.4-1.8h11.6c1.4 0 2.7.7 3.5 1.8l4.3 6.2 3.4 1.1c1.4.5 2.3 1.7 2.3 3.2V40" fill="#fff" stroke="#0B2545" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M10 40h44" stroke="#0B2545" stroke-width="2.6" stroke-linecap="round"/>
+      <circle cx="21" cy="41" r="4.6" fill="#fff" stroke="#0B2545" stroke-width="2.6"/>
+      <circle cx="43" cy="41" r="4.6" fill="#fff" stroke="#0B2545" stroke-width="2.6"/>
+      <path d="M26 29.5h14" stroke="#0B2545" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M44.5 11.5a6 6 0 0 0-6.8 7.9l-6.2 6.2 2.9 2.9 6.2-6.2a6 6 0 0 0 7.9-6.8l-3.4 3.4-2.6-.6-.6-2.6z" fill="#F97316" stroke="#C2410C" stroke-width="1.2" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="ic-breakdown" viewBox="0 0 64 64">
+      <rect x="4" y="4" width="56" height="56" rx="16" fill="#EAF0FA"/>
+      <path d="M8 44v-6.5c0-1.3.8-2.4 2-2.8l5.2-1.7 5.3-7.2c.8-1.1 2-1.8 3.4-1.8h9.6c1.4 0 2.7.7 3.5 1.8l4.3 6.2 3.4 1.1c1.4.5 2.3 1.7 2.3 3.2V44" fill="#fff" stroke="#0B2545" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M6 44h42" stroke="#0B2545" stroke-width="2.6" stroke-linecap="round"/>
+      <circle cx="17" cy="45" r="4.6" fill="#fff" stroke="#0B2545" stroke-width="2.6"/>
+      <circle cx="37" cy="45" r="4.6" fill="#fff" stroke="#0B2545" stroke-width="2.6"/>
+      <path d="M48.5 12.5l9 15.6c.5.9-.1 2-1.2 2H40.7c-1 0-1.7-1.1-1.2-2l9-15.6c.5-.9 1.7-.9 2 0z" fill="#F97316" stroke="#C2410C" stroke-width="1.2" stroke-linejoin="round"/>
+      <path d="M49 18v5.2" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="49" cy="26.4" r="1.4" fill="#fff"/>
+    </symbol>
+    <symbol id="ic-warranty" viewBox="0 0 64 64">
+      <rect x="4" y="4" width="56" height="56" rx="16" fill="#EAF0FA"/>
+      <path d="M32 10l17 6v13.5c0 11.2-7.2 20.3-17 24.5-9.8-4.2-17-13.3-17-24.5V16z" fill="#fff" stroke="#0B2545" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M32 15.5l12 4.2v9.8c0 8-4.9 14.8-12 18.2" fill="#DCE6F5"/>
+      <circle cx="32" cy="31" r="7.2" fill="#F97316" stroke="#C2410C" stroke-width="1.2"/>
+      <circle cx="32" cy="31" r="2.8" fill="#fff"/>
+      <path d="M32 21.4v3M32 37.6v3M22.4 31h3M38.6 31h3M25.2 24.2l2.1 2.1M36.7 35.7l2.1 2.1M38.8 24.2l-2.1 2.1M27.3 35.7l-2.1 2.1" stroke="#C2410C" stroke-width="2.4" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="ic-roadside" viewBox="0 0 64 64">
+      <rect x="4" y="4" width="56" height="56" rx="16" fill="#EAF0FA"/>
+      <path d="M14 54c0-8 8-9 13-13s3-9 9-12 12-3 12-11" fill="none" stroke="#0B2545" stroke-width="7" stroke-linecap="round"/>
+      <path d="M14 54c0-8 8-9 13-13s3-9 9-12 12-3 12-11" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="3 4"/>
+      <path d="M46 8.5a7 7 0 0 0-7 7c0 5.3 7 11.5 7 11.5s7-6.2 7-11.5a7 7 0 0 0-7-7z" fill="#F97316" stroke="#C2410C" stroke-width="1.2"/>
+      <path d="M46 12.3v6.4M42.8 15.5h6.4" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header id="hdr">
+  <div class="wrap">
+    <nav>
+      <a href="/" class="logo" aria-label="MyDriveShield home">
+        <svg class="mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MyDriveShield"><circle cx="24" cy="24" r="21" fill="#F97316"/><circle cx="24" cy="24" r="17.5" stroke="#0B2545" stroke-width="1.3" opacity=".5"/><path d="M10 33c9-2.5 19-2.5 28 0" stroke="#0B2545" stroke-width="2" stroke-linecap="round" opacity=".8"/><path d="M19 33c1.2-7.5 3-13.5 5-19 2 5.5 3.8 11.5 5 19" stroke="#0B2545" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 20v2.6M24 27v2.6" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <b>MyDrive<span class="o">Shield</span></b>
+      </a>
+      <div class="menu" id="menu">
+        <a href="/extended-car-warranty/">Warranty</a>
+        <a href="/roadside-assistance/">Roadside</a>
+        <a href="/private-sale-car-warranty/">Private sale</a>
+        <a href="/faq/">FAQ</a>
+        <a href="/partners">Partners</a>
+        <a href="/#contact">Contact</a>
+      </div>
+      <div class="nav-cta">
+        <a href="/?start=warranty#quote" class="btn btn-primary btn-pill">Get my price</a>
+        <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span aria-current="page">FAQ</span></nav>
+    <h1>Questions, answered</h1>
+    <p>Buying cover, claims, servicing, selling your car and roadside assistance. Transfer forms and the vehicle condition report are at the bottom of the page.</p>
+    <div class="hx-actions"><a href="/?start=warranty#quote" class="btn btn-primary btn-lg">Check my warranty options</a></div>
+  </div>
+</section>
+<div class="doc">
+<section id="faq">
+  <div class="wrap">
+    
+    <div class="faq">
+      <h3 class="faq-grp">Buying cover</h3>
+      <div class="qa"><button aria-expanded="false">What is an extended vehicle warranty?<span class="plus">+</span></button><div class="ans"><p>It's mechanical protection that helps cover the cost of repairing major components, like the engine, transmission and electrical systems, after your manufacturer warranty ends. Cover, eligibility, claim limits and exclusions depend on the product terms.</p></div></div>
+      <div class="qa"><button aria-expanded="false">Who issues the warranty and handles claims?<span class="plus">+</span></button><div class="ans"><p>The warranty is issued by Integrity Car Care Pty Ltd (ABN 58 056 621 893, AFSL 247069). MyDriveShield helps you compare options, get a price and arrange your cover. Claims are assessed and paid by Integrity.</p></div></div>
+      <div class="qa"><button aria-expanded="false">Can I get cover if I bought my car privately?<span class="plus">+</span></button><div class="ans"><p>Yes. Private purchases are welcome. The warranty provider requires a Vehicle Condition Report from a licensed mechanic before a warranty for a privately purchased vehicle can be lodged. You can upload it at checkout, or pay first and we will help you arrange it before lodgement. <a href="https://integritywarranty.com.au/public/assets/images/broucher/Inspection%20Form.pdf" target="_blank" rel="noopener">Download the Vehicle Condition Report form</a> to take to your mechanic. An inspection fee may apply.</p></div></div>
+      <div class="qa"><button aria-expanded="false">How much does it cost?<span class="plus">+</span></button><div class="ans"><p>It depends on the product. Absolute Warranty is priced by vehicle category, cover level and term. Endurance Warranty is a flat price for all makes, set by the option your vehicle qualifies for and the term. A $110 surcharge applies to 4WD and AWD vehicles. Roadside assistance starts from $88 a year. Get an instant online quote to see your exact price.</p></div></div>
+      <div class="qa"><button aria-expanded="false">Will my vehicle qualify?<span class="plus">+</span></button><div class="ans"><p>Your vehicle must be registered for and used on Australian roads and be within the age and kilometre limits of the cover level or option you choose. Endurance Option 1 has no age or kilometre limits. The online quote only shows the options your vehicle qualifies for, and cover is subject to the provider's acceptance.</p></div></div>
+      <div class="qa"><button aria-expanded="false">How long can I cover my vehicle for?<span class="plus">+</span></button><div class="ans"><p>Absolute Warranty is available for 1 to 5 years. Endurance Warranty is available for 1, 3 or 5 years. Roadside assistance can be added for the same term or bought on its own.</p></div></div>
+      <div class="qa"><button aria-expanded="false">Can I renew my warranty when it expires?<span class="plus">+</span></button><div class="ans"><p>Warranties are not automatically renewed. Contact us before your cover ends and we will check what is available for your vehicle at that time.</p></div></div>
+      <div class="qa"><button aria-expanded="false">Can I pay in instalments?<span class="plus">+</span></button><div class="ans"><p>You pay in full at checkout by card, processed by Stripe. Google Pay, Apple Pay and Klarna instalments may also be shown, depending on your device and eligibility. If you are financing your vehicle, some financiers can include a warranty in the loan. We can't advise on finance arrangements, so please speak to your financier.</p></div></div>
+      <div class="qa"><button aria-expanded="false">Can I cancel?<span class="plus">+</span></button><div class="ans"><p>Yes. Under the Integrity warranty terms you can cancel at any time by writing to Integrity at <a href="mailto:requests@integritywarranty.com.au">requests@integritywarranty.com.au</a>. If you cancel within 30 days of purchase, or before your cover starts, and no claims have been paid, you receive a full refund. After that, the refund is pro-rata for the unexpired cover, less any accepted claims and a $62.50 administration fee.</p></div></div>
+      <h3 class="faq-grp">Claims</h3>
+      <div class="qa"><button aria-expanded="false">Do I have to pay an excess when I claim?<span class="plus">+</span></button><div class="ans"><p>No. There is no upfront excess. You are responsible for diagnosis costs unless they form part of an approved claim, and for any amount above the approved claim, for example if you choose to repair beyond the vehicle's previous condition.</p></div></div>
+      <div class="qa"><button aria-expanded="false">How do I make a claim?<span class="plus">+</span></button><div class="ans"><p>Before any repair work starts, contact Integrity Claims on <a href="tel:0391206666">03 9120 6666</a> or <a href="mailto:claims@integritywarranty.com.au">claims@integritywarranty.com.au</a>. Integrity will direct you to an approved repairer, who diagnoses the fault and sends the details through. Claims are assessed within 24 hours of receiving all the required information, and approved repairs are paid directly to the repairer. Repairs carried out without prior approval are not covered.</p><p><a href="https://integritywarranty.com.au/pdf/Claim%20checklist%20-%20Integrity.pdf" target="_blank" rel="noopener">Download the claims checklist</a>.</p></div></div>
+      <div class="qa"><button aria-expanded="false">What if I break down interstate?<span class="plus">+</span></button><div class="ans"><p>Your warranty covers you anywhere in Australia. Contact Integrity before authorising any work and have the repairer call the Claims team. Integrity deals with the repairer directly and pays them, with no claim forms for you to fill in.</p></div></div>
+      <div class="qa"><button aria-expanded="false">Who are the approved repairers?<span class="plus">+</span></button><div class="ans"><p>Integrity maintains an Australia-wide network of approved repairers that is regularly reviewed for workmanship, pricing and customer satisfaction. Contact Integrity Claims for the nearest approved repairer when you need one.</p></div></div>
+      <div class="qa"><button aria-expanded="false">How many claims can I make?<span class="plus">+</span></button><div class="ans"><p>You can claim multiple times during the warranty term. Per-claim limits apply and vary by cover level or option. Your limits are shown in your quote and warranty documents.</p></div></div>
+      <h3 class="faq-grp">Servicing</h3>
+      <div class="qa"><button aria-expanded="false">Do I have to service my car at a dealership?<span class="plus">+</span></button><div class="ans"><p>No. Any licensed mechanical workshop can service your vehicle. Keep every service invoice showing the date and odometer reading, because proof of servicing is needed when you claim. <a href="https://integritywarranty.com.au/public/assets/images/broucher/Service%20Records.pdf" target="_blank" rel="noopener">Download a service record log</a>.</p></div></div>
+      <div class="qa"><button aria-expanded="false">How often do I need to service my vehicle?<span class="plus">+</span></button><div class="ans"><p>Follow the service schedule in your warranty terms. Absolute Warranty and Endurance Options 3 and 4 follow the vehicle manufacturer's recommended schedule. Endurance Options 1 and 2 must be serviced every 6 months or 10,000 km, whichever comes first. If a service is more than 30 days or 1,000 km overdue, whichever comes first, the warranty becomes inactive until it is reactivated with a satisfactory mechanical inspection report.</p></div></div>
+      <h3 class="faq-grp">Selling your car</h3>
+      <div class="qa"><button aria-expanded="false">Can I transfer my warranty if I sell my car?<span class="plus">+</span></button><div class="ans"><p>Yes, to a new private owner (dealers and traders do not qualify), as long as the transfer is requested within 7 days of the sale. You and the buyer complete the Warranty Transfer form and send it to Integrity with a Vehicle Condition Report from a licensed mechanical workshop, the service records and the $62.50 transfer fee. Transfers are handled directly by Integrity Car Care, not MyDriveShield: call Integrity on <a href="tel:0391206666">03 9120 6666</a> or email <a href="mailto:admin@integritywarranty.com.au">admin@integritywarranty.com.au</a>. A warranty cannot be moved to a different vehicle. See <a href="#forms">Transfers and forms</a> below.</p></div></div>
+      <h3 class="faq-grp">Roadside assistance</h3>
+      <div class="qa"><button aria-expanded="false">Does roadside assistance cover all of Australia?<span class="plus">+</span></button><div class="ans"><p>Yes. 24/7 emergency roadside assistance operates Australia-wide, covering towing, flat battery, flat tyre, fuel delivery and lockout support. Benefits and limits are set out in the product terms.</p></div></div>
+      <div class="qa"><button aria-expanded="false">Can I buy roadside assistance on its own?<span class="plus">+</span></button><div class="ans"><p>Yes. Roadside assistance can be bought with a warranty or on its own, in 3 Star or 5 Star, for 1 to 5 years.</p></div></div>
+      <h3 class="faq-grp">Advice</h3>
+      <div class="qa"><button aria-expanded="false">Are you providing financial or insurance advice?<span class="plus">+</span></button><div class="ans"><p>No. MyDriveShield provides general information about protection products and helps you get a quote. We don't provide personal financial or insurance advice. This information is an overview only. Cover, terms and eligibility are set out in the product documentation and are subject to the provider's approval.</p></div></div>
+    </div>
+    <div class="xfer" id="forms">
+      <div class="xfer-head">
+        <span class="eyebrow">Transfers and forms</span>
+        <h3>Selling your car? Your warranty can go with it.</h3>
+        <p>A transferable warranty can make your car easier to sell. Request the transfer within <strong>7 days of the sale</strong>. The new owner must be a private buyer, not a dealer or trader.</p>
+      </div>
+      <ol class="xfer-steps">
+        <li><b>Complete the transfer form</b> together with the buyer.</li>
+        <li><b>Get a Vehicle Condition Report</b> from a licensed mechanical workshop.</li>
+        <li><b>Gather the service records</b> showing dates and odometer readings.</li>
+        <li><b>Send everything to Integrity Car Care</b> with the $62.50 transfer fee within 7 days. Integrity will tell you within 2 business days if the transfer can't be approved, and refund the fee.</li>
+      </ol>
+      <div class="xfer-who">
+        <b>Transfers, claims and these forms are handled directly by Integrity Car Care, the warranty provider.</b> MyDriveShield provides the forms here for convenience but does not process them. Send completed forms to Integrity and contact them with any questions:
+        <ul>
+          <li>Phone <a href="tel:0391206666">03 9120 6666</a> (Mon to Fri, 9am to 5pm AEST)</li>
+          <li>General and transfers <a href="mailto:admin@integritywarranty.com.au">admin@integritywarranty.com.au</a></li>
+          <li>Claims <a href="mailto:claims@integritywarranty.com.au">claims@integritywarranty.com.au</a></li>
+          <li>Post: Integrity Car Care Pty Ltd, PO Box 2122, Traralgon VIC 3844</li>
+          <li>Web <a href="https://integritywarranty.com.au/forms" target="_blank" rel="noopener">integritywarranty.com.au/forms</a></li>
+        </ul>
+      </div>
+      <div class="dl-grid">
+        <a class="dl-card" href="https://integritywarranty.com.au/public/assets/images/broucher/Transfer%20Form.pdf" target="_blank" rel="noopener"><span class="dl-ic">PDF</span><span><b>Warranty transfer form</b><small>Transfer of ownership</small></span></a>
+        <a class="dl-card" href="https://integritywarranty.com.au/public/assets/images/broucher/Inspection%20Form.pdf" target="_blank" rel="noopener"><span class="dl-ic">PDF</span><span><b>Vehicle condition report</b><small>For your mechanic. Also needed for private purchases</small></span></a>
+        <a class="dl-card" href="https://integritywarranty.com.au/public/assets/images/broucher/Service%20Records.pdf" target="_blank" rel="noopener"><span class="dl-ic">PDF</span><span><b>Service record log</b><small>Keep with your invoices</small></span></a>
+        <a class="dl-card" href="https://integritywarranty.com.au/pdf/Claim%20checklist%20-%20Integrity.pdf" target="_blank" rel="noopener"><span class="dl-ic">PDF</span><span><b>Claims checklist</b><small>What the repairer needs to send</small></span></a>
+      </div>
+      <p class="xfer-note">These are Integrity Car Care's official forms, opened from Integrity's website so you always get the current version. Not sure which form you need? MyDriveShield can point you in the right direction on <a href="tel:0477666500">0477 666 500</a>, but the forms themselves go to Integrity.</p>
+    </div>
+  </div>
+</section>
+
+
+</div>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="f-top">
+      <div>
+        <a href="/" class="logo" aria-label="MyDriveShield home"><svg class="mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MyDriveShield"><circle cx="24" cy="24" r="21" fill="#F97316"/><circle cx="24" cy="24" r="17.5" stroke="#0B2545" stroke-width="1.3" opacity=".5"/><path d="M10 33c9-2.5 19-2.5 28 0" stroke="#0B2545" stroke-width="2" stroke-linecap="round" opacity=".8"/><path d="M19 33c1.2-7.5 3-13.5 5-19 2 5.5 3.8 11.5 5 19" stroke="#0B2545" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 20v2.6M24 27v2.6" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg><b>MyDrive<span class="o">Shield</span></b></a>
+        <p class="f-about">Extended vehicle warranty and emergency roadside assistance for used-car owners across Australia. Backed by Integrity Car Care Pty Ltd.</p>
+      </div>
+      <div class="f-col"><h4>Protection</h4><a href="/extended-car-warranty/">Extended car warranty</a><a href="/roadside-assistance/">Roadside assistance</a><a href="/private-sale-car-warranty/">Private sale warranty</a><a href="/?start=warranty#quote">Get my price</a></div>
+        <div class="f-col"><h4>Help</h4><a href="/faq/">FAQ</a><a href="/faq/#forms">Transfers &amp; forms</a><a href="/docs/integrity-absolute-warranty-pds-v3.5.pdf">Absolute PDS</a><a href="/docs/integrity-endurance-warranty-terms.pdf">Endurance terms</a><a href="/partners">Partner portal</a></div>
+        <div class="f-col"><h4>Get in touch</h4><a href="tel:0477666500">0477 666 500</a><a href="mailto:quotes@mydriveshield.com.au">quotes@mydriveshield.com.au</a><a href="/#contact">Request a callback</a><a href="tel:0391206666">Claims: Integrity 03 9120 6666</a></div>
+      </div>
+      <p class="f-legal">MyDriveShield provides information about vehicle warranty and roadside assistance products and facilitates quote requests. We do not provide personal financial, insurance or legal advice. Coverage, exclusions, eligibility, waiting periods, claim limits and terms depend on the relevant product documentation and provider approval. Warranty products are issued by Integrity Car Care Pty Ltd (PO Box 2122 Traralgon VIC 3844 · 03 9120 6666 · admin@integritywarranty.com.au). Assetia Pty Ltd (ABN 94 668 837 983), trading as MyDriveShield, is the authorised distribution partner of Integrity Car Care Pty Ltd and does not hold an Australian Financial Services Licence in respect of warranty products, which are consumer goods warranties and not financial products. All prices include GST. Cover is subject to the full terms and conditions of the relevant warranty product, available upon request. Pre-existing conditions are excluded. Vehicle category and eligibility are subject to approval. Please read the product terms before purchasing. All quotes are subject to assessment and approval.</p>
+    <div class="f-bottom"><span>© 2026 MyDriveShield. All rights reserved.</span><span><a href="/privacy.html">Privacy Policy</a> · <span class="todo">Terms of Use page to be written</span> · <span class="todo">Complaints page to be written</span></span></div>
+  </div>
+</footer>
+<script>
+  const hdr=document.getElementById('hdr');
+  addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>10));
+  const burger=document.getElementById('burger'),menu=document.getElementById('menu');
+  burger.addEventListener('click',()=>menu.classList.toggle('open'));
+  document.querySelectorAll('.qa button').forEach(b=>b.addEventListener('click',()=>{
+    const qa=b.parentElement, open=qa.classList.contains('open');
+    document.querySelectorAll('.qa').forEach(x=>{x.classList.remove('open'); const bb=x.querySelector('button'); if(bb) bb.setAttribute('aria-expanded','false');});
+    if(!open){qa.classList.add('open'); b.setAttribute('aria-expanded','true');}
+  }));
+</script>
+</body>
+</html>
