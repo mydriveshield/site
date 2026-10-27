@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Complaints | MyDriveShield</title>
+<meta name="description" content="How to make a complaint to MyDriveShield, how to raise a warranty or claim complaint with Integrity Car Care, and how to contact AFCA.">
+<link rel="canonical" href="https://mydriveshield.com.au/complaints/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Complaints | MyDriveShield">
+<meta property="og:description" content="How to make a complaint to MyDriveShield, how to raise a warranty or claim complaint with Integrity Car Care, and how to contact AFCA.">
+<meta property="og:url" content="https://mydriveshield.com.au/complaints/">
+<meta property="og:image" content="https://mydriveshield.com.au/img/hero-1440.webp">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://mydriveshield.com.au/"}, {"@type": "ListItem", "position": 2, "name": "Complaints", "item": "https://mydriveshield.com.au/complaints/"}]}]</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HZMK5CPS6Z"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-HZMK5CPS6Z');
+gtag('config', 'AW-18308478534');
+
+// === MyDriveShield conversion tracking ===
+// LABELS: Google Ads conversion labels (Goals > Conversions > action > Tag setup > "Use Google tag" > event snippet).
+// An empty label means "GA4 event only, no Google Ads conversion" so nothing breaks before the actions exist.
+window.MDS_TRACK = {
+  ADS_ID: 'AW-18308478534',
+  LABELS: {
+    purchase:         'tcI1CKDY99IcEMbslJpE',   // existing: Purchase (fires on /confirmation)
+    quote_request:    '_mIwCMPciOscEMbslJpE',                       // Request a callback / quote form submitted (PRIMARY)
+    partner_lead:     'e_flCMbciOscEMbslJpE',                       // Partner portal lead submitted (PRIMARY)
+    checkout_details: 'dGKwCMnciOscEMbslJpE',                       // Customer details entered at payment step (secondary)
+    phone_click:      'NZGqCMzciOscEMbslJpE'                        // Tap on a tel: link (secondary)
+  }
+};
+// mdsTrack(name, params): sends a GA4 event and, when a label is configured, a Google Ads conversion.
+window.mdsTrack = function(name, params){
+  try{
+    var p = Object.assign({}, params || {});
+    gtag('event', name, p);
+    if(name === 'quote_request' || name === 'partner_lead') gtag('event', 'generate_lead', p);
+    var lbl = window.MDS_TRACK.LABELS[name];
+    if(lbl){
+      gtag('event', 'conversion', Object.assign({ send_to: window.MDS_TRACK.ADS_ID + '/' + lbl }, p));
+    }
+  }catch(e){}
+};
+// Phone click tracking on any tel: link
+document.addEventListener('click', function(ev){
+  var a = ev.target && ev.target.closest ? ev.target.closest('a[href^="tel:"]') : null;
+  if(a) window.mdsTrack('phone_click', { phone_number: a.getAttribute('href').replace('tel:',''), page_path: location.pathname });
+}, true);
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="ic-repair" viewBox="0 0 64 64">
+      <rect x="4" y="4" width="56" height="56" rx="16" fill="#EAF0FA"/>
+      <path d="M12 40v-6.5c0-1.3.8-2.4 2-2.8l5.2-1.7 5.3-7.2c.8-1.1 2-1.8 3.4-1.8h11.6c1.4 0 2.7.7 3.5 1.8l4.3 6.2 3.4 1.1c1.4.5 2.3 1.7 2.3 3.2V40" fill="#fff" stroke="#0B2545" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M10 40h44" stroke="#0B2545" stroke-width="2.6" stroke-linecap="round"/>
+      <circle cx="21" cy="41" r="4.6" fill="#fff" stroke="#0B2545" stroke-width="2.6"/>
+      <circle cx="43" cy="41" r="4.6" fill="#fff" stroke="#0B2545" stroke-width="2.6"/>
+      <path d="M26 29.5h14" stroke="#0B2545" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M44.5 11.5a6 6 0 0 0-6.8 7.9l-6.2 6.2 2.9 2.9 6.2-6.2a6 6 0 0 0 7.9-6.8l-3.4 3.4-2.6-.6-.6-2.6z" fill="#F97316" stroke="#C2410C" stroke-width="1.2" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="ic-breakdown" viewBox="0 0 64 64">
+      <rect x="4" y="4" width="56" height="56" rx="16" fill="#EAF0FA"/>
+      <path d="M8 44v-6.5c0-1.3.8-2.4 2-2.8l5.2-1.7 5.3-7.2c.8-1.1 2-1.8 3.4-1.8h9.6c1.4 0 2.7.7 3.5 1.8l4.3 6.2 3.4 1.1c1.4.5 2.3 1.7 2.3 3.2V44" fill="#fff" stroke="#0B2545" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M6 44h42" stroke="#0B2545" stroke-width="2.6" stroke-linecap="round"/>
+      <circle cx="17" cy="45" r="4.6" fill="#fff" stroke="#0B2545" stroke-width="2.6"/>
+      <circle cx="37" cy="45" r="4.6" fill="#fff" stroke="#0B2545" stroke-width="2.6"/>
+      <path d="M48.5 12.5l9 15.6c.5.9-.1 2-1.2 2H40.7c-1 0-1.7-1.1-1.2-2l9-15.6c.5-.9 1.7-.9 2 0z" fill="#F97316" stroke="#C2410C" stroke-width="1.2" stroke-linejoin="round"/>
+      <path d="M49 18v5.2" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="49" cy="26.4" r="1.4" fill="#fff"/>
+    </symbol>
+    <symbol id="ic-warranty" viewBox="0 0 64 64">
+      <rect x="4" y="4" width="56" height="56" rx="16" fill="#EAF0FA"/>
+      <path d="M32 10l17 6v13.5c0 11.2-7.2 20.3-17 24.5-9.8-4.2-17-13.3-17-24.5V16z" fill="#fff" stroke="#0B2545" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M32 15.5l12 4.2v9.8c0 8-4.9 14.8-12 18.2" fill="#DCE6F5"/>
+      <circle cx="32" cy="31" r="7.2" fill="#F97316" stroke="#C2410C" stroke-width="1.2"/>
+      <circle cx="32" cy="31" r="2.8" fill="#fff"/>
+      <path d="M32 21.4v3M32 37.6v3M22.4 31h3M38.6 31h3M25.2 24.2l2.1 2.1M36.7 35.7l2.1 2.1M38.8 24.2l-2.1 2.1M27.3 35.7l-2.1 2.1" stroke="#C2410C" stroke-width="2.4" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="ic-roadside" viewBox="0 0 64 64">
+      <rect x="4" y="4" width="56" height="56" rx="16" fill="#EAF0FA"/>
+      <path d="M14 54c0-8 8-9 13-13s3-9 9-12 12-3 12-11" fill="none" stroke="#0B2545" stroke-width="7" stroke-linecap="round"/>
+      <path d="M14 54c0-8 8-9 13-13s3-9 9-12 12-3 12-11" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="3 4"/>
+      <path d="M46 8.5a7 7 0 0 0-7 7c0 5.3 7 11.5 7 11.5s7-6.2 7-11.5a7 7 0 0 0-7-7z" fill="#F97316" stroke="#C2410C" stroke-width="1.2"/>
+      <path d="M46 12.3v6.4M42.8 15.5h6.4" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header id="hdr">
+  <div class="wrap">
+    <nav>
+      <a href="/" class="logo" aria-label="MyDriveShield home">
+        <svg class="mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MyDriveShield"><circle cx="24" cy="24" r="21" fill="#F97316"/><circle cx="24" cy="24" r="17.5" stroke="#0B2545" stroke-width="1.3" opacity=".5"/><path d="M10 33c9-2.5 19-2.5 28 0" stroke="#0B2545" stroke-width="2" stroke-linecap="round" opacity=".8"/><path d="M19 33c1.2-7.5 3-13.5 5-19 2 5.5 3.8 11.5 5 19" stroke="#0B2545" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 20v2.6M24 27v2.6" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <b>MyDrive<span class="o">Shield</span></b>
+      </a>
+      <div class="menu" id="menu">
+        <a href="/extended-car-warranty/">Warranty</a>
+        <a href="/roadside-assistance/">Roadside</a>
+        <a href="/private-sale-car-warranty/">Private sale</a>
+        <a href="/faq/">FAQ</a>
+        <a href="/partners">Partners</a>
+        <a href="/#contact">Contact</a>
+      </div>
+      <div class="nav-cta">
+        <a href="/?start=warranty#quote" class="btn btn-primary btn-pill">Get my price</a>
+        <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span aria-current="page">Complaints</span></nav>
+    <h1>Complaints</h1>
+    <p>We want to hear when something goes wrong. Here is how to raise a complaint, what we will do, and where to go if you are not satisfied.</p>
+    
+  </div>
+</section>
+<div class="doc">
+
+<h2>1. Talk to us first</h2>
+<p>If you're unhappy with our website, a quote, how we handled your order or how we dealt with you, tell us. Most problems can be fixed quickly.</p>
+<ul>
+<li>Phone <a href="tel:0477666500">0477 666 500</a> (Mon to Fri, business hours)</li>
+<li>Email <a href="mailto:admin@mydriveshield.com.au">admin@mydriveshield.com.au</a> with "Complaint" in the subject</li>
+</ul>
+<p>Please include your name, your order or quote reference (it starts with DS-), what happened, and what you'd like us to do.</p>
+<h3>What we will do</h3>
+<ul>
+<li>Acknowledge your complaint within 1 business day.</li>
+<li>Look into it fairly, and keep you updated.</li>
+<li>Give you our response in writing within 30 days. If we need longer, we'll tell you why and when to expect it.</li>
+</ul>
+<p>Making a complaint is free.</p>
+
+<h2>2. Complaints about the warranty or a claim</h2>
+<p>Your warranty is issued by Integrity Car Care Pty Ltd (AFSL 247069), who assess and pay claims. If your complaint is about the warranty itself or a claim decision, contact Integrity's Internal Disputes Officer:</p>
+<ul>
+<li>Email <a href="mailto:idr@integritywarranty.com.au">idr@integritywarranty.com.au</a></li>
+<li>Phone <a href="tel:0391206666">03 9120 6666</a> (Mon to Fri, 9am to 5pm AEST)</li>
+<li>Post: Integrity Car Care Pty Ltd, PO Box 2122, Traralgon VIC 3844</li>
+</ul>
+<p>Integrity says that in most cases you will hear from them within 20 business days. We can help you put your complaint to Integrity if you'd like.</p>
+
+<h2>3. If you're still not satisfied</h2>
+<p>If you're not satisfied with Integrity's response, you can take your complaint to the Australian Financial Complaints Authority (AFCA), Integrity's external dispute resolution scheme. AFCA is free for consumers.</p>
+<ul>
+<li>Website <a href="https://www.afca.org.au" rel="noopener">www.afca.org.au</a></li>
+<li>Phone 1800 931 678 (free call)</li>
+<li>Post: GPO Box 3, Melbourne VIC 3001</li>
+</ul>
+<p>For a complaint about MyDriveShield that we haven't resolved, you can also contact the consumer protection agency in your state or territory, for example NSW Fair Trading.</p>
+
+<h2>4. Privacy complaints</h2>
+<p>See section 11 of our <a href="/privacy.html">Privacy Policy</a>. If you're not satisfied with our response, you can contact the Office of the Australian Information Commissioner at <a href="https://www.oaic.gov.au" rel="noopener">oaic.gov.au</a> or 1300 363 992.</p>
+
+<h2>5. Your rights under the Australian Consumer Law</h2>
+<p>The warranty is in addition to your rights under the Australian Consumer Law. Nothing in this page or the warranty limits those rights.</p>
+<p style="font-size:14px;color:var(--muted)">MyDriveShield is a trading name of Assetia Pty Ltd (ABN 94 668 837 983). Last updated 27/10/2026.</p>
+
+</div>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="f-top">
+      <div>
+        <a href="/" class="logo" aria-label="MyDriveShield home"><svg class="mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MyDriveShield"><circle cx="24" cy="24" r="21" fill="#F97316"/><circle cx="24" cy="24" r="17.5" stroke="#0B2545" stroke-width="1.3" opacity=".5"/><path d="M10 33c9-2.5 19-2.5 28 0" stroke="#0B2545" stroke-width="2" stroke-linecap="round" opacity=".8"/><path d="M19 33c1.2-7.5 3-13.5 5-19 2 5.5 3.8 11.5 5 19" stroke="#0B2545" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 20v2.6M24 27v2.6" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg><b>MyDrive<span class="o">Shield</span></b></a>
+        <p class="f-about">Extended vehicle warranty and emergency roadside assistance for used-car owners across Australia. Backed by Integrity Car Care Pty Ltd.</p>
+      </div>
+      <div class="f-col"><h4>Protection</h4><a href="/extended-car-warranty/">Extended car warranty</a><a href="/roadside-assistance/">Roadside assistance</a><a href="/private-sale-car-warranty/">Private sale warranty</a><a href="/?start=warranty#quote">Get my price</a></div>
+        <div class="f-col"><h4>Help</h4><a href="/faq/">FAQ</a><a href="/faq/#forms">Transfers &amp; forms</a><a href="/docs/integrity-absolute-warranty-pds-v3.5.pdf">Absolute PDS</a><a href="/docs/integrity-endurance-warranty-terms.pdf">Endurance terms</a><a href="/partners">Partner portal</a></div>
+        <div class="f-col"><h4>Get in touch</h4><a href="tel:0477666500">0477 666 500</a><a href="mailto:quotes@mydriveshield.com.au">quotes@mydriveshield.com.au</a><a href="/#contact">Request a callback</a><a href="tel:0391206666">Claims: Integrity 03 9120 6666</a></div>
+      </div>
+      <p class="f-legal">MyDriveShield provides information about vehicle warranty and roadside assistance products and facilitates quote requests. We do not provide personal financial, insurance or legal advice. Coverage, exclusions, eligibility, waiting periods, claim limits and terms depend on the relevant product documentation and provider approval. Warranty products are issued by Integrity Car Care Pty Ltd (PO Box 2122 Traralgon VIC 3844 · 03 9120 6666 · admin@integritywarranty.com.au). Assetia Pty Ltd (ABN 94 668 837 983), trading as MyDriveShield, is the authorised distribution partner of Integrity Car Care Pty Ltd and does not hold an Australian Financial Services Licence in respect of warranty products, which are consumer goods warranties and not financial products. All prices include GST. Cover is subject to the full terms and conditions of the relevant warranty product, available upon request. Pre-existing conditions are excluded. Vehicle category and eligibility are subject to approval. Please read the product terms before purchasing. All quotes are subject to assessment and approval.</p>
+    <div class="f-bottom"><span>© 2026 MyDriveShield. All rights reserved.</span><span><a href="/privacy.html">Privacy Policy</a> · <a href="/terms/">Terms of Use</a> · <a href="/complaints/">Complaints</a></span></div>
+  </div>
+</footer>
+<script>
+  const hdr=document.getElementById('hdr');
+  addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>10));
+  const burger=document.getElementById('burger'),menu=document.getElementById('menu');
+  burger.addEventListener('click',()=>menu.classList.toggle('open'));
+  document.querySelectorAll('.qa button').forEach(b=>b.addEventListener('click',()=>{
+    const qa=b.parentElement, open=qa.classList.contains('open');
+    document.querySelectorAll('.qa').forEach(x=>{x.classList.remove('open'); const bb=x.querySelector('button'); if(bb) bb.setAttribute('aria-expanded','false');});
+    if(!open){qa.classList.add('open'); b.setAttribute('aria-expanded','true');}
+  }));
+</script>
+</body>
+</html>
