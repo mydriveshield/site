@@ -1091,13 +1091,13 @@ document.addEventListener('click', function(ev){
         <h2>Add Roadside Assistance?</h2>
         <p>24/7 emergency breakdown help Australia-wide. 5 Star adds lockout help, longer towing and unlimited call-outs. Cover starts two working days after payment.</p>
         <div class="roadside-grid">
-          <div class="roadside-opt" id="rs-none" onclick="selectRoadside('none')">
+          <div class="roadside-opt selected" id="rs-none" onclick="selectRoadside('none')">
             <div class="ro-icon">❌</div>
             <h4>No Thanks</h4>
             <p>Warranty only</p>
             <div class="ro-price">+$0</div>
           </div>
-          <div class="roadside-opt selected" id="rs-star3" onclick="selectRoadside('star3')">
+          <div class="roadside-opt" id="rs-star3" onclick="selectRoadside('star3')">
             <div class="ro-icon">⭐⭐⭐</div>
             <h4>3 Star Roadside</h4>
             <p>4 call-outs a year. Towing up to 20 km metro or 50 km country, jumpstarts, flat tyres and emergency fuel</p>
@@ -1683,7 +1683,7 @@ function checkModelListed(){
 // === STATE ===
 let state = {
   make:'', model:'', year:'', odo:'', fuel:'ice', cat:1, awd:false,
-  product:'absolute', level:1, eopt:1, duration:2, roadside:'star3'
+  product:'absolute', level:1, eopt:1, duration:2, roadside:'none'
 };
 let stripe = null, elements = null, paymentElement = null;
 
@@ -1749,6 +1749,8 @@ function toggleAWD(){
 
 // === PRODUCT SELECT ===
 function selectProduct(p){
+  // Paid add-ons stay off unless chosen: coming back from roadside-only clears the roadside plan.
+  if(state.product==='roadside' && p!=='roadside') state.roadside='none';
   state.product = p;
   document.getElementById('ps-absolute').classList.toggle('selected', p==='absolute');
   document.getElementById('ps-endurance').classList.toggle('selected', p==='endurance');
