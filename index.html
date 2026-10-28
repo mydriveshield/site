@@ -933,7 +933,7 @@ document.addEventListener('click', function(ev){
             <p class="hint" id="cat-hint">Select make above to auto-detect</p>
           </div>
         </div>
-        <div id="hev-note" role="note" style="display:none;margin:0 0 14px;padding:12px 14px;border:1px solid #F3C98B;background:#FFF7EA;border-radius:var(--r-sm);font-size:13.5px;line-height:1.55;color:var(--gray-800)"><strong>Hybrid and electric vehicles:</strong> the Absolute warranty does not cover hybrid or electric vehicle components, such as the high-voltage battery, and Endurance covers only its 20 listed components, none of which are hybrid or electric parts. Integrity also offers Total Cover and an EV warranty that include those components. <a href="#quote" onclick="showCallback('hybrid-ev');return false" style="color:var(--accent);font-weight:700">Request a callback</a> and we'll send you the details.</div>
+        <div id="hev-note" role="note" style="display:none;margin:0 0 14px;padding:12px 14px;border:1px solid #F3C98B;background:#FFF7EA;border-radius:var(--r-sm);font-size:13.5px;line-height:1.55;color:var(--gray-800)"><strong>Hybrid and electric vehicles:</strong> Absolute does not cover hybrid or electric vehicle components, such as the high-voltage battery, and Endurance covers only its 20 listed components, none of which are hybrid or electric parts. Total Cover includes the hybrid system and electric motor (the battery on Total Cover Plus), and the EV warranty lists battery and motor cover. You will see the options your vehicle qualifies for on the next step.</div>
         <div class="awd-toggle" onclick="toggleAWD()" id="awd-toggle">
           <div class="toggle-sw" id="awd-sw"></div>
           <div class="toggle-label">Vehicle is 4WD / AWD <span style="color:var(--gray-400);font-size:13px">(+$110 surcharge)</span></div>
@@ -952,6 +952,14 @@ document.addEventListener('click', function(ev){
           <div class="product-sel selected" id="ps-absolute" onclick="selectProduct('absolute')">
             <h4>🛡️ Absolute Warranty</h4>
             <p>Comprehensive — all systems covered</p>
+          </div>
+          <div class="product-sel" id="ps-totalcover" onclick="selectProduct('totalcover')">
+            <h4>🛡️ Total Cover</h4>
+            <p>Comprehensive, including the hybrid system and electric motor (battery on Plus)</p>
+          </div>
+          <div class="product-sel" id="ps-ev" onclick="selectProduct('ev')" style="display:none">
+            <h4>⚡ EV Warranty</h4>
+            <p>Hybrid and electric vehicles: listed components, including the battery</p>
           </div>
           <div class="product-sel" id="ps-endurance" onclick="selectProduct('endurance')">
             <h4>🔧 Endurance Warranty</h4>
@@ -989,6 +997,51 @@ document.addEventListener('click', function(ev){
         </div>
         <div id="no-level-note" style="display:none;background:#FFF7ED;border:1px solid #FDBA74;border-radius:var(--r);padding:20px;margin-bottom:8px">
           <p style="font-size:14.5px;color:var(--gray-700)">Based on the age and kilometres entered, your vehicle may not qualify for Absolute cover. The <strong>Endurance Warranty (Option 1)</strong> has no age or kilometre limits — select it above for an instant price, or call us on <a href="tel:0477666500" style="color:var(--accent);font-weight:700">0477 666 500</a>.</p>
+        </div>
+        <div id="totalcover-duration" style="display:none">
+          <label style="font-size:13px;font-weight:600;color:var(--gray-700);display:block;margin-bottom:12px">Cover Level <span style="color:var(--gray-400);font-weight:500">(eligibility based on your vehicle's age &amp; kilometres)</span></label>
+          <div class="level-grid" style="grid-template-columns:repeat(3,1fr)">
+            <div class="lv-btn" id="tl1" onclick="selectTcLevel(1)"><div class="lv-name">Level 1</div><div class="lv-limit">$5,000/claim</div><div class="lv-qual">≤12 yrs<br>&lt;180,000 km</div></div>
+            <div class="lv-btn" id="tl2" onclick="selectTcLevel(2)"><div class="lv-name">Level 2</div><div class="lv-limit">$8,000/claim</div><div class="lv-qual">≤10 yrs<br>&lt;140,000 km</div></div>
+            <div class="lv-btn" id="tl3" onclick="selectTcLevel(3)"><div class="lv-name">Level 3</div><div class="lv-limit">Market value</div><div class="lv-qual">≤8 yrs<br>&lt;120,000 km</div></div>
+          </div>
+          <div id="tc-plus-row" style="display:none;margin:0 0 16px">
+            <label style="font-size:13px;font-weight:600;color:var(--gray-700);display:block;margin-bottom:12px">Standard or Plus</label>
+            <div class="level-grid" style="grid-template-columns:repeat(2,1fr)">
+              <div class="lv-btn selected" id="tcp0" onclick="setTcPlus(false)"><div class="lv-name">Standard</div><div class="lv-qual">Hybrid system and electric motor, excluding the battery</div></div>
+              <div class="lv-btn" id="tcp1" onclick="setTcPlus(true)"><div class="lv-name">Plus</div><div class="lv-qual">Adds the electric motor battery, up to $5,000 per 12 months</div></div>
+            </div>
+          </div>
+          <div id="tc-poa-note" style="display:none;background:var(--gray-100);border-radius:var(--r-sm);padding:14px;margin-bottom:20px;font-size:13.5px;color:var(--gray-600)">Level 3 pricing for Category 4 vehicles is on application. <a href="#quote" onclick="showCallback('totalcover');return false" style="color:var(--accent);font-weight:700">Request a callback</a> for a quote.</div>
+          <p style="font-size:12.5px;color:var(--gray-500);margin:-4px 0 16px">Total Cover needs a vehicle condition report from a licensed mechanic, dated before cover starts, unless you are buying the car from a licensed dealer now.</p>
+          <label style="font-size:13px;font-weight:600;color:var(--gray-700);display:block;margin-bottom:12px">Coverage Duration</label>
+          <div class="duration-grid">
+            <div class="dur-btn" onclick="selectDuration(1)" id="td1"><div class="yr">1</div><div class="yr-label">Year</div></div>
+            <div class="dur-btn selected" onclick="selectDuration(2)" id="td2"><div class="yr">2</div><div class="yr-label">Years</div></div>
+            <div class="dur-btn" onclick="selectDuration(3)" id="td3"><div class="yr">3</div><div class="yr-label">Years</div></div>
+            <div class="dur-btn" onclick="selectDuration(4)" id="td4"><div class="yr">4</div><div class="yr-label">Years</div></div>
+            <div class="dur-btn" onclick="selectDuration(5)" id="td5"><div class="yr">5</div><div class="yr-label">Years</div></div>
+          </div>
+          <div class="price-summary"><h4>Price Summary</h4><div id="ps2t-lines"></div></div>
+        </div>
+        <div id="tc-none-note" style="display:none;background:#FFF7ED;border:1px solid #FDBA74;border-radius:var(--r);padding:20px;margin-bottom:8px">
+          <p style="font-size:14.5px;color:var(--gray-700)">Based on the age and kilometres entered, your vehicle may not qualify for Total Cover, which is for vehicles 12 years and under with less than 180,000 km. Endurance and the EV warranty have options with no age or kilometre limit.</p>
+        </div>
+        <div id="ev-duration" style="display:none">
+          <label style="font-size:13px;font-weight:600;color:var(--gray-700);display:block;margin-bottom:12px">Plan <span style="color:var(--gray-400);font-weight:500">(eligibility based on your vehicle's age &amp; kilometres)</span></label>
+          <div class="level-grid" style="grid-template-columns:repeat(3,1fr)">
+            <div class="lv-btn" id="evA" onclick="selectEvPlan('A')"><div class="lv-name">Plan A</div><div class="lv-limit">$1,000 / $350</div><div class="lv-qual">Any age<br>Any km</div></div>
+            <div class="lv-btn" id="evC" onclick="selectEvPlan('C')"><div class="lv-name">Plan C</div><div class="lv-limit">$3,000 / $1,250</div><div class="lv-qual">≤15 yrs<br>&lt;200,000 km</div></div>
+            <div class="lv-btn" id="evD" onclick="selectEvPlan('D')"><div class="lv-name">Plan D</div><div class="lv-limit">$5,000 / $1,500</div><div class="lv-qual">≤10 yrs<br>&lt;160,000 km</div></div>
+          </div>
+          <p style="font-size:12.5px;color:var(--gray-500);margin:-8px 0 16px">Claim limits per claim: battery, electric motor and major engine and drivetrain parts / all other listed components. Electric and hybrid vehicles have different listed components and prices.</p>
+          <label style="font-size:13px;font-weight:600;color:var(--gray-700);display:block;margin-bottom:12px">Coverage Duration</label>
+          <div class="duration-grid" style="grid-template-columns:repeat(3,1fr)">
+            <div class="dur-btn" onclick="selectDuration(1)" id="vd1"><div class="yr">1</div><div class="yr-label">Year</div></div>
+            <div class="dur-btn selected" onclick="selectDuration(3)" id="vd3"><div class="yr">3</div><div class="yr-label">Years</div></div>
+            <div class="dur-btn" onclick="selectDuration(5)" id="vd5"><div class="yr">5</div><div class="yr-label">Years</div></div>
+          </div>
+          <div class="price-summary"><h4>Price Summary</h4><div id="ps2v-lines"></div></div>
         </div>
         <div id="endurance-duration" style="display:none">
           <label style="font-size:13px;font-weight:600;color:var(--gray-700);display:block;margin-bottom:12px">Cover Option <span style="color:var(--gray-400);font-weight:500">(eligibility based on your vehicle's age &amp; kilometres)</span></label>
@@ -1393,6 +1446,72 @@ const ENDURANCE = { 1:{1:746,3:942,5:1121}, 2:{1:942,3:1300,5:1478}, 3:{1:1308,3
 const END_QUAL = { 1:[999,Infinity], 2:[15,200000], 3:[10,160000], 4:[8,120000] };
 // Claim limits: [engine/gearbox/diff/turbo, all other listed components]
 const END_LIMIT = { 1:['$2,000','$750'], 2:['$3,000','$1,250'], 3:['$5,000','$1,500'], 4:['$7,000','$2,500'] };
+// Total Cover V1.1 retail (IITOC V1.2 PDS). Levels 1-3, terms 1-5 yrs. Plus (battery) for hybrid/EV only. null = POA
+const TOTAL_STD = {
+  1:{1:[1032,1255,1478,1657,1835], 2:[1353,1567,1782,2005,2192], 3:[1567,1782,1996,2228,2460]},
+  2:{1:[1889,2112,2326,2621,2901], 2:[2219,2433,2648,2960,3264], 3:[2433,2648,2871,3157,3442]},
+  3:{1:[2764,3085,3407,3782,4157], 2:[3133,4001,4692,5407,6121], 3:[3621,4746,5389,6291,7192]},
+  4:{1:[3469,3800,4326,4728,5166], 2:[4005,4585,5398,6282,6960], 3:null}
+};
+const TOTAL_PLUS = {
+  3:{1:[2960,3407,3835,4300,4746], 2:[3389,4264,5121,5925,6710], 3:[3817,5067,5817,6808,7782]},
+  4:{1:[3666,4121,4755,5246,5755], 2:[4201,4907,5826,6800,7550], 3:null}
+};
+const TC_QUAL = {1:[12,180000], 2:[10,140000], 3:[8,120000]};
+const TC_LIMIT = {1:'$5,000', 2:'$8,000', 3:'Market value'};
+// EV warranty V1.0 retail (IEVWI V1.1 PDS). Terms 1, 3 or 5 yrs
+const EVP = { electric:{A:[594,791,987], C:[1094,1291,1469], D:[1451,1648,1826]}, hybrid:{A:[1094,1291,1469], C:[1594,1791,1969], D:[1951,2291,2469]} };
+const EV_QUAL = {A:[999,Infinity], C:[15,200000], D:[10,160000]};
+const EV_LIMIT = {A:['$1,000','$350'], C:['$3,000','$1,250'], D:['$5,000','$1,500']};
+const EV_IDX = {1:0, 3:1, 5:2};
+function isHev(){ return state.fuel==='hybrid' || state.fuel==='ev'; }
+function vehAgeKm(){ if(!state.year || !state.odo) return null; return [new Date().getFullYear() - parseInt(state.year,10), parseInt(state.odo,10)]; }
+function tcTable(){ return (state.tcPlus && isHev() && TOTAL_PLUS[state.cat]) ? TOTAL_PLUS : TOTAL_STD; }
+function tcAvailable(n){
+  const row = tcTable()[state.cat] && tcTable()[state.cat][n];
+  const ak = vehAgeKm(); if(!ak) return !!row;
+  return !!row && ak[0] <= TC_QUAL[n][0] && ak[1] < TC_QUAL[n][1];
+}
+function tcQualifies(){ const ak = vehAgeKm(); return !ak || (ak[0] <= 12 && ak[1] < 180000); }
+function updateTcAvail(pickBest){
+  const plusOk = isHev() && !!TOTAL_PLUS[state.cat];
+  if(!plusOk) state.tcPlus = false;
+  const pr = document.getElementById('tc-plus-row'); if(pr) pr.style.display = plusOk ? 'block' : 'none';
+  document.getElementById('tcp0').classList.toggle('selected', !state.tcPlus);
+  document.getElementById('tcp1').classList.toggle('selected', !!state.tcPlus);
+  let lastOk = 0;
+  for(let n=1;n<=3;n++){ const ok = tcAvailable(n); document.getElementById('tl'+n).classList.toggle('disabled', !ok); if(ok) lastOk = n; }
+  document.getElementById('tc-poa-note').style.display = (state.cat===4 && tcQualifies() && vehAgeKm() && vehAgeKm()[0] <= 8 && vehAgeKm()[1] < 120000) ? 'block' : 'none';
+  const none = lastOk === 0;
+  const isTc = state.product==='totalcover';
+  document.getElementById('tc-none-note').style.display = (isTc && none) ? 'block' : 'none';
+  document.getElementById('totalcover-duration').style.display = (isTc && !none) ? 'block' : 'none';
+  if(isTc) document.getElementById('next2').style.display = none ? 'none' : 'inline-flex';
+  if(!none){ if(pickBest || !tcAvailable(state.tlevel)) selectTcLevel(lastOk); else selectTcLevel(state.tlevel); }
+}
+function selectTcLevel(n){
+  if(!tcAvailable(n)) return;
+  state.tlevel = n;
+  for(let i=1;i<=3;i++) document.getElementById('tl'+i).classList.toggle('selected', i===n);
+  updatePrices();
+}
+function setTcPlus(b){ state.tcPlus = !!b && isHev(); updateTcAvail(false); updatePrices(); }
+function evAvailable(pl){ const ak = vehAgeKm(); if(!ak) return true; return ak[0] <= EV_QUAL[pl][0] && ak[1] < EV_QUAL[pl][1]; }
+function updateEvAvail(pickBest){
+  let best = 'A';
+  ['A','C','D'].forEach(pl=>{ const ok = evAvailable(pl); document.getElementById('ev'+pl).classList.toggle('disabled', !ok); if(ok) best = pl; });
+  if(pickBest || !evAvailable(state.evplan)) selectEvPlan(best); else selectEvPlan(state.evplan);
+}
+function selectEvPlan(pl){
+  if(!evAvailable(pl)) return;
+  state.evplan = pl;
+  ['A','C','D'].forEach(x=>document.getElementById('ev'+x).classList.toggle('selected', x===pl));
+  updatePrices();
+}
+function syncHevProducts(){
+  const ev = document.getElementById('ps-ev'); if(ev) ev.style.display = isHev() ? '' : 'none';
+  if(state.product==='ev' && !isHev()) selectProduct('absolute');
+}
 const AWD_SURCHARGE = 110;
 
 // Make → default category
@@ -1546,7 +1665,7 @@ function checkModelListed(){
 // === STATE ===
 let state = {
   make:'', model:'', year:'', odo:'', fuel:'ice', cat:1, awd:false,
-  product:'absolute', level:1, eopt:1, duration:2, roadside:'none'
+  product:'absolute', level:1, eopt:1, tlevel:1, tcPlus:false, evplan:'A', duration:2, roadside:'none'
 };
 let stripe = null, elements = null, paymentElement = null;
 
@@ -1600,6 +1719,7 @@ function recalcCategory(){
     hint.style.display = 'block';
     hint.textContent = fuel==='ev' ? 'Electric vehicles are Category 4' : fuel==='hybrid' ? 'Hybrid vehicles are Category 3' : (cat!==MAKE_CAT[make] ? 'Based on make and model' : 'Based on make; some models are rated higher');
     if(state.product==='absolute' && document.getElementById('step-2').style.display!=='none') updateLevelAvail();
+    if(state.product==='totalcover' && document.getElementById('step-2').style.display!=='none') updateTcAvail(false);
   } else {
     el.style.display = 'none'; hint.style.display='block'; hint.textContent = 'Select make above to auto-detect';
   }
@@ -1619,6 +1739,11 @@ function selectProduct(p){
   document.getElementById('ps-absolute').classList.toggle('selected', p==='absolute');
   document.getElementById('ps-endurance').classList.toggle('selected', p==='endurance');
   document.getElementById('ps-roadside').classList.toggle('selected', p==='roadside');
+  document.getElementById('ps-totalcover').classList.toggle('selected', p==='totalcover');
+  document.getElementById('ps-ev').classList.toggle('selected', p==='ev');
+  document.getElementById('totalcover-duration').style.display = p==='totalcover'?'block':'none';
+  document.getElementById('tc-none-note').style.display = 'none';
+  document.getElementById('ev-duration').style.display = p==='ev'?'block':'none';
   document.getElementById('absolute-duration').style.display = p==='absolute'?'block':'none';
   document.getElementById('endurance-duration').style.display = p==='endurance'?'block':'none';
   document.getElementById('endurance-enquiry').style.display = 'none';
@@ -1629,6 +1754,8 @@ function selectProduct(p){
   if(p==='roadside'){ if(state.roadside==='none') state.roadside='star3'; }
   if(p==='absolute') updateLevelAvail();
   if(p==='endurance'){ if(![1,3,5].includes(state.duration)) selectDuration(3); updateEndAvail(true); }
+  if(p==='ev'){ if(![1,3,5].includes(state.duration)) selectDuration(3); updateEvAvail(true); }
+  if(p==='totalcover') updateTcAvail(true);
   applyRoadsideOnlyUI();
   updatePrices();
 }
@@ -1641,7 +1768,11 @@ function applyRoadsideOnlyUI(){
   if(ro){ for(let i=1;i<=5;i++){ const rd=document.getElementById('rd'+i); if(rd) rd.classList.toggle('selected', i===state.duration); } }
   if(ro && state.roadside==='none') selectRoadside('star3');
   const termsLbl = document.querySelector('label[for="pay-accept"]');
-  if(termsLbl) termsLbl.innerHTML = state.product==='endurance'
+  if(termsLbl) termsLbl.innerHTML = state.product==='totalcover'
+    ? 'I have read the <a href="/docs/integrity-total-cover-warranty-pds-v1.2.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">Integrity Total Cover Motor Vehicle Warranty Financial Services Guide and PDS</a> (including the vehicle condition report requirement, the servicing requirements and the need to obtain Integrity\'s authorisation before any repair) and I agree to them. I confirm the vehicle details I entered are accurate. *'
+    : state.product==='ev'
+    ? 'I have read the <a href="/docs/integrity-ev-warranty-pds-v1.1.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">Integrity EV Motor Vehicle Warranty Financial Services Guide and PDS</a> (including the listed components, claim limits, servicing requirements and the need to obtain Integrity\'s authorisation before any repair) and I agree to them. I confirm the vehicle details I entered are accurate. *'
+    : state.product==='endurance'
     ? 'I have read the ' + (window.END_TERMS_OK ? '<a href="/docs/integrity-endurance-warranty-terms.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">Integrity Endurance Motor Vehicle Warranty Financial Services Guide and PDS</a>' : '<strong>Integrity Endurance Motor Vehicle Warranty Financial Services Guide and PDS</strong> (emailed with your certificate, or call 0477 666 500 for a copy now)') + ' (including the 20 covered components, claim limits, servicing requirements and the need to obtain Integrity\'s authorisation before any repair) and I agree to them. I confirm the vehicle details I entered are accurate. *'
     : ro
     ? 'I have read the roadside assistance key terms shown above for the plan I am buying, including that membership fees are non-refundable, and I agree to them. I confirm the details I entered are accurate. *'
@@ -1723,6 +1854,8 @@ function selectEndOption(n){
 function productLabel(){
   if(state.product==='roadside') return roadsideProductLabel();
   if(state.product==='endurance') return 'Endurance Warranty Option '+state.eopt+' '+state.duration+'yr';
+  if(state.product==='totalcover') return 'Total Cover '+(state.tcPlus?'Plus':'Standard')+' Cat '+state.cat+' Level '+state.tlevel+' '+state.duration+'yr';
+  if(state.product==='ev') return 'EV Warranty '+(state.fuel==='ev'?'Electric':'Hybrid')+' Plan '+state.evplan+' '+state.duration+'yr';
   return 'Absolute Warranty Cat '+state.cat+' Level '+state.level;
 }
 
@@ -1734,12 +1867,14 @@ function showPricing(n){
 
 // === DURATION ===
 function selectDuration(n){
-  if(state.product==='endurance' && ![1,3,5].includes(n)) return;
+  if((state.product==='endurance' || state.product==='ev') && ![1,3,5].includes(n)) return;
   state.duration = n;
   for(let i=1;i<=5;i++){
     document.getElementById('d'+i).classList.toggle('selected',i===n);
     const rd=document.getElementById('rd'+i); if(rd) rd.classList.toggle('selected',i===n);
     const ed=document.getElementById('ed'+i); if(ed) ed.classList.toggle('selected',i===n);
+    const td=document.getElementById('td'+i); if(td) td.classList.toggle('selected',i===n);
+    const vd=document.getElementById('vd'+i); if(vd) vd.classList.toggle('selected',i===n);
   }
   updatePrices();
 }
@@ -1763,6 +1898,18 @@ function calcTotal(){
   const rs = state.roadside==='star3' ? ROADSIDE.star3[state.duration-1]
            : state.roadside==='star5' ? ROADSIDE.star5[state.duration-1] : 0;
   if(state.product==='roadside') return {base:0, awd:0, rs, total: rs};
+  if(state.product==='totalcover'){
+    const row = tcTable()[state.cat] && tcTable()[state.cat][state.tlevel];
+    const base = (row && tcAvailable(state.tlevel)) ? row[state.duration-1] : 0;
+    const awd = state.awd ? AWD_SURCHARGE : 0;
+    return {base, awd, rs, total: base+awd+rs};
+  }
+  if(state.product==='ev'){
+    const kind = state.fuel==='ev' ? 'electric' : 'hybrid';
+    const base = (EVP[kind][state.evplan]||[])[EV_IDX[state.duration]] || 0;
+    const awd = state.awd ? AWD_SURCHARGE : 0;
+    return {base, awd, rs, total: base+awd+rs};
+  }
   if(state.product==='endurance'){
     const base = (ENDURANCE[state.eopt]||{})[state.duration] || 0;
     const awd = state.awd ? AWD_SURCHARGE : 0;
@@ -1811,6 +1958,27 @@ function updatePrices(){
     document.getElementById('rs5-price').textContent = '+'+fmt(ROADSIDE.star5[state.duration-1]);
     return;
   }
+  if(state.product === 'totalcover' || state.product === 'ev'){
+    const {base,awd,rs,total} = calcTotal();
+    const dur = state.duration===1?'1 Year':state.duration+' Years';
+    const rsLabel = state.roadside==='star3'?'3 Star Roadside':state.roadside==='star5'?'5 Star Roadside':null;
+    const tc = state.product==='totalcover';
+    const name = tc ? `Total Cover ${state.tcPlus?'Plus':'Standard'} (Cat ${state.cat}, Level ${state.tlevel}, ${dur})` : `EV Warranty (${state.fuel==='ev'?'Electric':'Hybrid'}, Plan ${state.evplan}, ${dur})`;
+    const lim = tc ? `${TC_LIMIT[state.tlevel]} per claim${state.tcPlus?' · battery up to $5,000 per 12 months':''}` : `${EV_LIMIT[state.evplan][0]} major · ${EV_LIMIT[state.evplan][1]} other`;
+    [tc?'ps2t-lines':'ps2v-lines','ps3-lines','ps4-lines'].forEach(id=>{
+      const el=document.getElementById(id); if(!el) return;
+      el.innerHTML = `
+      <div class="price-line"><span>Vehicle</span><span>${[state.make,state.model,state.year].filter(Boolean).join(' ')}${state.odo?' · '+Number(state.odo).toLocaleString()+' km':''}</span></div>
+      <div class="price-line"><span>${name}</span><span>${base?fmt(base):'POA'}</span></div>
+      <div class="price-line"><span>Claim limit</span><span>${lim}</span></div>
+      ${awd?`<div class="price-line"><span>4WD/AWD surcharge</span><span>${fmt(awd)}</span></div>`:''}
+      ${rs?`<div class="price-line"><span>${rsLabel} (${dur})</span><span>${fmt(rs)}</span></div>`:''}
+      <div class="price-line total"><span>Total (incl. GST)</span><span class="amount">${fmt(total)}</span></div>`;
+    });
+    document.getElementById('rs3-price').textContent = '+'+fmt(ROADSIDE.star3[state.duration-1]);
+    document.getElementById('rs5-price').textContent = '+'+fmt(ROADSIDE.star5[state.duration-1]);
+    return;
+  }
   if(state.product !== 'absolute') return;
   const {base,awd,rs,total} = calcTotal();
   const dur = state.duration===1?'1 Year':state.duration+' Years';
@@ -1841,11 +2009,11 @@ function goStep(n){
   // Validate step 1
   if(n>1 && !validateStep1()) return;
   // Refresh level eligibility from vehicle details
-  if(n===2){ updateLevelAvail(true); updateEndAvail(true); }
+  if(n===2){ syncHevProducts(); updateLevelAvail(true); updateEndAvail(true); updateTcAvail(true); updateEvAvail(true); if(state.product==='absolute'||state.product==='endurance'||state.product==='totalcover'||state.product==='ev') selectProduct(state.product); }
   // Init Stripe when hitting step 4
   if(n===3) applyRoadsideOnlyUI();
   if(n===4 && state.product==='roadside' && state.roadside==='none') selectRoadside('star3');
-  if(n===4) syncWarrantyOnly();
+  if(n===4){ syncWarrantyOnly(); syncVcrNotice(); }
   if(n===4){ applyRoadsideOnlyUI(); syncRoadsideTerms(); }
   if(n===4) initStripe();
   if(n===4 && window.mdsTrack) window.mdsTrack('begin_checkout', { value: calcTotal().total, currency:'AUD', product: productLabel() });
@@ -1900,7 +2068,7 @@ function vehiclePayload(){
   return {
     vehicleMake: state.make, vehicleModel: state.model, vehicleYear: state.year,
     odometer: state.odo, drive: state.awd ? '4WD/AWD' : '2WD', fuel: state.fuel,
-    cat: state.cat, level: state.product==='absolute' ? state.level : state.product==='endurance' ? 'Opt'+state.eopt : '',
+    cat: state.cat, level: state.product==='absolute' ? state.level : state.product==='endurance' ? 'Opt'+state.eopt : state.product==='totalcover' ? 'TC'+state.tlevel : state.product==='ev' ? 'EV'+state.evplan : '', tcPlus: state.product==='totalcover' && !!state.tcPlus,
     duration: state.duration, roadside: state.roadside, awd: state.awd
   };
 }
@@ -1913,11 +2081,17 @@ function syncWarrantyOnly(){
 }
 function radioVal(name){ const r=document.querySelector('input[name="'+name+'"]:checked'); return r ? r.value : ''; }
 function qualifyingAnswers(){ return [1,2,3,4,5,6].map(i=>radioVal('q'+i)); }
-function vcrRequired(){ return isWarrantySale() && radioVal('p-from') === 'private'; }
+function vcrRequired(){
+  if(!isWarrantySale()) return false;
+  if(radioVal('p-from') === 'private') return true;
+  if(state.product === 'totalcover') return !(radioVal('p-buying') === 'yes' && radioVal('p-from') === 'dealer');
+  return false;
+}
 function syncVcrNotice(){
   const req = vcrRequired();
   const box = document.getElementById('vcr-required'), tag = document.getElementById('c-vcr-tag'), hint = document.getElementById('c-vcr-hint');
   if(box) box.style.display = req ? 'block' : 'none';
+  const head = box && box.querySelector('strong'); if(head) head.textContent = (state.product==='totalcover' && radioVal('p-from')!=='private') ? 'Total Cover needs a Vehicle Condition Report unless you are buying the car from a licensed dealer now.' : 'A Vehicle Condition Report is required for privately purchased vehicles.';
   if(tag) tag.textContent = req ? '(required for private purchases)' : '(upload if you have one)';
   if(hint) hint.style.display = req ? 'none' : '';
 }
@@ -1930,6 +2104,7 @@ document.addEventListener('change', e=>{
     document.getElementById('ew-date-wrap').style.display = e.target.value==='yes' ? 'block' : 'none';
     document.getElementById('ew-note').style.display = e.target.value==='no' ? 'none' : 'block';
   }
+  if(e.target && e.target.name === 'p-buying') syncVcrNotice();
   if(e.target && e.target.name === 'p-from'){
     syncVcrNotice();
     if(e.target.value === 'private' && !document.getElementById('c-vcr').files[0] && window.mdsTrack) window.mdsTrack('vcr_required_flagged', { purchaseFrom: 'private' });
@@ -2103,7 +2278,7 @@ async function submitPayment(){
         email, phone,
         product: productLabel(),
         firstName:first, lastName:last, suburb, state:stateV, postcode,
-        termsAccepted: true, termsAcceptedAt: state.termsAcceptedAt, pdsVersion: state.product==='endurance' ? 'IENDI V2.2' : 'IABSI V3.5',
+        termsAccepted: true, termsAcceptedAt: state.termsAcceptedAt, pdsVersion: state.product==='endurance' ? 'IENDI V2.2' : state.product==='totalcover' ? 'IITOC V1.2' : state.product==='ev' ? 'IEVWI V1.1' : 'IABSI V3.5',
         ...vehiclePayload(), ...signupPayload(), ...uploads
       })
     });
@@ -2234,8 +2409,9 @@ async function submitCallback(e){
   btn.disabled = true;
   document.getElementById('cb-btn-text').innerHTML = '<span class="spinner"></span> Sending…';
 
-  const est = (callbackSource!=='roadside' && (state.product==='endurance' || (state.product==='absolute' && ABSOLUTE[state.cat] && ABSOLUTE[state.cat][state.level]))) ? calcTotal().total : 0;
+  const est = (callbackSource!=='roadside' && (state.product==='endurance' || state.product==='totalcover' || state.product==='ev' || (state.product==='absolute' && ABSOLUTE[state.cat] && ABSOLUTE[state.cat][state.level]))) ? calcTotal().total : 0;
   const product = callbackSource==='roadside' ? 'Roadside Assistance ONLY (3 or 5 Star — confirm on call)'
+                : (state.product==='totalcover' || state.product==='ev') ? productLabel()+(state.roadside!=='none'?' + '+state.roadside.replace('star',' ')+' Star Roadside':'')
                 : state.product==='endurance' ? 'Endurance Warranty Option '+state.eopt+' '+state.duration+'yr'+(state.roadside!=='none'?' + '+state.roadside.replace('star',' ')+' Star Roadside':'')
                 : 'Absolute Warranty Cat '+state.cat+' Level '+state.level+' '+state.duration+'yr'+(state.roadside!=='none'?' + '+state.roadside.replace('star',' ')+' Star Roadside':'');
   const notes = [
