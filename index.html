@@ -462,8 +462,8 @@
   .hx-inner{min-height:clamp(520px,74vh,700px);display:flex;flex-direction:column;justify-content:center;padding-top:56px;padding-bottom:64px}
   .hx-copy{max-width:600px}
   .hx-eyebrow{font-size:13.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#FDBA74;margin-bottom:14px}
-  .hx h1{color:#fff;font-size:clamp(38px,5.6vw,66px);font-weight:900;letter-spacing:-.03em;line-height:1.02}
-  .hx h1 span{color:var(--orange)}
+  .hx .hx-title{color:#fff;font-size:clamp(38px,5.6vw,66px);font-weight:900;letter-spacing:-.03em;line-height:1.02}
+  .hx .hx-title span{color:var(--orange)}
   .hx-intro{margin-top:18px;font-size:clamp(16.5px,1.5vw,19px);color:#E2E8F0;max-width:540px}
   .hx-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
   .btn-light{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.55);backdrop-filter:blur(4px)}
@@ -712,8 +712,8 @@ document.addEventListener('click', function(ev){
   <div class="hx-shade" aria-hidden="true"></div>
   <div class="wrap hx-inner">
     <div class="hx-copy">
-      <p class="hx-eyebrow">Extended warranty &amp; roadside assistance</p>
-      <h1 id="hx-title">More confidence.<br><span>Every kilometre.</span></h1>
+      <h1 class="hx-eyebrow">Extended car warranty &amp; roadside assistance for used cars</h1>
+      <p id="hx-title" class="hx-title">More confidence.<br><span>Every kilometre.</span></p>
       <p class="hx-intro">For Australian used-car owners. An extended vehicle warranty helps pay for eligible repairs to major mechanical and electrical parts after the manufacturer's warranty ends. Roadside assistance gets you help when you break down. See your price online before you give us any contact details.</p>
       <div class="hx-actions">
         <a href="#quote" class="btn btn-primary btn-lg" onclick="startWarranty();return false;">Check my warranty options</a>
