@@ -387,6 +387,26 @@
 .form-group input:focus,.form-group select:focus{border-color:var(--primary)}
 .form-group .hint{font-size:12px;color:var(--gray-400)}
 .category-badge{display:inline-flex;align-items:center;gap:6px;background:var(--gray-100);border:1px solid var(--gray-200);padding:6px 12px;border-radius:100px;font-size:13px;font-weight:600;color:var(--gray-700);margin-top:6px}
+.drive-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.drive-btn{border:2px solid var(--gray-200);background:#fff;border-radius:var(--r-sm);padding:12px 10px;font:inherit;font-size:14.5px;font-weight:600;color:var(--gray-800);cursor:pointer;text-align:center;line-height:1.3}
+.drive-btn small{display:block;font-weight:500;font-size:12.5px;color:var(--gray-500)}
+.drive-btn:hover{border-color:var(--primary)}
+.drive-btn.selected{border-color:var(--primary);background:#f0f5ff;color:var(--primary)}
+.drive-note{font-size:13px;line-height:1.5;margin-top:8px;color:var(--gray-600)}
+.drive-note.auto{color:#1E5631}
+.drive-note.warn{color:#B45309}
+.mm-wrap{position:relative}
+.mm-menu{position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:30;background:#fff;border:1px solid var(--gray-300);border-radius:var(--r-sm);box-shadow:0 10px 28px rgba(11,37,69,.16);max-height:280px;overflow-y:auto;padding:4px 0;display:none}
+.mm-menu.open{display:block}
+.mm-opt{display:block;width:100%;text-align:left;background:none;border:0;padding:10px 14px;font:inherit;font-size:14.5px;color:var(--gray-800);cursor:pointer}
+.mm-opt:hover,.mm-opt.act{background:#f0f5ff;color:var(--primary)}
+.mm-head{padding:8px 14px 4px;font-size:12px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.04em}
+.mm-empty{padding:10px 14px;font-size:13.5px;color:var(--gray-500)}
+.cmp-note{background:#F5F8FD;border:1px solid #D6E2F3;border-radius:var(--r);padding:16px 18px;margin:-8px 0 22px;font-size:13.5px;line-height:1.55;color:var(--gray-700)}
+.cmp-note h5{font-size:14.5px;font-weight:700;color:var(--primary);margin:0 0 8px}
+.cmp-note ul{margin:0;padding-left:18px}
+.cmp-note li{margin:0 0 5px}
+.cmp-note a{color:var(--accent);font-weight:600}
 .awd-toggle{display:flex;align-items:center;gap:12px;padding:14px;background:var(--gray-100);border-radius:var(--r-sm);cursor:pointer}
 .toggle-sw{width:44px;height:24px;background:var(--gray-300);border-radius:100px;position:relative;transition:background .2s;flex-shrink:0}
 .toggle-sw::after{content:'';width:18px;height:18px;background:#fff;border-radius:50%;position:absolute;top:3px;left:3px;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
@@ -905,28 +925,33 @@ document.addEventListener('click', function(ev){
             <label for="v-make">Vehicle Make *</label>
             <select id="v-make" onchange="onMakeChange()">
               <option value="">— Select make —</option>
-              <option>ABARTH</option><option>ALFA ROMEO</option><option>ASTON MARTIN</option>
-              <option>AUDI</option><option>BENTLEY</option><option>BMW</option>
-              <option>CADILLAC</option><option>CATERHAM</option><option>CHERY</option>
-              <option>CHEVROLET</option><option>CHRYSLER</option><option>CITROEN</option>
-              <option>DODGE</option><option>FERRARI</option><option>FIAT</option>
-              <option>FORD</option><option>GENESIS</option><option>GREAT WALL</option>
-              <option>GWM</option><option>HAVAL</option><option>HOLDEN</option>
-              <option>HONDA</option><option>HSV</option><option>HUMMER</option>
-              <option>HYUNDAI</option><option>INFINITI</option><option>INEOS</option>
-              <option>ISUZU</option><option>JAGUAR</option><option>JEEP</option>
-              <option>KIA</option><option>KOENIGSEGG</option><option>LAMBORGHINI</option>
-              <option>LAND ROVER</option><option>LDV</option><option>LEXUS</option>
-              <option>LOTUS</option><option>MAHINDRA</option><option>MASERATI</option>
-              <option>MAZDA</option><option>MCLAREN</option><option>MERCEDES-BENZ</option>
-              <option>MG</option><option>MINI</option><option>MITSUBISHI</option>
-              <option>MORGAN</option><option>NISSAN</option><option>OPEL</option>
-              <option>PEUGEOT</option><option>PORSCHE</option><option>PROTON</option>
+              <option>ABARTH</option><option>ALFA ROMEO</option><option>ALPINA</option>
+              <option>ASTON MARTIN</option><option>AUDI</option><option>BENTLEY</option>
+              <option>BMW</option><option>BYD</option><option>CADILLAC</option>
+              <option>CATERHAM</option><option>CHERY</option><option>CHEVROLET</option>
+              <option>CHRYSLER</option><option>CITROEN</option><option>DEEPAL</option>
+              <option>DODGE</option><option>ELFIN</option><option>FERRARI</option>
+              <option>FIAT</option><option>FORD</option><option>FOTON</option>
+              <option>FPV</option><option>FUSO</option><option>GEELY</option>
+              <option>GENESIS</option><option>GMC</option><option>GREAT WALL</option>
+              <option>GWM</option><option>HAVAL</option><option>HINO</option>
+              <option>HOLDEN</option><option>HONDA</option><option>HSV</option>
+              <option>HUMMER</option><option>HYUNDAI</option><option>INEOS</option>
+              <option>INFINITI</option><option>ISUZU</option><option>JAGUAR</option>
+              <option>JEEP</option><option>KIA</option><option>KOENIGSEGG</option>
+              <option>LAMBORGHINI</option><option>LAND ROVER</option><option>LDV</option>
+              <option>LEAPMOTOR</option><option>LEXUS</option><option>LOTUS</option>
+              <option>MAHINDRA</option><option>MASERATI</option><option>MAZDA</option>
+              <option>MCLAREN</option><option>MERCEDES-BENZ</option><option>MG</option>
+              <option>MINI</option><option>MITSUBISHI</option><option>MORGAN</option>
+              <option>NISSAN</option><option>OPEL</option><option>PEUGEOT</option>
+              <option>POLESTAR</option><option>PORSCHE</option><option>PROTON</option>
               <option>RAM</option><option>RENAULT</option><option>ROLLS-ROYCE</option>
               <option>SAAB</option><option>SKODA</option><option>SMART</option>
               <option>SSANGYONG</option><option>SUBARU</option><option>SUZUKI</option>
               <option>TATA</option><option>TESLA</option><option>TOYOTA</option>
-              <option>VOLKSWAGEN</option><option>VOLVO</option><option>ZX AUTO</option>
+              <option>VOLKSWAGEN</option><option>VOLVO</option><option>XPENG</option>
+              <option>ZEEKR</option><option>ZX AUTO</option>
             </select>
           </div>
           <div class="form-group">
@@ -939,8 +964,10 @@ document.addEventListener('click', function(ev){
         <div class="form-row">
           <div class="form-group">
             <label for="v-model">Vehicle Model *</label>
-            <input type="text" id="v-model" list="v-model-list" placeholder="Start typing, e.g. Ranger XLT" maxlength="60" autocomplete="off" oninput="recalcCategory();if(state.modelListed===false)checkModelListed()" onchange="checkModelListed()" onblur="checkModelListed()">
-            <datalist id="v-model-list"></datalist>
+            <div class="mm-wrap">
+              <input type="text" id="v-model" placeholder="Choose or type, e.g. Ranger XLT" maxlength="60" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="v-model-menu" oninput="mmFilter();recalcCategory();if(state.modelListed===false)checkModelListed()" onchange="checkModelListed()" onfocus="mmOpen(event)" onclick="mmOpen()" onkeydown="mmKey(event)" onblur="mmBlur()">
+              <div class="mm-menu" id="v-model-menu" role="listbox"></div>
+            </div>
             <p class="hint" id="v-model-note" style="display:none;color:#B45309">We don't recognise that model for this make. You can continue, and we'll check the model before your cover is lodged.</p>
           </div>
           <div class="form-group">
@@ -951,7 +978,7 @@ document.addEventListener('click', function(ev){
         <div class="form-row">
           <div class="form-group">
             <label for="v-fuel">Fuel type *</label>
-            <select id="v-fuel" onchange="recalcCategory()">
+            <select id="v-fuel" onchange="state.fuelManual=true;recalcCategory()">
               <option value="ice">Petrol / Diesel / LPG</option>
               <option value="hybrid">Hybrid (incl. plug-in)</option>
               <option value="ev">Fully electric</option>
@@ -964,9 +991,13 @@ document.addEventListener('click', function(ev){
           </div>
         </div>
         <div id="hev-note" role="note" style="display:none;margin:0 0 14px;padding:12px 14px;border:1px solid #F3C98B;background:#FFF7EA;border-radius:var(--r-sm);font-size:13.5px;line-height:1.55;color:var(--gray-800)"><strong>Hybrid and electric vehicles:</strong> Absolute does not cover hybrid or electric vehicle components, such as the high-voltage battery, and Endurance covers only its 20 listed components, none of which are hybrid or electric parts. Total Cover includes the hybrid system and electric motor (the battery on Total Cover Plus), and the EV warranty lists battery and motor cover. You will see the options your vehicle qualifies for on the next step.</div>
-        <div class="awd-toggle" onclick="toggleAWD()" id="awd-toggle">
-          <div class="toggle-sw" id="awd-sw"></div>
-          <div class="toggle-label">Vehicle is 4WD / AWD <span style="color:var(--gray-400);font-size:13px">(+$110 surcharge)</span></div>
+        <div class="form-group" id="drive-group">
+          <label id="drive-label">Drive type *</label>
+          <div class="drive-opts" id="drv-opts" tabindex="-1" role="radiogroup" aria-labelledby="drive-label">
+            <button type="button" class="drive-btn" id="drv-2" role="radio" aria-checked="false" onclick="setDrive(false)">2WD<small>Front or rear-wheel drive</small></button>
+            <button type="button" class="drive-btn" id="drv-4" role="radio" aria-checked="false" onclick="setDrive(true)">4WD or AWD<small>+$110 surcharge</small></button>
+          </div>
+          <p class="drive-note" id="drive-note" aria-live="polite">Not sure? Check the badge on the back of the car or the rego papers.</p>
         </div>
         <div class="wizard-nav">
           <span></span>
@@ -981,11 +1012,11 @@ document.addEventListener('click', function(ev){
         <div class="product-sel-grid">
           <div class="product-sel selected" id="ps-absolute" onclick="selectProduct('absolute')">
             <h4>🛡️ Absolute Warranty</h4>
-            <p>Comprehensive — all systems covered</p>
+            <p>Comprehensive: parts the manufacturer's warranty covered, apart from listed exclusions. No hybrid or electric parts.</p>
           </div>
           <div class="product-sel" id="ps-totalcover" onclick="selectProduct('totalcover')">
             <h4>🛡️ Total Cover</h4>
-            <p>Comprehensive, including the hybrid system and electric motor (battery on Plus)</p>
+            <p>Absolute's comprehensive cover, plus the hybrid system and electric motor (the battery on Plus)</p>
           </div>
           <div class="product-sel" id="ps-ev" onclick="selectProduct('ev')" style="display:none">
             <h4>⚡ EV Warranty</h4>
@@ -999,6 +1030,19 @@ document.addEventListener('click', function(ev){
             <h4>🚨 Roadside Only</h4>
             <p>24/7 assistance — no warranty required</p>
           </div>
+        </div>
+        <div class="cmp-note" id="abs-tc-note" style="display:none">
+          <h5>Absolute or Total Cover: what's the difference?</h5>
+          <p style="margin:0 0 6px">Total Cover is Absolute's comprehensive cover <strong>plus the hybrid system and electric motor</strong> (and the battery on Plus). Its Levels 1 to 3 match Absolute Levels 2 to 4. It also needs a vehicle condition report unless you are buying the car from a licensed dealer now.</p>
+          <details id="abs-tc-more"><summary style="cursor:pointer;font-weight:600;color:var(--primary)">See all the differences</summary>
+          <ul style="margin-top:8px">
+            <li><strong>The same comprehensive cover.</strong> Both cover the parts the manufacturer's warranty covered, apart from the excluded parts and events in each PDS.</li>
+            <li><strong>What Total Cover adds:</strong> the hybrid system and electric motor. <strong>Total Cover Plus</strong> also adds the electric motor battery, up to $5,000 per 12 months (hybrids and EVs only). Absolute does not cover hybrid or electric parts.</li>
+            <li><strong>Levels line up one step apart.</strong> Total Cover Levels 1, 2 and 3 have the same age and kilometre limits and claim limits as Absolute Levels 2, 3 and 4, and almost the same price. Total Cover has no equivalent of Absolute Level 1 ($2,000 per claim, cars up to 15 years and 220,000 km).</li>
+            <li><strong>Extra conditions on Total Cover:</strong> a vehicle condition report from a licensed workshop, dated before cover starts, unless you are buying the car from a licensed dealer now. Claims must reach Integrity during the warranty term, and Integrity may repair with used or aftermarket parts.</li>
+          </ul>
+          </details>
+          <p style="margin:8px 0 0;font-size:12.5px;color:var(--gray-500)">Factual information only, not advice. Full terms: <a href="/docs/integrity-absolute-warranty-pds-v3.5.pdf" target="_blank" rel="noopener">Absolute PDS</a> and <a href="/docs/integrity-total-cover-warranty-pds-v1.2.pdf" target="_blank" rel="noopener">Total Cover PDS</a>.</p>
         </div>
         <div id="roadside-only-note" style="display:none;background:var(--light);border-radius:var(--r);padding:20px;border:1px dashed var(--gray-300);margin-bottom:8px">
           <p style="font-size:14.5px;color:var(--gray-600)">24/7 emergency roadside assistance on its own: towing, jumpstarts, flat tyres and emergency fuel, Australia-wide, with lockout help on 5 Star. Choose your plan and term on the next step. From <strong>$88/year</strong>.</p>
@@ -1442,9 +1486,9 @@ document.addEventListener('click', function(ev){
       </div>
       <div class="f-col"><h4>Protection</h4><a href="/extended-car-warranty/">Extended car warranty</a><a href="/roadside-assistance/">Roadside assistance</a><a href="/private-sale-car-warranty/">Private sale warranty</a><a href="#quote" onclick="startWarranty();return false;">Get my price</a></div>
         <div class="f-col"><h4>Help</h4><a href="/faq/">FAQ</a><a href="/faq/#forms">Transfers &amp; forms</a><a href="/docs/integrity-absolute-warranty-pds-v3.5.pdf">Absolute PDS</a><a href="/docs/integrity-endurance-warranty-terms.pdf">Endurance terms</a><a href="/partners">Partner portal</a></div>
-        <div class="f-col"><h4>Get in touch</h4><a href="tel:0477666500">0477 666 500</a><a href="mailto:quotes@mydriveshield.com.au">quotes@mydriveshield.com.au</a><a href="#quote" onclick="showCallback('contact');return false">Request a callback</a><a href="tel:0391206666">Claims: Integrity 03 9120 6666</a><span style="display:block;margin-top:6px">Level 20, 15 Castlereagh Street<br>Sydney NSW 2000</span></div>
+        <div class="f-col"><h4>Get in touch</h4><a href="tel:0477666500">0477 666 500</a><a href="mailto:quotes@mydriveshield.com.au">quotes@mydriveshield.com.au</a><a href="#quote" onclick="showCallback('contact');return false">Request a callback</a><a href="tel:0391206666">Claims: Integrity 03 9120 6666</a></div>
       </div>
-      <p class="f-legal">MyDriveShield provides information about vehicle warranty and roadside assistance products and facilitates quote requests. We give factual information only. We do not give general or personal financial product advice, or insurance or legal advice. Coverage, exclusions, eligibility, waiting periods, claim limits and terms depend on the relevant product documentation and provider approval. Warranty products are issued by Integrity Car Care Pty Ltd (PO Box 2122 Traralgon VIC 3844 · 03 9120 6666 · admin@integritywarranty.com.au). MyDriveShield is a trading name of Capital Gateway Pty Ltd (ABN 36 667 087 685), Level 20, 15 Castlereagh Street, Sydney NSW 2000, Authorised Representative No. 001323971 of Integrity Car Care Pty Ltd (ABN 58 056 621 893, AFSL 247069). All prices include GST. Cover is subject to the full terms and conditions of the relevant warranty product, available upon request. Pre-existing conditions are excluded. Vehicle category and eligibility are subject to approval. Please read the product terms before purchasing. All quotes are subject to assessment and approval.</p>
+      <p class="f-legal">MyDriveShield provides information about vehicle warranty and roadside assistance products and facilitates quote requests. We give factual information only. We do not give general or personal financial product advice, or insurance or legal advice. Coverage, exclusions, eligibility, waiting periods, claim limits and terms depend on the relevant product documentation and provider approval. Warranty products are issued by Integrity Car Care Pty Ltd (PO Box 2122 Traralgon VIC 3844 · 03 9120 6666 · admin@integritywarranty.com.au). MyDriveShield is a trading name of Capital Gateway Pty Ltd (ABN 36 667 087 685), PO Box 1666, Potts Point NSW 1335, Authorised Representative No. 001323971 of Integrity Car Care Pty Ltd (ABN 58 056 621 893, AFSL 247069). All prices include GST. Cover is subject to the full terms and conditions of the relevant warranty product, available upon request. Pre-existing conditions are excluded. Vehicle category and eligibility are subject to approval. Please read the product terms before purchasing. All quotes are subject to assessment and approval.</p>
     <div class="f-bottom"><span>© 2026 MyDriveShield. All rights reserved.</span><span><a href="/privacy.html">Privacy Policy</a> · <a href="/terms/">Terms of Use</a> · <a href="/complaints/">Complaints</a></span></div>
   </div>
 </footer>
@@ -1556,8 +1600,12 @@ const MAKE_CAT = {
   'MG':1,'MINI':2,'MITSUBISHI':1,'MORGAN':3,'NISSAN':1,'OPEL':2,
   'PEUGEOT':2,'PORSCHE':4,'PROTON':1,'RAM':3,'RENAULT':2,'ROLLS-ROYCE':4,
   'SAAB':2,'SKODA':2,'SMART':3,'SSANGYONG':2,'SUBARU':1,'SUZUKI':1,
-  'TATA':2,'TESLA':4,'TOYOTA':1,'VOLKSWAGEN':2,'VOLVO':2,'ZX AUTO':3
+  'TATA':2,'TESLA':4,'TOYOTA':1,'VOLKSWAGEN':2,'VOLVO':2,'ZX AUTO':3,
+  // Added 28/10/2026 from IABSI V3.5 Appendix A
+  'ALPINA':4,'ELFIN':3,'FOTON':2,'FPV':2,'FUSO':2,'GEELY':2,'GMC':4,'HINO':2
 };
+// Makes sold in Australia only as EVs or plug-in hybrids. Value: models that are plug-in hybrids (Category 3); all others are electric (Category 4).
+const EV_ONLY_MAKES = { 'BYD':/SEALION\s?6|SHARK|TANG\s?DM/i, 'POLESTAR':/(?!)/, 'ZEEKR':/(?!)/, 'XPENG':/(?!)/, 'LEAPMOTOR':/(?!)/, 'DEEPAL':/(?!)/ };
 
 // Model / fuel exceptions per Integrity Absolute booklet IABSI V3.5, Appendix A.
 // Tested against the model text the customer types (case-insensitive). First match wins.
@@ -1604,71 +1652,85 @@ function resolveCategory(make, model, year, fuel){
 
 // Model suggestions per make (Australian market, roughly 2000 onwards). Customers can still type a model that is not listed.
 const MODELS = {
-  'ABARTH':['124 Spider','500','595','695','Punto'],
-  'ALFA ROMEO':['4C','147','156','159','Brera','Giulia','Giulia Quadrifoglio','Giulietta','GT','MiTo','Spider','Stelvio','Stelvio Quadrifoglio','Tonale'],
-  'ASTON MARTIN':['DB7','DB9','DB11','DB12','DBS','DBX','Rapide','Vanquish','Vantage','Virage'],
-  'AUDI':['A1','A3','A4','A4 Allroad','A5','A6','A6 Allroad','A7','A8','e-tron','e-tron GT','Q2','Q3','Q4 e-tron','Q5','Q7','Q8','R8','RS3','RS4','RS5','RS6','RS7','RS Q3','RS Q8','S1','S3','S4','S5','S6','S7','S8','SQ2','SQ5','SQ7','SQ8','TT','TT RS','TTS'],
+  'ABARTH':['124 Spider','500','500e','595','595 Competizione','695','695 Esseesse','Punto'],
+  'ALFA ROMEO':['147','156','159','4C','Brera','Giulia','Giulia Quadrifoglio','Giulietta','GT','Junior','MiTo','Spider','Stelvio','Stelvio Quadrifoglio','Tonale'],
+  'ALPINA':['B3','B4','B5','B7','B8','D3','D4','D5','XB7','XD3','XD4'],
+  'ASTON MARTIN':['DB11','DB12','DB7','DB9','DBS','DBX','Rapide','Vanquish','Vantage','Virage'],
+  'AUDI':['A1','A3','A3 Sportback','A4','A4 Allroad','A4 Avant','A5','A5 Sportback','A6','A6 Allroad','A6 Avant','A7','A8','e-tron','e-tron GT','Q2','Q3','Q3 Sportback','Q4 e-tron','Q5','Q5 Sportback','Q6 e-tron','Q7','Q8','Q8 e-tron','R8','RS e-tron GT','RS Q3','RS Q8','RS3','RS4','RS5','RS6','RS7','S1','S3','S3 Sportback','S4','S5','S6','S7','S8','SQ2','SQ5','SQ6 e-tron','SQ7','SQ8','SQ8 e-tron','TT','TT Roadster','TT RS','TTS'],
   'BENTLEY':['Arnage','Bentayga','Continental','Continental GT','Flying Spur','Mulsanne'],
-  'BMW':['1 Series','2 Series','2 Series Active Tourer','2 Series Gran Coupe','3 Series','4 Series','4 Series Gran Coupe','5 Series','6 Series','7 Series','8 Series','i3','i4','i5','i7','i8','iX','iX1','iX3','M2','M3','M4','M5','M6','M8','X1','X2','X3','X3 M','X4','X4 M','X5','X5 M','X6','X6 M','X7','XM','Z3','Z4'],
+  'BMW':['1 Series','1 Series Hatch','2 Series','2 Series Active Tourer','2 Series Gran Coupe','3 Series','3 Series Touring','4 Series','4 Series Gran Coupe','5 Series','5 Series Touring','6 Series','7 Series','8 Series','i3','i4','i4 M50','i5','i7','i8','iX','iX M60','iX1','iX3','M135i','M2','M235i','M3','M340i','M4','M440i','M5','M6','M8','X1','X1 M35i','X2','X2 M35i','X3','X3 M','X3 M40i','X4','X4 M','X5','X5 M','X5 M60i','X6','X6 M','X6 M60i','X7','X7 M60i','XM','Z3','Z4','Z4 M40i'],
+  'BYD':['Atto 1','Atto 2','Atto 3','Dolphin','Seal','Sealion 5','Sealion 6','Sealion 7','Shark 6','Tang'],
   'CADILLAC':['Escalade','Lyriq','Optiq'],
   'CATERHAM':['Seven'],
-  'CHERY':['J1','J3','J11','Omoda 5','Omoda E5','Tiggo 4 Pro','Tiggo 7 Pro','Tiggo 8 Pro'],
-  'CHEVROLET':['Camaro','Corvette','Silverado 1500','Silverado 2500HD','Silverado 3500HD'],
-  'CHRYSLER':['300','300C','300 SRT','Grand Voyager','PT Cruiser','Sebring','Voyager'],
-  'CITROEN':['Berlingo','C3','C3 Aircross','C4','C4 Cactus','C4 Picasso','C5','C5 Aircross','C5 X','DS3','DS4','DS5','Grand C4 Picasso','Xsara'],
+  'CHERY':['J1','J11','J3','Jaecoo J7','Omoda 5','Omoda C5','Omoda E5','Tiggo 4 Pro','Tiggo 7 Pro','Tiggo 8 Pro','Tiggo 9'],
+  'CHEVROLET':['Camaro','Corvette','Corvette Stingray','Corvette Z06','Silverado 1500','Silverado 1500 LTZ','Silverado 2500HD','Silverado 2500HD LTZ','Silverado 3500HD'],
+  'CHRYSLER':['300','300 SRT','300C','Grand Voyager','PT Cruiser','Sebring','Voyager'],
+  'CITROEN':['Berlingo','C3','C3 Aircross','C4','C4 Cactus','C4 Picasso','C4 X','C5','C5 Aircross','C5 X','Dispatch','DS3','DS4','DS5','Grand C4 Picasso','Jumpy','Xsara'],
+  'DEEPAL':['E07','S05','S07'],
   'DODGE':['Avenger','Caliber','Challenger','Journey','Nitro','Viper'],
+  'ELFIN':['Clubman','MS8','Streamliner','T5'],
   'FERRARI':['296','360','430','458','488','812','California','F8','FF','GTC4Lusso','Portofino','Purosangue','Roma','SF90'],
-  'FIAT':['500','500X','Doblo','Ducato','Freemont','Panda','Punto','Scudo','Tipo'],
-  'FORD':['Bronco','EcoSport','Endura','Escape','Everest','Explorer','F-150','Falcon','Falcon Ute','Fiesta','Fiesta ST','Focus','Focus RS','Focus ST','Fairlane','Kuga','Mondeo','Mustang','Mustang Mach-E','Puma','Ranger','Ranger Raptor','Territory','Transit','Transit Custom'],
-  'GENESIS':['G70','G80','G90','GV60','GV70','GV80'],
+  'FIAT':['500','500e','500X','600','Abarth 595','Doblo','Ducato','Ducato Van','Freemont','Fullback','Panda','Punto','Scudo','Tipo'],
+  'FORD':['Bronco','EcoSport','Endura','Escape','Everest','Everest Platinum','Everest Sport','Everest Trend','Explorer','F-150','F-150 Lariat','F-150 Platinum','Fairlane','Falcon','Falcon Ute','Falcon XR6','Falcon XR8','Fiesta','Fiesta ST','Focus','Focus RS','Focus ST','Kuga','Mondeo','Mondeo Wagon','Mustang','Mustang Mach-E','Puma','Ranger','Ranger PHEV','Ranger Platinum','Ranger Raptor','Ranger Sport','Ranger Wildtrak','Ranger XL','Ranger XLS','Ranger XLT','Territory','Territory Titanium','Transit','Transit Connect','Transit Custom'],
+  'FOTON':['Aumark','Sauvana','Tunland','View'],
+  'FPV':['F6','GT','GT-P','Pursuit','Super Pursuit','Territory F6X'],
+  'FUSO':['Canter','eCanter','Fighter','Shogun'],
+  'GEELY':['Coolray','EX5','Starray'],
+  'GENESIS':['G70','G70 Shooting Brake','G80','G90','GV60','GV70','GV70 Electrified','GV80','GV80 Coupe'],
+  'GMC':['Sierra 1500','Sierra 2500HD','Sierra 3500HD','Yukon','Yukon Denali'],
   'GREAT WALL':['Cannon','SA220','Steed','V200','V240','X200','X240'],
-  'GWM':['Cannon','Cannon Alpha','Haval H6','Jolion','Ora','Tank 300','Tank 500','Ute'],
-  'HAVAL':['H2','H6','H6 GT','H9','Jolion'],
-  'HOLDEN':['Acadia','Adventra','Astra','Barina','Calais','Calibra','Caprice','Captiva','Colorado','Commodore','Crewman','Cruze','Equinox','Epica','Malibu','Monaro','Rodeo','Statesman','Trailblazer','Trax','Ute','Viva','Volt'],
-  'HONDA':['Accord','Accord Euro','City','Civic','Civic Type R','CR-V','CR-Z','HR-V','Insight','Integra','Jazz','Legend','MDX','NSX','Odyssey','S2000','ZR-V'],
-  'HSV':['Clubsport','GTS','Grange','Maloo','Senator','Colorado SportsCat'],
+  'GWM':['Cannon','Cannon Alpha','Cannon XSR','Haval H6','Haval H6 GT','Haval H6 Hybrid','Haval Jolion','Jolion','Ora','Tank 300','Tank 300 Hybrid','Tank 500','Tank 500 Hybrid','Ute'],
+  'HAVAL':['H2','H6','H6 GT','H6 Hybrid','H9','Jolion','Jolion Hybrid'],
+  'HINO':['300 Series','500 Series','700 Series','Dutro'],
+  'HOLDEN':['Acadia','Adventra','Astra','Barina','Calais','Calais V','Calibra','Caprice','Captiva','Colorado','Colorado 7','Commodore','Commodore SS','Commodore SV6','Commodore VE','Commodore VF','Commodore VT','Commodore VX','Commodore VY','Commodore VZ','Commodore ZB','Crewman','Cruze','Cruze Hatch','Epica','Equinox','Malibu','Monaro','Rodeo','Spark','Statesman','Trailblazer','Trax','Ute','Ute SS','Viva','Volt'],
+  'HONDA':['Accord','Accord Euro','City','Civic','Civic Hatch','Civic Type R','CR-V','CR-V Hybrid','CR-Z','e:Ny1','HR-V','HR-V Hybrid','Insight','Integra','Jazz','Legend','MDX','NSX','Odyssey','Odyssey Absolute','S2000','ZR-V','ZR-V Hybrid'],
+  'HSV':['Clubsport','Clubsport R8','Colorado SportsCat','Grange','GTS','GTS-R','Maloo','Maloo R8','Senator','Senator Signature','W1'],
   'HUMMER':['H2','H3'],
-  'HYUNDAI':['Accent','Elantra','Elantra N','Getz','i20','i20 N','i30','i30 N','i30 N Line','i40','i45','iLoad','iMax','Ioniq','Ioniq 5','Ioniq 5 N','Ioniq 6','Kona','Kona N','Palisade','Santa Fe','Sonata','Staria','Tucson','Tucson N Line','Veloster','Venue'],
+  'HYUNDAI':['Accent','Elantra','Elantra N','Getz','i20','i20 N','i30','i30 Fastback','i30 N','i30 N Line','i30 Sedan','i40','i45','iLoad','iMax','Inster','Ioniq','Ioniq 5','Ioniq 5 N','Ioniq 6','Kona','Kona Electric','Kona Hybrid','Kona N','Palisade','Santa Cruz','Santa Fe','Santa Fe Hybrid','Sonata','Staria','Tucson','Tucson Hybrid','Tucson N Line','Veloster','Venue'],
+  'INEOS':['Grenadier','Grenadier Quartermaster','Grenadier Station Wagon'],
   'INFINITI':['FX','Q30','Q50','Q60','Q70','QX30','QX50','QX70','QX80'],
-  'INEOS':['Grenadier','Grenadier Quartermaster'],
-  'ISUZU':['D-Max','MU-X','NPR','NLR','NNR'],
-  'JAGUAR':['E-Pace','F-Pace','F-Pace SVR','F-Type','I-Pace','S-Type','X-Type','XE','XF','XJ','XK'],
-  'JEEP':['Cherokee','Commander','Compass','Gladiator','Grand Cherokee','Grand Cherokee SRT','Grand Cherokee Trackhawk','Patriot','Renegade','Wrangler'],
-  'KIA':['Carens','Carnival','Cerato','EV3','EV5','EV6','EV9','Niro','Optima','Picanto','Rio','Rondo','Seltos','Sorento','Soul','Sportage','Stinger','Stonic','Tasman'],
+  'ISUZU':['D-Max','D-Max LS-U','D-Max SX','D-Max X-Terrain','FRR','FVR','MU-X','MU-X LS-T','NLR','NNR','NPR','NPS'],
+  'JAGUAR':['E-Pace','F-Pace','F-Pace SVR','F-Type','I-Pace','S-Type','X-Type','XE','XE R-Dynamic','XF','XF Sportbrake','XJ','XK'],
+  'JEEP':['Avenger','Cherokee','Commander','Compass','Gladiator','Grand Cherokee','Grand Cherokee 4xe','Grand Cherokee L','Grand Cherokee SRT','Grand Cherokee Trackhawk','Patriot','Renegade','Wrangler','Wrangler Rubicon','Wrangler Unlimited'],
+  'KIA':['Carens','Carnival','Cerato','EV3','EV5','EV6','EV9','K4','Niro','Niro EV','Niro Hybrid','Optima','Picanto','Picanto GT','Rio','Rondo','Seltos','Sorento','Sorento Hybrid','Sorento PHEV','Soul','Sportage','Sportage Hybrid','Stinger','Stinger GT','Stonic','Tasman'],
   'KOENIGSEGG':['Agera','Jesko','Regera'],
   'LAMBORGHINI':['Aventador','Gallardo','Huracan','Revuelto','Urus'],
-  'LAND ROVER':['Defender','Discovery','Discovery Sport','Freelander','Range Rover','Range Rover Evoque','Range Rover Sport','Range Rover Velar'],
-  'LDV':['D90','Deliver 9','eT60','G10','MIFA 9','T60','T60 Max','Terron 9','V80'],
-  'LEXUS':['CT','ES','GS','GS F','GX','IS','IS F','LBX','LC','LFA','LM','LS','LX','NX','RC','RC F','RX','RZ','UX'],
+  'LAND ROVER':['Defender','Defender 110','Defender 130','Defender 90','Discovery','Discovery 3','Discovery 4','Discovery 5','Discovery Sport','Freelander','Range Rover','Range Rover Evoque','Range Rover Sport','Range Rover Sport SVR','Range Rover Velar','Range Rover Vogue'],
+  'LDV':['D90','Deliver 9','eDeliver 9','eT60','G10','MIFA 9','T60','T60 Max','T60 Max Plus','Terron 9','V80'],
+  'LEAPMOTOR':['B10','C10'],
+  'LEXUS':['CT','ES','ES 300h','GS','GS F','GX','GX 550','IS','IS 300h','IS 350','IS 500','IS F','LBX','LC','LFA','LM','LS','LS 500h','LX','LX 600','NX','NX 350h','NX 450h+','RC','RC F','RX','RX 350','RX 450h','RX 500h','RZ','UX','UX 250h','UX 300e'],
   'LOTUS':['Eletre','Elise','Emira','Evora','Exige'],
-  'MAHINDRA':['Pik-Up','Scorpio','XUV500','XUV700','XUV 3XO'],
-  'MASERATI':['Ghibli','GranCabrio','GranTurismo','Grecale','Levante','MC20','Quattroporte'],
-  'MAZDA':['121','BT-50','CX-3','CX-30','CX-5','CX-60','CX-7','CX-8','CX-9','CX-70','CX-80','CX-90','Mazda2','Mazda3','Mazda6','MX-30','MX-5','RX-8','Tribute'],
-  'MCLAREN':['540C','570S','600LT','620R','720S','750S','765LT','Artura','GT'],
-  'MERCEDES-BENZ':['A-Class','A 35 AMG','A 45 AMG','AMG GT','B-Class','C-Class','C 43 AMG','C 63 AMG','CLA','CLA 45 AMG','CLK','CLS','E-Class','E 53 AMG','E 63 AMG','EQA','EQB','EQC','EQE','EQS','G-Class','G 63 AMG','GLA','GLB','GLC','GLC 63 AMG','GLE','GLE 63 AMG','GLS','Maybach','ML','S-Class','SL','SLK','SLC','Sprinter','Valente','Viano','Vito','X-Class'],
-  'MG':['3','4','5','Cyberster','HS','HS Plus EV','MG3','MG4','MG5','RX5','ZS','ZS EV','ZST'],
-  'MINI':['Clubman','Convertible','Cooper','Cooper S','Countryman','Hatch','John Cooper Works','Paceman','Roadster'],
-  'MITSUBISHI':['ASX','Challenger','Eclipse Cross','Express','Lancer','Lancer Evolution','Magna','Mirage','Outlander','Outlander PHEV','Pajero','Pajero Sport','Triton'],
+  'MAHINDRA':['Pik-Up','Scorpio','XUV 3XO','XUV500','XUV700'],
+  'MASERATI':['Ghibli','GranCabrio','GranTurismo','GranTurismo Folgore','Grecale','Grecale Folgore','Levante','Levante Trofeo','MC20','MC20 Cielo','Quattroporte'],
+  'MAZDA':['121','BT-50','BT-50 Thunder','CX-3','CX-30','CX-5','CX-60','CX-60 PHEV','CX-7','CX-70','CX-8','CX-80','CX-9','CX-90','Mazda2','Mazda3','Mazda3 Hatch','Mazda3 Sedan','Mazda6','Mazda6 Wagon','MX-30','MX-5','MX-5 RF','RX-8','Tribute'],
+  'MCLAREN':['540C','570GT','570S','600LT','620R','650S','675LT','720S','750S','765LT','Artura','GT','GTS','P1','Senna'],
+  'MERCEDES-BENZ':['A 180','A 200','A 250','A 35 AMG','A 45 AMG','A-Class','A-Class Sedan','AMG A 35','AMG A 45 S','AMG C 43','AMG C 63 S','AMG CLA 35','AMG CLA 45 S','AMG E 53','AMG E 63 S','AMG G 63','AMG GLA 35','AMG GLA 45','AMG GLC 43','AMG GLC 63 S','AMG GLE 53','AMG GLE 63 S','AMG GT','AMG GT 4-Door','AMG SL 55','AMG SL 63','B 180','B 200','B-Class','C 200','C 300','C 43 AMG','C 63 AMG','C-Class','C-Class Coupe','C-Class Estate','CLA','CLA 45 AMG','CLA Shooting Brake','CLE','CLE Cabriolet','CLK','CLS','CLS 450','E 200','E 300','E 350','E 53 AMG','E 63 AMG','E-Class','E-Class Coupe','E-Class Estate','EQA','EQA 250','EQB','EQB 250','EQC','EQE','EQE SUV','EQS','EQS SUV','EQV','G 400d','G 63 AMG','G-Class','GL','GLA','GLA 200','GLA 250','GLB','GLB 200','GLB 250','GLC','GLC 200','GLC 300','GLC 63 AMG','GLC Coupe','GLE','GLE 300d','GLE 450','GLE 63 AMG','GLE Coupe','GLK','GLS','GLS 450','Maybach','ML','ML 250','ML 350','R-Class','S 450','S 500','S 580','S-Class','SL','SL 350','SL 500','SLC','SLK','SLK 200','SLK 350','Sprinter','Sprinter Van','V-Class','Valente','Viano','Vito','Vito Van','X-Class'],
+  'MG':['3','4','5','Cyberster','HS','HS Hybrid+','HS Plus EV','MG3','MG4','MG4 XPOWER','MG5','QS','RX5','S5 EV','U9','ZS','ZS EV','ZS Hybrid+','ZST'],
+  'MINI':['Aceman','Clubman','Convertible','Cooper','Cooper S','Cooper SE','Countryman','Countryman SE','Electric','Hatch','John Cooper Works','Paceman','Roadster'],
+  'MITSUBISHI':['ASX','Challenger','Eclipse Cross','Express','Lancer','Lancer Evolution','Magna','Mirage','Outlander','Outlander PHEV','Outlander Sport','Pajero','Pajero Exceed','Pajero GLS','Pajero GLX','Pajero Sport','Triton','Triton GLR','Triton GLS','Triton GSR'],
   'MORGAN':['Plus Four','Plus Six','Roadster'],
-  'NISSAN':['350Z','370Z','Dualis','GT-R','Juke','Leaf','Maxima','Micra','Murano','Navara','Pathfinder','Patrol','Pulsar','Qashqai','Skyline','Tiida','X-Trail','Z'],
+  'NISSAN':['350Z','370Z','Ariya','Dualis','GT-R','Juke','Leaf','Maxima','Micra','Murano','Navara','Navara PRO-4X','Navara ST','Navara ST-X','Pathfinder','Patrol','Patrol Ti','Patrol Ti-L','Patrol Warrior','Pulsar','Qashqai','Skyline','Tiida','X-Trail','X-Trail e-POWER','Z','Z Nismo'],
   'OPEL':['Astra','Corsa','Insignia'],
-  'PEUGEOT':['2008','208','3008','307','308','408','5008','508','Boxer','Expert','Landtrek','Partner','RCZ'],
-  'PORSCHE':['718 Boxster','718 Cayman','911','Boxster','Cayenne','Cayenne GTS','Cayman','Cayman GT4','Macan','Macan GTS','Panamera','Taycan'],
+  'PEUGEOT':['2008','208','3008','307','308','408','408 GT','5008','508','Boxer','E-2008','E-208','E-3008','Expert','Landtrek','Partner','Partner Van','RCZ'],
+  'POLESTAR':['Polestar 2','Polestar 3','Polestar 4'],
+  'PORSCHE':['718 Boxster','718 Cayman','911','911 Carrera','911 Carrera S','911 GT3','911 Targa','911 Turbo','911 Turbo S','Boxster','Cayenne','Cayenne Coupe','Cayenne E-Hybrid','Cayenne GTS','Cayenne Turbo','Cayman','Cayman GT4','Macan','Macan Electric','Macan GTS','Panamera','Panamera 4','Panamera E-Hybrid','Taycan','Taycan 4S','Taycan Cross Turismo','Taycan Turbo'],
   'PROTON':['Exora','Persona','Preve','Satria','Suprima S'],
-  'RAM':['1500','2500','3500'],
-  'RENAULT':['Arkana','Captur','Clio','Kadjar','Kangoo','Koleos','Laguna','Megane','Megane RS','Master','Scenic','Trafic'],
+  'RAM':['1500','1500 Express','1500 Laramie','1500 Rebel','1500 TRX','2500','2500 Laramie','3500','3500 Laramie'],
+  'RENAULT':['Arkana','Austral','Captur','Clio','Kadjar','Kangoo','Koleos','Laguna','Master','Master Van','Megane','Megane E-Tech','Megane RS','Scenic','Trafic','Trafic Van'],
   'ROLLS-ROYCE':['Cullinan','Dawn','Ghost','Phantom','Spectre','Wraith'],
   'SAAB':['9-3','9-5'],
-  'SKODA':['Enyaq','Fabia','Kamiq','Karoq','Kodiaq','Octavia','Octavia RS','Rapid','Roomster','Scala','Superb','Yeti'],
+  'SKODA':['Elroq','Enyaq','Enyaq Coupe','Fabia','Kamiq','Karoq','Kodiaq','Kodiaq RS','Octavia','Octavia RS','Octavia Wagon','Rapid','Roomster','Scala','Superb','Superb Wagon','Yeti'],
   'SMART':['#1','#3','ForFour','ForTwo'],
-  'SSANGYONG':['Actyon','Korando','Musso','Rexton','Stavic','Tivoli','Torres'],
-  'SUBARU':['BRZ','Crosstrek','Forester','Impreza','Levorg','Liberty','Outback','Solterra','Tribeca','WRX','WRX STI','XV'],
-  'SUZUKI':['Alto','APV','Baleno','Celerio','Grand Vitara','Ignis','Jimny','Kizashi','S-Cross','Swift','Swift Sport','Vitara'],
+  'SSANGYONG':['Actyon','Korando','Musso','Musso XLV','Rexton','Rexton Sports','Stavic','Tivoli','Torres','Torres EVX'],
+  'SUBARU':['BRZ','BRZ tS','Crosstrek','Crosstrek Hybrid','Forester','Forester Hybrid','Impreza','Levorg','Liberty','Outback','Outback XT','Solterra','Tribeca','WRX','WRX Sportswagon','WRX STI','XV','XV Hybrid'],
+  'SUZUKI':['Alto','APV','Baleno','Celerio','eVitara','Grand Vitara','Ignis','Jimny','Jimny XL','Kizashi','S-Cross','S-Cross Turbo','Swift','Swift Hybrid','Swift Sport','Vitara','Vitara Turbo'],
   'TATA':['Telcoline','Xenon'],
-  'TESLA':['Model 3','Model S','Model X','Model Y'],
-  'TOYOTA':['86','Aurion','Avalon','C-HR','Camry','Celica','Corolla','Corolla Cross','Echo','FJ Cruiser','Fortuner','GR86','GR Corolla','GR Supra','GR Yaris','HiAce','Hilux','Kluger','Land Cruiser','Land Cruiser 70','Land Cruiser 200','Land Cruiser 300','Land Cruiser Prado','Prado','Prius','Prius C','Prius V','RAV4','Rukus','Supra','Tarago','Tundra','Yaris','Yaris Cross'],
-  'VOLKSWAGEN':['Amarok','Arteon','Beetle','Caddy','California','Crafter','Golf','Golf GTI','Golf R','ID.4','ID.5','ID. Buzz','Jetta','Multivan','Passat','Polo','Polo GTI','Scirocco','T-Cross','T-Roc','T-Roc R','Tiguan','Tiguan R-Line','Touareg','Transporter'],
-  'VOLVO':['C30','C40','EX30','EX40','EX90','S40','S60','S80','S90','V40','V50','V60','V70','V90','XC40','XC60','XC70','XC90'],
+  'TESLA':['Cybertruck','Model 3','Model 3 Performance','Model S','Model X','Model Y','Model Y Performance'],
+  'TOYOTA':['86','86 GTS','Aurion','Avalon','bZ4X','C-HR','C-HR Hybrid','Camry','Camry Hybrid','Celica','Corolla','Corolla Cross','Corolla Cross Hybrid','Corolla Hybrid','Corolla Sedan','Echo','FJ Cruiser','Fortuner','GR Corolla','GR Supra','GR Yaris','GR86','HiAce','HiAce Commuter','Hilux','Hilux GR Sport','Hilux Rogue','Hilux Rugged X','Hilux SR','Hilux SR5','Kluger','Kluger Hybrid','Land Cruiser','Land Cruiser 100','Land Cruiser 200','Land Cruiser 250','Land Cruiser 300','Land Cruiser 70','Land Cruiser 70 Series','Land Cruiser 76','Land Cruiser 78','Land Cruiser 79','Land Cruiser Prado','Land Cruiser Prado 120','Land Cruiser Prado 150','Prado','Prius','Prius C','Prius Prime','Prius V','RAV4','RAV4 Hybrid','Rukus','Supra','Tarago','Tundra','Tundra Limited','Yaris','Yaris Cross','Yaris Cross Hybrid','Yaris Hybrid'],
+  'VOLKSWAGEN':['Amarok','Amarok Aventura','Amarok Highline','Amarok Style','Arteon','Beetle','Caddy','California','Crafter','Golf','Golf Alltrack','Golf GTI','Golf R','Golf Wagon','ID. Buzz','ID.3','ID.4','ID.5','ID.7','Jetta','Multivan','Passat','Passat Alltrack','Polo','Polo GTI','Scirocco','T-Cross','T-Roc','T-Roc R','Tiguan','Tiguan Allspace','Tiguan R-Line','Touareg','Touareg R','Transporter'],
+  'VOLVO':['C30','C40','EC40','EX30','EX40','EX90','S40','S60','S60 Recharge','S80','S90','V40','V50','V60','V60 Cross Country','V70','V90','V90 Cross Country','XC40','XC60','XC60 Recharge','XC70','XC90','XC90 Recharge'],
+  'XPENG':['G6','G9','X9'],
+  'ZEEKR':['001','7X','X'],
   'ZX AUTO':['Grand Tiger']
 };
 const normModel = s => String(s||'').toLowerCase().replace(/[^a-z0-9#]+/g,' ').trim();
@@ -1694,7 +1756,7 @@ function checkModelListed(){
 
 // === STATE ===
 let state = {
-  make:'', model:'', year:'', odo:'', fuel:'ice', cat:1, awd:false,
+  make:'', model:'', year:'', odo:'', fuel:'ice', cat:1, awd:false, driveSet:false, driveManual:false,
   product:'absolute', level:1, eopt:1, tlevel:1, tcPlus:false, evplan:'A', duration:2, roadside:'none'
 };
 let stripe = null, elements = null, paymentElement = null;
@@ -1736,8 +1798,15 @@ function recalcCategory(){
   const model = (document.getElementById('v-model').value||'').trim();
   const year = document.getElementById('v-year').value;
   const fuelEl = document.getElementById('v-fuel');
-  const fuel = fuelEl ? fuelEl.value : 'ice';
+  let fuel = fuelEl ? fuelEl.value : 'ice';
+  // Makes sold in Australia only as electric or plug-in hybrid vehicles: set the fuel type for the customer.
+  const evMake = EV_ONLY_MAKES[make];
+  if(evMake && fuelEl){
+    const want = evMake.test(model) ? 'hybrid' : 'ev';
+    if(fuelEl.value==='ice' || (model.length>=2 && fuelEl.value!==want && !state.fuelManual)){ fuelEl.value = want; fuel = want; }
+  }
   state.make = make; state.model = model; state.fuel = fuel;
+  syncDrive();
   const hev = document.getElementById('hev-note'); if(hev) hev.style.display = fuel==='ice' ? 'none' : 'block';
   const cat = resolveCategory(make, model, year, fuel);
   const el = document.getElementById('cat-display');
@@ -1755,10 +1824,176 @@ function recalcCategory(){
   }
 }
 
-// === AWD TOGGLE ===
-function toggleAWD(){
-  state.awd = !state.awd;
-  document.getElementById('awd-sw').classList.toggle('on', state.awd);
+// === DRIVE TYPE (4WD / AWD) ===
+// AWD_ALWAYS: sold in Australia only as 4WD or AWD, so the surcharge is switched on automatically.
+// AWD_MIXED: sold as both 2WD and 4WD/AWD, so the customer must choose.
+// Anything else: the customer chooses. Customers can always override; a note asks them to check.
+const AWD_ALWAYS = {
+  'TOYOTA':[/LAND\s?CRUISER|PRADO|FJ\s?CRUISER|\bGR\s?YARIS|\bGR\s?COROLLA|SEQUOIA/i],
+  'NISSAN':[/PATROL|GT-?R\b/i],
+  'MITSUBISHI':[/^\s*PAJERO(\s+(GLX|GLS|EXCEED|VRX))?\s*$|EVOLUTION|\bEVO\b|OUTLANDER\s?PHEV/i],
+  'FORD':[/RANGER\s?RAPTOR|\bRAPTOR\b|BRONCO|FOCUS\s?RS/i],
+  'JEEP':[/WRANGLER|GLADIATOR|TRACKHAWK|GRAND\s?CHEROKEE\s?SRT/i],
+  'LAND ROVER':[/DEFENDER|^\s*DISCOVERY\s*$|DISCOVERY\s+[0-9]|RANGE\s?ROVER\s*$|RANGE\s?ROVER\s+(SPORT|VELAR|VOGUE|AUTOBIOGRAPHY|HSE|SV)/i],
+  'SUBARU':[/^(?!.*\bBRZ\b).+/i],
+  'AUDI':[/\bQ7\b|\bSQ\s?\d|\bQ8\b|\bRS\s?\d|\bRS\s?Q|\bR8\b|ALLROAD|\bS\s?[1-8]\b|^\s*E-?TRON|E-?TRON\s?GT|TT\s?RS|\bTTS\b/i],
+  'BMW':[/\bX6\b|\bX7\b|\bXM\b|X3\s?M|X4\s?M|X5\s?M|X6\s?M|\bIX\b(?!\s?[13])/i],
+  'MERCEDES-BENZ':[/G[\s-]?CLASS|\bG\s?\d{2,3}\b|\bGLE\b|\bML\b|\bGLS\b|\b(A|CLA|GLA)\s?45\b|\bA\s?35\b|GLC\s?63|GLE\s?63|E\s?63|\bEQC\b/i],
+  'PORSCHE':[/CAYENNE|MACAN(?!\s?ELECTRIC)/i],
+  'LAMBORGHINI':[/URUS|AVENTADOR|REVUELTO/i],
+  'BENTLEY':[/BENTAYGA|CONTINENTAL|FLYING\s?SPUR/i],
+  'ROLLS-ROYCE':[/CULLINAN/i],
+  'FERRARI':[/PUROSANGUE|\bFF\b|GTC4/i],
+  'INEOS':[/.+/],
+  'SUZUKI':[/JIMNY/i],
+  'LEXUS':[/\bLX\b|\bGX\b/i],
+  'HUMMER':[/.+/],
+  'RAM':[/.+/],
+  'CHEVROLET':[/SILVERADO/i],
+  'GMC':[/.+/],
+  'VOLKSWAGEN':[/TOUAREG|GOLF\s?R\b|T-?ROC\s?R\b|TIGUAN\s?R\b(?!-?\s?LINE)/i],
+  'GWM':[/TANK/i],
+  'TESLA':[/MODEL\s?X/i],
+  'VOLVO':[/EX90/i],
+  'BYD':[/SHARK|TANG/i],
+  'ALPINA':[/XB7|XD3|XD4/i]
+};
+const AWD_MIXED = {
+  'TOYOTA':[/HILUX|RAV\s?4|KLUGER|FORTUNER|C-?HR|COROLLA\s?CROSS|YARIS\s?CROSS|TUNDRA|BZ4X/i],
+  'FORD':[/RANGER|EVEREST|TERRITORY|ESCAPE|KUGA|EXPLORER|F-?150|MACH-?E|ENDURA|TRANSIT/i],
+  'NISSAN':[/NAVARA|X-?TRAIL|PATHFINDER|QASHQAI|MURANO|DUALIS|JUKE|ARIYA/i],
+  'MITSUBISHI':[/TRITON|PAJERO\s?SPORT|PAJERO|OUTLANDER|ASX|ECLIPSE\s?CROSS|CHALLENGER/i],
+  'ISUZU':[/D-?MAX|MU-?X|\bNPR\b|\bNLR\b|\bNNR\b/i],
+  'MAZDA':[/BT-?50|CX-?\d+|TRIBUTE|MAZDA\s?3|\b3\b/i],
+  'HOLDEN':[/COLORADO|RODEO|TRAILBLAZER|CAPTIVA|ACADIA|EQUINOX|ADVENTRA|COMMODORE|CREWMAN|CALAIS/i],
+  'HYUNDAI':[/SANTA\s?FE|TUCSON|PALISADE|KONA|IONIQ\s?5|IONIQ\s?6|STARIA/i],
+  'KIA':[/SORENTO|SPORTAGE|EV5|EV6|EV9|SELTOS|TASMAN|MOHAVE/i],
+  'JEEP':[/CHEROKEE|COMPASS|RENEGADE|PATRIOT|COMMANDER/i],
+  'LAND ROVER':[/DISCOVERY\s?SPORT|EVOQUE|FREELANDER/i],
+  'AUDI':[/\bQ[2-6]\b|Q4|Q6|\bA[3-8]\b|\bTT\b/i],
+  'BMW':[/\bX[1-5]\b|[1-8]\s?SERIES|\bM[2-8]\b|\bI[3-7]\b|\bIX[13]\b|\b\d{3}[ID]\b/i],
+  'MERCEDES-BENZ':[/GLA|GLB|GLC|EQB|C-?CLASS|E-?CLASS|S-?CLASS|CLA|CLS|A-?CLASS|B-?CLASS|X-?CLASS|SPRINTER|VITO|VALENTE|EQA|EQE|EQS|\bC\s?\d{3}|\bE\s?\d{3}/i],
+  'VOLKSWAGEN':[/AMAROK|TIGUAN|PASSAT|ARTEON|CRAFTER|TRANSPORTER|MULTIVAN|T-?ROC|ID\.?\s?[45]|CALIFORNIA|GOLF\s?ALLTRACK/i],
+  'SKODA':[/KODIAQ|KAROQ|OCTAVIA|SUPERB|ENYAQ|YETI/i],
+  'VOLVO':[/XC40|XC60|XC70|XC90|V60|V90|S60|S90|C40|EC40|EX30|EX40/i],
+  'LEXUS':[/\bRX\b|\bNX\b|\bUX\b|\bLS\b|\bRZ\b|\bLBX\b/i],
+  'PORSCHE':[/911|TAYCAN|PANAMERA|MACAN/i],
+  'TESLA':[/MODEL\s?[3SY]/i],
+  'HONDA':[/CR-?V|MDX/i],
+  'LDV':[/T60|TERRON|D90|V80/i],
+  'GWM':[/CANNON|\bUTE\b|HAVAL\s?H6|JOLION/i],
+  'GREAT WALL':[/.+/],
+  'HAVAL':[/.+/],
+  'SSANGYONG':[/.+/],
+  'MAHINDRA':[/.+/],
+  'RENAULT':[/KOLEOS|AUSTRAL/i],
+  'PEUGEOT':[/3008|LANDTREK/i],
+  'CHERY':[/TIGGO|JAECOO/i],
+  'MG':[/\bHS\b|\bMG4\b|\b4\b|CYBERSTER/i],
+  'GENESIS':[/GV80|GV70|GV60|G70|G80|G90/i],
+  'INFINITI':[/QX|Q50|Q70|FX/i],
+  'MASERATI':[/LEVANTE|GRECALE|GHIBLI|QUATTROPORTE/i],
+  'JAGUAR':[/F-?PACE|E-?PACE|I-?PACE|XF|XE|XJ|F-?TYPE/i],
+  'ALFA ROMEO':[/STELVIO|GIULIA|TONALE/i],
+  'LAMBORGHINI':[/HURACAN|GALLARDO/i],
+  'ASTON MARTIN':[/DBX/i],
+  'FIAT':[/500X|PANDA/i],
+  'CITROEN':[/C5\s?AIRCROSS/i],
+  'POLESTAR':[/.+/],
+  'BYD':[/SEAL\b|SEALION/i],
+  'ZEEKR':[/.+/],
+  'XPENG':[/.+/],
+  'LEAPMOTOR':[/C10/i],
+  'DEEPAL':[/S07/i],
+  'FOTON':[/TUNLAND/i],
+  'FUSO':[/CANTER/i],
+  'HINO':[/.+/],
+  'SUBARU':[/BRZ/i]
+};
+function driveRule(make, model){
+  const m = String(model||'').trim(); if(!make || m.length < 2) return '';
+  const hit = (tbl) => (tbl[make]||[]).some(re => re.test(m));
+  if(make==='SUBARU' && /\bBRZ\b/i.test(m)) return 'rwd';
+  if(hit(AWD_ALWAYS)) return 'always';
+  if(hit(AWD_MIXED)) return 'mixed';
+  return '';
+}
+function paintDrive(){
+  const b2=document.getElementById('drv-2'), b4=document.getElementById('drv-4'); if(!b2||!b4) return;
+  b2.classList.toggle('selected', state.driveSet && !state.awd); b2.setAttribute('aria-checked', String(state.driveSet && !state.awd));
+  b4.classList.toggle('selected', state.driveSet && state.awd); b4.setAttribute('aria-checked', String(state.driveSet && state.awd));
+  if(document.getElementById('step-2') && document.getElementById('step-2').style.display!=='none') updatePrices();
+}
+function driveNote(text, cls){
+  const n=document.getElementById('drive-note'); if(!n) return;
+  n.className='drive-note'+(cls?' '+cls:''); n.textContent=text;
+}
+function setDrive(awd, auto){
+  state.awd = !!awd; state.driveSet = true;
+  if(!auto) state.driveManual = true;
+  const e=document.querySelector('#drive-group .ferr'); if(e) e.remove(); const o=document.getElementById('drv-opts'); if(o) o.removeAttribute('aria-invalid');
+  paintDrive();
+  const rule = driveRule(state.make, state.model), name = (state.model||'this model');
+  if(rule==='always' && !state.awd) driveNote('Our records show the '+name+' is sold in Australia as 4WD or AWD only. If yours is 2WD, you can continue. We check the drive type before your cover is lodged, and a wrong answer can delay it.', 'warn');
+  else if(rule==='always') driveNote('The '+name+' is 4WD or AWD, so the $110 4WD/AWD surcharge is included in your price.', 'auto');
+  else if(rule==='rwd' && state.awd) driveNote('Our records show the '+name+' is rear-wheel drive. Choose 2WD unless yours has been converted.', 'warn');
+  else if(rule==='mixed') driveNote('The '+name+' is sold in both 2WD and 4WD/AWD versions. Thanks for confirming yours.', '');
+  else driveNote(state.awd ? '4WD/AWD selected: a $110 surcharge applies.' : '2WD selected.', '');
+}
+function syncDrive(){
+  const rule = driveRule(state.make, state.model), name = state.model;
+  if(rule===state._driveRule && name===state._driveModel) return;
+  state._driveRule = rule; state._driveModel = name;
+  if(rule==='always'){ setDrive(true, true); state.driveManual = false; return; }
+  if(rule==='rwd'){ setDrive(false, true); state.driveManual = false; driveNote('The '+name+' is rear-wheel drive, so no 4WD/AWD surcharge applies.', 'auto'); return; }
+  // Model changed away from an auto-set answer: ask again rather than keep a guess.
+  if(state.driveSet && !state.driveManual){ state.driveSet = false; state.awd = false; paintDrive(); }
+  if(rule==='mixed' && !state.driveSet) driveNote('The '+name+' is sold in both 2WD and 4WD/AWD versions. Choose the one that matches your car. Check the badge or the rego papers if you are not sure.', '');
+  else if(!state.driveSet) driveNote('Not sure? Check the badge on the back of the car or the rego papers.', '');
+  else driveNote(state.awd ? '4WD/AWD selected: a $110 surcharge applies. Change it above if that is not right.' : '2WD selected.', '');
+}
+// Kept for older links and saved sessions.
+function toggleAWD(){ setDrive(!state.awd); }
+
+// === MODEL PICKER (replaces the browser datalist, which hid most models once text was entered) ===
+let mmIdx = -1;
+function mmItems(){
+  const make = document.getElementById('v-make').value, list = MODELS[make] || [];
+  const q = normModel(document.getElementById('v-model').value);
+  // Full list when empty or when the box still holds the model just picked, so reopening shows every model.
+  if(!q || q===normModel(window._mmPicked)) return {make, items:list, all:true};
+  const starts = list.filter(m => normModel(m).startsWith(q));
+  const has = list.filter(m => !normModel(m).startsWith(q) && normModel(m).includes(q));
+  return {make, items:starts.concat(has), all:false};
+}
+function mmRender(){
+  const menu = document.getElementById('v-model-menu'); if(!menu) return;
+  const {make, items, all} = mmItems(); mmIdx = -1;
+  if(!make){ menu.innerHTML = '<div class="mm-empty">Choose the make first.</div>'; return; }
+  const esc = t => String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+  menu.innerHTML = (all ? '<div class="mm-head">'+esc(make)+' models</div>' : '') +
+    (items.length ? items.map((m,i)=>'<button type="button" class="mm-opt" role="option" id="mm-o'+i+'" data-v="'+esc(m)+'" onmousedown="event.preventDefault()" onclick="mmPick(this.dataset.v)">'+esc(m)+'</button>').join('')
+                  : '<div class="mm-empty">Not in our list. Keep typing your model and continue. We check it before your cover is lodged.</div>');
+}
+function mmOpen(ev){ mmRender(); if(ev && ev.type==='focus' && innerWidth<700){ const i=document.getElementById('v-model'); const y=i.getBoundingClientRect().top; if(y>120) window.scrollBy({top:y-90, behavior:'smooth'}); } const m=document.getElementById('v-model-menu'); m.classList.add('open'); document.getElementById('v-model').setAttribute('aria-expanded','true'); }
+function mmClose(){ const m=document.getElementById('v-model-menu'); if(m) m.classList.remove('open'); const i=document.getElementById('v-model'); if(i) i.setAttribute('aria-expanded','false'); }
+function mmFilter(){ mmOpen(); }
+function mmBlur(){ setTimeout(()=>{ mmClose(); checkModelListed(); }, 120); }
+function mmPick(v){
+  const inp = document.getElementById('v-model'); inp.value = v; window._mmPicked = v; mmClose();
+  const e=inp.parentElement.parentElement.querySelector('.ferr'); if(e) e.remove(); inp.removeAttribute('aria-invalid');
+  recalcCategory(); checkModelListed();
+}
+function mmKey(ev){
+  const menu = document.getElementById('v-model-menu'); const opts = menu ? [...menu.querySelectorAll('.mm-opt')] : [];
+  if(ev.key==='ArrowDown'||ev.key==='ArrowUp'){
+    if(!menu.classList.contains('open')) mmOpen();
+    if(!opts.length) return; ev.preventDefault();
+    mmIdx = ev.key==='ArrowDown' ? Math.min(opts.length-1, mmIdx+1) : Math.max(0, mmIdx-1);
+    opts.forEach((o,i)=>o.classList.toggle('act', i===mmIdx)); opts[mmIdx].scrollIntoView({block:'nearest'});
+    document.getElementById('v-model').setAttribute('aria-activedescendant', opts[mmIdx].id);
+  } else if(ev.key==='Enter' && menu.classList.contains('open') && mmIdx>=0 && opts[mmIdx]){ ev.preventDefault(); mmPick(opts[mmIdx].dataset.v); }
+  else if(ev.key==='Escape'){ mmClose(); }
 }
 
 // === PRODUCT SELECT ===
@@ -1778,6 +2013,7 @@ function selectProduct(p){
   document.getElementById('endurance-duration').style.display = p==='endurance'?'block':'none';
   document.getElementById('endurance-enquiry').style.display = 'none';
   document.getElementById('roadside-only-note').style.display = p==='roadside'?'block':'none';
+  const atn = document.getElementById('abs-tc-note'); if(atn) atn.style.display = (p==='absolute'||p==='totalcover') ? 'block' : 'none';
   document.getElementById('no-level-note').style.display = p==='absolute' ? document.getElementById('no-level-note').style.display : 'none';
   document.getElementById('next2').style.display = 'inline-flex';
   document.getElementById('next2').textContent = p==='roadside' ? 'Next: Choose Plan →' : 'Next: Roadside →';
@@ -2085,6 +2321,7 @@ function validateStep1(){
   if(!model || model.length < 2) errs.push(['v-model','Please enter the vehicle model, for example Ranger, Corolla or X5.']);
   if(!year) errs.push(['v-year','Please select the year of manufacture.']);
   if(odo === '' || isNaN(parseInt(odo,10)) || parseInt(odo,10) < 0) errs.push(['v-odo','Please enter the current odometer reading in kilometres.']);
+  if(!state.driveSet && state.product!=='roadside') errs.push(['drv-opts','Please choose 2WD or 4WD/AWD.']);
   if(errs.length){ errs.forEach(([id,m])=>fieldError(id,m)); document.getElementById(errs[0][0]).focus(); return false; }
   if(year==='old'){ fieldError('v-year','Cars made in 2000 or earlier can only be covered by Endurance Option 1, which we arrange with you by phone. <a href="#quote" onclick="showCallback(\'endurance\');return false">Request a callback</a> or call 0477 666 500.', true); document.getElementById('v-year').focus(); return false; }
   state.year = year; state.odo = String(parseInt(odo,10)); state.model = model; checkModelListed();
@@ -2553,6 +2790,8 @@ updatePrices();
 })();
 </script>
 <!-- Start of HubSpot Embed Code -->
+<script>window.hsConversationsSettings={loadImmediately:false};</script>
+<script src="/assets/chat.js?v=20261028" defer></script>
 <script type="text/javascript" id="hs-script-loader" async defer src="//js-ap1.hs-scripts.com/443386238.js"></script>
 <!-- End of HubSpot Embed Code -->
 </body>
