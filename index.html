@@ -11,8 +11,8 @@
 <meta property="og:title" content="MyDriveShield: extended car warranty and roadside assistance">
 <meta property="og:description" content="Extended warranty and roadside assistance for Australian used-car owners. See your price online.">
 <meta property="og:url" content="https://mydriveshield.com.au/">
-<meta property="og:image" content="https://mydriveshield.com.au/img/hero-1440.webp">
-<link rel="preload" as="image" href="/img/hero-1440.webp" imagesrcset="/img/hero-640.webp 640w, /img/hero-960.webp 960w, /img/hero-1440.webp 1440w, /img/hero-1920.webp 1920w" imagesizes="100vw" type="image/webp">
+<meta property="og:image" content="https://mydriveshield.com.au/img/hero/hatchback-1920.jpg">
+<link rel="preload" as="image" type="image/webp" imagesrcset="/img/hero/hatchback-640.webp 640w, /img/hero/hatchback-960.webp 960w, /img/hero/hatchback-1440.webp 1440w, /img/hero/hatchback-1920.webp 1920w" imagesizes="100vw" fetchpriority="high">
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Organization", "name": "MyDriveShield", "legalName": "Capital Gateway Pty Ltd", "url": "https://mydriveshield.com.au/", "logo": "https://mydriveshield.com.au/apple-touch-icon.png", "telephone": "+61477666500", "email": "quotes@mydriveshield.com.au", "areaServed": "AU"}, {"@context": "https://schema.org", "@type": "WebSite", "name": "MyDriveShield", "url": "https://mydriveshield.com.au/"}]</script>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
@@ -676,9 +676,17 @@ document.addEventListener('click', function(ev){
 <main id="main">
 <section class="hx" id="home" aria-labelledby="hx-title">
   <div class="hx-media" id="hx-media">
-    <picture class="hx-slide on" data-label="Original photo">
-      <source type="image/webp" srcset="/img/hero-640.webp 640w, /img/hero-960.webp 960w, /img/hero-1440.webp 1440w, /img/hero-1920.webp 1920w" sizes="100vw">
-      <img src="/hero.jpg" alt="A ute parked on a country road beside autumn vineyards" width="1920" height="1285" fetchpriority="high" decoding="async">
+    <picture class="hx-slide on">
+      <source type="image/webp" srcset="/img/hero/hatchback-640.webp 640w, /img/hero/hatchback-960.webp 960w, /img/hero/hatchback-1440.webp 1440w, /img/hero/hatchback-1920.webp 1920w" sizes="100vw">
+      <img src="/img/hero/hatchback-1920.jpg" alt="A blue hatchback parked beside a vineyard road at sunset" width="1920" height="1086" fetchpriority="high" decoding="async">
+    </picture>
+    <picture class="hx-slide">
+      <source type="image/webp" srcset="/img/hero/sedan-640.webp 640w, /img/hero/sedan-960.webp 960w, /img/hero/sedan-1440.webp 1440w, /img/hero/sedan-1920.webp 1920w" sizes="100vw">
+      <img src="/img/hero/sedan-1920.jpg" alt="A silver sedan parked beside a country vineyard at sunset" width="1920" height="1086" loading="lazy" decoding="async">
+    </picture>
+    <picture class="hx-slide">
+      <source type="image/webp" srcset="/img/hero/coupe-640.webp 640w, /img/hero/coupe-960.webp 960w, /img/hero/coupe-1440.webp 1440w, /img/hero/coupe-1920.webp 1920w" sizes="100vw">
+      <img src="/img/hero/coupe-1920.jpg" alt="A grey sports coupe parked at a coastal lookout at sunset" width="1920" height="1086" loading="lazy" decoding="async">
     </picture>
   </div>
   <div class="hx-shade" aria-hidden="true"></div>
@@ -734,7 +742,7 @@ document.addEventListener('click', function(ev){
     <div class="sec-head"><span class="eyebrow">What we help with</span><h2 id="svc-title" style="margin-top:12px">Protection for the costs and moments that hurt</h2></div>
     <div class="svc">
       <div><svg aria-hidden="true"><use href="#ic-repair"/></svg><h3>Eligible repair costs</h3><p>Approved claims for covered parts are paid to the repairer, up to your claim limit.</p></div>
-      <div><svg aria-hidden="true"><use href="#ic-breakdown"/></svg><h3>Breakdown help</h3><p>Call-out help for breakdowns, flat batteries, flat tyres, fuel and lockouts, as set out in your roadside plan.</p></div>
+      <div><svg aria-hidden="true"><use href="#ic-breakdown"/></svg><h3>Breakdown help</h3><p>Call-out help for breakdowns, flat batteries, flat tyres and fuel, with lockout help on 5 Star.</p></div>
       <div><svg aria-hidden="true"><use href="#ic-warranty"/></svg><h3>Extended warranty</h3><p>Cover for major mechanical and electrical parts after the manufacturer's warranty ends, for 1 to 5 years.</p></div>
       <div><svg aria-hidden="true"><use href="#ic-roadside"/></svg><h3>Roadside assistance</h3><p>Add it to a warranty or buy it on its own, in 3 Star or 5 Star, for 1 to 5 years.</p></div>
     </div>
@@ -748,21 +756,23 @@ document.addEventListener('click', function(ev){
     <div class="pc-grid">
       <article class="pc" id="warranty">
         <div class="pc-head"><svg aria-hidden="true"><use href="#ic-warranty"/></svg><div><h3>Extended car warranty</h3><p class="pc-from">From <b>$746</b> incl. GST for 1 year</p></div></div>
-        <p style="color:var(--muted);font-size:15px">Two products, issued by Integrity Car Care. Your car's age and kilometres when you buy decide which levels or options you can choose. The online quote shows every option your car qualifies for.</p>
+        <p style="color:var(--muted);font-size:15px">Four warranties, all issued by Integrity Car Care. Your car's make, age, kilometres and fuel type decide which ones and which levels you can choose. The online quote shows every option your car qualifies for.</p>
         <div class="pc-sub">
           <div><h4>Absolute Warranty</h4>Covers parts originally covered by the manufacturer's warranty, except the excluded parts and events in the terms. Four levels, per-claim limits from $2,000 (Level 1) to the market value of the vehicle (Level 4). 1 to 5 years.</div>
           <div><h4>Endurance Warranty</h4>Covers 20 named components, such as the engine, gearbox and turbo. Option 1 has no age or kilometre limit. Per-claim limits from $750 to $7,000 depending on the part and option. 1, 3 or 5 years.</div>
+          <div><h4>Total Cover</h4>Comprehensive cover that also includes the hybrid system and electric motor. Plus, for hybrids and EVs, adds the electric motor battery. Three levels, $5,000, $8,000 or market value per claim. From $1,032, 1 to 5 years.</div>
+          <div><h4>EV Warranty</h4>For hybrid and fully electric vehicles. Lists the battery, electric motor and other components. Plan A has no age or kilometre limit. From $594, 1, 3 or 5 years.</div>
         </div>
         <ul>
           <li>4WD and AWD vehicles: $110 surcharge</li>
           <li>Servicing by any licensed mechanic, on the schedule in your terms</li>
-          <li>Bought privately? A vehicle condition report from a licensed mechanic is required</li>
+          <li>Bought privately? A vehicle condition report from a licensed mechanic is required (for Total Cover, unless you buy the car from a licensed dealer)</li>
         </ul>
         <div class="pc-actions">
           <a href="#quote" class="btn btn-primary" onclick="startWarranty();return false;">Check my warranty options</a>
           <a class="more" href="/extended-car-warranty/">Full prices and what's covered</a>
         </div>
-        <p class="pc-fine">"From" price: Absolute Category 1, Level 1, 1 year, or Endurance Option 1, 12 months. Exclusions, claim limits and conditions apply. Read the product terms before you buy.</p>
+        <p class="pc-fine">"From" price: Absolute Category 1, Level 1, 1 year, or Endurance Option 1, 12 months. Total Cover from Category 1, Level 1, 1 year; EV Warranty from an electric vehicle, Plan A, 12 months. Exclusions, claim limits and conditions apply. Read the product terms before you buy.</p>
       </article>
       <article class="pc" id="roadside">
         <div class="pc-head"><svg aria-hidden="true"><use href="#ic-roadside"/></svg><div><h3>Roadside assistance</h3><p class="pc-from">From <b>$88</b> incl. GST a year</p></div></div>
@@ -819,7 +829,7 @@ document.addEventListener('click', function(ev){
         <p class="role">Broken down?</p>
         <h3>24/7 roadside help</h3>
         <p>Use the roadside emergency number in your roadside documents.</p>
-        <ul><li>24-hour roadside line <a href="tel:1800422772">1800 422 772</a> (Extended Dealer Services) <span class="todo">Integrity to confirm before publishing</span></li></ul>
+        <ul><li>24-hour roadside line <a href="tel:1800422772">1800 422 772</a> (Extended Dealer Services)</li></ul>
       </div>
     </div>
   </div>
@@ -2478,57 +2488,48 @@ updatePrices();
   })();
 </script>
 <script>
-// ===== Hero media (front door v2). Production default: the original photo only. =====
-// The preview bar (deploy previews and ?preview=1 only) lets the owner compare the generated stills and videos in place.
+// ===== Hero media. Production: three generated stills rotating (9 s), with pause and dots; static if reduced motion.
+// ?preview=1 adds a bar to compare the stills with the original photo and the three videos.
 (function(){
-  const HOST = location.hostname;
-  const isPreview = !/^(www\.)?mydriveshield\.com\.au$/.test(HOST) || /[?&]preview=1/.test(location.search);
-  if(!isPreview) return;
-  const CDN = 'https://d8j0ntlcm91z4.cloudfront.net/user_3Kiw9GHIzO9A3NLqLDkba494ik3/';
-  const STILLS = [
-    {src: CDN+'hf_20261026_222650_cf602951-bbd1-40ee-b867-bf2497fab778.png', label:'Everyday hatchback', alt:'A blue hatchback parked beside a vineyard road'},
-    {src: CDN+'hf_20261026_222649_c84829ee-6658-445f-aed6-b4df38d7e4b1.png', label:'Sports coupe', alt:'A graphite sports coupe parked at a coastal lookout'},
-    {src: CDN+'hf_20261026_222650_54c3fc45-f7b5-4d7e-b3ce-b48f3ffe84bc.png', label:'Luxury sedan', alt:'A silver luxury sedan parked beside a country estate road'}
-  ];
-  const VIDEOS = {
-    everyday: {src: CDN+'hf_20261027_012101_5e9858e5-43cc-499d-ae42-425064189fae.mp4', poster: STILLS[0].src},
-    luxury:   {src: CDN+'hf_20261027_013026_f1c4e6d8-d283-4c82-94c9-ff82a996a3d8.mp4', poster: STILLS[2].src}
-  };
   const media = document.getElementById('hx-media'), ctrl = document.getElementById('hx-ctrl');
-  const original = media.innerHTML;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let timer = null, idx = 0, paused = false;
+  const LABELS = ['Hatchback','Sedan','Sports coupe'];
+  let timer = null, idx = 0, paused = reduce;
   function stop(){ clearInterval(timer); timer = null; }
-  function showOriginal(){ stop(); media.innerHTML = original; ctrl.hidden = true; ctrl.innerHTML=''; }
-  function showStills(){
-    stop(); idx = 0; paused = reduce;
-    media.innerHTML = STILLS.map((s,i)=>'<img class="hx-slide'+(i===0?' on':'')+'" src="'+s.src+'" alt="'+s.alt+'" '+(i===0?'fetchpriority="high"':'loading="lazy"')+'>').join('');
-    ctrl.hidden = false;
-    ctrl.innerHTML = '<button type="button" data-a="prev" aria-label="Previous image">&lsaquo;</button><span class="hx-dots">'+STILLS.map((s,i)=>'<button type="button" data-i="'+i+'" aria-label="Show '+s.label+'"'+(i===0?' aria-current="true"':'')+'></button>').join('')+'</span><button type="button" data-a="next" aria-label="Next image">&rsaquo;</button><button type="button" data-a="pause">'+(paused?'Play':'Pause')+'</button>';
+  function wireStills(){
     const slides = media.querySelectorAll('.hx-slide');
-    function go(n){ idx=(n+slides.length)%slides.length; slides.forEach((s,i)=>s.classList.toggle('on',i===idx)); ctrl.querySelectorAll('.hx-dots button').forEach((d,i)=>d.toggleAttribute('aria-current',i===idx)); }
+    if(slides.length < 2){ ctrl.hidden = true; return; }
+    idx = 0; ctrl.hidden = false;
+    ctrl.innerHTML = '<button type="button" data-a="prev" aria-label="Previous image">&lsaquo;</button><span class="hx-dots">'+[...slides].map((s,i)=>'<button type="button" data-i="'+i+'" aria-label="Show '+(LABELS[i]||'image '+(i+1))+'"'+(i===0?' aria-current="true"':'')+'></button>').join('')+'</span><button type="button" data-a="next" aria-label="Next image">&rsaquo;</button><button type="button" data-a="pause">'+(paused?'Play':'Pause')+'</button>';
+    function go(n){ idx=(n+slides.length)%slides.length; slides.forEach((s,i)=>{ s.classList.toggle('on',i===idx); const im=s.querySelector('img'); if(i===idx && im) im.loading='eager'; }); ctrl.querySelectorAll('.hx-dots button').forEach((d,i)=>d.toggleAttribute('aria-current',i===idx)); }
     function play(){ stop(); if(!paused) timer = setInterval(()=>go(idx+1), 9000); }
     ctrl.onclick = e=>{ const b=e.target.closest('button'); if(!b) return;
       if(b.dataset.a==='prev'){ paused=true; go(idx-1); } else if(b.dataset.a==='next'){ paused=true; go(idx+1); }
       else if(b.dataset.i){ paused=true; go(+b.dataset.i); } else if(b.dataset.a==='pause'){ paused=!paused; }
       ctrl.querySelector('[data-a=pause]').textContent = paused?'Play':'Pause'; play(); };
-    media.addEventListener('pointerenter', ()=>stop()); media.addEventListener('pointerleave', ()=>play());
+    media.onpointerenter = ()=>stop(); media.onpointerleave = ()=>play();
     play();
   }
-  function showVideo(key){
-    stop(); const v = VIDEOS[key];
-    if(reduce){ media.innerHTML = '<img src="'+v.poster+'" alt="">'; ctrl.hidden=true; return; }
-    media.innerHTML = '<video muted playsinline loop preload="metadata" poster="'+v.poster+'"><source src="'+v.src+'" type="video/mp4"></video>';
-    const vid = media.querySelector('video'); vid.play().catch(()=>{});
+  const stillsHTML = media.innerHTML;
+  wireStills();
+  if(!/[?&]preview=1/.test(location.search)) return;
+  const ORIGINAL = '<picture class="hx-slide on"><source type="image/webp" srcset="/img/hero-640.webp 640w, /img/hero-960.webp 960w, /img/hero-1440.webp 1440w, /img/hero-1920.webp 1920w" sizes="100vw"><img src="/hero.jpg" alt="A ute parked on a country road beside autumn vineyards"></picture>';
+  const VIDEOS = { hatchback:'/media/hero-hatchback.mp4', sedan:'/media/hero-sedan.mp4', coupe:'/media/hero-coupe.mp4' };
+  function showVideo(k){
+    stop(); media.innerHTML = '<video muted playsinline loop preload="metadata" poster="/img/hero/'+k+'-1920.jpg"><source src="'+VIDEOS[k]+'" type="video/mp4"></video>';
+    const vid = media.querySelector('video'); if(!reduce) vid.play().catch(()=>{});
     ctrl.hidden = false; ctrl.innerHTML = '<button type="button" data-a="vp">Pause video</button>';
     ctrl.onclick = ()=>{ if(vid.paused){ vid.play(); ctrl.firstChild.textContent='Pause video'; } else { vid.pause(); ctrl.firstChild.textContent='Play video'; } };
   }
   const bar = document.createElement('div'); bar.className='pv-bar'; bar.setAttribute('role','region'); bar.setAttribute('aria-label','Preview options');
   bar.innerHTML = '<button class="x" aria-label="Hide preview options">&times;</button><b>Preview only: hero media</b>'
-    + [['orig','Original photo'],['stills','3 stills, rotating'],['everyday','Everyday video'],['luxury','Luxury video']].map(([v,l],i)=>'<label><input type="radio" name="pvm" value="'+v+'"'+(i===0?' checked':'')+'> '+l+'</label>').join('');
+    + [['stills','3 stills, rotating'],['orig','Original photo'],['hatchback','Hatchback video'],['sedan','Sedan video'],['coupe','Sports coupe video']].map(([v,l],i)=>'<label><input type="radio" name="pvm" value="'+v+'"'+(i===0?' checked':'')+'> '+l+'</label>').join('');
   document.body.appendChild(bar);
   bar.querySelector('.x').onclick = ()=>bar.remove();
-  bar.addEventListener('change', e=>{ const v=e.target.value; if(v==='orig') showOriginal(); else if(v==='stills') showStills(); else showVideo(v); });
+  bar.addEventListener('change', e=>{ const v=e.target.value; stop();
+    if(v==='stills'){ media.innerHTML = stillsHTML; paused = reduce; wireStills(); }
+    else if(v==='orig'){ media.innerHTML = ORIGINAL; ctrl.hidden = true; }
+    else showVideo(v); });
 })();
 </script>
 <!-- Start of HubSpot Embed Code -->
