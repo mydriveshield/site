@@ -998,6 +998,7 @@ document.addEventListener('click', function(ev){
             <p class="hint" id="cat-hint">Select make above to auto-detect</p>
           </div>
         </div>
+        <div id="hev-note" role="note" style="display:none;margin:0 0 14px;padding:12px 14px;border:1px solid #F3C98B;background:#FFF7EA;border-radius:var(--r-sm);font-size:13.5px;line-height:1.55;color:var(--gray-800)"><strong>Hybrid and electric vehicles:</strong> the Absolute warranty does not cover hybrid or electric vehicle components, such as the high-voltage battery, and Endurance covers only its 20 listed components, none of which are hybrid or electric parts. Integrity also offers Total Cover and an EV warranty that include those components. <a href="#quote" onclick="showCallback('hybrid-ev');return false" style="color:var(--accent);font-weight:700">Request a callback</a> and we'll send you the details.</div>
         <div class="awd-toggle" onclick="toggleAWD()" id="awd-toggle">
           <div class="toggle-sw" id="awd-sw"></div>
           <div class="toggle-label">Vehicle is 4WD / AWD <span style="color:var(--gray-400);font-size:13px">(+$110 surcharge)</span></div>
@@ -1217,6 +1218,17 @@ document.addEventListener('click', function(ev){
               <label style="display:inline-flex;align-items:center;gap:6px;margin-right:18px;font-weight:600;font-size:14px"><input type="radio" name="p-from" value="private" style="width:auto"> Privately</label>
               <label style="display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px"><input type="radio" name="p-from" value="dealer" style="width:auto"> From a dealer</label>
             </div>
+            <div class="q-item" id="ew-item" style="padding:12px 14px;border:1px solid var(--gray-200);border-radius:var(--r-sm);margin-bottom:10px">
+              <p style="margin:0 0 8px;font-size:14px;line-height:1.5;color:var(--gray-800)">Is the vehicle still covered by a manufacturer's or dealer warranty?</p>
+              <label style="display:inline-flex;align-items:center;gap:6px;margin-right:18px;font-weight:600;font-size:14px"><input type="radio" name="p-ew" value="yes" style="width:auto"> Yes</label>
+              <label style="display:inline-flex;align-items:center;gap:6px;margin-right:18px;font-weight:600;font-size:14px"><input type="radio" name="p-ew" value="no" style="width:auto"> No, it has ended</label>
+              <label style="display:inline-flex;align-items:center;gap:6px;margin-right:18px;font-weight:600;font-size:14px"><input type="radio" name="p-ew" value="unsure" style="width:auto"> Not sure</label>
+              <div id="ew-date-wrap" style="display:none;margin-top:10px">
+                <label for="c-ew-end" style="font-size:13.5px;font-weight:600">When does that warranty end? *</label>
+                <input type="date" id="c-ew-end" style="max-width:220px">
+              </div>
+              <p id="ew-note" style="display:none;margin:10px 0 0;font-size:13.5px;line-height:1.55;color:var(--gray-600)">Two warranties can't run at the same time, so your Integrity warranty will start the day after the existing warranty ends. We'll confirm the start date with you before lodgement.</p>
+            </div>
             <div class="form-group" id="c-vcr-group">
               <label for="c-vcr">Vehicle condition report <span id="c-vcr-tag" style="font-weight:400;color:var(--gray-500)">(upload if you have one)</span></label>
               <div id="vcr-required" style="display:none;margin:0 0 10px;padding:12px 14px;border:1px solid #F3C98B;background:#FFF7EA;border-radius:var(--r-sm);font-size:13.5px;line-height:1.55;color:var(--gray-800)">
@@ -1272,7 +1284,7 @@ document.addEventListener('click', function(ev){
         <div id="payment-message"></div>
         <div id="pay-terms" style="display:flex;gap:10px;align-items:flex-start;padding:14px;background:var(--gray-100);border-radius:var(--r-sm);margin:14px 0 12px">
           <input type="checkbox" id="pay-accept" style="width:auto;margin-top:3px">
-          <label for="pay-accept" style="font-weight:500;font-size:13.5px;line-height:1.5">I have read the <a href="/docs/integrity-absolute-warranty-pds-v3.5.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">Integrity Absolute Motor Vehicle Warranty PDS and Terms and Conditions</a> (including the servicing requirements and the need to obtain Integrity's authorisation before any repair) and I agree to them. I confirm the vehicle details I entered are accurate. *</label>
+          <label for="pay-accept" style="font-weight:500;font-size:13.5px;line-height:1.5">I have read the <a href="/docs/integrity-absolute-warranty-pds-v3.5.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">Integrity Absolute Motor Vehicle Warranty Financial Services Guide and PDS</a> (including the servicing requirements and the need to obtain Integrity's authorisation before any repair) and I agree to them. I confirm the vehicle details I entered are accurate. *</label>
         </div>
         <button class="btn btn-primary btn-lg" id="pay-btn" onclick="submitPayment()" style="width:100%;justify-content:center;margin-top:4px">
           <span id="pay-btn-text">Pay Securely Now</span>
@@ -1476,7 +1488,7 @@ document.addEventListener('click', function(ev){
       <div class="f-col"><h4>Company</h4><a href="#why">Why Choose Us</a><a href="#faq">FAQ</a><a href="#forms">Transfers &amp; forms</a><a href="#contact">Contact</a><a href="/partners">Partner Portal</a></div>
       <div class="f-col"><h4>Get in touch</h4><a href="tel:0477666500">0477 666 500</a><a href="mailto:info@mydriveshield.com.au">info@mydriveshield.com.au</a><a href="#quote" onclick="showCallback('contact');return false">Request a callback</a></div>
     </div>
-    <p class="f-legal">MyDriveShield provides information about vehicle warranty and roadside assistance products and facilitates quote requests. We do not provide personal financial, insurance or legal advice. Coverage, exclusions, eligibility, waiting periods, claim limits and terms depend on the relevant product documentation and provider approval. Warranty products are issued by Integrity Car Care Pty Ltd (PO Box 2122 Traralgon VIC 3844 · 03 9120 6666 · admin@integritywarranty.com.au). Assetia Pty Ltd (ABN 94 668 837 983), trading as MyDriveShield, is the authorised distribution partner of Integrity Car Care Pty Ltd and does not hold an Australian Financial Services Licence in respect of warranty products, which are consumer goods warranties and not financial products. All prices include GST. Cover is subject to the full terms and conditions of the relevant warranty product, available upon request. Pre-existing conditions are excluded. Vehicle category and eligibility are subject to approval. Please read the product terms before purchasing. All quotes are subject to assessment and approval.</p>
+    <p class="f-legal">MyDriveShield provides information about vehicle warranty and roadside assistance products and facilitates quote requests. We give factual information only. We do not give general or personal financial product advice, or insurance or legal advice. Coverage, exclusions, eligibility, waiting periods, claim limits and terms depend on the relevant product documentation and provider approval. Warranty products are issued by Integrity Car Care Pty Ltd (PO Box 2122 Traralgon VIC 3844 · 03 9120 6666 · admin@integritywarranty.com.au). MyDriveShield is a trading name of Capital Gateway Pty Ltd (ABN 36 667 087 685), Authorised Representative No. 001323971 of Integrity Car Care Pty Ltd (ABN 58 056 621 893, AFSL 247069). All prices include GST. Cover is subject to the full terms and conditions of the relevant warranty product, available upon request. Pre-existing conditions are excluded. Vehicle category and eligibility are subject to approval. Please read the product terms before purchasing. All quotes are subject to assessment and approval.</p>
     <div class="f-bottom"><span>© 2026 MyDriveShield. All rights reserved.</span><span>Privacy Policy · Terms of Use · Complaints</span></div>
   </div>
 </footer>
@@ -1703,6 +1715,7 @@ function recalcCategory(){
   const fuelEl = document.getElementById('v-fuel');
   const fuel = fuelEl ? fuelEl.value : 'ice';
   state.make = make; state.model = model; state.fuel = fuel;
+  const hev = document.getElementById('hev-note'); if(hev) hev.style.display = fuel==='ice' ? 'none' : 'block';
   const cat = resolveCategory(make, model, year, fuel);
   const el = document.getElementById('cat-display');
   const hint = document.getElementById('cat-hint');
@@ -1753,10 +1766,10 @@ function applyRoadsideOnlyUI(){
   if(ro && state.roadside==='none') selectRoadside('star3');
   const termsLbl = document.querySelector('label[for="pay-accept"]');
   if(termsLbl) termsLbl.innerHTML = state.product==='endurance'
-    ? 'I have read the ' + (window.END_TERMS_OK ? '<a href="/docs/integrity-endurance-warranty-terms.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">Integrity Endurance Motor Vehicle Warranty terms and conditions</a>' : '<strong>Integrity Endurance Motor Vehicle Warranty terms and conditions</strong> (emailed with your certificate, or call 0477 666 500 for a copy now)') + ' (including the 20 covered components, claim limits, servicing requirements and the need to obtain Integrity\'s authorisation before any repair) and I agree to them. I confirm the vehicle details I entered are accurate. *'
+    ? 'I have read the ' + (window.END_TERMS_OK ? '<a href="/docs/integrity-endurance-warranty-terms.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">Integrity Endurance Motor Vehicle Warranty Financial Services Guide and PDS</a>' : '<strong>Integrity Endurance Motor Vehicle Warranty Financial Services Guide and PDS</strong> (emailed with your certificate, or call 0477 666 500 for a copy now)') + ' (including the 20 covered components, claim limits, servicing requirements and the need to obtain Integrity\'s authorisation before any repair) and I agree to them. I confirm the vehicle details I entered are accurate. *'
     : ro
     ? 'I have read the <a href="/docs/integrity-absolute-warranty-pds-v3.5.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">product terms and conditions</a> for the roadside assistance plan I am buying and I agree to them. I confirm the details I entered are accurate. *'
-    : 'I have read the <a href="/docs/integrity-absolute-warranty-pds-v3.5.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">Integrity Absolute Motor Vehicle Warranty PDS and Terms and Conditions</a> (including the servicing requirements and the need to obtain Integrity\'s authorisation before any repair) and I agree to them. I confirm the vehicle details I entered are accurate. *';
+    : 'I have read the <a href="/docs/integrity-absolute-warranty-pds-v3.5.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">Integrity Absolute Motor Vehicle Warranty Financial Services Guide and PDS</a> (including the servicing requirements and the need to obtain Integrity\'s authorisation before any repair) and I agree to them. I confirm the vehicle details I entered are accurate. *';
   const payIntro = document.getElementById('step4-intro');
   if(payIntro) payIntro.textContent = 'Secure payment processed by Stripe. Pay by card, Google Pay, Apple Pay, or split your payment into interest-free instalments with Klarna (subject to eligibility). Once we have checked your details, your cover is lodged and your certificate is emailed to you.';
 }
@@ -2006,6 +2019,10 @@ document.addEventListener('change', e=>{
     const stop=document.getElementById('q-stop');
     if(stop) stop.style.display = qualifyingAnswers().includes('no') ? 'block' : 'none';
   }
+  if(e.target && e.target.name === 'p-ew'){
+    document.getElementById('ew-date-wrap').style.display = e.target.value==='yes' ? 'block' : 'none';
+    document.getElementById('ew-note').style.display = e.target.value==='no' ? 'none' : 'block';
+  }
   if(e.target && e.target.name === 'p-from'){
     syncVcrNotice();
     if(e.target.value === 'private' && !document.getElementById('c-vcr').files[0] && window.mdsTrack) window.mdsTrack('vcr_required_flagged', { purchaseFrom: 'private' });
@@ -2047,6 +2064,10 @@ function validateSignup(){
   if(!/^[A-HJ-NPR-Z0-9]{17}$/.test(vin)) return 'Please enter the 17-character VIN (it does not contain the letters I, O or Q).';
   if(!radioVal('p-buying')) return 'Please tell us whether you are buying the vehicle now.';
   if(!radioVal('p-from')) return 'Please tell us whether the vehicle was bought privately or from a dealer.';
+  const ew = radioVal('p-ew');
+  if(!ew) return 'Please tell us whether the vehicle is still covered by a manufacturer\'s or dealer warranty.';
+  if(ew==='yes' && !v('c-ew-end')) return 'Please enter the date the existing warranty ends, so your cover can start the day after.';
+  if(ew==='yes' && v('c-ew-end') < new Date().toISOString().slice(0,10)) return 'That end date is in the past. If the existing warranty has already ended, choose "No, it has ended".';
   const qa = qualifyingAnswers();
   if(qa.includes('')) return 'Please answer all six questions under "Before you buy, please confirm".';
   if(qa.includes('no')) return "Based on your answers, we can't sell this warranty online. Please request a callback instead.";
@@ -2059,6 +2080,7 @@ function signupPayload(){
     p.vin = v('c-vin').toUpperCase().replace(/\s+/g,'');
     p.buyingNow = radioVal('p-buying'); p.purchaseFrom = radioVal('p-from');
     p.vcrRequired = vcrRequired();
+    p.existingWarranty = radioVal('p-ew'); p.existingWarrantyEnd = p.existingWarranty==='yes' ? v('c-ew-end') : '';
     p.qualifying = qualifyingAnswers().map(a=>a==='yes'?'Y':'N').join(''); p.qualifyingAt = new Date().toISOString();
   }
   return p;
@@ -2230,6 +2252,7 @@ function showCallback(from){
   const cbm = document.getElementById('cb-model'); if(cbm && !cbm.value && state.model) cbm.value = state.model;
   const intro = document.getElementById('cb-intro');
   if(from === 'roadside') intro.textContent = 'Just want roadside assistance? Leave your details and a MyDriveShield consultant will call you within one business day to set up 3-Star or 5-Star cover — no warranty required.';
+  else if(from === 'hybrid-ev') intro.textContent = 'Hybrid or electric vehicle? Leave your details and a MyDriveShield consultant will contact you within one business day with details of Integrity\'s Total Cover and EV warranty options for your vehicle.';
   else if(from === 'endurance') intro.textContent = 'Endurance Warranty pricing is customised to your vehicle and coverage option. Leave your details and a MyDriveShield consultant will contact you within one business day with a personalised quote.';
   else if(from === 'absolute') intro.textContent = 'Not ready to pay today? Leave your details and a MyDriveShield consultant will call you within one business day to confirm eligibility and finalise your cover.';
   else intro.textContent = 'Leave your details and a MyDriveShield consultant will call you within one business day with a personalised quote.';
