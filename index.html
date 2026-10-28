@@ -543,7 +543,7 @@ document.addEventListener('click', function(ev){
     </div>
     <div class="fcard alt">
       <div class="fc-top"><div class="fc-ic"><svg viewBox="0 0 24 24" fill="none"><path d="M3 13l2-5h11l3 5M5 13h15v4h-2M5 17H4v-4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="18" r="2" stroke="#fff" stroke-width="2"/><circle cx="17" cy="18" r="2" stroke="#fff" stroke-width="2"/></svg></div><h3>Emergency Roadside Assistance</h3></div>
-      <p>24/7 help for breakdowns, flat batteries, flat tyres, fuel and lockouts.</p>
+      <p>24/7 help for breakdowns, flat batteries, flat tyres and fuel. Lockout help on 5 Star.</p>
     </div>
     <div class="fcard blue">
       <div class="fc-top"><div class="fc-ic"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="14" height="18" rx="2" stroke="#fff" stroke-width="2"/><path d="M9 3h6v3H9zM8 12l2 2 4-4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Quick Quote Pathway</h3></div>
@@ -580,11 +580,11 @@ document.addEventListener('click', function(ev){
       </div>
       <div class="pcard roadside" id="roadside">
         <div class="p-top"><div class="p-icon"><svg viewBox="0 0 24 24" width="26" fill="none"><circle cx="12" cy="12" r="9" stroke="#F97316" stroke-width="2"/><path d="M12 7v5l3 2" stroke="#F97316" stroke-width="2.2" stroke-linecap="round"/></svg></div><div><span class="p-sub">Emergency Support</span><h3>Roadside Assistance</h3></div></div>
-        <p class="desc">Round-the-clock help when you break down — towing, battery, tyre, fuel and lockout support wherever you are in Australia.</p>
+        <p class="desc">Round-the-clock help when you break down — towing, battery, tyre and fuel help wherever you are in Australia, with lockout help on 5 Star.</p>
         <ul class="plist">
           <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> 24/7 breakdown &amp; towing assistance</li>
-          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Flat battery, flat tyre &amp; fuel delivery</li>
-          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Locksmith &amp; emergency call-out</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Jumpstarts, flat tyres &amp; emergency fuel (fuel at your cost)</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Lockout help on 5 Star (you pay costs over $70)</li>
           <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> 3-Star &amp; 5-Star cover from under $2/week</li>
           <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Available on its own — no warranty required</li>
         </ul>
@@ -792,9 +792,9 @@ document.addEventListener('click', function(ev){
       <div class="price-card">
         <div class="row"><b>3-Star Roadside</b><span class="amt">from $88/yr</span></div>
         <div class="row"><b>5-Star Roadside</b><span class="amt">from $154/yr</span></div>
-        <div class="row"><span>Towing &amp; recovery</span><b>Included</b></div>
+        <div class="row"><span>Towing</span><b>20 to 100 km</b></div>
         <div class="row"><span>Battery · Tyre · Fuel</span><b>Included</b></div>
-        <div class="row"><span>Lockout &amp; locksmith</span><b>Included</b></div>
+        <div class="row"><span>Lockout help</span><b>5 Star</b></div>
       </div>
     </div></div>
   </div>
@@ -998,6 +998,7 @@ document.addEventListener('click', function(ev){
             <p class="hint" id="cat-hint">Select make above to auto-detect</p>
           </div>
         </div>
+        <div id="hev-note" role="note" style="display:none;margin:0 0 14px;padding:12px 14px;border:1px solid #F3C98B;background:#FFF7EA;border-radius:var(--r-sm);font-size:13.5px;line-height:1.55;color:var(--gray-800)"><strong>Hybrid and electric vehicles:</strong> the Absolute warranty does not cover hybrid or electric vehicle components, such as the high-voltage battery, and Endurance covers only its 20 listed components, none of which are hybrid or electric parts. Integrity also offers Total Cover and an EV warranty that include those components. <a href="#quote" onclick="showCallback('hybrid-ev');return false" style="color:var(--accent);font-weight:700">Request a callback</a> and we'll send you the details.</div>
         <div class="awd-toggle" onclick="toggleAWD()" id="awd-toggle">
           <div class="toggle-sw" id="awd-sw"></div>
           <div class="toggle-label">Vehicle is 4WD / AWD <span style="color:var(--gray-400);font-size:13px">(+$110 surcharge)</span></div>
@@ -1027,7 +1028,7 @@ document.addEventListener('click', function(ev){
           </div>
         </div>
         <div id="roadside-only-note" style="display:none;background:var(--light);border-radius:var(--r);padding:20px;border:1px dashed var(--gray-300);margin-bottom:8px">
-          <p style="font-size:14.5px;color:var(--gray-600)">24/7 emergency roadside assistance on its own — towing, flat battery, flat tyre, fuel delivery and lockout support, Australia-wide. Choose your plan and term on the next step. From <strong>$88/year</strong>.</p>
+          <p style="font-size:14.5px;color:var(--gray-600)">24/7 emergency roadside assistance on its own: towing, jumpstarts, flat tyres and emergency fuel, Australia-wide, with lockout help on 5 Star. Choose your plan and term on the next step. From <strong>$88/year</strong>.</p>
         </div>
         <div id="absolute-duration">
           <label style="font-size:13px;font-weight:600;color:var(--gray-700);display:block;margin-bottom:12px">Cover Level <span style="color:var(--gray-400);font-weight:500">(eligibility based on your vehicle's age &amp; kilometres)</span></label>
@@ -1088,7 +1089,7 @@ document.addEventListener('click', function(ev){
       <!-- STEP 3: Roadside -->
       <div class="wizard-card" id="step-3" style="display:none">
         <h2>Add Roadside Assistance?</h2>
-        <p>24/7 emergency breakdown service — towing, flat battery, flat tyre, fuel delivery and locksmith.</p>
+        <p>24/7 emergency breakdown help Australia-wide. 5 Star adds lockout help, longer towing and unlimited call-outs. Cover starts two working days after payment.</p>
         <div class="roadside-grid">
           <div class="roadside-opt" id="rs-none" onclick="selectRoadside('none')">
             <div class="ro-icon">❌</div>
@@ -1099,13 +1100,13 @@ document.addEventListener('click', function(ev){
           <div class="roadside-opt selected" id="rs-star3" onclick="selectRoadside('star3')">
             <div class="ro-icon">⭐⭐⭐</div>
             <h4>3 Star Roadside</h4>
-            <p>Core emergency cover — 24/7 towing, battery, tyre &amp; fuel</p>
+            <p>4 call-outs a year. Towing up to 20 km metro or 50 km country, jumpstarts, flat tyres and emergency fuel</p>
             <div class="ro-price" id="rs3-price">+$176</div>
           </div>
           <div class="roadside-opt" id="rs-star5" onclick="selectRoadside('star5')">
             <div class="ro-icon">⭐⭐⭐⭐⭐</div>
             <h4>5 Star Roadside</h4>
-            <p>Premium cover — all 3 Star benefits plus priority service &amp; extras</p>
+            <p>Unlimited call-outs. Towing up to 50 km metro or 100 km country, plus lockout help and car hire and accommodation benefits</p>
             <div class="ro-price" id="rs5-price">+$268</div>
           </div>
         </div>
@@ -1217,6 +1218,17 @@ document.addEventListener('click', function(ev){
               <label style="display:inline-flex;align-items:center;gap:6px;margin-right:18px;font-weight:600;font-size:14px"><input type="radio" name="p-from" value="private" style="width:auto"> Privately</label>
               <label style="display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px"><input type="radio" name="p-from" value="dealer" style="width:auto"> From a dealer</label>
             </div>
+            <div class="q-item" id="ew-item" style="padding:12px 14px;border:1px solid var(--gray-200);border-radius:var(--r-sm);margin-bottom:10px">
+              <p style="margin:0 0 8px;font-size:14px;line-height:1.5;color:var(--gray-800)">Is the vehicle still covered by a manufacturer's or dealer warranty?</p>
+              <label style="display:inline-flex;align-items:center;gap:6px;margin-right:18px;font-weight:600;font-size:14px"><input type="radio" name="p-ew" value="yes" style="width:auto"> Yes</label>
+              <label style="display:inline-flex;align-items:center;gap:6px;margin-right:18px;font-weight:600;font-size:14px"><input type="radio" name="p-ew" value="no" style="width:auto"> No, it has ended</label>
+              <label style="display:inline-flex;align-items:center;gap:6px;margin-right:18px;font-weight:600;font-size:14px"><input type="radio" name="p-ew" value="unsure" style="width:auto"> Not sure</label>
+              <div id="ew-date-wrap" style="display:none;margin-top:10px">
+                <label for="c-ew-end" style="font-size:13.5px;font-weight:600">When does that warranty end? *</label>
+                <input type="date" id="c-ew-end" style="max-width:220px">
+              </div>
+              <p id="ew-note" style="display:none;margin:10px 0 0;font-size:13.5px;line-height:1.55;color:var(--gray-600)">Two warranties can't run at the same time, so your Integrity warranty will start the day after the existing warranty ends. We'll confirm the start date with you before lodgement.</p>
+            </div>
             <div class="form-group" id="c-vcr-group">
               <label for="c-vcr">Vehicle condition report <span id="c-vcr-tag" style="font-weight:400;color:var(--gray-500)">(upload if you have one)</span></label>
               <div id="vcr-required" style="display:none;margin:0 0 10px;padding:12px 14px;border:1px solid #F3C98B;background:#FFF7EA;border-radius:var(--r-sm);font-size:13.5px;line-height:1.55;color:var(--gray-800)">
@@ -1270,9 +1282,19 @@ document.addEventListener('click', function(ev){
         </div>
         <div id="payment-element"></div>
         <div id="payment-message"></div>
+        <div id="rs-terms" style="display:none;margin:14px 0 0;padding:14px;border:1px solid var(--gray-200);border-radius:var(--r-sm);font-size:13px;line-height:1.55;color:var(--gray-700)">
+          <strong style="color:var(--gray-800)">Roadside assistance key terms</strong>
+          <ul style="margin:6px 0 0 18px;padding:0">
+            <li>Provided by Extended Dealer Services Pty Ltd (EDS), Australia-wide, 24 hours a day. Your membership confirmation gives the number to call.</li>
+            <li>3 Star: 4 call-outs a year; towing up to 20 km (metro) or 50 km (country). 5 Star: unlimited call-outs (subject to excessive use); towing up to 50 km (metro) or 100 km (country), plus lockout help (you pay costs over $70), car hire up to $140 a day for 5 days, and accommodation benefits, when the conditions are met.</li>
+            <li>Both plans: jumpstarts and battery testing, flat tyre changes (a roadworthy spare is needed), and up to 10 litres of emergency fuel. Batteries, fuel and parts are at your cost.</li>
+            <li>Cover starts two working days after payment. If you need help before then, a $160 emergency join-up fee applies.</li>
+            <li>Membership fees are non-refundable. Towing covers vehicles up to 3.5 tonnes and 5.5 metres. Breakdowns caused by conditions that existed before your membership started are not covered.</li>
+          </ul>
+        </div>
         <div id="pay-terms" style="display:flex;gap:10px;align-items:flex-start;padding:14px;background:var(--gray-100);border-radius:var(--r-sm);margin:14px 0 12px">
           <input type="checkbox" id="pay-accept" style="width:auto;margin-top:3px">
-          <label for="pay-accept" style="font-weight:500;font-size:13.5px;line-height:1.5">I have read the <a href="/docs/integrity-absolute-warranty-pds-v3.5.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">Integrity Absolute Motor Vehicle Warranty PDS and Terms and Conditions</a> (including the servicing requirements and the need to obtain Integrity's authorisation before any repair) and I agree to them. I confirm the vehicle details I entered are accurate. *</label>
+          <label for="pay-accept" style="font-weight:500;font-size:13.5px;line-height:1.5">I have read the <a href="/docs/integrity-absolute-warranty-pds-v3.5.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">Integrity Absolute Motor Vehicle Warranty Financial Services Guide and PDS</a> (including the servicing requirements and the need to obtain Integrity's authorisation before any repair) and I agree to them. I confirm the vehicle details I entered are accurate. *</label>
         </div>
         <button class="btn btn-primary btn-lg" id="pay-btn" onclick="submitPayment()" style="width:100%;justify-content:center;margin-top:4px">
           <span id="pay-btn-text">Pay Securely Now</span>
@@ -1403,7 +1425,7 @@ document.addEventListener('click', function(ev){
       <h3 class="faq-grp">Selling your car</h3>
       <div class="qa"><button>Can I transfer my warranty if I sell my car?<span class="plus">+</span></button><div class="ans"><p>Yes, to a new private owner (dealers and traders do not qualify), as long as the transfer is requested within 7 days of the sale. You and the buyer complete the Warranty Transfer form and send it to Integrity with a Vehicle Condition Report from a licensed mechanical workshop, the service records and the $62.50 transfer fee. Transfers are handled directly by Integrity Car Care, not MyDriveShield: call Integrity on <a href="tel:0391206666">03 9120 6666</a> or email <a href="mailto:admin@integritywarranty.com.au">admin@integritywarranty.com.au</a>. A warranty cannot be moved to a different vehicle. See <a href="#forms">Transfers and forms</a> below.</p></div></div>
       <h3 class="faq-grp">Roadside assistance</h3>
-      <div class="qa"><button>Does roadside assistance cover all of Australia?<span class="plus">+</span></button><div class="ans"><p>Yes. 24/7 emergency roadside assistance operates Australia-wide, covering towing, flat battery, flat tyre, fuel delivery and lockout support. Benefits and limits are set out in the product terms.</p></div></div>
+      <div class="qa"><button>Does roadside assistance cover all of Australia?<span class="plus">+</span></button><div class="ans"><p>Yes. 24/7 emergency roadside assistance operates Australia-wide, covering towing, jumpstarts, flat tyres and emergency fuel. 3 Star includes 4 call-outs a year; 5 Star has unlimited call-outs, longer towing distances and lockout help. Cover starts two working days after payment.</p></div></div>
       <div class="qa"><button>Can I buy roadside assistance on its own?<span class="plus">+</span></button><div class="ans"><p>Yes. Roadside assistance can be bought with a warranty or on its own, in 3 Star or 5 Star, for 1 to 5 years.</p></div></div>
       <h3 class="faq-grp">Advice</h3>
       <div class="qa"><button>Are you providing financial or insurance advice?<span class="plus">+</span></button><div class="ans"><p>No. MyDriveShield provides general information about protection products and helps you get a quote. We don't provide personal financial or insurance advice. This information is an overview only. Cover, terms and eligibility are set out in the product documentation and are subject to the provider's approval.</p></div></div>
@@ -1476,7 +1498,7 @@ document.addEventListener('click', function(ev){
       <div class="f-col"><h4>Company</h4><a href="#why">Why Choose Us</a><a href="#faq">FAQ</a><a href="#forms">Transfers &amp; forms</a><a href="#contact">Contact</a><a href="/partners">Partner Portal</a></div>
       <div class="f-col"><h4>Get in touch</h4><a href="tel:0477666500">0477 666 500</a><a href="mailto:info@mydriveshield.com.au">info@mydriveshield.com.au</a><a href="#quote" onclick="showCallback('contact');return false">Request a callback</a></div>
     </div>
-    <p class="f-legal">MyDriveShield provides information about vehicle warranty and roadside assistance products and facilitates quote requests. We do not provide personal financial, insurance or legal advice. Coverage, exclusions, eligibility, waiting periods, claim limits and terms depend on the relevant product documentation and provider approval. Warranty products are issued by Integrity Car Care Pty Ltd (PO Box 2122 Traralgon VIC 3844 · 03 9120 6666 · admin@integritywarranty.com.au). Assetia Pty Ltd (ABN 94 668 837 983), trading as MyDriveShield, is the authorised distribution partner of Integrity Car Care Pty Ltd and does not hold an Australian Financial Services Licence in respect of warranty products, which are consumer goods warranties and not financial products. All prices include GST. Cover is subject to the full terms and conditions of the relevant warranty product, available upon request. Pre-existing conditions are excluded. Vehicle category and eligibility are subject to approval. Please read the product terms before purchasing. All quotes are subject to assessment and approval.</p>
+    <p class="f-legal">MyDriveShield provides information about vehicle warranty and roadside assistance products and facilitates quote requests. We give factual information only. We do not give general or personal financial product advice, or insurance or legal advice. Coverage, exclusions, eligibility, waiting periods, claim limits and terms depend on the relevant product documentation and provider approval. Warranty products are issued by Integrity Car Care Pty Ltd (PO Box 2122 Traralgon VIC 3844 · 03 9120 6666 · admin@integritywarranty.com.au). MyDriveShield is a trading name of Capital Gateway Pty Ltd (ABN 36 667 087 685), Authorised Representative No. 001323971 of Integrity Car Care Pty Ltd (ABN 58 056 621 893, AFSL 247069). All prices include GST. Cover is subject to the full terms and conditions of the relevant warranty product, available upon request. Pre-existing conditions are excluded. Vehicle category and eligibility are subject to approval. Please read the product terms before purchasing. All quotes are subject to assessment and approval.</p>
     <div class="f-bottom"><span>© 2026 MyDriveShield. All rights reserved.</span><span>Privacy Policy · Terms of Use · Complaints</span></div>
   </div>
 </footer>
@@ -1703,6 +1725,7 @@ function recalcCategory(){
   const fuelEl = document.getElementById('v-fuel');
   const fuel = fuelEl ? fuelEl.value : 'ice';
   state.make = make; state.model = model; state.fuel = fuel;
+  const hev = document.getElementById('hev-note'); if(hev) hev.style.display = fuel==='ice' ? 'none' : 'block';
   const cat = resolveCategory(make, model, year, fuel);
   const el = document.getElementById('cat-display');
   const hint = document.getElementById('cat-hint');
@@ -1753,10 +1776,10 @@ function applyRoadsideOnlyUI(){
   if(ro && state.roadside==='none') selectRoadside('star3');
   const termsLbl = document.querySelector('label[for="pay-accept"]');
   if(termsLbl) termsLbl.innerHTML = state.product==='endurance'
-    ? 'I have read the ' + (window.END_TERMS_OK ? '<a href="/docs/integrity-endurance-warranty-terms.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">Integrity Endurance Motor Vehicle Warranty terms and conditions</a>' : '<strong>Integrity Endurance Motor Vehicle Warranty terms and conditions</strong> (emailed with your certificate, or call 0477 666 500 for a copy now)') + ' (including the 20 covered components, claim limits, servicing requirements and the need to obtain Integrity\'s authorisation before any repair) and I agree to them. I confirm the vehicle details I entered are accurate. *'
+    ? 'I have read the ' + (window.END_TERMS_OK ? '<a href="/docs/integrity-endurance-warranty-terms.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">Integrity Endurance Motor Vehicle Warranty Financial Services Guide and PDS</a>' : '<strong>Integrity Endurance Motor Vehicle Warranty Financial Services Guide and PDS</strong> (emailed with your certificate, or call 0477 666 500 for a copy now)') + ' (including the 20 covered components, claim limits, servicing requirements and the need to obtain Integrity\'s authorisation before any repair) and I agree to them. I confirm the vehicle details I entered are accurate. *'
     : ro
-    ? 'I have read the <a href="/docs/integrity-absolute-warranty-pds-v3.5.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">product terms and conditions</a> for the roadside assistance plan I am buying and I agree to them. I confirm the details I entered are accurate. *'
-    : 'I have read the <a href="/docs/integrity-absolute-warranty-pds-v3.5.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">Integrity Absolute Motor Vehicle Warranty PDS and Terms and Conditions</a> (including the servicing requirements and the need to obtain Integrity\'s authorisation before any repair) and I agree to them. I confirm the vehicle details I entered are accurate. *';
+    ? 'I have read the roadside assistance key terms shown above for the plan I am buying, including that membership fees are non-refundable, and I agree to them. I confirm the details I entered are accurate. *'
+    : 'I have read the <a href="/docs/integrity-absolute-warranty-pds-v3.5.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">Integrity Absolute Motor Vehicle Warranty Financial Services Guide and PDS</a> (including the servicing requirements and the need to obtain Integrity\'s authorisation before any repair) and I agree to them. I confirm the vehicle details I entered are accurate. *';
   const payIntro = document.getElementById('step4-intro');
   if(payIntro) payIntro.textContent = 'Secure payment processed by Stripe. Pay by card, Google Pay, Apple Pay, or split your payment into interest-free instalments with Klarna (subject to eligibility). Once we have checked your details, your cover is lodged and your certificate is emailed to you.';
 }
@@ -1855,6 +1878,13 @@ function selectDuration(n){
 }
 
 // === ROADSIDE ===
+function syncRoadsideTerms(){
+  const box = document.getElementById('rs-terms'); if(box) box.style.display = state.roadside==='none' ? 'none' : 'block';
+  const lbl = document.querySelector('label[for="pay-accept"]'); if(!lbl || state.product==='roadside') return;
+  const extra = lbl.querySelector('.rs-extra');
+  if(state.roadside==='none'){ if(extra) extra.remove(); return; }
+  if(!extra){ const html = '<span class="rs-extra"> I have also read the roadside assistance key terms shown above, including that membership fees are non-refundable.</span>'; lbl.innerHTML = /\s\*\s*$/.test(lbl.innerHTML) ? lbl.innerHTML.replace(/\s\*\s*$/, html + ' *') : lbl.innerHTML + html; }
+}
 function selectRoadside(r){
   state.roadside = r;
   ['none','star3','star5'].forEach(x=>document.getElementById('rs-'+x).classList.toggle('selected',x===r));
@@ -1889,7 +1919,7 @@ function updatePrices(){
       el.innerHTML = `
       <div class="price-line"><span>Vehicle</span><span>${[state.make,state.model,state.year].filter(Boolean).join(' ')}${state.odo?' · '+Number(state.odo).toLocaleString()+' km':''}</span></div>
       <div class="price-line"><span>${rsLabel} Assistance (${dur})</span><span>${fmt(rs)}</span></div>
-      <div class="price-line"><span>24/7 towing · battery · tyre · fuel · lockout</span><span>Included</span></div>
+      <div class="price-line"><span>${state.roadside==='star5' ? 'Unlimited call-outs · towing 50/100 km · lockout' : '4 call-outs a year · towing 20/50 km'}</span><span>Included</span></div>
       <div class="price-line total"><span>Total (incl. GST)</span><span class="amount">${fmt(rs)}</span></div>`;
     });
     document.getElementById('rs3-price').textContent = '+'+fmt(ROADSIDE.star3[state.duration-1]);
@@ -1946,6 +1976,7 @@ function goStep(n){
   if(n===3) applyRoadsideOnlyUI();
   if(n===4 && state.product==='roadside' && state.roadside==='none') selectRoadside('star3');
   if(n===4) syncWarrantyOnly();
+  if(n===4){ applyRoadsideOnlyUI(); syncRoadsideTerms(); }
   if(n===4) initStripe();
   if(n===4 && window.mdsTrack) window.mdsTrack('begin_checkout', { value: calcTotal().total, currency:'AUD', product: productLabel() });
 
@@ -2006,6 +2037,10 @@ document.addEventListener('change', e=>{
     const stop=document.getElementById('q-stop');
     if(stop) stop.style.display = qualifyingAnswers().includes('no') ? 'block' : 'none';
   }
+  if(e.target && e.target.name === 'p-ew'){
+    document.getElementById('ew-date-wrap').style.display = e.target.value==='yes' ? 'block' : 'none';
+    document.getElementById('ew-note').style.display = e.target.value==='no' ? 'none' : 'block';
+  }
   if(e.target && e.target.name === 'p-from'){
     syncVcrNotice();
     if(e.target.value === 'private' && !document.getElementById('c-vcr').files[0] && window.mdsTrack) window.mdsTrack('vcr_required_flagged', { purchaseFrom: 'private' });
@@ -2047,6 +2082,10 @@ function validateSignup(){
   if(!/^[A-HJ-NPR-Z0-9]{17}$/.test(vin)) return 'Please enter the 17-character VIN (it does not contain the letters I, O or Q).';
   if(!radioVal('p-buying')) return 'Please tell us whether you are buying the vehicle now.';
   if(!radioVal('p-from')) return 'Please tell us whether the vehicle was bought privately or from a dealer.';
+  const ew = radioVal('p-ew');
+  if(!ew) return 'Please tell us whether the vehicle is still covered by a manufacturer\'s or dealer warranty.';
+  if(ew==='yes' && !v('c-ew-end')) return 'Please enter the date the existing warranty ends, so your cover can start the day after.';
+  if(ew==='yes' && v('c-ew-end') < new Date().toISOString().slice(0,10)) return 'That end date is in the past. If the existing warranty has already ended, choose "No, it has ended".';
   const qa = qualifyingAnswers();
   if(qa.includes('')) return 'Please answer all six questions under "Before you buy, please confirm".';
   if(qa.includes('no')) return "Based on your answers, we can't sell this warranty online. Please request a callback instead.";
@@ -2059,6 +2098,7 @@ function signupPayload(){
     p.vin = v('c-vin').toUpperCase().replace(/\s+/g,'');
     p.buyingNow = radioVal('p-buying'); p.purchaseFrom = radioVal('p-from');
     p.vcrRequired = vcrRequired();
+    p.existingWarranty = radioVal('p-ew'); p.existingWarrantyEnd = p.existingWarranty==='yes' ? v('c-ew-end') : '';
     p.qualifying = qualifyingAnswers().map(a=>a==='yes'?'Y':'N').join(''); p.qualifyingAt = new Date().toISOString();
   }
   return p;
@@ -2230,6 +2270,7 @@ function showCallback(from){
   const cbm = document.getElementById('cb-model'); if(cbm && !cbm.value && state.model) cbm.value = state.model;
   const intro = document.getElementById('cb-intro');
   if(from === 'roadside') intro.textContent = 'Just want roadside assistance? Leave your details and a MyDriveShield consultant will call you within one business day to set up 3-Star or 5-Star cover — no warranty required.';
+  else if(from === 'hybrid-ev') intro.textContent = 'Hybrid or electric vehicle? Leave your details and a MyDriveShield consultant will contact you within one business day with details of Integrity\'s Total Cover and EV warranty options for your vehicle.';
   else if(from === 'endurance') intro.textContent = 'Endurance Warranty pricing is customised to your vehicle and coverage option. Leave your details and a MyDriveShield consultant will contact you within one business day with a personalised quote.';
   else if(from === 'absolute') intro.textContent = 'Not ready to pay today? Leave your details and a MyDriveShield consultant will call you within one business day to confirm eligibility and finalise your cover.';
   else intro.textContent = 'Leave your details and a MyDriveShield consultant will call you within one business day with a personalised quote.';
