@@ -772,8 +772,8 @@ document.addEventListener('click', function(ev){
           <div><h4>5 Star</h4>$154 for 1 year, up to $610 for 5 years</div>
         </div>
         <ul>
-          <li>Breakdown, flat battery, flat tyre, fuel and lockout help</li>
-          <li><span class="todo">Owner to confirm: what 5 Star adds over 3 Star, towing limits, waiting period</span></li>
+          <li>Towing, jumpstarts, flat tyres and emergency fuel, 24/7</li>
+          <li>5 Star adds unlimited call-outs, longer towing, lockout help, and car hire and accommodation benefits. Starts two working days after payment.</li>
         </ul>
         <div class="pc-actions">
           <a href="/roadside-assistance/" class="btn btn-navy">Compare roadside plans</a>
@@ -819,7 +819,7 @@ document.addEventListener('click', function(ev){
         <p class="role">Broken down?</p>
         <h3>24/7 roadside help</h3>
         <p>Use the roadside emergency number in your roadside documents.</p>
-        <ul><li><span class="todo">Owner to confirm: 24/7 roadside number and provider</span></li></ul>
+        <ul><li>24-hour roadside line <a href="tel:1800422772">1800 422 772</a> (Extended Dealer Services) <span class="todo">Integrity to confirm before publishing</span></li></ul>
       </div>
     </div>
   </div>
@@ -963,7 +963,7 @@ document.addEventListener('click', function(ev){
           </div>
         </div>
         <div id="roadside-only-note" style="display:none;background:var(--light);border-radius:var(--r);padding:20px;border:1px dashed var(--gray-300);margin-bottom:8px">
-          <p style="font-size:14.5px;color:var(--gray-600)">24/7 emergency roadside assistance on its own — towing, flat battery, flat tyre, fuel delivery and lockout support, Australia-wide. Choose your plan and term on the next step. From <strong>$88/year</strong>.</p>
+          <p style="font-size:14.5px;color:var(--gray-600)">24/7 emergency roadside assistance on its own: towing, jumpstarts, flat tyres and emergency fuel, Australia-wide, with lockout help on 5 Star. Choose your plan and term on the next step. From <strong>$88/year</strong>.</p>
         </div>
         <div id="absolute-duration">
           <label style="font-size:13px;font-weight:600;color:var(--gray-700);display:block;margin-bottom:12px">Cover Level <span style="color:var(--gray-400);font-weight:500">(eligibility based on your vehicle's age &amp; kilometres)</span></label>
@@ -1024,7 +1024,7 @@ document.addEventListener('click', function(ev){
       <!-- STEP 3: Roadside -->
       <div class="wizard-card" id="step-3" style="display:none">
         <h2>Add Roadside Assistance?</h2>
-        <p>24/7 emergency breakdown service — towing, flat battery, flat tyre, fuel delivery and locksmith.</p>
+        <p>24/7 emergency breakdown help Australia-wide. 5 Star adds lockout help, longer towing and unlimited call-outs. Cover starts two working days after payment.</p>
         <div class="roadside-grid">
           <div class="roadside-opt selected" id="rs-none" onclick="selectRoadside('none')">
             <div class="ro-icon">❌</div>
@@ -1035,13 +1035,13 @@ document.addEventListener('click', function(ev){
           <div class="roadside-opt" id="rs-star3" onclick="selectRoadside('star3')">
             <div class="ro-icon">⭐⭐⭐</div>
             <h4>3 Star Roadside</h4>
-            <p>Core emergency cover — 24/7 towing, battery, tyre &amp; fuel</p>
+            <p>4 call-outs a year. Towing up to 20 km metro or 50 km country, jumpstarts, flat tyres and emergency fuel</p>
             <div class="ro-price" id="rs3-price">+$176</div>
           </div>
           <div class="roadside-opt" id="rs-star5" onclick="selectRoadside('star5')">
             <div class="ro-icon">⭐⭐⭐⭐⭐</div>
             <h4>5 Star Roadside</h4>
-            <p>Premium cover — all 3 Star benefits plus priority service &amp; extras</p>
+            <p>Unlimited call-outs. Towing up to 50 km metro or 100 km country, plus lockout help and car hire and accommodation benefits</p>
             <div class="ro-price" id="rs5-price">+$268</div>
           </div>
         </div>
@@ -1217,6 +1217,16 @@ document.addEventListener('click', function(ev){
         </div>
         <div id="payment-element"></div>
         <div id="payment-message"></div>
+        <div id="rs-terms" style="display:none;margin:14px 0 0;padding:14px;border:1px solid var(--gray-200);border-radius:var(--r-sm);font-size:13px;line-height:1.55;color:var(--gray-700)">
+          <strong style="color:var(--gray-800)">Roadside assistance key terms</strong>
+          <ul style="margin:6px 0 0 18px;padding:0">
+            <li>Provided by Extended Dealer Services Pty Ltd (EDS), Australia-wide, 24 hours a day. Your membership confirmation gives the number to call.</li>
+            <li>3 Star: 4 call-outs a year; towing up to 20 km (metro) or 50 km (country). 5 Star: unlimited call-outs (subject to excessive use); towing up to 50 km (metro) or 100 km (country), plus lockout help (you pay costs over $70), car hire up to $140 a day for 5 days, and accommodation benefits, when the conditions are met.</li>
+            <li>Both plans: jumpstarts and battery testing, flat tyre changes (a roadworthy spare is needed), and up to 10 litres of emergency fuel. Batteries, fuel and parts are at your cost.</li>
+            <li>Cover starts two working days after payment. If you need help before then, a $160 emergency join-up fee applies.</li>
+            <li>Membership fees are non-refundable. Towing covers vehicles up to 3.5 tonnes and 5.5 metres. Breakdowns caused by conditions that existed before your membership started are not covered.</li>
+          </ul>
+        </div>
         <div id="pay-terms" style="display:flex;gap:10px;align-items:flex-start;padding:14px;background:var(--gray-100);border-radius:var(--r-sm);margin:14px 0 12px">
           <input type="checkbox" id="pay-accept" style="width:auto;margin-top:3px">
           <label for="pay-accept" style="font-weight:500;font-size:13.5px;line-height:1.5">I have read the <a href="/docs/integrity-absolute-warranty-pds-v3.5.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">Integrity Absolute Motor Vehicle Warranty Financial Services Guide and PDS</a> (including the servicing requirements and the need to obtain Integrity's authorisation before any repair) and I agree to them. I confirm the vehicle details I entered are accurate. *</label>
@@ -1634,7 +1644,7 @@ function applyRoadsideOnlyUI(){
   if(termsLbl) termsLbl.innerHTML = state.product==='endurance'
     ? 'I have read the ' + (window.END_TERMS_OK ? '<a href="/docs/integrity-endurance-warranty-terms.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">Integrity Endurance Motor Vehicle Warranty Financial Services Guide and PDS</a>' : '<strong>Integrity Endurance Motor Vehicle Warranty Financial Services Guide and PDS</strong> (emailed with your certificate, or call 0477 666 500 for a copy now)') + ' (including the 20 covered components, claim limits, servicing requirements and the need to obtain Integrity\'s authorisation before any repair) and I agree to them. I confirm the vehicle details I entered are accurate. *'
     : ro
-    ? 'I have read the <span class="todo">roadside assistance terms (document to be supplied: the Absolute PDS does not contain roadside terms)</span> for the roadside assistance plan I am buying and I agree to them. I confirm the details I entered are accurate. *'
+    ? 'I have read the roadside assistance key terms shown above for the plan I am buying, including that membership fees are non-refundable, and I agree to them. I confirm the details I entered are accurate. *'
     : 'I have read the <a href="/docs/integrity-absolute-warranty-pds-v3.5.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">Integrity Absolute Motor Vehicle Warranty Financial Services Guide and PDS</a> (including the servicing requirements and the need to obtain Integrity\'s authorisation before any repair) and I agree to them. I confirm the vehicle details I entered are accurate. *';
   const vpn = document.getElementById('vcr-pay-note'); if(vpn) vpn.style.display = ro ? 'none' : '';
   const payIntro = document.getElementById('step4-intro');
@@ -1735,6 +1745,13 @@ function selectDuration(n){
 }
 
 // === ROADSIDE ===
+function syncRoadsideTerms(){
+  const box = document.getElementById('rs-terms'); if(box) box.style.display = state.roadside==='none' ? 'none' : 'block';
+  const lbl = document.querySelector('label[for="pay-accept"]'); if(!lbl || state.product==='roadside') return;
+  const extra = lbl.querySelector('.rs-extra');
+  if(state.roadside==='none'){ if(extra) extra.remove(); return; }
+  if(!extra){ const html = '<span class="rs-extra"> I have also read the roadside assistance key terms shown above, including that membership fees are non-refundable.</span>'; lbl.innerHTML = /\s\*\s*$/.test(lbl.innerHTML) ? lbl.innerHTML.replace(/\s\*\s*$/, html + ' *') : lbl.innerHTML + html; }
+}
 function selectRoadside(r){
   state.roadside = r;
   ['none','star3','star5'].forEach(x=>document.getElementById('rs-'+x).classList.toggle('selected',x===r));
@@ -1769,7 +1786,7 @@ function updatePrices(){
       el.innerHTML = `
       <div class="price-line"><span>Vehicle</span><span>${[state.make,state.model,state.year].filter(Boolean).join(' ')}${state.odo?' · '+Number(state.odo).toLocaleString()+' km':''}</span></div>
       <div class="price-line"><span>${rsLabel} Assistance (${dur})</span><span>${fmt(rs)}</span></div>
-      <div class="price-line"><span>24/7 towing · battery · tyre · fuel · lockout</span><span>Included</span></div>
+      <div class="price-line"><span>${state.roadside==='star5' ? 'Unlimited call-outs · towing 50/100 km · lockout' : '4 call-outs a year · towing 20/50 km'}</span><span>Included</span></div>
       <div class="price-line total"><span>Total (incl. GST)</span><span class="amount">${fmt(rs)}</span></div>`;
     });
     document.getElementById('rs3-price').textContent = '+'+fmt(ROADSIDE.star3[state.duration-1]);
@@ -1829,6 +1846,7 @@ function goStep(n){
   if(n===3) applyRoadsideOnlyUI();
   if(n===4 && state.product==='roadside' && state.roadside==='none') selectRoadside('star3');
   if(n===4) syncWarrantyOnly();
+  if(n===4){ applyRoadsideOnlyUI(); syncRoadsideTerms(); }
   if(n===4) initStripe();
   if(n===4 && window.mdsTrack) window.mdsTrack('begin_checkout', { value: calcTotal().total, currency:'AUD', product: productLabel() });
 
