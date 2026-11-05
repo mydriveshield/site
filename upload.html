@@ -32,7 +32,7 @@ a{color:#2563eb}
 <body>
 <div class="card" id="card">
   <h1>Upload your odometer photo</h1>
-  <p>Please upload a clear photo of your odometer. We lodge your warranty with Integrity Car Care using the reading you entered at checkout, and the photo confirms it. It only takes a minute.</p>
+  <p>We need a clear photo of the odometer before we can lodge your warranty with Integrity Car Care. It only takes a minute.</p>
   <form id="f" novalidate>
     <label for="ref">Order or payment reference</label>
     <input type="text" id="ref" maxlength="60" autocomplete="off" placeholder="e.g. DS-ABC12345">
@@ -106,7 +106,7 @@ document.getElementById('f').addEventListener('submit', async e => {
       body: JSON.stringify({ source:'upload-later', orderRef: ref, customerName: 'Upload later, order ' + ref, email, phone:'', rego, vehicle: 'Order ' + ref + ' (uploaded after payment)', files }) });
     if(!r.ok) throw new Error('upload');
     try{ gtag('event', 'upload_later_done', { has_odo: !!odo, has_vcr: !!vcr }); }catch(x){}
-    document.getElementById('card').innerHTML = '<h1>Thank you, we have it</h1><p>Your ' + (odo ? 'odometer photo' : 'condition report') + ' for order <strong></strong> is with our team. If the reading differs from the one you entered, we will ask the warranty administrator to update your schedule.</p><p class="small">Questions? Call <a href="tel:0477666500">0477 666 500</a>.</p>';
+    document.getElementById('card').innerHTML = '<h1>Thank you, we have it</h1><p>Your ' + (odo ? 'odometer photo' : 'condition report') + ' for order <strong></strong> is with our team. We will lodge your warranty and email your schedule and certificate, usually within 1 to 2 business days.</p><p class="small">Questions? Call <a href="tel:0477666500">0477 666 500</a>.</p>';
     document.querySelector('#card strong').textContent = ref;
   }catch(x){
     err(x.message && x.message !== 'upload' ? x.message : 'The upload did not go through. Please check your connection and try again, or email the photo to quotes@mydriveshield.com.au with your reference.');
