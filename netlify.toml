@@ -41,3 +41,25 @@
   for = "/*.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
+
+# Long cache for images, video and documents (file names change when images change)
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/media/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/docs/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# CSS and JS keep their names between releases, so cache for a day and revalidate in the background
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
