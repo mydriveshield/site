@@ -1281,6 +1281,28 @@ document.addEventListener('click', function(ev){
               <label style="display:inline-flex;align-items:center;gap:6px;margin-right:18px;font-weight:600;font-size:14px"><input type="radio" name="p-from" value="private" style="width:auto"> Privately</label>
               <label style="display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px"><input type="radio" name="p-from" value="dealer" style="width:auto"> From a dealer</label>
             </div>
+            <div class="q-item" id="purchase-wrap" style="display:none;padding:12px 14px;border:1px solid var(--gray-200);border-radius:var(--r-sm);margin-bottom:10px">
+              <div class="form-group" id="dealer-name-group" style="display:none">
+                <label for="c-dealer">Dealer business name *</label>
+                <input type="text" id="c-dealer" maxlength="80" autocomplete="off" placeholder="As shown on the invoice">
+              </div>
+              <div style="display:flex;gap:12px;flex-wrap:wrap">
+                <div class="form-group" style="flex:1;min-width:160px">
+                  <label for="c-pdate" id="c-pdate-label">Purchase date *</label>
+                  <input type="date" id="c-pdate">
+                </div>
+                <div class="form-group" style="flex:1;min-width:160px">
+                  <label for="c-pprice">Purchase price (AUD) *</label>
+                  <input type="text" id="c-pprice" inputmode="numeric" maxlength="9" placeholder="e.g. 18500">
+                </div>
+              </div>
+              <div class="form-group" id="proof-group" style="display:none;margin-bottom:0">
+                <label for="c-proof">Proof of purchase <span style="font-weight:400;color:var(--gray-500)">(required before lodging)</span></label>
+                <input type="file" id="c-proof" accept="image/*,application/pdf">
+                <p class="hint" style="margin-top:4px">The dealer's tax invoice or contract of sale, showing the dealer, VIN, date and price. No copy yet? Pay now and upload it later using the link in your confirmation email. Your warranty is lodged once we have it.</p>
+                <p class="hint" style="margin-top:6px">If you can't provide proof of a dealer purchase, the vehicle is treated as a private purchase and a vehicle condition report from a licensed mechanic is needed before lodging.</p>
+              </div>
+            </div>
             <div class="q-item" id="ew-item" style="padding:12px 14px;border:1px solid var(--gray-200);border-radius:var(--r-sm);margin-bottom:10px">
               <p style="margin:0 0 8px;font-size:14px;line-height:1.5;color:var(--gray-800)">Is the vehicle still covered by a manufacturer's or dealer warranty?</p>
               <label style="display:inline-flex;align-items:center;gap:6px;margin-right:18px;font-weight:600;font-size:14px"><input type="radio" name="p-ew" value="yes" style="width:auto"> Yes</label>
@@ -2355,6 +2377,14 @@ function vcrRequired(){
   if(state.product === 'totalcover') return !(radioVal('p-buying') === 'yes' && radioVal('p-from') === 'dealer');
   return false;
 }
+function syncPurchase(){
+  const from = radioVal('p-from'), dealer = from === 'dealer';
+  const w = document.getElementById('purchase-wrap'); if(!w) return;
+  w.style.display = from ? 'block' : 'none';
+  document.getElementById('dealer-name-group').style.display = dealer ? '' : 'none';
+  document.getElementById('proof-group').style.display = dealer ? '' : 'none';
+  document.getElementById('c-pdate-label').textContent = radioVal('p-buying') === 'yes' ? 'Purchase date (or expected delivery date) *' : 'Purchase date *';
+}
 function syncVcrNotice(){
   const req = vcrRequired();
   const box = document.getElementById('vcr-required'), tag = document.getElementById('c-vcr-tag'), hint = document.getElementById('c-vcr-hint');
@@ -2372,6 +2402,7 @@ document.addEventListener('change', e=>{
     document.getElementById('ew-date-wrap').style.display = e.target.value==='yes' ? 'block' : 'none';
     document.getElementById('ew-note').style.display = e.target.value==='no' ? 'none' : 'block';
   }
+  if(e.target && (e.target.name === 'p-buying' || e.target.name === 'p-from')) syncPurchase();
   if(e.target && e.target.name === 'p-buying') syncVcrNotice();
   if(e.target && e.target.name === 'p-from'){
     syncVcrNotice();
@@ -2393,10 +2424,10 @@ function fileToPayload(file, maxDim, quality){
       img.onerror = ()=>reject(new Error('Could not read the photo. Please try a different image.'));
       img.src = url;
     } else {
-      if(file.size > 8*1024*1024) return reject(new Error('The condition report file is too large (max 8 MB).'));
+      if(file.size > 8*1024*1024) return reject(new Error('That file is too large (max 8 MB). Please upload a smaller copy or a photo of it.'));
       const fr = new FileReader();
       fr.onload = ()=>resolve({ name, type: file.type||'application/octet-stream', data: String(fr.result).split(',')[1] });
-      fr.onerror = ()=>reject(new Error('Could not read the condition report file.'));
+      fr.onerror = ()=>reject(new Error('Could not read that file. Please try a different copy.'));
       fr.readAsDataURL(file);
     }
   });
@@ -2414,6 +2445,14 @@ function validateSignup(){
   if(!/^[A-HJ-NPR-Z0-9]{17}$/.test(vin)) return 'Please enter the 17-character VIN (it does not contain the letters I, O or Q).';
   if(!radioVal('p-buying')) return 'Please tell us whether you are buying the vehicle now.';
   if(!radioVal('p-from')) return 'Please tell us whether the vehicle was bought privately or from a dealer.';
+  const pd = v('c-pdate'), today = new Date().toISOString().slice(0,10);
+  if(radioVal('p-from')==='dealer' && v('c-dealer').length < 2) return 'Please enter the name of the dealer you bought the vehicle from.';
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(pd)) return 'Please enter the purchase date' + (radioVal('p-buying')==='yes' ? ' (or the date you expect to take delivery).' : '.');
+  if(radioVal('p-buying')!=='yes' && pd > today) return 'The purchase date is in the future. If you are buying the vehicle now, answer Yes to "Are you buying this vehicle now?".';
+  if(pd > new Date(Date.now()+60*864e5).toISOString().slice(0,10)) return 'The purchase date must be within the next 60 days.';
+  if(state.year && pd.slice(0,4) < String(state.year-1)) return 'The purchase date is earlier than the vehicle\'s build year. Please check it.';
+  const pp = parseInt(v('c-pprice').replace(/[^\d]/g,''),10);
+  if(!(pp >= 500 && pp <= 2000000)) return 'Please enter the purchase price in dollars (for example 18500).';
   const ew = radioVal('p-ew');
   if(!ew) return 'Please tell us whether the vehicle is still covered by a manufacturer\'s or dealer warranty.';
   if(ew==='yes' && !v('c-ew-end')) return 'Please enter the date the existing warranty ends, so your cover can start the day after.';
@@ -2429,6 +2468,8 @@ function signupPayload(){
   if(isWarrantySale()){
     p.vin = v('c-vin').toUpperCase().replace(/\s+/g,'');
     p.buyingNow = radioVal('p-buying'); p.purchaseFrom = radioVal('p-from');
+    p.dealerName = p.purchaseFrom==='dealer' ? v('c-dealer') : '';
+    p.purchaseDate = v('c-pdate'); p.purchasePrice = String(parseInt(v('c-pprice').replace(/[^\d]/g,''),10)||'');
     p.vcrRequired = vcrRequired();
     p.existingWarranty = radioVal('p-ew'); p.existingWarrantyEnd = p.existingWarranty==='yes' ? v('c-ew-end') : '';
     p.qualifying = qualifyingAnswers().map(a=>a==='yes'?'Y':'N').join(''); p.qualifyingAt = new Date().toISOString();
@@ -2522,7 +2563,9 @@ async function submitPayment(){
       if(odoFile) files.odoPhoto = await fileToPayload(odoFile, 1600, 0.8);
       const vcrFile = document.getElementById('c-vcr').files[0];
       if(vcrFile) files.vcr = await fileToPayload(vcrFile, 2000, 0.85);
-      if(!files.odoPhoto && !files.vcr){ uploads = { uploadId:'', uploadStatus:'pending', vcrProvided:false }; }
+      const proofFile = radioVal('p-from')==='dealer' ? document.getElementById('c-proof').files[0] : null;
+      if(proofFile) files.proof = await fileToPayload(proofFile, 2000, 0.85);
+      if(!files.odoPhoto && !files.vcr && !files.proof){ uploads = { uploadId:'', uploadStatus:'pending', vcrProvided:false, proofProvided:false }; }
       else {
       // Files go to a separate n8n intake (emailed to admin@); only the upload id travels with the payment.
       try{
@@ -2531,6 +2574,7 @@ async function submitPayment(){
         const uj = await ur.json(); uploads = { uploadId: uj.uploadId || '', uploadStatus: ur.ok ? 'received' : 'failed' };
       } catch(err){ uploads = { uploadId:'', uploadStatus:'failed' }; }
       uploads.vcrProvided = !!files.vcr && uploads.uploadStatus === 'received';
+      uploads.proofProvided = !!files.proof && uploads.uploadStatus === 'received';
       if(!files.odoPhoto && uploads.uploadStatus === 'received') uploads.uploadStatus = 'pending';
       }
     }
@@ -2557,7 +2601,7 @@ async function submitPayment(){
   const result = await stripe.confirmPayment({
     elements, clientSecret,
     confirmParams:{
-      return_url: window.location.origin+'/confirmation.html?amount='+(amountCents/100)+(isWarrantySale() && uploads.uploadStatus !== 'received' ? '&photo=pending' : ''),
+      return_url: window.location.origin+'/confirmation.html?amount='+(amountCents/100)+(isWarrantySale() && uploads.uploadStatus !== 'received' ? '&photo=pending' : '')+(isWarrantySale() && radioVal('p-from')==='dealer' && !uploads.proofProvided ? '&proof=pending' : ''),
       payment_method_data:{billing_details:{name:first+' '+last, email, phone, address:{city:suburb,state:stateV,postal_code:postcode,country:'AU'}}}
     }
   });
