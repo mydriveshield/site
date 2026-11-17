@@ -1333,7 +1333,7 @@ document.addEventListener('click', function(ev){
             <div class="form-group" id="c-vcr-group">
               <label for="c-vcr">Vehicle condition report <span id="c-vcr-tag" style="font-weight:400;color:var(--gray-500)">(upload if you have one)</span></label>
               <div id="vcr-required" style="display:none;margin:0 0 10px;padding:12px 14px;border:1px solid #F3C98B;background:#FFF7EA;border-radius:var(--r-sm);font-size:13.5px;line-height:1.55;color:var(--gray-800)">
-                <strong>A Vehicle Condition Report is required for privately purchased vehicles.</strong> The warranty provider needs a condition report from a licensed mechanic before your warranty can be lodged. Upload it now if you already have one. If you don't, you can still complete your purchase today and we will contact you for the report before lodgement. A licensed mechanic must complete the condition report; the mechanic sets their own fee. <a href="https://integritywarranty.com.au/public/assets/images/broucher/Inspection%20Form.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">Download the condition report form</a> for your mechanic.
+                <strong>A vehicle condition report by a licensed motor repair shop must be completed.</strong> <a href="https://integritywarranty.com.au/public/assets/images/broucher/Inspection%20Form.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">Download the condition report form</a>.
               </div>
               <input type="file" id="c-vcr" accept="image/*,application/pdf">
               <p class="hint" id="c-vcr-hint" style="margin-top:4px">For dealer purchases a condition report is not usually needed. If the provider asks for one, we'll let you know.</p>
@@ -2408,7 +2408,7 @@ function syncVcrNotice(){
   const req = vcrRequired();
   const box = document.getElementById('vcr-required'), tag = document.getElementById('c-vcr-tag'), hint = document.getElementById('c-vcr-hint');
   if(box) box.style.display = req ? 'block' : 'none';
-  const head = box && box.querySelector('strong'); if(head) head.textContent = (state.product==='totalcover' && radioVal('p-from')!=='private') ? 'Total Cover needs a Vehicle Condition Report unless you are buying the car from a licensed dealer now.' : 'A Vehicle Condition Report is required for privately purchased vehicles.';
+  const head = box && box.querySelector('strong'); if(head) head.textContent = (state.product==='totalcover' && radioVal('p-from')!=='private') ? 'Total Cover needs a Vehicle Condition Report unless you are buying the car from a licensed dealer now.' : 'A vehicle condition report by a licensed motor repair shop must be completed.';
   if(tag) tag.textContent = req ? '(required for private purchases)' : '(upload if you have one)';
   if(hint) hint.style.display = req ? 'none' : '';
 }
