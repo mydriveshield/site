@@ -1258,6 +1258,22 @@ document.addEventListener('click', function(ev){
               <select id="c-regostate"><option value="">— State —</option><option>VIC</option><option>NSW</option><option>QLD</option><option>WA</option><option>SA</option><option>TAS</option><option>ACT</option><option>NT</option></select>
             </div>
           </div>
+          <div class="ro" id="rs-purchase" style="display:none">
+            <h3 style="font-size:17px;margin:18px 0 6px;color:var(--navy)">About the vehicle purchase</h3>
+            <p style="font-size:13.5px;color:var(--gray-600);margin:0 0 12px">The roadside provider asks for these. A rough answer is fine.</p>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="c-rs-pdate" id="c-rs-pdate-label">When did you buy it? *</label>
+                <input type="date" id="c-rs-pdate">
+                <select id="c-rs-pyear" style="display:none"><option value="">Year bought</option><option>2026</option><option>2025</option><option>2024</option><option>2023</option><option>2022</option><option>2021</option><option>2020</option><option>2019</option><option>2018</option><option>2017</option><option>2016</option><option>2015</option><option>2014</option><option>2013</option><option>2012</option><option>2011</option><option>2010</option><option>2009</option><option>2008</option><option>2007</option><option>2006</option><option>2005</option><option>2004</option><option>2003</option><option>2002</option><option>2001</option><option>2000</option><option>1999</option><option>1998</option><option>1997</option><option>1996</option><option>1995</option><option>1994</option><option>1993</option><option>1992</option><option>1991</option><option>1990</option><option>1989</option><option>1988</option><option>1987</option><option>1986</option><option>1985</option><option>1984</option><option>1983</option><option>1982</option><option>1981</option><option>1980</option></select>
+                <label style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:13.5px;font-weight:400"><input type="checkbox" id="c-rs-yearonly" style="width:auto"> I only know the year</label>
+              </div>
+              <div class="form-group">
+                <label for="c-rs-pprice">Roughly what did you pay? (AUD) *</label>
+                <input type="text" id="c-rs-pprice" inputmode="numeric" maxlength="9" placeholder="e.g. 15000">
+              </div>
+            </div>
+          </div>
           <div class="form-row wo">
             <div class="form-group">
               <label for="c-vin">VIN (17 characters) *</label>
@@ -1727,7 +1743,7 @@ const MODELS = {
   'MASERATI':['Ghibli','GranCabrio','GranTurismo','GranTurismo Folgore','Grecale','Grecale Folgore','Levante','Levante Trofeo','MC20','MC20 Cielo','Quattroporte'],
   'MAZDA':['121','BT-50','BT-50 Thunder','CX-3','CX-30','CX-5','CX-60','CX-60 PHEV','CX-7','CX-70','CX-8','CX-80','CX-9','CX-90','Mazda2','Mazda3','Mazda3 Hatch','Mazda3 Sedan','Mazda6','Mazda6 Wagon','MX-30','MX-5','MX-5 RF','RX-8','Tribute'],
   'MCLAREN':['540C','570GT','570S','600LT','620R','650S','675LT','720S','750S','765LT','Artura','GT','GTS','P1','Senna'],
-  'MERCEDES-BENZ':['A 180','A 200','A 250','A 35 AMG','A 45 AMG','A-Class','A-Class Sedan','AMG A 35','AMG A 45 S','AMG C 43','AMG C 63 S','AMG CLA 35','AMG CLA 45 S','AMG E 53','AMG E 63 S','AMG G 63','AMG GLA 35','AMG GLA 45','AMG GLC 43','AMG GLC 63 S','AMG GLE 53','AMG GLE 63 S','AMG GT','AMG GT 4-Door','AMG SL 55','AMG SL 63','B 180','B 200','B-Class','C 200','C 300','C 43 AMG','C 63 AMG','C-Class','C-Class Coupe','C-Class Estate','CLA','CLA 45 AMG','CLA Shooting Brake','CLE','CLE Cabriolet','CLK','CLS','CLS 450','E 200','E 300','E 350','E 53 AMG','E 63 AMG','E-Class','E-Class Coupe','E-Class Estate','EQA','EQA 250','EQB','EQB 250','EQC','EQE','EQE SUV','EQS','EQS SUV','EQV','G 400d','G 63 AMG','G-Class','GL','GLA','GLA 200','GLA 250','GLB','GLB 200','GLB 250','GLC','GLC 200','GLC 300','GLC 63 AMG','GLC Coupe','GLE','GLE 300d','GLE 450','GLE 63 AMG','GLE Coupe','GLK','GLS','GLS 450','Maybach','ML','ML 250','ML 350','R-Class','S 450','S 500','S 580','S-Class','SL','SL 350','SL 500','SLC','SLK','SLK 200','SLK 350','Sprinter','Sprinter Van','V-Class','Valente','Viano','Vito','Vito Van','X-Class'],
+  'MERCEDES-BENZ':['A 180','A 200','A 250','A 35 AMG','A 45 AMG','A-Class','A-Class Sedan','AMG A 35','AMG A 45 S','AMG C 43','AMG C 63 S','AMG CLA 35','AMG CLA 45 S','AMG E 53','AMG E 63 S','AMG G 63','AMG GLA 35','AMG GLA 45','AMG GLC 43','AMG GLC 63 S','AMG GLE 53','AMG GLE 63 S','AMG GT','AMG GT 4-Door','AMG SL 55','AMG SL 63','B 180','B 200','B-Class','C 180','C 200','C 250','C 300','C 43 AMG','C 63 AMG','C-Class','C-Class Coupe','C-Class Estate','CLA','CLA 180','CLA 200','CLA 250','CLA 45 AMG','CLA Shooting Brake','CLE','CLE Cabriolet','CLK','CLS','CLS 450','E 200','E 220d','E 250','E 300','E 350','E 53 AMG','E 63 AMG','E-Class','E-Class Coupe','E-Class Estate','EQA','EQA 250','EQB','EQB 250','EQC','EQE','EQE SUV','EQS','EQS SUV','EQV','G 400d','G 63 AMG','G-Class','GL','GLA','GLA 180','GLA 200','GLA 220d','GLA 250','GLB','GLB 180','GLB 200','GLB 250','GLC','GLC 200','GLC 220d','GLC 250','GLC 300','GLC 63 AMG','GLC Coupe','GLE','GLE 300d','GLE 350d','GLE 400d','GLE 450','GLE 63 AMG','GLE Coupe','GLK','GLS','GLS 450','Maybach','ML','ML 250','ML 350','ML 63 AMG','R-Class','S 450','S 500','S 580','S-Class','SL','SL 350','SL 500','SLC','SLK','SLK 200','SLK 350','Sprinter','Sprinter Cab Chassis','Sprinter Van','V-Class','Valente','Viano','Vito','Vito Crew Cab','Vito Van','X-Class'],
   'MG':['3','4','5','Cyberster','HS','HS Hybrid+','HS Plus EV','MG3','MG4','MG4 XPOWER','MG5','QS','RX5','S5 EV','U9','ZS','ZS EV','ZS Hybrid+','ZST'],
   'MINI':['Aceman','Clubman','Convertible','Cooper','Cooper S','Cooper SE','Countryman','Countryman SE','Electric','Hatch','John Cooper Works','Paceman','Roadster'],
   'MITSUBISHI':['ASX','Challenger','Eclipse Cross','Express','Lancer','Lancer Evolution','Magna','Mirage','Outlander','Outlander PHEV','Outlander Sport','Pajero','Pajero Exceed','Pajero GLS','Pajero GLX','Pajero Sport','Triton','Triton GLR','Triton GLS','Triton GSR'],
@@ -2029,6 +2045,8 @@ function selectProduct(p){
   document.getElementById('ps-roadside').classList.toggle('selected', p==='roadside');
   document.getElementById('ps-totalcover').classList.toggle('selected', p==='totalcover');
   document.getElementById('ps-ev').classList.toggle('selected', p==='ev');
+  const dg = document.getElementById('drive-group'); if(dg) dg.style.display = p==='roadside' ? 'none' : '';
+  if(p!=='roadside' && !state.driveSet && typeof curStep!=='undefined' && curStep>1 && typeof goStep==='function') setTimeout(()=>{ goStep(1); const g=document.getElementById('drive-group'); g && g.scrollIntoView({behavior:'smooth',block:'center'}); }, 0);
   document.getElementById('totalcover-duration').style.display = p==='totalcover'?'block':'none';
   document.getElementById('tc-none-note').style.display = 'none';
   document.getElementById('ev-duration').style.display = p==='ev'?'block':'none';
@@ -2368,6 +2386,7 @@ function vehiclePayload(){
 function isWarrantySale(){ return state.product !== 'roadside'; }
 function syncWarrantyOnly(){
   document.querySelectorAll('#w-extra .wo').forEach(el=>{ el.style.display = isWarrantySale() ? '' : 'none'; });
+  document.querySelectorAll('#w-extra .ro').forEach(el=>{ el.style.display = isWarrantySale() ? 'none' : ''; });
 }
 function radioVal(name){ const r=document.querySelector('input[name="'+name+'"]:checked'); return r ? r.value : ''; }
 function qualifyingAnswers(){ return [1,2,3,4,5,6].map(i=>radioVal('q'+i)); }
@@ -2394,6 +2413,12 @@ function syncVcrNotice(){
   if(hint) hint.style.display = req ? 'none' : '';
 }
 document.addEventListener('change', e=>{
+  if(e.target && e.target.id === 'c-rs-yearonly'){
+    const y = e.target.checked;
+    document.getElementById('c-rs-pdate').style.display = y ? 'none' : '';
+    document.getElementById('c-rs-pyear').style.display = y ? '' : 'none';
+    document.getElementById('c-rs-pdate-label').textContent = y ? 'Year you bought it *' : 'When did you buy it? *';
+  }
   if(e.target && /^q[1-6]$/.test(e.target.name)){
     const stop=document.getElementById('q-stop');
     if(stop) stop.style.display = qualifyingAnswers().includes('no') ? 'block' : 'none';
@@ -2440,7 +2465,16 @@ function validateSignup(){
   const street = v('c-street');
   if(/^\s*(p\.?\s*o\.?\s*box|gpo\b|locked bag|private bag)/i.test(street)) return 'Please enter the street address where the vehicle is kept. A PO Box cannot be used on the warranty schedule.';
   if(!/\d/.test(street) || !/[A-Za-z]{3,}/.test(street) || street.toLowerCase() === v('c-suburb').toLowerCase()) return 'Please enter your full street address, including the number and street name (for example 12 Example Street). The suburb on its own is not enough for the warranty schedule.';
-  if(!isWarrantySale()) return '';
+  if(!isWarrantySale()){
+    const yo = document.getElementById('c-rs-yearonly').checked;
+    const d = yo ? v('c-rs-pyear') : v('c-rs-pdate');
+    if(!d) return yo ? 'Please choose the year you bought the vehicle.' : 'Please enter roughly when you bought the vehicle, or tick "I only know the year".';
+    if(!yo && d > new Date().toISOString().slice(0,10)) return 'The purchase date is in the future. Please check it.';
+    if(state.year && d.slice(0,4) < String(state.year-1)) return 'The purchase date is earlier than the vehicle\'s build year. Please check it.';
+    const rp = parseInt(v('c-rs-pprice').replace(/[^\d]/g,''),10);
+    if(!(rp >= 100 && rp <= 2000000)) return 'Please enter roughly what you paid for the vehicle, in dollars (for example 15000).';
+    return '';
+  }
   const vin = v('c-vin').toUpperCase().replace(/\s+/g,'');
   if(!/^[A-HJ-NPR-Z0-9]{17}$/.test(vin)) return 'Please enter the 17-character VIN (it does not contain the letters I, O or Q).';
   if(!radioVal('p-buying')) return 'Please tell us whether you are buying the vehicle now.';
@@ -2465,6 +2499,11 @@ function validateSignup(){
 function signupPayload(){
   const v = id => (document.getElementById(id).value||'').trim();
   const p = { rego: v('c-rego').toUpperCase().replace(/\s+/g,''), regoState: v('c-regostate'), street: v('c-street'), company: v('c-company') };
+  if(!isWarrantySale()){
+    const yo = document.getElementById('c-rs-yearonly').checked;
+    p.purchaseDate = yo ? v('c-rs-pyear') : v('c-rs-pdate');
+    p.purchasePrice = String(parseInt(v('c-rs-pprice').replace(/[^\d]/g,''),10)||'');
+  }
   if(isWarrantySale()){
     p.vin = v('c-vin').toUpperCase().replace(/\s+/g,'');
     p.buyingNow = radioVal('p-buying'); p.purchaseFrom = radioVal('p-from');
