@@ -4,6 +4,43 @@
 [build]
   publish = "."
 
+# Spare domains: send every page on these addresses to the same page on the main domain (301, keeps SEO on .com.au)
+[[redirects]]
+  from = "https://mydriveshield.au/*"
+  to   = "https://mydriveshield.com.au/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.mydriveshield.au/*"
+  to   = "https://mydriveshield.com.au/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://mydriveshield.com/*"
+  to   = "https://mydriveshield.com.au/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.mydriveshield.com/*"
+  to   = "https://mydriveshield.com.au/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://mydriveshield.online/*"
+  to   = "https://mydriveshield.com.au/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.mydriveshield.online/*"
+  to   = "https://mydriveshield.com.au/:splat"
+  status = 301
+  force = true
+
 # Route all paths to relevant HTML files
 # "/" is served by index.html automatically
 [[redirects]]
