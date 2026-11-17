@@ -513,6 +513,16 @@
   .intent .ic-go{display:inline-block;margin-top:10px;font-weight:800;color:var(--orange-dark);font-size:15px}
   .intent-more{display:flex;justify-content:center;gap:10px 28px;flex-wrap:wrap;margin-top:18px;font-size:14.5px}
   .intent-more a{color:var(--navy);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+  .cat-row{max-width:980px;margin:30px auto 0;text-align:center}
+  .cat-row h3{font-size:18px;margin-bottom:14px}
+  .cat-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+  .cat-tile{display:flex;flex-direction:column;gap:2px;border:1.5px solid var(--line);border-radius:14px;padding:14px 8px;background:#fff;box-shadow:var(--shadow-sm);transition:.2s}
+  .cat-tile:hover,.cat-tile:focus-visible{border-color:var(--orange);transform:translateY(-2px);box-shadow:var(--shadow)}
+  .cat-tile b{color:var(--navy);font-size:15.5px}
+  .cat-tile span{color:var(--muted);font-size:13px}
+  .cat-note{color:var(--muted);font-size:13.5px;margin-top:12px}
+  @media(max-width:900px){.cat-grid{grid-template-columns:repeat(4,1fr)}}
+  @media(max-width:520px){.cat-grid{grid-template-columns:repeat(2,1fr)}}
   /* Trust strip */
   .trust{background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:36px}
   .trust ul{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:8px 22px;padding:16px 0}
@@ -763,6 +773,11 @@ document.addEventListener('click', function(ev){
     <div class="intent-more">
       <a href="/private-sale-car-warranty/">Bought privately? See what's needed first</a>
       <a href="/partners">Dealer, broker or workshop? Partner with us</a>
+    </div>
+    <div class="cat-row" aria-labelledby="cat-title">
+      <h3 id="cat-title">Not a car? We also arrange Integrity warranties for</h3>
+      <div class="cat-grid"><a class="cat-tile" href="/caravan-warranty/"><b>Caravans</b><span>from $375</span></a><a class="cat-tile" href="/jet-ski-warranty/"><b>Jet skis</b><span>from $589</span></a><a class="cat-tile" href="/boat-warranty/"><b>Boats</b><span>from $500</span></a><a class="cat-tile" href="/motorbike-warranty/"><b>Motorbikes</b><span>from $232</span></a><a class="cat-tile" href="/motorhome-warranty/"><b>Motorhomes</b><span>from $750</span></a><a class="cat-tile" href="/machinery-warranty/"><b>Machinery</b><span>from $942</span></a><a class="cat-tile" href="/truck-warranty/"><b>Trucks</b><span>from $2,500</span></a></div>
+      <p class="cat-note">Prices include GST. Each page shows who qualifies, every claim limit and every price.</p>
     </div>
   </div>
   <div class="trust">
@@ -2679,6 +2694,8 @@ function startRoadsideOnly(){
 // === CALLBACK / QUOTE REQUEST (lead capture) ===
 let callbackReturnStep = 1;
 let callbackSource = '';
+// New categories (quote by callback until the online quote flow is built)
+const CAT_LABELS = {"caravan": "Caravan Warranty", "jetski": "Jetski Warranty", "marine": "Marine Warranty", "motorbike": "Motorbike Warranty", "motorhome": "Motorhome Warranty", "machinery": "Machinery Warranty", "truck": "Truck Warranty"};
 function showCallback(from){
   callbackSource = from || '';
   callbackReturnStep = (from === 'absolute') ? 4 : (from === 'endurance') ? 2 : 1;
@@ -2693,10 +2710,11 @@ function showCallback(from){
   if(from === 'roadside') intro.textContent = 'Just want roadside assistance? Leave your details and a MyDriveShield consultant will call you within one business day to set up 3-Star or 5-Star cover — no warranty required.';
   else if(from === 'hybrid-ev') intro.textContent = 'Hybrid or electric vehicle? Leave your details and a MyDriveShield consultant will contact you within one business day with details of Integrity\'s Total Cover and EV warranty options for your vehicle.';
   else if(from === 'endurance') intro.textContent = 'Endurance Warranty pricing is customised to your vehicle and coverage option. Leave your details and a MyDriveShield consultant will contact you within one business day with a personalised quote.';
+  else if(CAT_LABELS[from]) intro.textContent = 'Leave your details and a MyDriveShield consultant will call you within one business day with a quote for the Integrity ' + CAT_LABELS[from] + '. In the notes, tell us the make, model, year and hours or kilometres.';
   else if(from === 'absolute') intro.textContent = 'Not ready to pay today? Leave your details and a MyDriveShield consultant will call you within one business day to confirm eligibility and finalise your cover.';
   else intro.textContent = 'Leave your details and a MyDriveShield consultant will call you within one business day with a personalised quote.';
   const instantBox = document.getElementById('cb-instant');
-  if(instantBox) instantBox.style.display = (from === 'endurance') ? 'none' : 'block';
+  if(instantBox) instantBox.style.display = (from === 'endurance' || CAT_LABELS[from]) ? 'none' : 'block';
   for(let i=1;i<=4;i++){ const el=document.getElementById('step-'+i); if(el) el.style.display='none'; }
   document.getElementById('step-callback').style.display='block';
   document.getElementById('cb-success').style.display='none';
@@ -2760,8 +2778,9 @@ async function submitCallback(e){
   btn.disabled = true;
   document.getElementById('cb-btn-text').innerHTML = '<span class="spinner"></span> Sending…';
 
-  const est = (callbackSource!=='roadside' && (state.product==='endurance' || state.product==='totalcover' || state.product==='ev' || (state.product==='absolute' && ABSOLUTE[state.cat] && ABSOLUTE[state.cat][state.level]))) ? calcTotal().total : 0;
-  const product = callbackSource==='roadside' ? 'Roadside Assistance ONLY (3 or 5 Star — confirm on call)'
+  const est = (callbackSource!=='roadside' && !CAT_LABELS[callbackSource] && (state.product==='endurance' || state.product==='totalcover' || state.product==='ev' || (state.product==='absolute' && ABSOLUTE[state.cat] && ABSOLUTE[state.cat][state.level]))) ? calcTotal().total : 0;
+  const product = CAT_LABELS[callbackSource] ? CAT_LABELS[callbackSource]+' (quote request — confirm details on call)'
+                : callbackSource==='roadside' ? 'Roadside Assistance ONLY (3 or 5 Star — confirm on call)'
                 : (state.product==='totalcover' || state.product==='ev') ? productLabel()+(state.roadside!=='none'?' + '+state.roadside.replace('star',' ')+' Star Roadside':'')
                 : state.product==='endurance' ? 'Endurance Warranty Option '+state.eopt+' '+state.duration+'yr'+(state.roadside!=='none'?' + '+state.roadside.replace('star',' ')+' Star Roadside':'')
                 : 'Absolute Warranty Cat '+state.cat+' Level '+state.level+' '+state.duration+'yr'+(state.roadside!=='none'?' + '+state.roadside.replace('star',' ')+' Star Roadside':'');
@@ -2819,6 +2838,13 @@ updatePrices();
   (function(){
     const moved = {'#pricing':'/extended-car-warranty/#absolute-prices','#coverage':'/extended-car-warranty/#compare','#forms':'/faq/#forms','#why':'/#products'};
     if(moved[location.hash]) location.replace(moved[location.hash]);
+  })();
+  // Deep links from the new category pages: /?callback=caravan|jetski|marine|motorbike|motorhome|machinery|truck#quote
+  (function(){
+    const m = (location.search||'').match(/callback=([a-z]+)/);
+    if(!m || !CAT_LABELS[m[1]]) return;
+    showCallback(m[1]);
+    setTimeout(()=>document.getElementById('quote').scrollIntoView(), 50);
   })();
   // Deep links from product pages: /#quote?start=warranty|endurance|roadside
   (function(){
