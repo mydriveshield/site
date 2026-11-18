@@ -1414,15 +1414,22 @@ document.addEventListener('click', function(ev){
       <div class="wizard-card" id="step-staff" style="display:none">
         <h2>Send a pay link</h2>
         <p id="st-summary" style="margin-bottom:18px"></p>
+        <div id="st-mode" style="display:none;margin-bottom:16px">
+          <label style="font-size:13px;font-weight:600">Who pays MyDriveShield? *</label>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px;font-size:14px">
+            <label style="font-weight:500"><input type="radio" name="st-mode" value="customer" checked onchange="staffModeChanged()" style="width:auto"> The customer pays us by pay link. <span id="st-fig-a" style="color:var(--gray-500)"></span></label>
+            <label style="font-weight:500"><input type="radio" name="st-mode" value="partner" onchange="staffModeChanged()" style="width:auto"> I collect from my customer and pay MyDriveShield. <span id="st-fig-b" style="color:var(--gray-500)"></span></label>
+          </div>
+        </div>
         <div class="form-row">
           <div class="form-group"><label for="st-first">Customer first name *</label><input type="text" id="st-first" maxlength="40"></div>
           <div class="form-group"><label for="st-last">Last name *</label><input type="text" id="st-last" maxlength="40"></div>
         </div>
         <div class="form-row">
-          <div class="form-group"><label for="st-email">Customer email *</label><input type="email" id="st-email" maxlength="80"></div>
+          <div class="form-group"><label for="st-email" id="st-email-label">Customer email *</label><input type="email" id="st-email" maxlength="80"></div>
           <div class="form-group"><label for="st-phone">Mobile *</label><input type="tel" id="st-phone" maxlength="20"></div>
         </div>
-        <div class="form-group" style="margin-bottom:14px">
+        <div class="form-group" style="margin-bottom:14px" id="st-basis-wrap">
           <label>How did this conversation start? *</label>
           <div style="display:flex;flex-direction:column;gap:6px;margin-top:6px;font-size:14px">
             <label style="font-weight:500"><input type="radio" name="st-basis" value="inbound" style="width:auto"> The customer called or emailed us</label>
@@ -1432,7 +1439,7 @@ document.addEventListener('click', function(ev){
           <p style="font-size:12.5px;color:var(--gray-500);margin-top:6px">We do not send pay links after an unrequested call. If none of these applies, do not send.</p>
         </div>
         <div class="form-group" style="margin-bottom:14px"><label for="st-note">Internal note (not sent to the customer)</label><input type="text" id="st-note" maxlength="200" placeholder="e.g. buying from dealer Friday, wants 3 years"></div>
-        <label style="display:flex;gap:10px;align-items:flex-start;padding:12px;background:var(--gray-100);border-radius:var(--r-sm);font-size:13.5px;font-weight:500;line-height:1.5;margin-bottom:14px"><input type="checkbox" id="st-consent" style="width:auto;margin-top:3px"> The customer asked me to send this quote to the email address above. I gave factual information only and did not recommend a product. *</label>
+        <label id="st-consent-wrap" style="display:flex;gap:10px;align-items:flex-start;padding:12px;background:var(--gray-100);border-radius:var(--r-sm);font-size:13.5px;font-weight:500;line-height:1.5;margin-bottom:14px"><input type="checkbox" id="st-consent" style="width:auto;margin-top:3px"> The customer asked me to send this quote to the email address above. I gave factual information only and did not recommend a product. *</label>
         <div id="st-message" style="display:none;color:#B91C1C;font-size:14px;margin-bottom:10px"></div>
         <button class="btn btn-primary btn-lg" id="st-send" onclick="staffSendLink()" style="width:100%;justify-content:center">Email the pay link</button>
         <div id="st-done" style="display:none;margin-top:16px;padding:14px;border:1px solid #BBF7D0;background:#F0FDF4;border-radius:var(--r-sm);font-size:14px;line-height:1.55"></div>
@@ -2564,7 +2571,8 @@ async function initStripe(){
         email: document.getElementById('c-email').value,
         phone: document.getElementById('c-phone').value,
         product: productLabel(),
-        ...vehiclePayload()
+        ...vehiclePayload(),
+        quoteRef: (window.mdsPayLink && window.mdsPayLink.ref) || ''
       })
     });
     const data = await res.json();
@@ -2846,27 +2854,47 @@ function staffSession(){
   return null;
 }
 const staffMode = /[?&]staff=1\b/.test(location.search) ? staffSession() : null;
+let _goStepStaff = null;
+function staffModeChanged(){
+  const partnerPays = staffMode && staffMode.type==='partner' && radioVal('st-mode')==='partner';
+  ['st-basis-wrap','st-consent-wrap'].forEach(id=>{ const e=document.getElementById(id); if(e) e.style.display = partnerPays ? 'none' : ''; });
+  const lab = document.getElementById('st-email-label'); if(lab) lab.textContent = partnerPays ? 'Customer email (optional)' : 'Customer email *';
+  const btn = document.getElementById('st-send'); if(btn && !btn.disabled) btn.textContent = partnerPays ? 'Email the pay link to me' : 'Email the pay link';
+}
 if(/[?&]staff=1\b/.test(location.search) && !staffMode) location.replace('/staff/');
 
+function partnerFig(){
+  if(!staffMode || staffMode.type!=='partner' || !staffMode.partner || state.product!=='roadside') return null;
+  const t = staffMode.partner[state.roadside==='star5' ? 'star5' : 'star3']; return t ? t[state.duration-1] : null;
+}
 function quoteSnapshot(){
-  return { make: state.make, model: state.model, year: state.year, odo: state.odo, fuel: state.fuel, awd: !!state.awd, cat: state.cat,
+  const pf = partnerFig();
+  return { partnerPrice: pf ? pf.price : 0, make: state.make, model: state.model, year: state.year, odo: state.odo, fuel: state.fuel, awd: !!state.awd, cat: state.cat,
     product: state.product, level: state.level, eopt: state.eopt, tlevel: state.tlevel, tcPlus: !!state.tcPlus, evplan: state.evplan,
     duration: state.duration, roadside: state.roadside, label: productLabel(), total: calcTotal().total };
 }
 function quoteSummaryText(q){
   const veh = state.product==='roadside' ? '' : [q.make, q.model, q.year].filter(Boolean).join(' ')+', '+parseInt(q.odo||0,10).toLocaleString('en-AU')+' km, '+(q.awd?'4WD/AWD':'2WD')+'. ';
   const rs = (state.product!=='roadside' && q.roadside!=='none') ? ' + '+(q.roadside==='star5'?'5 Star':'3 Star')+' Roadside' : '';
-  return veh + q.label + (state.product==='roadside' ? '' : ', '+q.duration+(q.duration===1?' year':' years')) + rs + '. Total '+fmt(q.total)+' incl. GST.';
+  return veh + q.label + ((state.product==='roadside' || /\d+\s*yr/i.test(q.label)) ? '' : ', '+q.duration+(q.duration===1?' year':' years')) + rs + '. Total '+fmt(q.total)+' incl. GST.';
 }
 
 function showStaffStep(){
+  if(staffMode.type==='partner' && state.product!=='roadside'){ selectProduct('roadside'); return _goStepStaff(1); }
   if(state.product==='roadside' && state.roadside==='none') selectRoadside('star3');
   for(let i=1;i<=4;i++){
     const el = document.getElementById('step-'+i); if(el) el.style.display = 'none';
     const dot = document.getElementById('dot-'+i); if(dot){ dot.classList.toggle('active', i===4); dot.classList.toggle('done', i<4); }
   }
   const cb = document.getElementById('step-callback'); if(cb) cb.style.display = 'none';
-  document.getElementById('st-summary').textContent = quoteSummaryText(quoteSnapshot());
+  const pf = partnerFig();
+  document.getElementById('st-summary').textContent = pf
+    ? state.roadside.replace('star','')+' Star Roadside Assistance, '+state.duration+(state.duration===1?' year':' years')+'. Your price to the customer: '+fmt(pf.price)+' incl. GST (maximum '+fmt(pf.max)+').'
+    : quoteSummaryText(quoteSnapshot());
+  const pm = document.getElementById('st-mode'); pm.style.display = pf ? 'block' : 'none';
+  if(pf){ document.getElementById('st-fig-a').textContent = 'You earn '+fmt(pf.commission)+' commission, paid 14 days after the customer pays.';
+          document.getElementById('st-fig-b').textContent = 'You pay MyDriveShield '+fmt(pf.buy)+' and keep the difference. We email you the schedule once paid.'; }
+  staffModeChanged();
   document.getElementById('st-done').style.display = 'none';
   document.getElementById('st-message').style.display = 'none';
   document.getElementById('st-send').disabled = false;
@@ -2876,7 +2904,7 @@ function showStaffStep(){
 }
 
 if(staffMode){
-  const _goStepStaff = goStep;
+  _goStepStaff = goStep;
   goStep = function(n){
     const sc = document.getElementById('step-staff'); if(sc) sc.style.display = 'none';
     if(n===4){ if(!validateStep1()) return; return showStaffStep(); }
@@ -2885,29 +2913,30 @@ if(staffMode){
   const bar = document.createElement('div');
   bar.setAttribute('role','region'); bar.setAttribute('aria-label','Staff mode');
   bar.style.cssText = 'position:sticky;top:0;z-index:999;background:#0B2545;color:#fff;font:600 13px/1.4 system-ui,sans-serif;padding:8px 16px;display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap';
-  bar.innerHTML = '<span>Staff mode: '+String(staffMode.name||'').replace(/[<>&"]/g,'')+'. Build the quote, then email the customer a pay link.</span><a href="/staff/" style="color:#FDBA74">My quotes</a><a href="/staff/?signout=1" style="color:#FDBA74">Sign out</a>';
+  bar.innerHTML = '<span>'+(staffMode.type==='partner' ? 'Partner: '+String(staffMode.business||staffMode.name||'').replace(/[<>&"]/g,'')+'. Roadside assistance quotes.' : 'Staff mode: '+String(staffMode.name||'').replace(/[<>&"]/g,'')+'. Build the quote, then email the customer a pay link.')+'</span><a href="/staff/" style="color:#FDBA74">My quotes</a><a href="/staff/?signout=1" style="color:#FDBA74">Sign out</a>';
   document.body.prepend(bar);
   document.title = 'Staff quote | MyDriveShield';
-  setTimeout(()=>{ startWarranty(); }, 0);
+  setTimeout(()=>{ if(staffMode.type==='partner') startRoadsideOnly(); else startWarranty(); }, 0);
 }
 
 async function staffSendLink(){
   const msg = document.getElementById('st-message');
   const v = id => (document.getElementById(id).value||'').trim();
-  const first=v('st-first'), last=v('st-last'), email=v('st-email'), phone=v('st-phone'), note=v('st-note');
+  let first=v('st-first'), last=v('st-last'), email=v('st-email'), phone=v('st-phone'), note=v('st-note');
   const basis = radioVal('st-basis');
+  const mode = (staffMode.type==='partner' && radioVal('st-mode')==='partner') ? 'partner' : 'customer';
   const err = t => { msg.style.display='block'; msg.textContent=t; };
   msg.style.display='none';
-  if(!first||!last||!email||!phone) return err('Please fill in the customer\'s name, email and mobile.');
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return err('Please check the email address.');
+  if(!first||!last||!phone||(mode==='customer'&&!email)) return err(mode==='customer' ? 'Please fill in the customer\'s name, email and mobile.' : 'Please fill in the customer\'s name and mobile.');
+  if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return err('Please check the email address.');
   if(!/^(\+?61|0)[2-9]\d{8}$/.test(phone.replace(/[\s\-()]/g,''))) return err('Please enter a valid Australian phone number.');
-  if(!basis) return err('Please say how the conversation started.');
-  if(!document.getElementById('st-consent').checked) return err('Please tick the box to confirm the customer asked for this quote.');
+  if(mode==='customer' && !basis) return err('Please say how the conversation started.');
+  if(mode==='customer' && !document.getElementById('st-consent').checked) return err('Please tick the box to confirm the customer asked for this quote.');
   const s = staffSession(); if(!s){ location.href = '/staff/'; return; }
   const btn = document.getElementById('st-send'); btn.disabled = true; btn.textContent = 'Sending...';
   try{
     const res = await fetch(CONFIG.N8N_STAFF, { method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ action:'create', sid: s.sid, quote: quoteSnapshot(), customer:{ first, last, email, phone }, basis, note }) });
+      body: JSON.stringify({ action:'create', sid: s.sid, quote: quoteSnapshot(), customer:{ first, last, email, phone }, basis, note, mode }) });
     const d = await res.json();
     if(!d.ok){
       btn.disabled = false; btn.textContent = 'Email the pay link';
@@ -2915,8 +2944,9 @@ async function staffSendLink(){
       return err(d.error || 'The quote could not be sent.');
     }
     btn.textContent = 'Sent';
+    email = d.payTo || email;
     const done = document.getElementById('st-done');
-    done.innerHTML = '<strong>Sent to '+email.replace(/[<>&"]/g,'')+'.</strong> Quote '+d.ref+', '+fmt(d.total)+' incl. GST, valid until '+d.expires+'.<br>'
+    done.innerHTML = '<strong>Sent to '+email.replace(/[<>&"]/g,'')+'.</strong> Quote '+d.ref+', '+fmt(d.total)+' incl. GST, valid until '+d.expires+'.'+(d.commission ? ' Commission if paid: '+fmt(d.commission)+'.' : '')+'<br>'
       + 'Link: <input id="st-link" readonly value="'+d.link+'" style="width:100%;margin:6px 0;font-size:13px"> <button type="button" class="btn btn-outline" style="padding:6px 12px;font-size:13px" onclick="navigator.clipboard&&navigator.clipboard.writeText(document.getElementById(\'st-link\').value);this.textContent=\'Copied\'">Copy link</button> '
       + '<button type="button" class="btn btn-outline" style="padding:6px 12px;font-size:13px" onclick="location.href=\'/?staff=1#quote\'">New quote</button>';
     done.style.display = 'block';
@@ -2934,11 +2964,19 @@ async function staffSendLink(){
   }
   fetch(CONFIG.N8N_STAFF, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ action:'quote', q: token }) })
     .then(r=>r.json()).then(async d=>{
+      if(!d.ok && d.code==='paid') return expired('This quote has already been paid. Thank you. If you need help, call 0477 666 500.');
       if(!d.ok) return expired(d.code==='expired'
         ? 'This quote link has expired. Leave your details and we will call you to confirm the price, or call 0477 666 500.'
         : 'We could not open this quote link. Leave your details and we will call you, or call 0477 666 500.');
       const q = d.quote;
-      window.mdsPayLink = { ref: d.ref };
+      window.mdsPayLink = { ref: d.ref, total: d.total, override: !!d.override, plan: q.roadside, duration: q.duration };
+      if(d.override){
+        // Partner price: charge the quoted price for this exact plan; the payment is re-checked against the saved quote server-side.
+        const _calcTotal = calcTotal;
+        calcTotal = function(){ const p = window.mdsPayLink;
+          if(p && p.override && state.product==='roadside' && state.roadside===p.plan && state.duration===p.duration) return { base:0, awd:0, rs:p.total, total:p.total };
+          return _calcTotal(); };
+      }
       set('v-make', q.make); onMakeChange(); set('v-model', q.model); set('v-year', q.year); set('v-odo', q.odo);
       if(q.fuel){ set('v-fuel', q.fuel); state.fuelManual = true; }
       recalcCategory();
@@ -2957,12 +2995,17 @@ async function staffSendLink(){
       // Stripe.js loads async; a pay link reaches the payment step before a normal visitor would, so wait for it (up to 15 s).
       for(let i=0; i<150 && typeof Stripe==='undefined'; i++) await new Promise(r=>setTimeout(r,100));
       goStep(4);
+      if(d.override){ const back = document.querySelector('#step-4 .step-back'); if(back) back.style.display = 'none';
+        const _gs = goStep; goStep = function(n){ return n===4 ? _gs(4) : undefined; }; }
       const now = calcTotal().total;
       const b = document.getElementById('paylink-banner');
-      b.innerHTML = '<strong>Your quote '+d.ref+'</strong>'+(d.staffName ? ' from '+d.staffName : '')+', valid until '+d.expires+'.<br>'
+      const esc2 = t => String(t||'').replace(/[<>&"]/g,'');
+      b.innerHTML = (d.mode==='partner' ? '<strong>Pay link '+d.ref+'</strong> for your customer '+esc2((d.customer||{}).first)+' '+esc2((d.customer||{}).last)+', valid until '+d.expires+'.<br>'
+                                         : '<strong>Your quote '+d.ref+'</strong>'+(d.staffName ? ' from '+esc2(d.staffName) : '')+', valid until '+d.expires+'.<br>')
         + quoteSummaryText(quoteSnapshot()).replace(/[<>&]/g,'')
         + (Math.round(now)!==Math.round(d.total) ? '<br><strong>The price has changed since your quote was prepared</strong> (quoted '+fmt(d.total)+'). The price above is the current price. Call 0477 666 500 if you have a question.' : '')
-        + '<br>Please check the details, complete the questions below, read the PDS and pay. Call 0477 666 500 if anything needs changing.';
+        + (d.partner && d.mode!=='partner' ? '<br>'+esc2(d.staffName)+' receives a commission from MyDriveShield if you buy.' : '')
+        + '<br>Please check the details, complete the questions below, read the terms and pay. Call 0477 666 500 if anything needs changing.';
       b.style.display = 'block';
       window.mdsTrack && window.mdsTrack('paylink_open', { ref: d.ref, value: now, currency:'AUD' });
       setTimeout(()=>document.getElementById('quote').scrollIntoView(), 60);

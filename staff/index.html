@@ -59,6 +59,26 @@ th{font-size:12px;text-transform:uppercase;letter-spacing:.03em;color:var(--g5)}
     <div class="tbl"><table><thead><tr><th>Sent</th><th>Ref</th><th>Customer</th><th>Cover</th><th>Total</th><th>Status</th></tr></thead><tbody id="rows"></tbody></table></div>
   </section>
 
+  <section class="card hide" id="ledger-card">
+    <h1 style="font-size:18px" id="ledger-title">My sales and commission</h1>
+    <p class="sub" id="ledger-sub">Commission is payable 14 days after the customer pays, or 31 days if the sale includes a warranty (30-day cancellation window). If a sale is cancelled before then, no commission is paid.</p>
+    <div id="totals" style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px"></div>
+    <div id="admin-tools" class="hide" style="margin-bottom:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <select id="agent-filter" style="padding:8px;border:1px solid #D1D5DB;border-radius:8px;font:inherit"><option value="">All agents</option></select>
+      <button class="btn" type="button" id="btn-csv" style="padding:8px 14px;font-size:14px">Download CSV</button>
+      <button class="btn" type="button" id="btn-payout" style="padding:8px 14px;font-size:14px;background:#0B2545">Mark ticked as paid</button>
+      <button class="btn" type="button" id="btn-claw" style="padding:8px 14px;font-size:14px;background:#B91C1C">Sale cancelled (claw back)</button>
+    </div>
+    <div class="msg" id="ledger-msg"></div>
+    <div class="tbl"><table><thead><tr id="ledger-head"></tr></thead><tbody id="ledger-rows"></tbody></table></div>
+  </section>
+
+  <section class="card hide" id="prices-card">
+    <h1 style="font-size:18px">My roadside prices</h1>
+    <p class="sub">Your price to the customer, your commission when the customer pays MyDriveShield, and what you pay us when you collect from your customer yourself. All amounts include GST.</p>
+    <div class="tbl"><table style="min-width:520px"><thead><tr><th>Plan</th><th>Term</th><th>Your price</th><th>Maximum</th><th>Your commission</th><th>You pay us</th></tr></thead><tbody id="price-rows"></tbody></table></div>
+  </section>
+
   <section class="card hide" id="rules-card">
     <h1 style="font-size:18px">Rules for pay links</h1>
     <ul class="rules">
@@ -74,6 +94,52 @@ th{font-size:12px;text-transform:uppercase;letter-spacing:.03em;color:var(--g5)}
 const API = 'https://layden.app.n8n.cloud/webhook/driveshield-staff';
 const KEY = 'mds_staff';
 const $ = id => document.getElementById(id);
+const money = n => (n<0?'-':'')+'$'+Math.abs(Number(n)).toLocaleString('en-AU',{minimumFractionDigits:2,maximumFractionDigits:2});
+let LEDGER = null;
+async function loadLedger(s){
+  try{
+    const d = await call({action:'ledger', sid: s.sid});
+    if(!d.ok) throw new Error(d.error||'');
+    LEDGER = d;
+    if(d.admin){
+      $('ledger-title').textContent = 'Sales and commission, all agents';
+      $('admin-tools').classList.remove('hide');
+      const agents = [...new Set(d.lines.map(l=>l.agent))];
+      $('agent-filter').innerHTML = '<option value="">All agents</option>'+agents.map(a=>'<option>'+esc(a)+'</option>').join('');
+    }
+    renderLedger();
+  }catch(e){ $('ledger-msg').textContent = 'Could not load sales just now.'; $('ledger-msg').className = 'msg bad'; }
+}
+function renderLedger(){
+  const d = LEDGER; if(!d) return;
+  const f = $('agent-filter').value;
+  const lines = d.lines.filter(l => !f || l.agent===f);
+  const sum = st => lines.filter(l=>l.status===st).reduce((a,l)=>a+l.commission,0);
+  const box = (t,v,c) => '<div style="flex:1;min-width:140px;border:1px solid #E5E7EB;border-radius:10px;padding:10px 12px"><div style="font-size:12px;color:#6B7280;text-transform:uppercase">'+t+'</div><div style="font-size:20px;font-weight:700;color:'+c+'">'+money(v)+'</div></div>';
+  const next = lines.filter(l=>l.status==='pending').map(l=>l.payable).sort((a,b)=>a.split('/').reverse().join('').localeCompare(b.split('/').reverse().join('')))[0];
+  $('totals').innerHTML = box('Owed now', sum('payable'), '#15803D') + box('Pending'+(next?' (next '+next+')':''), sum('pending'), '#0B2545') + box('Paid to date', sum('paid'), '#6B7280');
+  $('ledger-head').innerHTML = (d.admin?'<th></th><th>Agent</th>':'')+'<th>Paid</th><th>Order</th><th>Customer</th><th>Cover</th><th>Sale</th><th>Commission</th><th>Payable</th><th>Status</th>';
+  $('ledger-rows').innerHTML = lines.length ? lines.map(l =>
+    '<tr>'+(d.admin?'<td><input type="checkbox" class="lk" value="'+esc(l.orderRef||l.ref)+'"></td><td>'+esc(l.agent)+(l.business?'<br><span style="color:#6B7280;font-size:12px">'+esc(l.business)+'</span>':'')+'</td>':'')
+    +'<td>'+esc(l.paid)+'</td><td>'+esc(l.orderRef||l.ref)+'</td><td>'+esc(l.customer)+'</td><td>'+esc(l.label)+(l.note?'<br><span style="color:#6B7280;font-size:12px">'+esc(l.note)+'</span>':'')+'</td><td>'+money(l.amount)+'</td><td>'+money(l.commission)+'</td><td>'+esc(l.payable)+'</td><td><span class="pill '+(l.status==='paid'?'paid':l.status==='payable'?'opened':l.status==='clawed back'?'expired':'')+'">'+esc(l.status)+(l.paidOut?' '+esc(l.paidOut):'')+'</span></td></tr>').join('')
+    : '<tr><td colspan="10">No paid sales yet.</td></tr>';
+}
+async function adminAction(action){
+  const keys = [...document.querySelectorAll('.lk:checked')].map(c=>c.value);
+  if(!keys.length){ $('ledger-msg').textContent = 'Tick at least one line first.'; $('ledger-msg').className='msg bad'; return; }
+  const s = getS(); if(!s) return showLogin('Your session has ended. Please sign in again.','bad');
+  const d = await call({action, sid:s.sid, keys});
+  $('ledger-msg').textContent = d.ok ? 'Updated '+d.updated+' line(s).' : (d.error||'Could not update.'); $('ledger-msg').className = 'msg '+(d.ok?'ok':'bad');
+  loadLedger(s);
+}
+function downloadCsv(){
+  const d = LEDGER; if(!d) return; const f = $('agent-filter').value;
+  const cols = ['agent','business','paid','orderRef','ref','customer','label','amount','commission','payable','status','paidOut','note'];
+  const q = v => '"'+String(v==null?'':v).replace(/"/g,'""')+'"';
+  const csv = [cols.join(',')].concat(d.lines.filter(l=>!f||l.agent===f).map(l=>cols.map(c=>q(l[c])).join(','))).join('\r\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download = 'mds-commission-'+new Date().toISOString().slice(0,10)+'.csv'; a.click();
+}
+document.addEventListener('DOMContentLoaded',()=>{});
 const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function getS(){ try{ const s = JSON.parse(localStorage.getItem(KEY)||'null'); if(s && s.sid && s.exp > Date.now()) return s; }catch(e){} return null; }
 function setS(s){ try{ localStorage.setItem(KEY, JSON.stringify(s)); }catch(e){} }
@@ -81,13 +147,20 @@ function clearS(){ try{ localStorage.removeItem(KEY); }catch(e){} }
 async function call(body){ const r = await fetch(API, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)}); return r.json(); }
 
 function showLogin(text, cls){
-  ['dash','list','rules-card'].forEach(id=>$(id).classList.add('hide'));
+  ['dash','list','rules-card','ledger-card','prices-card'].forEach(id=>$(id).classList.add('hide'));
   $('login').classList.remove('hide'); $('who').textContent = '';
   if(text){ $('login-msg').textContent = text; $('login-msg').className = 'msg '+(cls||''); }
 }
 async function showDash(s){
   $('login').classList.add('hide');
-  ['dash','list','rules-card'].forEach(id=>$(id).classList.remove('hide'));
+  ['dash','list','rules-card','ledger-card'].forEach(id=>$(id).classList.remove('hide'));
+  loadLedger(s);
+  if(s.type==='partner' && s.partner){
+    $('prices-card').classList.remove('hide');
+    const r = []; ['star3','star5'].forEach(pl => s.partner[pl].forEach((f,i) => r.push('<tr><td>'+(pl==='star5'?'5':'3')+' Star</td><td>'+(i+1)+(i?' years':' year')+'</td><td>'+money(f.price)+'</td><td>'+money(f.max)+'</td><td>'+money(f.commission)+'</td><td>'+money(f.buy)+'</td></tr>')));
+    $('price-rows').innerHTML = r.join('');
+    $('rules-card').classList.add('hide');
+  }
   $('hello').textContent = 'Hi '+s.name;
   $('who').innerHTML = esc(s.email)+' &middot; <a href="/staff/?signout=1">Sign out</a>';
   $('rows').innerHTML = '<tr><td colspan="6">Loading...</td></tr>';
@@ -95,11 +168,15 @@ async function showDash(s){
     const d = await call({action:'list', sid: s.sid});
     if(!d.ok){ if(d.code==='session'){ clearS(); return showLogin('Your session has ended. Please sign in again.', 'bad'); } throw new Error(d.error); }
     $('rows').innerHTML = d.quotes.length ? d.quotes.map(q =>
-      '<tr><td>'+esc(q.sent)+'</td><td>'+esc(q.ref)+'</td><td>'+esc(q.customer)+'</td><td>'+esc(q.label)+'</td><td>$'+Number(q.total).toLocaleString('en-AU')+'</td><td><span class="pill '+esc(q.status)+'">'+esc(q.status)+'</span></td></tr>').join('')
+      '<tr><td>'+esc(q.sent)+'</td><td>'+esc(q.ref)+(s.type==='admin' ? '<br><span style="color:#6B7280;font-size:12px">'+esc(q.by)+'</span>' : '')+'</td><td>'+esc(q.customer)+'</td><td>'+esc(q.label)+'</td><td>'+money(q.total)+'</td><td><span class="pill '+esc(q.status)+'">'+esc(q.status)+'</span></td></tr>').join('')
       : '<tr><td colspan="6">No quotes yet.</td></tr>';
   }catch(e){ $('rows').innerHTML = ''; $('list-msg').textContent = 'Could not load your quotes just now.'; $('list-msg').className='msg bad'; }
 }
 
+$('agent-filter').addEventListener('change', renderLedger);
+$('btn-csv').addEventListener('click', downloadCsv);
+$('btn-payout').addEventListener('click', ()=>adminAction('payout'));
+$('btn-claw').addEventListener('click', ()=>{ if(window.confirm('Mark the ticked sales as cancelled? Paid commission becomes a deduction.')) adminAction('clawback'); });
 $('login-form').addEventListener('submit', async e => {
   e.preventDefault();
   const email = $('email').value.trim(); if(!email) return;
@@ -124,7 +201,7 @@ $('login-form').addEventListener('submit', async e => {
     history.replaceState(null,'','/staff/');
     try{
       const d = await call({action:'session', t});
-      if(d.ok){ const s = {sid:d.sid, name:d.name, email:d.email, exp:d.exp}; setS(s); return showDash(s); }
+      if(d.ok){ const s = {sid:d.sid, name:d.name, email:d.email, exp:d.exp, type:d.type, business:d.business, partner:d.partner}; setS(s); return showDash(s); }
       return showLogin(d.error || 'That sign-in link has expired or was already used. Request a new one.', 'bad');
     }catch(e){ return showLogin('Could not reach the server. Try again.', 'bad'); }
   }
