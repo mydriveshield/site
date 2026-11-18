@@ -594,7 +594,7 @@ window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-HZMK5CPS6Z');
-gtag('config', 'AW-18308478534');
+gtag('config', 'AW-18308478534', { allow_enhanced_conversions: true });
 
 // === MyDriveShield conversion tracking ===
 // LABELS: Google Ads conversion labels (Goals > Conversions > action > Tag setup > "Use Google tag" > event snippet).
@@ -2636,6 +2636,10 @@ async function submitPayment(){
     const data = await res.json();
     clientSecret = data.clientSecret;
   } catch(e){ showError('Could not connect to payment server. Please try again.'); return; }
+
+  // Enhanced conversions: carry the customer's details across Stripe's redirect so
+  // /confirmation.html can send hashed user_data with the purchase conversion.
+  try{ sessionStorage.setItem('mds_ec', JSON.stringify({ email, phone, first, last, suburb, state: stateV, postcode })); }catch(e){}
 
   const result = await stripe.confirmPayment({
     elements, clientSecret,
