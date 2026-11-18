@@ -1196,6 +1196,7 @@ document.addEventListener('click', function(ev){
       <!-- STEP 4: Details + Payment -->
       <div class="wizard-card" id="step-4" style="display:none">
         <h2>Your Details &amp; Payment</h2>
+        <div id="paylink-banner" style="display:none;margin:0 0 18px;padding:14px 16px;border-radius:var(--r-sm);background:#EEF6FF;border:1px solid #BFDBFE;font-size:14px;line-height:1.5;color:var(--gray-700)"></div>
         <p id="step4-intro">Secure payment processed by Stripe. Pay by card, Google Pay, Apple Pay, or split your payment into interest-free instalments with Klarna (subject to eligibility). Once we have checked your details, your cover is lodged and your certificate is emailed to you.</p>
         <div class="form-row">
           <div class="form-group">
@@ -1409,6 +1410,34 @@ document.addEventListener('click', function(ev){
           <span></span>
         </div>
       </div>
+      <!-- STAFF: send a pay link (only shown in staff mode, after sign-in at /staff/) -->
+      <div class="wizard-card" id="step-staff" style="display:none">
+        <h2>Send a pay link</h2>
+        <p id="st-summary" style="margin-bottom:18px"></p>
+        <div class="form-row">
+          <div class="form-group"><label for="st-first">Customer first name *</label><input type="text" id="st-first" maxlength="40"></div>
+          <div class="form-group"><label for="st-last">Last name *</label><input type="text" id="st-last" maxlength="40"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label for="st-email">Customer email *</label><input type="email" id="st-email" maxlength="80"></div>
+          <div class="form-group"><label for="st-phone">Mobile *</label><input type="tel" id="st-phone" maxlength="20"></div>
+        </div>
+        <div class="form-group" style="margin-bottom:14px">
+          <label>How did this conversation start? *</label>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-top:6px;font-size:14px">
+            <label style="font-weight:500"><input type="radio" name="st-basis" value="inbound" style="width:auto"> The customer called or emailed us</label>
+            <label style="font-weight:500"><input type="radio" name="st-basis" value="callback" style="width:auto"> The customer asked for a callback (website form or message)</label>
+            <label style="font-weight:500"><input type="radio" name="st-basis" value="existing" style="width:auto"> Existing customer or referral who asked us to call</label>
+          </div>
+          <p style="font-size:12.5px;color:var(--gray-500);margin-top:6px">We do not send pay links after an unrequested call. If none of these applies, do not send.</p>
+        </div>
+        <div class="form-group" style="margin-bottom:14px"><label for="st-note">Internal note (not sent to the customer)</label><input type="text" id="st-note" maxlength="200" placeholder="e.g. buying from dealer Friday, wants 3 years"></div>
+        <label style="display:flex;gap:10px;align-items:flex-start;padding:12px;background:var(--gray-100);border-radius:var(--r-sm);font-size:13.5px;font-weight:500;line-height:1.5;margin-bottom:14px"><input type="checkbox" id="st-consent" style="width:auto;margin-top:3px"> The customer asked me to send this quote to the email address above. I gave factual information only and did not recommend a product. *</label>
+        <div id="st-message" style="display:none;color:#B91C1C;font-size:14px;margin-bottom:10px"></div>
+        <button class="btn btn-primary btn-lg" id="st-send" onclick="staffSendLink()" style="width:100%;justify-content:center">Email the pay link</button>
+        <div id="st-done" style="display:none;margin-top:16px;padding:14px;border:1px solid #BBF7D0;background:#F0FDF4;border-radius:var(--r-sm);font-size:14px;line-height:1.55"></div>
+        <div class="wizard-nav" style="margin-top:12px"><button class="step-back" onclick="goStep(3)">&larr; Back</button><a href="/staff/" style="font-size:14px;font-weight:600;color:var(--accent)">My quotes</a></div>
+      </div>
       <!-- CALLBACK / QUOTE REQUEST (lead capture without payment) -->
       <div class="wizard-card" id="step-callback" style="display:none">
         <h2>Request a callback</h2>
@@ -1537,7 +1566,8 @@ const CONFIG = {
   STRIPE_PK: 'pk_live_51Tm4jMDGdlEAcSBwrosEcx9f5IYiW04BtT5TT2zmnp5klHlMtDxhBi1EgLfT0H9V2IGxHqPctQ0fljQ3tPdaMXDA008FZ69ZuB',
   N8N_CREATE_INTENT: 'https://layden.app.n8n.cloud/webhook/driveshield-create-intent',
   N8N_PARTNER_LEAD:  'https://layden.app.n8n.cloud/webhook/driveshield-partner-lead',
-  N8N_UPLOAD:        'https://layden.app.n8n.cloud/webhook/driveshield-upload'
+  N8N_UPLOAD:        'https://layden.app.n8n.cloud/webhook/driveshield-upload',
+  N8N_STAFF:         'https://layden.app.n8n.cloud/webhook/driveshield-staff'
 };
 
 // === PRICING DATA ===
@@ -2630,7 +2660,8 @@ async function submitPayment(){
         product: productLabel(),
         firstName:first, lastName:last, suburb, state:stateV, postcode,
         termsAccepted: true, termsAcceptedAt: state.termsAcceptedAt, pdsVersion: state.product==='endurance' ? 'IENDI V2.2' : state.product==='totalcover' ? 'IITOC V1.2' : state.product==='ev' ? 'IEVWI V1.1' : 'IABSI V3.5',
-        ...vehiclePayload(), ...signupPayload(), ...uploads
+        ...vehiclePayload(), ...signupPayload(), ...uploads,
+        quoteRef: (window.mdsPayLink && window.mdsPayLink.ref) || ''
       })
     });
     const data = await res.json();
@@ -2804,6 +2835,139 @@ async function submitCallback(e){
     document.getElementById('cb-btn-text').textContent='Request My Callback →';
   }
 }
+
+// === STAFF MODE AND PAY LINKS ===
+// Staff sign in at /staff/ (one-time link emailed to their own address), then build a quote here with ?staff=1.
+// At the last step, staff email the customer a link instead of taking payment. The link (?q=...) reopens this
+// checkout at the payment step with the quote filled in. n8n reprices every quote and every payment server-side.
+const STAFF_KEY = 'mds_staff';
+function staffSession(){
+  try{ const s = JSON.parse(localStorage.getItem(STAFF_KEY)||'null'); if(s && s.sid && s.exp > Date.now()) return s; }catch(e){}
+  return null;
+}
+const staffMode = /[?&]staff=1\b/.test(location.search) ? staffSession() : null;
+if(/[?&]staff=1\b/.test(location.search) && !staffMode) location.replace('/staff/');
+
+function quoteSnapshot(){
+  return { make: state.make, model: state.model, year: state.year, odo: state.odo, fuel: state.fuel, awd: !!state.awd, cat: state.cat,
+    product: state.product, level: state.level, eopt: state.eopt, tlevel: state.tlevel, tcPlus: !!state.tcPlus, evplan: state.evplan,
+    duration: state.duration, roadside: state.roadside, label: productLabel(), total: calcTotal().total };
+}
+function quoteSummaryText(q){
+  const veh = state.product==='roadside' ? '' : [q.make, q.model, q.year].filter(Boolean).join(' ')+', '+parseInt(q.odo||0,10).toLocaleString('en-AU')+' km, '+(q.awd?'4WD/AWD':'2WD')+'. ';
+  const rs = (state.product!=='roadside' && q.roadside!=='none') ? ' + '+(q.roadside==='star5'?'5 Star':'3 Star')+' Roadside' : '';
+  return veh + q.label + (state.product==='roadside' ? '' : ', '+q.duration+(q.duration===1?' year':' years')) + rs + '. Total '+fmt(q.total)+' incl. GST.';
+}
+
+function showStaffStep(){
+  if(state.product==='roadside' && state.roadside==='none') selectRoadside('star3');
+  for(let i=1;i<=4;i++){
+    const el = document.getElementById('step-'+i); if(el) el.style.display = 'none';
+    const dot = document.getElementById('dot-'+i); if(dot){ dot.classList.toggle('active', i===4); dot.classList.toggle('done', i<4); }
+  }
+  const cb = document.getElementById('step-callback'); if(cb) cb.style.display = 'none';
+  document.getElementById('st-summary').textContent = quoteSummaryText(quoteSnapshot());
+  document.getElementById('st-done').style.display = 'none';
+  document.getElementById('st-message').style.display = 'none';
+  document.getElementById('st-send').disabled = false;
+  document.getElementById('step-staff').style.display = 'block';
+  curStep = 4;
+  window.scrollTo({top: document.getElementById('quote').offsetTop - 80, behavior:'smooth'});
+}
+
+if(staffMode){
+  const _goStepStaff = goStep;
+  goStep = function(n){
+    const sc = document.getElementById('step-staff'); if(sc) sc.style.display = 'none';
+    if(n===4){ if(!validateStep1()) return; return showStaffStep(); }
+    return _goStepStaff(n);
+  };
+  const bar = document.createElement('div');
+  bar.setAttribute('role','region'); bar.setAttribute('aria-label','Staff mode');
+  bar.style.cssText = 'position:sticky;top:0;z-index:999;background:#0B2545;color:#fff;font:600 13px/1.4 system-ui,sans-serif;padding:8px 16px;display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap';
+  bar.innerHTML = '<span>Staff mode: '+String(staffMode.name||'').replace(/[<>&"]/g,'')+'. Build the quote, then email the customer a pay link.</span><a href="/staff/" style="color:#FDBA74">My quotes</a><a href="/staff/?signout=1" style="color:#FDBA74">Sign out</a>';
+  document.body.prepend(bar);
+  document.title = 'Staff quote | MyDriveShield';
+  setTimeout(()=>{ startWarranty(); }, 0);
+}
+
+async function staffSendLink(){
+  const msg = document.getElementById('st-message');
+  const v = id => (document.getElementById(id).value||'').trim();
+  const first=v('st-first'), last=v('st-last'), email=v('st-email'), phone=v('st-phone'), note=v('st-note');
+  const basis = radioVal('st-basis');
+  const err = t => { msg.style.display='block'; msg.textContent=t; };
+  msg.style.display='none';
+  if(!first||!last||!email||!phone) return err('Please fill in the customer\'s name, email and mobile.');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return err('Please check the email address.');
+  if(!/^(\+?61|0)[2-9]\d{8}$/.test(phone.replace(/[\s\-()]/g,''))) return err('Please enter a valid Australian phone number.');
+  if(!basis) return err('Please say how the conversation started.');
+  if(!document.getElementById('st-consent').checked) return err('Please tick the box to confirm the customer asked for this quote.');
+  const s = staffSession(); if(!s){ location.href = '/staff/'; return; }
+  const btn = document.getElementById('st-send'); btn.disabled = true; btn.textContent = 'Sending...';
+  try{
+    const res = await fetch(CONFIG.N8N_STAFF, { method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ action:'create', sid: s.sid, quote: quoteSnapshot(), customer:{ first, last, email, phone }, basis, note }) });
+    const d = await res.json();
+    if(!d.ok){
+      btn.disabled = false; btn.textContent = 'Email the pay link';
+      if(d.code==='session'){ try{ localStorage.removeItem(STAFF_KEY); }catch(e){} location.href = '/staff/'; return; }
+      return err(d.error || 'The quote could not be sent.');
+    }
+    btn.textContent = 'Sent';
+    const done = document.getElementById('st-done');
+    done.innerHTML = '<strong>Sent to '+email.replace(/[<>&"]/g,'')+'.</strong> Quote '+d.ref+', '+fmt(d.total)+' incl. GST, valid until '+d.expires+'.<br>'
+      + 'Link: <input id="st-link" readonly value="'+d.link+'" style="width:100%;margin:6px 0;font-size:13px"> <button type="button" class="btn btn-outline" style="padding:6px 12px;font-size:13px" onclick="navigator.clipboard&&navigator.clipboard.writeText(document.getElementById(\'st-link\').value);this.textContent=\'Copied\'">Copy link</button> '
+      + '<button type="button" class="btn btn-outline" style="padding:6px 12px;font-size:13px" onclick="location.href=\'/?staff=1#quote\'">New quote</button>';
+    done.style.display = 'block';
+  }catch(e){ btn.disabled = false; btn.textContent = 'Email the pay link'; err('Could not reach the quote server. Check your connection and try again.'); }
+}
+
+// Customer opens a pay link: /?q=<token>
+(function(){
+  const m = location.search.match(/[?&]q=([A-Za-z0-9_-]{16,64})/); if(!m || staffMode) return;
+  const token = m[1];
+  const set = (id,v)=>{ const e=document.getElementById(id); if(e && v!=null) e.value = v; };
+  function expired(text){
+    showCallback('contact');
+    document.getElementById('cb-intro').textContent = text;
+  }
+  fetch(CONFIG.N8N_STAFF, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ action:'quote', q: token }) })
+    .then(r=>r.json()).then(async d=>{
+      if(!d.ok) return expired(d.code==='expired'
+        ? 'This quote link has expired. Leave your details and we will call you to confirm the price, or call 0477 666 500.'
+        : 'We could not open this quote link. Leave your details and we will call you, or call 0477 666 500.');
+      const q = d.quote;
+      window.mdsPayLink = { ref: d.ref };
+      set('v-make', q.make); onMakeChange(); set('v-model', q.model); set('v-year', q.year); set('v-odo', q.odo);
+      if(q.fuel){ set('v-fuel', q.fuel); state.fuelManual = true; }
+      recalcCategory();
+      if(q.product!=='roadside') setDrive(!!q.awd, true);
+      selectProduct(q.product);
+      goStep(2);
+      if(q.product==='absolute') selectLevel(q.level);
+      if(q.product==='endurance') selectEndOption(q.eopt);
+      if(q.product==='totalcover'){ setTcPlus(q.tcPlus); selectTcLevel(q.tlevel); }
+      if(q.product==='ev') selectEvPlan(q.evplan);
+      selectDuration(q.duration);
+      if(q.roadside) selectRoadside(q.roadside);
+      goStep(3);
+      const c = d.customer||{};
+      set('c-first', c.first); set('c-last', c.last); set('c-email', c.email); set('c-phone', c.phone);
+      // Stripe.js loads async; a pay link reaches the payment step before a normal visitor would, so wait for it (up to 15 s).
+      for(let i=0; i<150 && typeof Stripe==='undefined'; i++) await new Promise(r=>setTimeout(r,100));
+      goStep(4);
+      const now = calcTotal().total;
+      const b = document.getElementById('paylink-banner');
+      b.innerHTML = '<strong>Your quote '+d.ref+'</strong>'+(d.staffName ? ' from '+d.staffName : '')+', valid until '+d.expires+'.<br>'
+        + quoteSummaryText(quoteSnapshot()).replace(/[<>&]/g,'')
+        + (Math.round(now)!==Math.round(d.total) ? '<br><strong>The price has changed since your quote was prepared</strong> (quoted '+fmt(d.total)+'). The price above is the current price. Call 0477 666 500 if you have a question.' : '')
+        + '<br>Please check the details, complete the questions below, read the PDS and pay. Call 0477 666 500 if anything needs changing.';
+      b.style.display = 'block';
+      window.mdsTrack && window.mdsTrack('paylink_open', { ref: d.ref, value: now, currency:'AUD' });
+      setTimeout(()=>document.getElementById('quote').scrollIntoView(), 60);
+    }).catch(()=>expired('We could not open this quote link just now. Leave your details and we will call you, or call 0477 666 500.'));
+})();
 
 // Init
 updatePrices();

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Staff | MyDriveShield</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+:root{--navy:#0B2545;--accent:#F97316;--accent-h:#EA6207;--g1:#F3F4F6;--g2:#E5E7EB;--g5:#6B7280;--g7:#374151;--ok:#15803D;--bad:#B91C1C}
+*{box-sizing:border-box}
+body{margin:0;background:#F7F9FC;color:var(--g7);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--navy);color:#fff;padding:14px 16px}
+header .in{max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+header b{font-size:17px}
+header a{color:#FDBA74;font-weight:600;text-decoration:none;font-size:14px}
+main{max-width:900px;margin:24px auto;padding:0 16px}
+.card{background:#fff;border:1px solid var(--g2);border-radius:14px;padding:24px;margin-bottom:18px}
+h1{font-size:22px;color:var(--navy);margin:0 0 6px}
+p.sub{margin:0 0 18px;color:var(--g5)}
+label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+input[type=email]{width:100%;max-width:420px;padding:11px 12px;border:1px solid #D1D5DB;border-radius:8px;font:inherit}
+.btn{display:inline-block;background:var(--accent);color:#fff;border:0;border-radius:8px;padding:11px 18px;font:600 15px/1 inherit;cursor:pointer;text-decoration:none}
+.btn:hover{background:var(--accent-h)}.btn[disabled]{opacity:.6;cursor:default}
+.msg{margin-top:12px;font-size:14px}.msg.bad{color:var(--bad)}.msg.ok{color:var(--ok)}
+.tbl{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:620px}
+th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--g2);vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.03em;color:var(--g5)}
+.pill{display:inline-block;padding:2px 8px;border-radius:99px;font-size:12px;font-weight:600;background:var(--g1)}
+.pill.paid{background:#DCFCE7;color:var(--ok)}.pill.opened{background:#DBEAFE;color:#1D4ED8}.pill.expired{background:#FEE2E2;color:var(--bad)}
+.rules{font-size:13.5px;margin:0;padding-left:18px}
+.hide{display:none}
+</style>
+</head>
+<body>
+<header><div class="in"><b>MyDriveShield staff</b><span id="who"></span></div></header>
+<main>
+  <section class="card hide" id="login">
+    <h1>Sign in</h1>
+    <p class="sub">Enter your staff email address. We email you a sign-in link that works once and expires after 15 minutes.</p>
+    <form id="login-form">
+      <label for="email">Staff email</label>
+      <input type="email" id="email" autocomplete="email" required>
+      <div style="margin-top:14px"><button class="btn" id="login-btn" type="submit">Email me a sign-in link</button></div>
+      <div class="msg" id="login-msg" role="status"></div>
+    </form>
+  </section>
+
+  <section class="card hide" id="dash">
+    <h1 id="hello">Quotes</h1>
+    <p class="sub">Build the quote in the normal checkout, then email the customer a pay link. Links expire after 7 days. The price is checked again when the customer pays.</p>
+    <a class="btn" href="/?staff=1#quote">New quote</a>
+  </section>
+
+  <section class="card hide" id="list">
+    <h1 style="font-size:18px">My quotes, last 30 days</h1>
+    <div class="msg" id="list-msg"></div>
+    <div class="tbl"><table><thead><tr><th>Sent</th><th>Ref</th><th>Customer</th><th>Cover</th><th>Total</th><th>Status</th></tr></thead><tbody id="rows"></tbody></table></div>
+  </section>
+
+  <section class="card hide" id="rules-card">
+    <h1 style="font-size:18px">Rules for pay links</h1>
+    <ul class="rules">
+      <li>Send a link only when the customer called us, asked for a callback, or is an existing customer or referral who asked us to call.</li>
+      <li>Factual information only. Do not recommend a product, level or term. If the customer asks what they should choose, explain the options and let them decide.</li>
+      <li>The customer must read the PDS and accept it at checkout. Do not tick it or pay for them.</li>
+      <li>Never take card details over the phone.</li>
+      <li>Complaints, claims, disputes, discounts and anything unusual go to the director.</li>
+    </ul>
+  </section>
+</main>
+<script>
+const API = 'https://layden.app.n8n.cloud/webhook/driveshield-staff';
+const KEY = 'mds_staff';
+const $ = id => document.getElementById(id);
+const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function getS(){ try{ const s = JSON.parse(localStorage.getItem(KEY)||'null'); if(s && s.sid && s.exp > Date.now()) return s; }catch(e){} return null; }
+function setS(s){ try{ localStorage.setItem(KEY, JSON.stringify(s)); }catch(e){} }
+function clearS(){ try{ localStorage.removeItem(KEY); }catch(e){} }
+async function call(body){ const r = await fetch(API, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)}); return r.json(); }
+
+function showLogin(text, cls){
+  ['dash','list','rules-card'].forEach(id=>$(id).classList.add('hide'));
+  $('login').classList.remove('hide'); $('who').textContent = '';
+  if(text){ $('login-msg').textContent = text; $('login-msg').className = 'msg '+(cls||''); }
+}
+async function showDash(s){
+  $('login').classList.add('hide');
+  ['dash','list','rules-card'].forEach(id=>$(id).classList.remove('hide'));
+  $('hello').textContent = 'Hi '+s.name;
+  $('who').innerHTML = esc(s.email)+' &middot; <a href="/staff/?signout=1">Sign out</a>';
+  $('rows').innerHTML = '<tr><td colspan="6">Loading...</td></tr>';
+  try{
+    const d = await call({action:'list', sid: s.sid});
+    if(!d.ok){ if(d.code==='session'){ clearS(); return showLogin('Your session has ended. Please sign in again.', 'bad'); } throw new Error(d.error); }
+    $('rows').innerHTML = d.quotes.length ? d.quotes.map(q =>
+      '<tr><td>'+esc(q.sent)+'</td><td>'+esc(q.ref)+'</td><td>'+esc(q.customer)+'</td><td>'+esc(q.label)+'</td><td>$'+Number(q.total).toLocaleString('en-AU')+'</td><td><span class="pill '+esc(q.status)+'">'+esc(q.status)+'</span></td></tr>').join('')
+      : '<tr><td colspan="6">No quotes yet.</td></tr>';
+  }catch(e){ $('rows').innerHTML = ''; $('list-msg').textContent = 'Could not load your quotes just now.'; $('list-msg').className='msg bad'; }
+}
+
+$('login-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const email = $('email').value.trim(); if(!email) return;
+  $('login-btn').disabled = true;
+  try{
+    const d = await call({action:'login', email});
+    $('login-msg').textContent = d.ok ? 'If that address is on the staff list, a sign-in link is on its way. Check your inbox and junk folder.' : (d.error || 'Something went wrong. Try again.');
+    $('login-msg').className = 'msg '+(d.ok?'ok':'bad');
+  }catch(err){ $('login-msg').textContent = 'Could not reach the server. Try again.'; $('login-msg').className='msg bad'; }
+  $('login-btn').disabled = false;
+});
+
+(async function(){
+  const p = new URLSearchParams(location.search);
+  if(p.get('signout')){
+    const s = getS(); clearS(); history.replaceState(null,'','/staff/');
+    if(s) call({action:'signout', sid: s.sid}).catch(()=>{});
+    return showLogin('You are signed out.', 'ok');
+  }
+  const t = p.get('t');
+  if(t){
+    history.replaceState(null,'','/staff/');
+    try{
+      const d = await call({action:'session', t});
+      if(d.ok){ const s = {sid:d.sid, name:d.name, email:d.email, exp:d.exp}; setS(s); return showDash(s); }
+      return showLogin(d.error || 'That sign-in link has expired or was already used. Request a new one.', 'bad');
+    }catch(e){ return showLogin('Could not reach the server. Try again.', 'bad'); }
+  }
+  const s = getS(); if(s) return showDash(s);
+  showLogin();
+})();
+</script>
+</body>
+</html>
