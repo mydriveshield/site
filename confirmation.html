@@ -38,6 +38,7 @@ gtag('config', 'AW-18308478534', { allow_enhanced_conversions: true });
 // An empty label means "GA4 event only, no Google Ads conversion" so nothing breaks before the actions exist.
 window.MDS_TRACK = {
   ADS_ID: 'AW-18308478534',
+  LEAD_VALUE: 150, // fixed AUD value sent to Google Ads per lead (quote_request, partner_lead); not revenue
   LABELS: {
     purchase:         'tcI1CKDY99IcEMbslJpE',   // existing: Purchase (fires on /confirmation)
     quote_request:    '_mIwCMPciOscEMbslJpE',                       // Request a callback / quote form submitted (PRIMARY)
@@ -54,7 +55,11 @@ window.mdsTrack = function(name, params){
     if(name === 'quote_request' || name === 'partner_lead') gtag('event', 'generate_lead', p);
     var lbl = window.MDS_TRACK.LABELS[name];
     if(lbl){
-      gtag('event', 'conversion', Object.assign({ send_to: window.MDS_TRACK.ADS_ID + '/' + lbl }, p));
+      var ads = Object.assign({ send_to: window.MDS_TRACK.ADS_ID + '/' + lbl }, p);
+      // Leads carry the customer's estimated quote as GA4 'value' for reporting, but that is not
+      // revenue. Google Ads gets a fixed lead value so conv. value / ROAS reflect money received.
+      if(name === 'quote_request' || name === 'partner_lead'){ ads.estimated_quote = p.value || 0; ads.value = window.MDS_TRACK.LEAD_VALUE; }
+      gtag('event', 'conversion', ads);
     }
   }catch(e){}
 };
