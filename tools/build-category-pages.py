@@ -291,6 +291,31 @@ def related_block(p):
 <p>Guides: <a href="/extended-warranty-vs-consumer-rights/">how a warranty sits alongside your consumer rights</a>, <a href="/faq/">frequently asked questions</a>, <a href="/extended-car-warranty/">extended car warranty prices</a>.</p>
 <p>Other warranties we arrange: %s.</p>""" % others
 
+
+# ---- "At a glance" level cards (insurer-style: tiers side by side, detail collapsed below) ----
+TOPLIMIT = {("jetski", 4): "Up to market value", ("motorbike", 3): "$5,000", ("motorbike", 4): "Up to market value"}
+def level_cards(p, quote):
+    import re as _re
+    head, rows = p["prices"]
+    levels = [r[0] for r in p["elig"][1]]
+    n_levels = len(levels); cards = []
+    for i, (lvl, who) in enumerate(p["elig"][1]):
+        n = i + 1
+        pr = [c for r in rows for h, c in zip(head[1:], r[1:]) if isinstance(c, int) and (_re.search(r"(L|Level )%d\b" % n, h) or _re.match(r"Level %d\b" % n, str(r[0])))]
+        ch, crow = p["cover"]
+        col = [j for j, h in enumerate(ch) if h == "Level %d" % n]
+        lim = TOPLIMIT.get((p["key"], n)) or ("$" + format(max(r[col[0]] for r in crow if isinstance(r[col[0]], int)), ","))
+        tag = "Lowest price" if n == 1 else ("Highest claim limit" if n == n_levels else "In between")
+        cards.append('<div class="lvl-card"><span class="lvl-tag">%s</span><h3>%s</h3><p class="lvl-lim"><b>%s</b><span>most payable per claim</span></p><p class="lvl-who">%s</p><p class="lvl-from">From <b>$%s</b></p></div>' % (tag, lvl, lim, who, format(min(pr), ",")))
+    return """<h2>The %d levels at a glance</h2>
+<p>Every level is the same warranty. What changes is how much can be paid per claim, which %ss qualify, and the price.</p>
+<div class="lvl-grid lvl-%d">%s</div>
+<p class="lvl-note">"From" is the lowest price for that level, including GST. The claim limit shown is the highest limit for that level. Limits for each part are in the table below.</p>
+<div class="cta-row"><a href="%s" class="btn btn-primary btn-lg" data-cat="%s">Request a %s quote</a> <a href="/docs/%s" class="btn btn-ghost">Read the PDS</a></div>""" % (n_levels, p["noun"], n_levels, "".join(cards), quote, p["key"], p["noun"], p["pds"])
+
+def fold(title, body):
+    return '<details class="more"><summary>%s</summary>\n%s\n</details>' % (title, body)
+
 def page(p):
     url = "https://mydriveshield.com.au/%s/" % p["slug"]
     faqs = p["faqs"] + [COMMON_FAQ] + COMMON_FAQ2
@@ -342,10 +367,9 @@ def page(p):
 <p>{p["intro"]} The warranty is issued by Integrity Car Care. If the {p["noun"]} is still under the manufacturer's warranty, cover begins when that ends.{EXTRA[p["key"]]["alias"]}</p>
 <div class="note"><p><b>This is not insurance.</b> It is a discretionary risk product. Integrity decides whether to pay each claim and considers every claim on its merits. The claim limit is the most that can be paid for a listed part per claim, and an approved amount may be lower.</p></div>
 
-<h2>Who can buy it</h2>
-{table(*p["elig"])}
+{level_cards(p, quote)}
 
-<h2>What's covered and the claim limits</h2>
+<h2>Compare the levels part by part</h2>
 {table(*p["cover"])}
 {cover_note}
 <p>Limits are per claim and include GST. The full list of parts in each section is in the <a href="{pds}">{p["pds_name"]}</a>.</p>
@@ -397,6 +421,16 @@ def page(p):
 <p style="font-size:13.5px;color:var(--muted)">MyDriveShield gives factual information and arranges cover as Integrity Car Care's Authorised Representative. We don't give general or personal advice. Read the <a href="{pds}">{p["pds_name"]}</a> to decide whether the product suits you. Eligibility is subject to Integrity's approval.</p>
 </div>
 </main>'''
+    import re as _re
+    FOLD = ["Extra benefits when a claim is approved", "Servicing you must keep up", "What isn't covered", "Making a claim",
+            "Cancelling, transfers and complaints", "How buying works", "Why get your quote here", "Related pages"]
+    first = True
+    for t in FOLD:
+        m = _re.search(r"<h2>%s</h2>(.*?)(?=<h2>|<div class=\"cta-row\">|<div class=\"faq\")" % _re.escape(t), main, flags=_re.S)
+        assert m, t
+        lead = '<p class="more-lead">The detail, if you want it. All of it is also in the PDS.</p>\n' if first else ""
+        first = False
+        main = main[:m.start()] + lead + '<details class="more"><summary><h2>%s</h2></summary>%s</details>\n' % (t, m.group(1).rstrip()) + main[m.end():]
     return head + HEAD_TAIL + main + FOOT
 
 for p in P:
