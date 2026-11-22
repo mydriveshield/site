@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Staff | MyDriveShield</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+:root{--navy:#0B2545;--accent:#F97316;--accent-h:#EA6207;--g1:#F3F4F6;--g2:#E5E7EB;--g5:#6B7280;--g7:#374151;--ok:#15803D;--bad:#B91C1C}
+*{box-sizing:border-box}
+body{margin:0;background:#F7F9FC;color:var(--g7);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--navy);color:#fff;padding:14px 16px}
+header .in{max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+header b{font-size:17px}
+header a{color:#FDBA74;font-weight:600;text-decoration:none;font-size:14px}
+main{max-width:900px;margin:24px auto;padding:0 16px}
+.card{background:#fff;border:1px solid var(--g2);border-radius:14px;padding:24px;margin-bottom:18px}
+h1{font-size:22px;color:var(--navy);margin:0 0 6px}
+p.sub{margin:0 0 18px;color:var(--g5)}
+label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+input[type=email]{width:100%;max-width:420px;padding:11px 12px;border:1px solid #D1D5DB;border-radius:8px;font:inherit}
+.btn{display:inline-block;background:var(--accent);color:#fff;border:0;border-radius:8px;padding:11px 18px;font:600 15px/1 inherit;cursor:pointer;text-decoration:none}
+.btn:hover{background:var(--accent-h)}.btn[disabled]{opacity:.6;cursor:default}
+.msg{margin-top:12px;font-size:14px}.msg.bad{color:var(--bad)}.msg.ok{color:var(--ok)}
+.tbl{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:620px}
+th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--g2);vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.03em;color:var(--g5)}
+.pill{display:inline-block;padding:2px 8px;border-radius:99px;font-size:12px;font-weight:600;background:var(--g1)}
+.pill.paid{background:#DCFCE7;color:var(--ok)}.pill.opened{background:#DBEAFE;color:#1D4ED8}.pill.expired{background:#FEE2E2;color:var(--bad)}
+.rules{font-size:13.5px;margin:0;padding-left:18px}
+.hide{display:none}
+</style>
+</head>
+<body>
+<header><div class="in"><b>MyDriveShield staff</b><span id="who"></span></div></header>
+<main>
+  <section class="card hide" id="login">
+    <h1>Sign in</h1>
+    <p class="sub">Enter your staff email address. We email you a sign-in link that works once and expires after 15 minutes.</p>
+    <form id="login-form">
+      <label for="email">Staff email</label>
+      <input type="email" id="email" autocomplete="email" required>
+      <div style="margin-top:14px"><button class="btn" id="login-btn" type="submit">Email me a sign-in link</button></div>
+      <div class="msg" id="login-msg" role="status"></div>
+    </form>
+  </section>
+
+  <section class="card hide" id="dash">
+    <h1 id="hello">Quotes</h1>
+    <p class="sub">Build the quote in the normal checkout, then email the customer a pay link. Links expire after 7 days. The price is checked again when the customer pays.</p>
+    <a class="btn" href="/?staff=1#quote">New quote</a>
+  </section>
+
+  <section class="card hide" id="list">
+    <h1 style="font-size:18px">My quotes, last 30 days</h1>
+    <div class="msg" id="list-msg"></div>
+    <div class="tbl"><table><thead><tr><th>Sent</th><th>Ref</th><th>Customer</th><th>Cover</th><th>Total</th><th>Status</th></tr></thead><tbody id="rows"></tbody></table></div>
+  </section>
+
+  <section class="card hide" id="ledger-card">
+    <h1 style="font-size:18px" id="ledger-title">My sales and commission</h1>
+    <p class="sub" id="ledger-sub">Commission is payable 14 days after the customer pays, or 31 days if the sale includes a warranty (30-day cancellation window). If a sale is cancelled before then, no commission is paid.</p>
+    <div id="totals" style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px"></div>
+    <div id="admin-tools" class="hide" style="margin-bottom:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <select id="agent-filter" style="padding:8px;border:1px solid #D1D5DB;border-radius:8px;font:inherit"><option value="">All agents</option></select>
+      <button class="btn" type="button" id="btn-csv" style="padding:8px 14px;font-size:14px">Download CSV</button>
+      <button class="btn" type="button" id="btn-payout" style="padding:8px 14px;font-size:14px;background:#0B2545">Mark ticked as paid</button>
+      <button class="btn" type="button" id="btn-claw" style="padding:8px 14px;font-size:14px;background:#B91C1C">Sale cancelled (claw back)</button>
+    </div>
+    <div class="msg" id="ledger-msg"></div>
+    <div class="tbl"><table><thead><tr id="ledger-head"></tr></thead><tbody id="ledger-rows"></tbody></table></div>
+  </section>
+
+  <section class="card hide" id="prices-card">
+    <h1 style="font-size:18px">My roadside prices</h1>
+    <p class="sub">Your price to the customer, your commission when the customer pays MyDriveShield, and what you pay us when you collect from your customer yourself. All amounts include GST.</p>
+    <div class="tbl"><table style="min-width:520px"><thead><tr><th>Plan</th><th>Term</th><th>Your price</th><th>Maximum</th><th>Your commission</th><th>You pay us</th></tr></thead><tbody id="price-rows"></tbody></table></div>
+  </section>
+
+  <section class="card hide" id="rules-card">
+    <h1 style="font-size:18px">Rules for pay links</h1>
+    <ul class="rules">
+      <li>Send a link only when the customer called us, asked for a callback, or is an existing customer or referral who asked us to call.</li>
+      <li>Factual information only. Do not recommend a product, level or term. If the customer asks what they should choose, explain the options and let them decide.</li>
+      <li>The customer must read the PDS and accept it at checkout. Do not tick it or pay for them.</li>
+      <li>Never take card details over the phone.</li>
+      <li>Complaints, claims, disputes, discounts and anything unusual go to the director.</li>
+    </ul>
+  </section>
+</main>
+<script>
+const API = 'https://layden.app.n8n.cloud/webhook/driveshield-staff';
+const KEY = 'mds_staff';
+const $ = id => document.getElementById(id);
+const money = n => (n<0?'-':'')+'$'+Math.abs(Number(n)).toLocaleString('en-AU',{minimumFractionDigits:2,maximumFractionDigits:2});
+let LEDGER = null;
+async function loadLedger(s){
+  try{
+    const d = await call({action:'ledger', sid: s.sid});
+    if(!d.ok) throw new Error(d.error||'');
+    LEDGER = d;
+    if(d.admin){
+      $('ledger-title').textContent = 'Sales and commission, all agents';
+      $('admin-tools').classList.remove('hide');
+      const agents = [...new Set(d.lines.map(l=>l.agent))];
+      $('agent-filter').innerHTML = '<option value="">All agents</option>'+agents.map(a=>'<option>'+esc(a)+'</option>').join('');
+    }
+    renderLedger();
+  }catch(e){ $('ledger-msg').textContent = 'Could not load sales just now.'; $('ledger-msg').className = 'msg bad'; }
+}
+function renderLedger(){
+  const d = LEDGER; if(!d) return;
+  const f = $('agent-filter').value;
+  const lines = d.lines.filter(l => !f || l.agent===f);
+  const sum = st => lines.filter(l=>l.status===st).reduce((a,l)=>a+l.commission,0);
+  const box = (t,v,c) => '<div style="flex:1;min-width:140px;border:1px solid #E5E7EB;border-radius:10px;padding:10px 12px"><div style="font-size:12px;color:#6B7280;text-transform:uppercase">'+t+'</div><div style="font-size:20px;font-weight:700;color:'+c+'">'+money(v)+'</div></div>';
+  const next = lines.filter(l=>l.status==='pending').map(l=>l.payable).sort((a,b)=>a.split('/').reverse().join('').localeCompare(b.split('/').reverse().join('')))[0];
+  $('totals').innerHTML = box('Owed now', sum('payable'), '#15803D') + box('Pending'+(next?' (next '+next+')':''), sum('pending'), '#0B2545') + box('Paid to date', sum('paid'), '#6B7280');
+  $('ledger-head').innerHTML = (d.admin?'<th></th><th>Agent</th>':'')+'<th>Paid</th><th>Order</th><th>Customer</th><th>Cover</th><th>Sale</th><th>Commission</th><th>Payable</th><th>Status</th>';
+  $('ledger-rows').innerHTML = lines.length ? lines.map(l =>
+    '<tr>'+(d.admin?'<td><input type="checkbox" class="lk" value="'+esc(l.orderRef||l.ref)+'"></td><td>'+esc(l.agent)+(l.business?'<br><span style="color:#6B7280;font-size:12px">'+esc(l.business)+'</span>':'')+'</td>':'')
+    +'<td>'+esc(l.paid)+'</td><td>'+esc(l.orderRef||l.ref)+'</td><td>'+esc(l.customer)+'</td><td>'+esc(l.label)+(l.note?'<br><span style="color:#6B7280;font-size:12px">'+esc(l.note)+'</span>':'')+'</td><td>'+money(l.amount)+'</td><td>'+money(l.commission)+'</td><td>'+esc(l.payable)+'</td><td><span class="pill '+(l.status==='paid'?'paid':l.status==='payable'?'opened':l.status==='clawed back'?'expired':'')+'">'+esc(l.status)+(l.paidOut?' '+esc(l.paidOut):'')+'</span></td></tr>').join('')
+    : '<tr><td colspan="10">No paid sales yet.</td></tr>';
+}
+async function adminAction(action){
+  const keys = [...document.querySelectorAll('.lk:checked')].map(c=>c.value);
+  if(!keys.length){ $('ledger-msg').textContent = 'Tick at least one line first.'; $('ledger-msg').className='msg bad'; return; }
+  const s = getS(); if(!s) return showLogin('Your session has ended. Please sign in again.','bad');
+  const d = await call({action, sid:s.sid, keys});
+  $('ledger-msg').textContent = d.ok ? 'Updated '+d.updated+' line(s).' : (d.error||'Could not update.'); $('ledger-msg').className = 'msg '+(d.ok?'ok':'bad');
+  loadLedger(s);
+}
+function downloadCsv(){
+  const d = LEDGER; if(!d) return; const f = $('agent-filter').value;
+  const cols = ['agent','business','paid','orderRef','ref','customer','label','amount','commission','payable','status','paidOut','note'];
+  const q = v => '"'+String(v==null?'':v).replace(/"/g,'""')+'"';
+  const csv = [cols.join(',')].concat(d.lines.filter(l=>!f||l.agent===f).map(l=>cols.map(c=>q(l[c])).join(','))).join('\r\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download = 'mds-commission-'+new Date().toISOString().slice(0,10)+'.csv'; a.click();
+}
+document.addEventListener('DOMContentLoaded',()=>{});
+const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function getS(){ try{ const s = JSON.parse(localStorage.getItem(KEY)||'null'); if(s && s.sid && s.exp > Date.now()) return s; }catch(e){} return null; }
+function setS(s){ try{ localStorage.setItem(KEY, JSON.stringify(s)); }catch(e){} }
+function clearS(){ try{ localStorage.removeItem(KEY); }catch(e){} }
+async function call(body){ const r = await fetch(API, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)}); return r.json(); }
+
+function showLogin(text, cls){
+  ['dash','list','rules-card','ledger-card','prices-card'].forEach(id=>$(id).classList.add('hide'));
+  $('login').classList.remove('hide'); $('who').textContent = '';
+  if(text){ $('login-msg').textContent = text; $('login-msg').className = 'msg '+(cls||''); }
+}
+async function showDash(s){
+  $('login').classList.add('hide');
+  ['dash','list','rules-card','ledger-card'].forEach(id=>$(id).classList.remove('hide'));
+  loadLedger(s);
+  if(s.type==='partner' && s.partner){
+    $('prices-card').classList.remove('hide');
+    const r = []; ['star3','star5'].forEach(pl => s.partner[pl].forEach((f,i) => r.push('<tr><td>'+(pl==='star5'?'5':'3')+' Star</td><td>'+(i+1)+(i?' years':' year')+'</td><td>'+money(f.price)+'</td><td>'+money(f.max)+'</td><td>'+money(f.commission)+'</td><td>'+money(f.buy)+'</td></tr>')));
+    $('price-rows').innerHTML = r.join('');
+    $('rules-card').classList.add('hide');
+  }
+  $('hello').textContent = 'Hi '+s.name;
+  $('who').innerHTML = esc(s.email)+' &middot; <a href="/staff/?signout=1">Sign out</a>';
+  $('rows').innerHTML = '<tr><td colspan="6">Loading...</td></tr>';
+  try{
+    const d = await call({action:'list', sid: s.sid});
+    if(!d.ok){ if(d.code==='session'){ clearS(); return showLogin('Your session has ended. Please sign in again.', 'bad'); } throw new Error(d.error); }
+    $('rows').innerHTML = d.quotes.length ? d.quotes.map(q =>
+      '<tr><td>'+esc(q.sent)+'</td><td>'+esc(q.ref)+(s.type==='admin' ? '<br><span style="color:#6B7280;font-size:12px">'+esc(q.by)+'</span>' : '')+'</td><td>'+esc(q.customer)+'</td><td>'+esc(q.label)+'</td><td>'+money(q.total)+'</td><td><span class="pill '+esc(q.status)+'">'+esc(q.status)+'</span></td></tr>').join('')
+      : '<tr><td colspan="6">No quotes yet.</td></tr>';
+  }catch(e){ $('rows').innerHTML = ''; $('list-msg').textContent = 'Could not load your quotes just now.'; $('list-msg').className='msg bad'; }
+}
+
+$('agent-filter').addEventListener('change', renderLedger);
+$('btn-csv').addEventListener('click', downloadCsv);
+$('btn-payout').addEventListener('click', ()=>adminAction('payout'));
+$('btn-claw').addEventListener('click', ()=>{ if(window.confirm('Mark the ticked sales as cancelled? Paid commission becomes a deduction.')) adminAction('clawback'); });
+$('login-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const email = $('email').value.trim(); if(!email) return;
+  $('login-btn').disabled = true;
+  try{
+    const d = await call({action:'login', email});
+    $('login-msg').textContent = d.ok ? 'If that address is on the staff list, a sign-in link is on its way. Check your inbox and junk folder.' : (d.error || 'Something went wrong. Try again.');
+    $('login-msg').className = 'msg '+(d.ok?'ok':'bad');
+  }catch(err){ $('login-msg').textContent = 'Could not reach the server. Try again.'; $('login-msg').className='msg bad'; }
+  $('login-btn').disabled = false;
+});
+
+(async function(){
+  const p = new URLSearchParams(location.search);
+  if(p.get('signout')){
+    const s = getS(); clearS(); history.replaceState(null,'','/staff/');
+    if(s) call({action:'signout', sid: s.sid}).catch(()=>{});
+    return showLogin('You are signed out.', 'ok');
+  }
+  const t = p.get('t');
+  if(t){
+    history.replaceState(null,'','/staff/');
+    try{
+      const d = await call({action:'session', t});
+      if(d.ok){ const s = {sid:d.sid, name:d.name, email:d.email, exp:d.exp, type:d.type, business:d.business, partner:d.partner}; setS(s); return showDash(s); }
+      return showLogin(d.error || 'That sign-in link has expired or was already used. Request a new one.', 'bad');
+    }catch(e){ return showLogin('Could not reach the server. Try again.', 'bad'); }
+  }
+  const s = getS(); if(s) return showDash(s);
+  showLogin();
+})();
+</script>
+</body>
+</html>

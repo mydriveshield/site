@@ -31,13 +31,14 @@ window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-HZMK5CPS6Z');
-gtag('config', 'AW-18308478534');
+gtag('config', 'AW-18308478534', { allow_enhanced_conversions: true });
 
 // === MyDriveShield conversion tracking ===
 // LABELS: Google Ads conversion labels (Goals > Conversions > action > Tag setup > "Use Google tag" > event snippet).
 // An empty label means "GA4 event only, no Google Ads conversion" so nothing breaks before the actions exist.
 window.MDS_TRACK = {
   ADS_ID: 'AW-18308478534',
+  LEAD_VALUE: 150, // fixed AUD value sent to Google Ads per lead (quote_request, partner_lead); not revenue
   LABELS: {
     purchase:         'tcI1CKDY99IcEMbslJpE',   // existing: Purchase (fires on /confirmation)
     quote_request:    '_mIwCMPciOscEMbslJpE',                       // Request a callback / quote form submitted (PRIMARY)
@@ -54,7 +55,11 @@ window.mdsTrack = function(name, params){
     if(name === 'quote_request' || name === 'partner_lead') gtag('event', 'generate_lead', p);
     var lbl = window.MDS_TRACK.LABELS[name];
     if(lbl){
-      gtag('event', 'conversion', Object.assign({ send_to: window.MDS_TRACK.ADS_ID + '/' + lbl }, p));
+      var ads = Object.assign({ send_to: window.MDS_TRACK.ADS_ID + '/' + lbl }, p);
+      // Leads carry the customer's estimated quote as GA4 'value' for reporting, but that is not
+      // revenue. Google Ads gets a fixed lead value so conv. value / ROAS reflect money received.
+      if(name === 'quote_request' || name === 'partner_lead'){ ads.estimated_quote = p.value || 0; ads.value = window.MDS_TRACK.LEAD_VALUE; }
+      gtag('event', 'conversion', ads);
     }
   }catch(e){}
 };
@@ -85,6 +90,21 @@ async function checkPayment() {
   const card = document.getElementById('card');
   if (paymentIntent && paymentIntent.status === 'succeeded') {
     const meta = paymentIntent.metadata || {};
+    // Enhanced conversions: send the customer's details (Google hashes them in the browser)
+    // with the purchase conversion. Details were saved by the checkout before Stripe's redirect.
+    try{
+      const ec = JSON.parse(sessionStorage.getItem('mds_ec') || 'null');
+      const email = (ec && ec.email) || paymentIntent.receipt_email || '';
+      if(email){
+        let phone = ((ec && ec.phone) || '').replace(/[^\d+]/g,'');
+        if(phone && !phone.startsWith('+')) phone = '+61' + phone.replace(/^0/,'');
+        const ud = { email: email.trim().toLowerCase() };
+        if(phone) ud.phone_number = phone;
+        if(ec && ec.first) ud.address = { first_name: ec.first, last_name: ec.last || '', city: ec.suburb || '', region: ec.state || '', postal_code: ec.postcode || '', country: 'AU' };
+        gtag('set', 'user_data', ud);
+      }
+      sessionStorage.removeItem('mds_ec');
+    }catch(e){}
     try{ gtag('event','conversion',{ send_to: MDS_TRACK.ADS_ID+'/'+MDS_TRACK.LABELS.purchase, value: paymentIntent.amount/100, currency:'AUD', transaction_id: paymentIntent.id }); gtag('event','purchase',{ transaction_id: paymentIntent.id, value: paymentIntent.amount/100, currency:'AUD', items:[{ item_name: meta.product || 'Absolute Warranty', price: paymentIntent.amount/100, quantity:1 }] }); }catch(e){}
     card.innerHTML = `
       <div class="icon">✅</div>

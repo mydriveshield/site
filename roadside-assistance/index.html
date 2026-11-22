@@ -33,6 +33,7 @@ gtag('config', 'AW-18308478534');
 // An empty label means "GA4 event only, no Google Ads conversion" so nothing breaks before the actions exist.
 window.MDS_TRACK = {
   ADS_ID: 'AW-18308478534',
+  LEAD_VALUE: 150, // fixed AUD value sent to Google Ads per lead (quote_request, partner_lead); not revenue
   LABELS: {
     purchase:         'tcI1CKDY99IcEMbslJpE',   // existing: Purchase (fires on /confirmation)
     quote_request:    '_mIwCMPciOscEMbslJpE',                       // Request a callback / quote form submitted (PRIMARY)
@@ -49,7 +50,11 @@ window.mdsTrack = function(name, params){
     if(name === 'quote_request' || name === 'partner_lead') gtag('event', 'generate_lead', p);
     var lbl = window.MDS_TRACK.LABELS[name];
     if(lbl){
-      gtag('event', 'conversion', Object.assign({ send_to: window.MDS_TRACK.ADS_ID + '/' + lbl }, p));
+      var ads = Object.assign({ send_to: window.MDS_TRACK.ADS_ID + '/' + lbl }, p);
+      // Leads carry the customer's estimated quote as GA4 'value' for reporting, but that is not
+      // revenue. Google Ads gets a fixed lead value so conv. value / ROAS reflect money received.
+      if(name === 'quote_request' || name === 'partner_lead'){ ads.estimated_quote = p.value || 0; ads.value = window.MDS_TRACK.LEAD_VALUE; }
+      gtag('event', 'conversion', ads);
     }
   }catch(e){}
 };
@@ -157,6 +162,9 @@ document.addEventListener('click', function(ev){
 <tr><th scope="row">When cover starts</th><td colspan="2">Two working days after payment. A $160 emergency join-up fee applies if you need help before then.</td></tr>
 </tbody></table>
 <p>Roadside assistance is provided by Extended Dealer Services Pty Ltd (EDS). Membership fees are non-refundable. Towing covers vehicles up to 3.5 tonnes and 5.5 metres. Breakdowns caused by conditions that existed before your membership started, accidents, and vehicles that are unregistered or unroadworthy are not covered.</p>
+
+<h2>How far will you tow my car?</h2>
+<p>Towing takes your vehicle to the nearest available repairer or place of safety. If you break down in a city or town, including regional towns, the metropolitan towing limit applies (3 Star: 20 km, 5 Star: 50 km). If you break down outside a town, the country limit applies (3 Star: 50 km, 5 Star: 100 km). Towing further, or to a repairer of your choice, can be arranged. The tow provider will quote it, and you pay them at the time of service.</p>
 
 <h2>How to get help</h2>
 <p>When you break down, call the 24-hour roadside line on your membership confirmation: <a href="tel:1800422772">1800 422 772</a>. Have your registration number ready.</p>
