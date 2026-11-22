@@ -211,16 +211,100 @@ P.append(dict(
           ("How do I buy?", "Ask us for a quote. We will confirm the truck's details with you before cover is arranged.")],
     frm=2500))
 
+COMMON_FAQ2 = [("When does cover start?", "If the manufacturer's warranty is still running, cover begins when that ends. Otherwise it begins on the commencement date shown on your warranty schedule."), ("Is this insurance?", "No. It is a discretionary risk product issued by Integrity Car Care. Integrity decides whether to pay each claim and considers every claim on its merits."), ("Who do I call to make a claim?", "Integrity Car Care on 03 9120 6666, before any repair starts. Repairs started without approval are rejected.")]
 COMMON_FAQ = ("Can I cancel?", "Yes. You get a full refund if you cancel within 30 days of purchase, or before cover starts, and no claim has been paid. After that the refund is pro rata, less any accepted claim and a $62.50 administration fee.")
+
+
+# ---- SEO template rules (claude/mds-seo-round3-mr-warranty-20-11-2026.md) ----
+EXTRA = {
+ "caravan": dict(cat="Caravan", term="caravan extended warranty", alias="", ex=("a part covered by the manufacturer's warranty", 6000),
+    ready=["Make, model and year of the caravan", "Chassis number or VIN", "Whether the manufacturer's warranty is still running and when it ends", "Date of the last service"],
+    xfaq=[("Can I buy a warranty for a used caravan?", "Yes, if it is within the age limit for the level: up to 12 years old for Level 1, 7 years for Level 2 and 5 years for Level 3.")]),
+ "jetski": dict(cat="Jet Ski", term="jet ski extended warranty", alias=" A jet ski is also called a personal watercraft, or PWC.", ex=("the engine", 2400),
+    ready=["Make, model and year of the jet ski", "Engine hours", "Whether it is a 2 stroke or 4 stroke", "Hull identification number (HIN)", "Date and hours of the last service"],
+    xfaq=[("Can I buy a warranty for an older jet ski?", "Level 1 has no age limit. The jet ski must be seaworthy when you buy the warranty, and faults that were already evident are excluded.")]),
+ "marine": dict(cat="Boat", term="boat extended warranty", alias=" It is also searched for as a marine warranty or marine engine warranty.", ex=("the engine", 3600),
+    ready=["Make, model and year of the vessel and engine", "Whether it has one engine or two", "Engine hours", "Hull identification number (HIN)", "Date and hours of the last service"],
+    xfaq=[("Does it cover an outboard engine?", "The engine is a listed part on every level, with limits of $1,500, $3,000 or $5,000 per claim. The PDS lists the internal parts included.")]),
+ "motorbike": dict(cat="Motorbike", term="motorbike extended warranty", alias=" It is also searched for as a motorcycle extended warranty.", ex=("the engine", 1500),
+    ready=["Make, model and year", "Odometer reading", "Registration number or VIN", "Whether the manufacturer's warranty is still running and when it ends", "Date and kilometres of the last service"],
+    xfaq=[("Is a motorcycle warranty the same thing?", "Yes. The product is called the Integrity Motorbike Warranty and it can be bought for a motorbike (motorcycle), scooter or quad bike.")]),
+ "motorhome": dict(cat="Motorhome", term="motorhome extended warranty", alias=" It can be bought for a motorhome or campervan named on your warranty schedule.", ex=("the gearbox", 3600),
+    ready=["Make, model and year", "Odometer reading", "Registration number or VIN", "Whether you want Motorhome or Motorhome Plus", "Date and kilometres of the last service"],
+    xfaq=[("Does it cover the engine and gearbox?", "Yes. Engine, gearbox and transmission are listed sections on every level, with limits of $1,000, $3,000 or $5,000 per claim.")]),
+ "machinery": dict(cat="Machinery", term="machinery extended warranty", alias="", ex=("a hydraulic pump", 2600),
+    ready=["Make, model and year of the machine", "Hour meter reading", "Serial number", "Date and hours of the last service"],
+    xfaq=[("Can I buy a warranty for used machinery?", "Yes. Level 1 has no age or hour limit. Level 2 is for machines up to 10 years old with under 10,000 hours."), ("How often must the machine be serviced?", "As the manufacturer directs, by a licensed mechanical workshop. Each service invoice must show the date and the hour reading. If a service is more than 30 days or 5 hours late, the warranty becomes inactive."), ("What terms are available?", "12, 36 or 60 months, on Level 1 or Level 2. Every price is in the table on this page.")]),
+ "truck": dict(cat="Truck", term="truck extended warranty", alias="", ex=("the engine", 12000),
+    ready=["Make, model and year", "Odometer reading", "Gross vehicle mass (GVM)", "Registration number or VIN", "Date and kilometres of the last service"],
+    xfaq=[("Can I buy a warranty for a used truck?", "Yes, if it is within the limits for the level: up to 15 years or 800,000 km for Level 1, 12 years or 650,000 km for Level 2 and 10 years or 500,000 km for Level 3.")]),
+}
+DESCS = {'caravan-warranty': 'Caravan extended warranty from $375. Who qualifies, claim limits from $2,500 to $10,000 and every price for 12 to 60 months. Integrity PDS linked.', 'jet-ski-warranty': 'Jet ski extended warranty from $589. Who qualifies, engine and jet pump claim limits and every price for 12, 36 and 60 months. Integrity PDS linked.', 'boat-warranty': 'Boat extended warranty from $500. Single and twin engine prices, claim limits from $1,500 to $5,000 and who qualifies. Integrity Marine PDS linked.', 'motorbike-warranty': 'Motorbike extended warranty from $232 for motorcycles, scooters and quad bikes. Who qualifies, claim limits and every price. Integrity PDS linked.', 'motorhome-warranty': 'Motorhome extended warranty from $750. Who qualifies, claim limits from $1,000 to $5,000 per part and every price for 12 to 60 months. PDS linked.', 'machinery-warranty': 'Machinery extended warranty from $942. Who qualifies, engine and hydraulic pump claim limits and every price for 12, 36 and 60 months. PDS linked.', 'truck-warranty': 'Truck extended warranty from $2,500. Medium, heavy and prime mover prices, claim limits from $5,000 to $20,000 and who qualifies. PDS linked.'}
+for _p in P:
+    e = EXTRA[_p["key"]]
+    _p["desc"] = DESCS[_p["slug"]]; assert len(_p["desc"]) <= 155, (_p["slug"], len(_p["desc"]))
+    _p["title"] = "%s Extended Warranty: Every Price Shown | MyDriveShield" % e["cat"]
+    _p["h1"] = "%s: who qualifies, every claim limit and every price" % (e["term"][0].upper() + e["term"][1:])
+    _p["faqs"] = _p["faqs"] + e["xfaq"]
+
+def all_prices(p):
+    return [c for r in p["prices"][1] for c in r[1:] if isinstance(c, int)]
+
+def choose_block(p):
+    e = EXTRA[p["key"]]; part, amt = e["ex"]
+    head, rows = p["cover"]
+    caps = [(h, c) for h, c in zip(head[1:], rows[0][1:]) if isinstance(c, int)]
+    bits = []
+    for h, c in caps:
+        if c >= amt: bits.append("%s can pay the full $%s" % (h, format(amt, ",")))
+        else: bits.append("%s can pay up to $%s, leaving $%s for you to pay" % (h, format(c, ","), format(amt - c, ",")))
+    lo, hi = min(all_prices(p)), max(all_prices(p))
+    return """<h2>How to choose a level: what each one pays</h2>
+<p>The level sets two things: which %ss qualify, and the most Integrity can pay for any one claim on a listed part. Higher levels cost more because the claim limit is higher and the eligibility limits are tighter.</p>
+<p><b>A worked example.</b> Take an approved repair to %s that costs $%s. %s. The amounts are the claim limits in the table above. Integrity decides each claim, so an approved amount can be lower than the limit.</p>
+<p>Prices on this page run from $%s to $%s including GST, depending on the level and term. A quote shows the levels your %s qualifies for, each with its price and claim limit, so you can compare them side by side.</p>""" % (
+        p["noun"], part, format(amt, ","), ". ".join(bits), format(lo, ","), format(hi, ","), p["noun"])
+
+def buying_block(p, quote, cta):
+    e = EXTRA[p["key"]]
+    return """<h2>How buying works</h2>
+<ol>
+<li><b>Request a quote.</b> Use the button on this page. We call you back within one business day.</li>
+<li><b>We confirm the details.</b> We check your %s against the eligibility limits above and confirm the price from this page.</li>
+<li><b>You read the PDS.</b> We send you the <a href="/docs/%s">%s</a> before you pay.</li>
+<li><b>You pay by card.</b> Payment is taken through a secure payment page. We never ask for card numbers by phone or email.</li>
+<li><b>Integrity issues your warranty schedule.</b> It shows your level, term and commencement date.</li>
+</ol>
+<h3>What to have ready</h3>
+<ul>%s</ul>
+<h2>Why get your quote here</h2>
+<ul>
+<li><b>Every price published.</b> The price table on this page is the full retail price list. Your quote uses it and does not produce a different number.</li>
+<li><b>Every claim limit shown in dollars.</b> You can see the most each level can pay before you speak to anyone.</li>
+<li><b>Same product, same claims line.</b> The warranty is issued by Integrity Car Care and claims go to Integrity. Buying through MyDriveShield changes how you buy, not what the warranty covers.</li>
+<li><b>Factual information only.</b> MyDriveShield is an Authorised Representative of Integrity Car Care (AFSL 247069) and gives factual information, not advice.</li>
+</ul>""" % (p["noun"], p["pds"], p["pds_name"], "".join("<li>%s</li>" % r for r in e["ready"]))
+
+def related_block(p):
+    others = " · ".join('<a href="/%s/">%s</a>' % (o["slug"], o["name"]) for o in P if o["key"] != p["key"])
+    return """<h2>Related pages</h2>
+<p>Guides: <a href="/extended-warranty-vs-consumer-rights/">how a warranty sits alongside your consumer rights</a>, <a href="/faq/">frequently asked questions</a>, <a href="/extended-car-warranty/">extended car warranty prices</a>.</p>
+<p>Other warranties we arrange: %s.</p>""" % others
 
 def page(p):
     url = "https://mydriveshield.com.au/%s/" % p["slug"]
-    faqs = p["faqs"] + [COMMON_FAQ]
+    faqs = p["faqs"] + [COMMON_FAQ] + COMMON_FAQ2
     ld = [{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
               {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://mydriveshield.com.au/"},
               {"@type": "ListItem", "position": 2, "name": p["name"], "item": url}]},
           {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
-              {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faqs]}]
+              {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faqs]},
+          {"@context": "https://schema.org", "@type": "Service", "name": "%s (Integrity %s)" % (EXTRA[p["key"]]["term"][0].upper() + EXTRA[p["key"]]["term"][1:], p["pds_name"].replace(" PDS", "")),
+           "serviceType": EXTRA[p["key"]]["term"][0].upper() + EXTRA[p["key"]]["term"][1:], "url": url, "areaServed": {"@type": "Country", "name": "Australia"},
+           "provider": {"@type": "Organization", "name": "MyDriveShield", "url": "https://mydriveshield.com.au/"},
+           "brand": {"@type": "Organization", "name": "Integrity Car Care Pty Ltd"},
+           "offers": {"@type": "AggregateOffer", "priceCurrency": "AUD", "lowPrice": str(min(all_prices(p))), "highPrice": str(max(all_prices(p))),
+                      "offerCount": str(len(all_prices(p))), "url": url}}]
     quote = "/?callback=%s#quote" % p["key"]
     cta = "Request a %s quote" % p["noun"]
     desc = html.escape(p["desc"], quote=True)
@@ -237,7 +321,8 @@ def page(p):
 <meta property="og:title" content="{p["title"]}">
 <meta property="og:description" content="{desc}">
 <meta property="og:url" content="{url}">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://mydriveshield.com.au/img/hero/hilux-1920.jpg">
+<meta name="twitter:card" content="summary_large_image">
 {FONTS}<script type="application/ld+json">{json.dumps(ld)}</script>
 '''
     cover_note = '<p>%s</p>' % p["cover_note"] if p.get("cover_note") else ""
@@ -254,7 +339,7 @@ def page(p):
   </div>
 </section>
 <div class="doc">
-<p>{p["intro"]} The warranty is issued by Integrity Car Care. If the {p["noun"]} is still under the manufacturer's warranty, cover begins when that ends.</p>
+<p>{p["intro"]} The warranty is issued by Integrity Car Care. If the {p["noun"]} is still under the manufacturer's warranty, cover begins when that ends.{EXTRA[p["key"]]["alias"]}</p>
 <div class="note"><p><b>This is not insurance.</b> It is a discretionary risk product. Integrity decides whether to pay each claim and considers every claim on its merits. The claim limit is the most that can be paid for a listed part per claim, and an approved amount may be lower.</p></div>
 
 <h2>Who can buy it</h2>
@@ -270,6 +355,8 @@ def page(p):
 {price_note}
 <p>All prices include GST. These are the full prices set out in the PDS.</p>
 
+{choose_block(p)}
+
 <h2>Extra benefits when a claim is approved</h2>
 <ul>
 {"".join("<li>%s</li>" % b for b in p["benefits"])}
@@ -282,18 +369,30 @@ def page(p):
 <h2>What isn't covered</h2>
 <p>The PDS excludes {COMMON_EXCL.format(noun=p["noun"])}.{excl_extra} Only the listed part that failed first is covered, apart from the consequential damage benefit above. The full lists are in the <a href="{pds}">{p["pds_name"]}</a>.</p>
 
-<h2>Claims, transfers and cancelling</h2>
+<h2>Making a claim</h2>
+<ol>
+<li><b>Stop and call first.</b> Contact Integrity on <a href="tel:0391206666">03 9120 6666</a> before any repair starts. Repairs started without Integrity's approval are rejected.</li>
+<li><b>Take the {p["noun"]} to a repairer.</b> The repairer diagnoses the fault and sends Integrity the findings and a quote. You pay for diagnosis unless it is accepted as part of an approved claim.</li>
+<li><b>Integrity assesses the claim.</b> The PDS says claims are assessed within 24 hours of Integrity receiving all the information it needs, or within 5 working days if an inspection is required.</li>
+<li><b>The repair goes ahead.</b> If the claim is approved, Integrity authorises the repair up to the claim limit for your level. You pay anything above the limit and anything that is not covered.</li>
+</ol>
+<p>Have your warranty schedule and your service invoices ready. Integrity requires proof of servicing when you claim.</p>
+
+<h2>Cancelling, transfers and complaints</h2>
 <ul>
-<li>Contact Integrity on <a href="tel:0391206666">03 9120 6666</a> before any repair starts. Repairs started without approval are rejected.</li>
-<li>You pay for diagnosis unless it is accepted as part of an approved claim.</li>
-<li>If you sell, the warranty can be transferred to the new owner within 7 days for a $62.50 fee, with a condition report.</li>
-<li>Full refund if you cancel within 30 days of purchase and no claim has been paid.</li>
+<li><b>Cooling off.</b> You get a full refund if you cancel within 30 days of purchase and no claim has been paid.</li>
+<li><b>Cancelling later.</b> The refund is pro rata, less any accepted claim and a $62.50 administration fee.</li>
+<li><b>Selling the {p["noun"]}.</b> The warranty can be transferred to the new owner within 7 days of the sale for a $62.50 fee, with a condition report.</li>
+<li><b>Complaints.</b> Integrity has an internal complaints process and is a member of the Australian Financial Complaints Authority (AFCA). See <a href="/complaints/">how to make a complaint</a>.</li>
 </ul>
+
+{buying_block(p, quote, cta)}
 
 <h2>Common questions</h2>
 <div class="faq" style="margin:0">
 {"".join('<div class="qa"><button aria-expanded="false">%s<span class="plus">+</span></button><div class="ans"><p>%s</p></div></div>' % (html.escape(q), a) for q, a in faqs)}
 </div>
+{related_block(p)}
 <div class="cta-row"><a href="{quote}" class="btn btn-primary btn-lg" data-cat="{p["key"]}">{cta}</a></div>
 <p style="font-size:13.5px;color:var(--muted)">MyDriveShield gives factual information and arranges cover as Integrity Car Care's Authorised Representative. We don't give general or personal advice. Read the <a href="{pds}">{p["pds_name"]}</a> to decide whether the product suits you. Eligibility is subject to Integrity's approval.</p>
 </div>
