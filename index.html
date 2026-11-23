@@ -427,6 +427,14 @@
 .product-sel.selected{border-color:var(--primary);background:#f0f5ff}
 .product-sel h4{font-size:16px;font-weight:700;color:var(--primary);margin-bottom:4px}
 .product-sel p{font-size:13px;color:var(--gray-500)}
+.ps-kind{display:block;font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+.ps-car{font-size:14.5px;font-weight:600;color:var(--primary);margin:0 0 12px}
+.ps-car:empty{display:none}
+.product-sel .ps-fit{margin-top:8px;font-size:12.5px;font-weight:700}
+.product-sel .ps-fit:empty{display:none}
+.product-sel .ps-fit.ok{color:#17803d}
+.product-sel .ps-fit.no{color:var(--gray-500)}
+.product-sel.unavail{opacity:.62}
 .roadside-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
 .roadside-opt{border:2px solid var(--gray-200);border-radius:var(--r);padding:20px;cursor:pointer;transition:all .2s;background:#fff;text-align:center}
 .roadside-opt:hover{border-color:var(--primary)}
@@ -1026,24 +1034,34 @@ document.addEventListener('click', function(ev){
       <div class="wizard-card" id="step-2" style="display:none">
         <h2>Choose your warranty</h2>
         <p>Select product type and coverage duration. Price updates instantly.</p>
+        <p class="ps-car" id="ps-car" aria-live="polite"></p>
         <div class="product-sel-grid">
           <div class="product-sel selected" id="ps-absolute" onclick="selectProduct('absolute')">
+            <span class="ps-kind" data-kind="absolute">Comprehensive cover</span>
             <h4>🛡️ Absolute Warranty</h4>
-            <p>Comprehensive: parts the manufacturer's warranty covered, apart from listed exclusions. No hybrid or electric parts.</p>
+            <p>Covers the parts the manufacturer's warranty covered, apart from listed exclusions. No hybrid or electric parts.</p>
+            <p class="ps-fit" id="psfit-absolute"></p>
           </div>
           <div class="product-sel" id="ps-totalcover" onclick="selectProduct('totalcover')">
+            <span class="ps-kind" data-kind="totalcover">Comprehensive plus hybrid and electric parts</span>
             <h4>🛡️ Total Cover</h4>
             <p>Absolute's comprehensive cover, plus the hybrid system and electric motor (the battery on Plus)</p>
+            <p class="ps-fit" id="psfit-totalcover"></p>
           </div>
           <div class="product-sel" id="ps-ev" onclick="selectProduct('ev')" style="display:none">
+            <span class="ps-kind" data-kind="ev">Hybrid and EV listed parts, battery included</span>
             <h4>⚡ EV Warranty</h4>
             <p>Hybrid and electric vehicles: listed components, including the battery</p>
+            <p class="ps-fit" id="psfit-ev"></p>
           </div>
           <div class="product-sel" id="ps-endurance" onclick="selectProduct('endurance')">
+            <span class="ps-kind" data-kind="endurance">Named parts cover</span>
             <h4>🔧 Endurance Warranty</h4>
             <p>20 named components — any age vehicle</p>
+            <p class="ps-fit" id="psfit-endurance"></p>
           </div>
           <div class="product-sel" id="ps-roadside" onclick="selectProduct('roadside')">
+            <span class="ps-kind" data-kind="roadside">Roadside assistance only</span>
             <h4>🚨 Roadside Only</h4>
             <p>24/7 assistance — no warranty required</p>
           </div>
@@ -1673,6 +1691,40 @@ function selectEvPlan(pl){
   state.evplan = pl;
   ['A','C','D'].forEach(x=>document.getElementById('ev'+x).classList.toggle('selected', x===pl));
   updatePrices();
+}
+// Car first: show which warranties this car qualifies for, from the age and kilometre limits in each price list.
+function productAvail(){
+  return {
+    absolute: [1,2,3,4].some(levelAvailable),
+    totalcover: [1,2,3].some(tcAvailable),
+    ev: isHev() && ['A','C','D'].some(evAvailable),
+    endurance: [1,2,3,4].some(endOptionAvailable)
+  };
+}
+function refreshProductChoice(){
+  const a = productAvail(), keys = ['absolute','totalcover','ev','endurance'];
+  const shown = keys.filter(k => k!=='ev' || isHev());
+  const el = document.getElementById('ps-car');
+  if(el){
+    const name = [state.year, state.make, state.model].filter(Boolean).join(' ');
+    const km = state.odo ? ', ' + Number(state.odo).toLocaleString('en-AU') + ' km' : '';
+    const fuel = state.fuel==='ev' ? ', electric' : state.fuel==='hybrid' ? ', hybrid' : '';
+    const n = shown.filter(k => a[k]).length;
+    el.textContent = (name && state.odo) ? name + km + fuel + ': this car qualifies for ' + n + ' of the ' + shown.length + ' warranties below.' : '';
+  }
+  keys.forEach(k => {
+    const c = document.getElementById('ps-'+k), f = document.getElementById('psfit-'+k); if(!c || !f) return;
+    const known = !!(state.year && state.odo);
+    c.classList.toggle('unavail', known && !a[k]);
+    c.style.order = (known && !a[k]) ? 1 : 0;
+    f.className = 'ps-fit ' + (a[k] ? 'ok' : 'no');
+    f.textContent = !known ? '' : a[k] ? 'Available for this car' : 'Not available for this car: it is over the age or kilometre limit';
+  });
+  const rs = document.getElementById('ps-roadside'); if(rs) rs.style.order = 2;
+  // If the selected warranty is not available for this car, move to the first one that is (fixed order, not a recommendation).
+  if(state.year && state.odo && keys.includes(state.product) && !a[state.product]){
+    const first = shown.find(k => a[k]); if(first) selectProduct(first);
+  }
 }
 function syncHevProducts(){
   const ev = document.getElementById('ps-ev'); if(ev) ev.style.display = isHev() ? '' : 'none';
@@ -2369,7 +2421,7 @@ function goStep(n){
   // Validate step 1
   if(n>1 && !validateStep1()) return;
   // Refresh level eligibility from vehicle details
-  if(n===2){ syncHevProducts(); updateLevelAvail(true); updateEndAvail(true); updateTcAvail(true); updateEvAvail(true); if(state.product==='absolute'||state.product==='endurance'||state.product==='totalcover'||state.product==='ev') selectProduct(state.product); }
+  if(n===2){ syncHevProducts(); updateLevelAvail(true); updateEndAvail(true); updateTcAvail(true); updateEvAvail(true); refreshProductChoice(); if(state.product==='absolute'||state.product==='endurance'||state.product==='totalcover'||state.product==='ev') selectProduct(state.product); }
   // Init Stripe when hitting step 4
   if(n===3) applyRoadsideOnlyUI();
   if(n===4 && state.product==='roadside' && state.roadside==='none') selectRoadside('star3');
