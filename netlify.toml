@@ -41,6 +41,18 @@
   status = 301
   force = true
 
+[[redirects]]
+  from = "https://mydriveshield.pro/*"
+  to   = "https://mydriveshield.com.au/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.mydriveshield.pro/*"
+  to   = "https://mydriveshield.com.au/:splat"
+  status = 301
+  force = true
+
 # Route all paths to relevant HTML files
 # "/" is served by index.html automatically
 [[redirects]]
