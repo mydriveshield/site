@@ -5,7 +5,7 @@
   'use strict';
   if (window.__mdsChat) return; window.__mdsChat = true;
   var ENDPOINT = 'https://layden.app.n8n.cloud/webhook/mds-chat';
-  var PHONE = '0477 666 500', EMAIL = 'info@mydriveshield.com.au';
+  var PHONE = '0485 007 300', EMAIL = 'info@mydriveshield.com.au';
   var KEY = 'mds_chat_v1';
   var GREETING = "Hi, I'm MyDriveShield's AI assistant. I can answer questions about our extended warranties and roadside assistance. I give factual information only, not advice. For anything personal, I can have a team member contact you.";
   var CHIPS = ['What does Absolute cover?', 'Hybrid or electric car?', 'Roadside prices', 'I bought my car privately'];
@@ -74,7 +74,7 @@
     return esc(t).replace(/(https?:\/\/[^\s<]+[^\s<.,;:!?)\]'"])|(\s|^)(\/(?:extended-car-warranty|roadside-assistance|faq|private-sale-car-warranty|complaints|privacy)\/?)/g, function (m, url, pre, path) {
       if (url) return '<a href="' + url + '" target="_blank" rel="noopener">' + url + '</a>';
       return pre + '<a href="' + path + '">' + path + '</a>';
-    }).replace(/\b(0477 666 500|1800 422 772)\b/g, function (n) { return '<a href="tel:' + n.replace(/\s/g, '') + '">' + n + '</a>'; });
+    }).replace(/\b(0485 007 300|1800 422 772)\b/g, function (n) { return '<a href="tel:' + n.replace(/\s/g, '') + '">' + n + '</a>'; });
   }
   function bubble(role, text) {
     var d = document.createElement('div'); d.className = 'mdsc-m ' + (role === 'user' ? 'mdsc-u' : 'mdsc-a');
@@ -158,7 +158,7 @@
       post({ action: 'handover', sessionId: st.sid, page: location.pathname, messages: st.msgs.slice(-16),
         lead: { name: v('name'), phone: phone, email: email, besttime: v('besttime'), consent: true, reason: st.formReason || '' } })
         .then(function () { st.done = true; st.showForm = false; save(); f.remove(); track('chat_handover', {}); bubble('assistant', 'Thanks. A MyDriveShield team member will contact you within one business day. If it is urgent, call ' + PHONE + ' (Mon to Fri).'); scroll(); })
-        .catch(function () { b.disabled = false; b.textContent = 'Send my details'; err.innerHTML = 'Sorry, that did not send. Please call <a href="tel:0477666500">' + PHONE + '</a> or email ' + EMAIL + '.'; });
+        .catch(function () { b.disabled = false; b.textContent = 'Send my details'; err.innerHTML = 'Sorry, that did not send. Please call <a href="tel:0485007300">' + PHONE + '</a> or email ' + EMAIL + '.'; });
     };
     log.appendChild(f); scroll();
   }
