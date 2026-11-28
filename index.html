@@ -1357,8 +1357,9 @@ document.addEventListener('click', function(ev){
               <input type="file" id="c-vcr" accept="image/*,application/pdf">
               <p class="hint" id="c-vcr-hint" style="margin-top:4px">For dealer purchases a condition report is not usually needed. If the provider asks for one, we'll let you know.</p>
             </div>
-            <h3 style="font-size:17px;margin:18px 0 6px;color:var(--navy)">Before you buy, please confirm</h3>
-            <p style="font-size:13.5px;color:var(--gray-600);margin:0 0 12px">You must answer Yes to all of these to purchase online.</p>
+            <div id="q-prefilled" style="display:none;margin:18px 0 12px;padding:14px 16px;border:1px solid #BBF7D0;background:#F0FDF4;border-radius:var(--r-sm);font-size:14px;line-height:1.55;color:var(--gray-800)"></div>
+            <h3 id="q-head" style="font-size:17px;margin:18px 0 6px;color:var(--navy)">Before you buy, please confirm</h3>
+            <p id="q-sub" style="font-size:13.5px;color:var(--gray-600);margin:0 0 12px">You must answer Yes to all of these to purchase online.</p>
             <div class="q-item" style="padding:12px 14px;border:1px solid var(--gray-200);border-radius:var(--r-sm);margin-bottom:10px">
             <p style="margin:0 0 8px;font-size:14px;line-height:1.5;color:var(--gray-800)">Do you understand that you need to have your vehicle serviced to maintain your warranty, within the requirements detailed in the terms and conditions?</p>
             <label style="display:inline-flex;align-items:center;gap:6px;margin-right:18px;font-weight:600;font-size:14px"><input type="radio" name="q1" value="yes" style="width:auto"> Yes</label>
@@ -1412,6 +1413,7 @@ document.addEventListener('click', function(ev){
             <li>Membership fees are non-refundable. Towing covers vehicles up to 3.5 tonnes and 5.5 metres. Breakdowns caused by conditions that existed before your membership started are not covered.</li>
           </ul>
         </div>
+        <p id="pl-confirm-note" style="display:none;margin:14px 0 0;font-size:13.5px;line-height:1.5;color:var(--gray-800);font-weight:600">We filled in the details and answers you gave us on the call. Please check them above. By ticking the box below you also confirm they are correct.</p>
         <div id="pay-terms" style="display:flex;gap:10px;align-items:flex-start;padding:14px;background:var(--gray-100);border-radius:var(--r-sm);margin:14px 0 12px">
           <input type="checkbox" id="pay-accept" style="width:auto;margin-top:3px">
           <label for="pay-accept" style="font-weight:500;font-size:13.5px;line-height:1.5">I have read the <a href="/docs/integrity-absolute-warranty-pds-v3.5.pdf" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">Integrity Absolute Motor Vehicle Warranty Financial Services Guide and PDS</a> (including the servicing requirements and the need to obtain Integrity's authorisation before any repair) and I agree to them. I confirm the vehicle details I entered are accurate. *</label>
@@ -1456,6 +1458,52 @@ document.addEventListener('click', function(ev){
           </div>
           <p style="font-size:12.5px;color:var(--gray-500);margin-top:6px">We do not send pay links after an unrequested call. If none of these applies, do not send.</p>
         </div>
+        <details id="st-details" style="margin:0 0 14px;border:1px solid var(--gray-200);border-radius:var(--r-sm);padding:12px 14px">
+          <summary style="cursor:pointer;font-weight:600;font-size:14px">Details from the call (optional, saves the customer typing them in)</summary>
+          <p style="font-size:12.5px;color:var(--gray-500);margin:8px 0 12px">Enter only what the customer told you. They will see these on the payment page, can change them, and must confirm them before paying.</p>
+          <div class="form-row">
+            <div class="form-group"><label for="st-street">Street address</label><input type="text" id="st-street" maxlength="80" autocomplete="off"></div>
+            <div class="form-group"><label for="st-company">Company name (if owned by a business)</label><input type="text" id="st-company" maxlength="80" autocomplete="off"></div>
+          </div>
+          <div class="form-row form-row-3">
+            <div class="form-group"><label for="st-suburb">Suburb</label><input type="text" id="st-suburb" maxlength="40" autocomplete="off"></div>
+            <div class="form-group"><label for="st-postcode">Postcode</label><input type="text" id="st-postcode" inputmode="numeric" maxlength="4" autocomplete="off"></div>
+            <div class="form-group"><label for="st-state">State</label><select id="st-state"><option value="">State</option><option>VIC</option><option>NSW</option><option>QLD</option><option>WA</option><option>SA</option><option>TAS</option><option>ACT</option><option>NT</option></select></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label for="st-rego">Registration number</label><input type="text" id="st-rego" maxlength="9" autocomplete="off" style="text-transform:uppercase"></div>
+            <div class="form-group"><label for="st-regostate">State of registration</label><select id="st-regostate"><option value="">State</option><option>VIC</option><option>NSW</option><option>QLD</option><option>WA</option><option>SA</option><option>TAS</option><option>ACT</option><option>NT</option></select></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label for="st-pdate">Purchase date</label><input type="date" id="st-pdate"></div>
+            <div class="form-group"><label for="st-pprice">Purchase price (AUD)</label><input type="text" id="st-pprice" inputmode="numeric" maxlength="9" autocomplete="off"></div>
+          </div>
+          <div class="st-wo">
+            <div class="form-row">
+              <div class="form-group"><label for="st-vin">VIN (17 characters)</label><input type="text" id="st-vin" maxlength="17" autocomplete="off" style="text-transform:uppercase"></div>
+              <div class="form-group"><label for="st-buying">Buying the vehicle now?</label><select id="st-buying"><option value="">Not asked</option><option value="yes">Yes</option><option value="no">No, already owns it</option></select></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label for="st-from">Bought privately or from a dealer?</label><select id="st-from"><option value="">Not asked</option><option value="private">Privately</option><option value="dealer">From a dealer</option></select></div>
+              <div class="form-group"><label for="st-dealer">Dealer business name</label><input type="text" id="st-dealer" maxlength="80" autocomplete="off"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label for="st-ew">Still under a manufacturer's or dealer warranty?</label><select id="st-ew"><option value="">Not asked</option><option value="yes">Yes</option><option value="no">No, it has ended</option><option value="unsure">Not sure</option></select></div>
+              <div class="form-group"><label for="st-ewend">If yes, when does it end?</label><input type="date" id="st-ewend"></div>
+            </div>
+            <label style="display:flex;gap:10px;align-items:flex-start;padding:12px;background:var(--gray-100);border-radius:var(--r-sm);font-size:13.5px;font-weight:500;line-height:1.5"><input type="checkbox" id="st-qs" style="width:auto;margin-top:3px"> I read the six "Before you buy" questions to the customer in full on this call and they answered Yes to each one.</label>
+            <details style="margin-top:8px;font-size:13px;color:var(--gray-700)"><summary style="cursor:pointer">Show the six questions to read out</summary>
+              <ol style="margin:8px 0 0 18px;padding:0;line-height:1.5">
+                <li>Do you understand that you need to have your vehicle serviced to maintain your warranty, within the requirements detailed in the terms and conditions?</li>
+                <li>Do you understand that this extended warranty has some specific exclusions listed in the terms and conditions?</li>
+                <li>Are you able to contribute to the diagnostic costs and repair cost of the vehicle if the failure is excluded under the terms and conditions, or if the claim is declined on a discretionary basis?</li>
+                <li>Are you able to contribute to the repair cost of the vehicle if the total cost exceeds the claim limit or amount approved, or if the claim is declined on a discretionary basis?</li>
+                <li>Do you understand that you do not have to buy an extended warranty, and there may be consumer guarantees under the Australian Consumer Law that give you rights to parts and components of your vehicle being repaired or replaced?</li>
+                <li>Do you know that if you finance the cost of your vehicle and you select this extended warranty, the cost of the warranty will also be financed and will include an interest charge?</li>
+              </ol>
+            </details>
+          </div>
+        </details>
         <div class="form-group" style="margin-bottom:14px"><label for="st-note">Internal note (not sent to the customer)</label><input type="text" id="st-note" maxlength="200" placeholder="e.g. buying from dealer Friday, wants 3 years"></div>
         <label id="st-consent-wrap" style="display:flex;gap:10px;align-items:flex-start;padding:12px;background:var(--gray-100);border-radius:var(--r-sm);font-size:13.5px;font-weight:500;line-height:1.5;margin-bottom:14px"><input type="checkbox" id="st-consent" style="width:auto;margin-top:3px"> The customer asked me to send this quote to the email address above. I gave factual information only and did not recommend a product. *</label>
         <div id="st-message" style="display:none;color:#B91C1C;font-size:14px;margin-bottom:10px"></div>
@@ -2913,6 +2961,7 @@ function showStaffStep(){
   if(pf){ document.getElementById('st-fig-a').textContent = 'You earn '+fmt(pf.commission)+' commission, paid 14 days after the customer pays.';
           document.getElementById('st-fig-b').textContent = 'You pay MyDriveShield '+fmt(pf.buy)+' and keep the difference. We email you the schedule once paid.'; }
   staffModeChanged();
+  document.querySelectorAll('#st-details .st-wo').forEach(e=>{ e.style.display = state.product==='roadside' ? 'none' : ''; });
   document.getElementById('st-done').style.display = 'none';
   document.getElementById('st-message').style.display = 'none';
   document.getElementById('st-send').disabled = false;
@@ -2950,11 +2999,20 @@ async function staffSendLink(){
   if(!/^(\+?61|0)[2-9]\d{8}$/.test(phone.replace(/[\s\-()]/g,''))) return err('Please enter a valid Australian phone number.');
   if(mode==='customer' && !basis) return err('Please say how the conversation started.');
   if(mode==='customer' && !document.getElementById('st-consent').checked) return err('Please tick the box to confirm the customer asked for this quote.');
+  // Optional details taken on the call. The customer sees them prefilled on the payment page and confirms them there.
+  const details = { street:v('st-street'), company:v('st-company'), suburb:v('st-suburb'), postcode:v('st-postcode'), state:v('st-state'),
+    rego:v('st-rego').toUpperCase().replace(/\s/g,''), regoState:v('st-regostate'), pdate:v('st-pdate'), pprice:v('st-pprice').replace(/[^\d]/g,'') };
+  if(state.product!=='roadside') Object.assign(details, { vin:v('st-vin').toUpperCase().replace(/\s/g,''), buying:v('st-buying'), from:v('st-from'), dealer:v('st-dealer'),
+    ew:v('st-ew'), ewEnd:v('st-ewend'), qsYes: document.getElementById('st-qs').checked });
+  Object.keys(details).forEach(k=>{ if(details[k]==='' || details[k]===false) delete details[k]; });
+  if(details.postcode && !/^\d{4}$/.test(details.postcode)) return err('The postcode should be 4 digits.');
+  if(details.vin && !/^[A-HJ-NPR-Z0-9]{17}$/.test(details.vin)) return err('The VIN should be 17 characters, with no I, O or Q.');
+  if(details.ewEnd && details.ew!=='yes') return err('A warranty end date was entered, so choose Yes for the existing warranty question.');
   const s = staffSession(); if(!s){ location.href = '/staff/'; return; }
   const btn = document.getElementById('st-send'); btn.disabled = true; btn.textContent = 'Sending...';
   try{
     const res = await fetch(CONFIG.N8N_STAFF, { method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ action:'create', sid: s.sid, quote: quoteSnapshot(), customer:{ first, last, email, phone }, basis, note, mode }) });
+      body: JSON.stringify({ action:'create', sid: s.sid, quote: quoteSnapshot(), customer:{ first, last, email, phone }, basis, note, mode, details }) });
     const d = await res.json();
     if(!d.ok){
       btn.disabled = false; btn.textContent = 'Email the pay link';
@@ -3018,12 +3076,37 @@ async function staffSendLink(){
       const now = calcTotal().total;
       const b = document.getElementById('paylink-banner');
       const esc2 = t => String(t||'').replace(/[<>&"]/g,'');
+      // Details the consultant took on the call: prefill them so the customer only has to check, tick and pay.
+      const dt = (d.details && typeof d.details==='object' && Object.keys(d.details).length) ? d.details : null;
+      if(dt){
+        const pick = (name,val)=>{ if(!val) return; const r = document.querySelector('input[name="'+name+'"][value="'+val+'"]'); if(r){ r.checked = true; r.dispatchEvent(new Event('change',{bubbles:true})); } };
+        set('c-street', dt.street); set('c-company', dt.company); set('c-suburb', dt.suburb); set('c-postcode', dt.postcode); set('c-state', dt.state);
+        set('c-rego', dt.rego); set('c-regostate', dt.regoState);
+        if(q.product==='roadside'){ set('c-rs-pdate', dt.pdate); set('c-rs-pprice', dt.pprice); }
+        else {
+          set('c-vin', dt.vin); pick('p-buying', dt.buying); pick('p-from', dt.from); set('c-dealer', dt.dealer);
+          set('c-pdate', dt.pdate); set('c-pprice', dt.pprice); pick('p-ew', dt.ew); if(dt.ew==='yes') set('c-ew-end', dt.ewEnd);
+          if(dt.qsYes===true){
+            const items = [1,2,3,4,5,6].map(i=>{ pick('q'+i,'yes'); const r = document.querySelector('input[name="q'+i+'"]'); return r ? r.closest('.q-item') : null; }).filter(Boolean);
+            const hide = [document.getElementById('q-head'), document.getElementById('q-sub')].concat(items).filter(Boolean);
+            const box = document.getElementById('q-prefilled');
+            if(box && items.length===6){
+              hide.forEach(e=>{ e.style.display = 'none'; });
+              box.innerHTML = '<strong>Recorded on your call'+(d.staffName ? ' with '+esc2(d.staffName) : '')+'.</strong> You answered Yes to the six "Before you buy" questions about servicing, exclusions, repair costs, your consumer rights and finance. <a href="#" id="q-review" style="color:var(--accent);font-weight:700">Review or change my answers</a>';
+              box.style.display = 'block';
+              document.getElementById('q-review').addEventListener('click', e=>{ e.preventDefault(); hide.forEach(x=>{ x.style.display = ''; }); box.style.display = 'none'; });
+            }
+          }
+        }
+        const note = document.getElementById('pl-confirm-note'); if(note) note.style.display = 'block';
+      }
       b.innerHTML = (d.mode==='partner' ? '<strong>Pay link '+d.ref+'</strong> for your customer '+esc2((d.customer||{}).first)+' '+esc2((d.customer||{}).last)+', valid until '+d.expires+'.<br>'
                                          : '<strong>Your quote '+d.ref+'</strong>'+(d.staffName ? ' from '+esc2(d.staffName) : '')+', valid until '+d.expires+'.<br>')
         + quoteSummaryText(quoteSnapshot()).replace(/[<>&]/g,'')
         + (Math.round(now)!==Math.round(d.total) ? '<br><strong>The price has changed since your quote was prepared</strong> (quoted '+fmt(d.total)+'). The price above is the current price. Call 0485 007 300 if you have a question.' : '')
         + (d.partner && d.mode!=='partner' ? '<br>'+esc2(d.staffName)+' receives a commission from MyDriveShield if you buy.' : '')
-        + '<br>Please check the details, complete the questions below, read the terms and pay. Call 0485 007 300 if anything needs changing.';
+        + (dt ? '<br>We have filled in the details you gave us on the call. Please check them, read the terms, tick the box and pay. Call 0485 007 300 if anything needs changing.'
+              : '<br>Please check the details, complete the questions below, read the terms and pay. Call 0485 007 300 if anything needs changing.');
       b.style.display = 'block';
       window.mdsTrack && window.mdsTrack('paylink_open', { ref: d.ref, value: now, currency:'AUD' });
       setTimeout(()=>document.getElementById('quote').scrollIntoView(), 60);
