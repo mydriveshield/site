@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Used Car Statutory Warranty by State: NSW, VIC, QLD, WA, SA | MyDriveShield</title>
+<meta name="description" content="What the dealer statutory warranty gives you in each Australian state, the exclusions, why private sales get nothing, and what an extended warranty adds. Prices from $746.">
+<link rel="canonical" href="https://mydriveshield.com.au/statutory-warranty-used-car/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Used Car Statutory Warranty by State: NSW, VIC, QLD, WA, SA | MyDriveShield">
+<meta property="og:description" content="What the dealer statutory warranty gives you in each Australian state, the exclusions, why private sales get nothing, and what an extended warranty adds. Prices from $746.">
+<meta property="og:url" content="https://mydriveshield.com.au/statutory-warranty-used-car/">
+<meta property="og:image" content="https://mydriveshield.com.au/img/hero/commodore-1920.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://mydriveshield.com.au/"}, {"@type": "ListItem", "position": 2, "name": "Extended car warranty", "item": "https://mydriveshield.com.au/extended-car-warranty/"}, {"@type": "ListItem", "position": 3, "name": "Statutory warranty", "item": "https://mydriveshield.com.au/statutory-warranty-used-car/"}]}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Do I get a statutory warranty on a private sale?", "acceptedAnswer": {"@type": "Answer", "text": "No. In every state and territory the statutory warranty is a dealer obligation. A private seller owes you nothing once the car is paid for, except not to mislead you. The car's condition is yours to check before you hand over the money, which is why an independent inspection matters more on a private sale."}}, {"@type": "Question", "name": "Does the statutory warranty cover everything?", "acceptedAnswer": {"@type": "Answer", "text": "No. Each state lists exclusions: tyres, batteries, globes, paint and upholstery, audio and navigation, defects the dealer listed on a defect notice, and damage from misuse after sale. The dealer repairs covered defects so the car is in reasonable condition for its age; it is not a new-car warranty."}}, {"@type": "Question", "name": "What happens after the 3 months or 5,000 km?", "acceptedAnswer": {"@type": "Answer", "text": "The dealer's statutory obligation ends. The Australian Consumer Law guarantee of acceptable quality still applies to a dealer sale and can run longer, but what counts as acceptable depends on the car's age, price and kilometres, and you have to argue it. An extended warranty is a contract with fixed limits that does not depend on that argument."}}, {"@type": "Question", "name": "Does buying an extended warranty affect my consumer rights?", "acceptedAnswer": {"@type": "Answer", "text": "No. Consumer guarantees under the Australian Consumer Law apply regardless of any dealer, manufacturer or extended warranty and cannot be excluded by contract. An extended warranty sits on top of them."}}, {"@type": "Question", "name": "Can I buy an extended warranty after the statutory warranty has ended?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The Absolute Warranty accepts cars up to 15 years and 220,000 km; Endurance Option 1 has no limit at all. The price is set by the car's age and kilometres on the day you buy."}}]}]</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HZMK5CPS6Z"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-HZMK5CPS6Z');
+gtag('config', 'AW-18308478534');
+
+// === MyDriveShield conversion tracking ===
+// LABELS: Google Ads conversion labels (Goals > Conversions > action > Tag setup > "Use Google tag" > event snippet).
+// An empty label means "GA4 event only, no Google Ads conversion" so nothing breaks before the actions exist.
+window.MDS_TRACK = {
+  ADS_ID: 'AW-18308478534',
+  LEAD_VALUE: 150, // fixed AUD value sent to Google Ads per lead (quote_request, partner_lead); not revenue
+  LABELS: {
+    purchase:         'tcI1CKDY99IcEMbslJpE',   // existing: Purchase (fires on /confirmation)
+    quote_request:    '_mIwCMPciOscEMbslJpE',                       // Request a callback / quote form submitted (PRIMARY)
+    partner_lead:     'e_flCMbciOscEMbslJpE',                       // Partner portal lead submitted (PRIMARY)
+    checkout_details: 'dGKwCMnciOscEMbslJpE',                       // Customer details entered at payment step (secondary)
+    phone_click:      'NZGqCMzciOscEMbslJpE'                        // Tap on a tel: link (secondary)
+  }
+};
+// mdsTrack(name, params): sends a GA4 event and, when a label is configured, a Google Ads conversion.
+window.mdsTrack = function(name, params){
+  try{
+    var p = Object.assign({}, params || {});
+    gtag('event', name, p);
+    if(name === 'quote_request' || name === 'partner_lead') gtag('event', 'generate_lead', p);
+    var lbl = window.MDS_TRACK.LABELS[name];
+    if(lbl){
+      var ads = Object.assign({ send_to: window.MDS_TRACK.ADS_ID + '/' + lbl }, p);
+      // Leads carry the customer's estimated quote as GA4 'value' for reporting, but that is not
+      // revenue. Google Ads gets a fixed lead value so conv. value / ROAS reflect money received.
+      if(name === 'quote_request' || name === 'partner_lead'){ ads.estimated_quote = p.value || 0; ads.value = window.MDS_TRACK.LEAD_VALUE; }
+      gtag('event', 'conversion', ads);
+    }
+  }catch(e){}
+};
+// Phone click tracking on any tel: link
+document.addEventListener('click', function(ev){
+  var a = ev.target && ev.target.closest ? ev.target.closest('a[href^="tel:"]') : null;
+  if(a) window.mdsTrack('phone_click', { phone_number: a.getAttribute('href').replace('tel:',''), page_path: location.pathname });
+}, true);
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="ic-repair" viewBox="0 0 64 64">
+      <rect x="4" y="4" width="56" height="56" rx="16" fill="#EAF0FA"/>
+      <path d="M12 40v-6.5c0-1.3.8-2.4 2-2.8l5.2-1.7 5.3-7.2c.8-1.1 2-1.8 3.4-1.8h11.6c1.4 0 2.7.7 3.5 1.8l4.3 6.2 3.4 1.1c1.4.5 2.3 1.7 2.3 3.2V40" fill="#fff" stroke="#0B2545" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M10 40h44" stroke="#0B2545" stroke-width="2.6" stroke-linecap="round"/>
+      <circle cx="21" cy="41" r="4.6" fill="#fff" stroke="#0B2545" stroke-width="2.6"/>
+      <circle cx="43" cy="41" r="4.6" fill="#fff" stroke="#0B2545" stroke-width="2.6"/>
+      <path d="M26 29.5h14" stroke="#0B2545" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M44.5 11.5a6 6 0 0 0-6.8 7.9l-6.2 6.2 2.9 2.9 6.2-6.2a6 6 0 0 0 7.9-6.8l-3.4 3.4-2.6-.6-.6-2.6z" fill="#F97316" stroke="#C2410C" stroke-width="1.2" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="ic-breakdown" viewBox="0 0 64 64">
+      <rect x="4" y="4" width="56" height="56" rx="16" fill="#EAF0FA"/>
+      <path d="M8 44v-6.5c0-1.3.8-2.4 2-2.8l5.2-1.7 5.3-7.2c.8-1.1 2-1.8 3.4-1.8h9.6c1.4 0 2.7.7 3.5 1.8l4.3 6.2 3.4 1.1c1.4.5 2.3 1.7 2.3 3.2V44" fill="#fff" stroke="#0B2545" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M6 44h42" stroke="#0B2545" stroke-width="2.6" stroke-linecap="round"/>
+      <circle cx="17" cy="45" r="4.6" fill="#fff" stroke="#0B2545" stroke-width="2.6"/>
+      <circle cx="37" cy="45" r="4.6" fill="#fff" stroke="#0B2545" stroke-width="2.6"/>
+      <path d="M48.5 12.5l9 15.6c.5.9-.1 2-1.2 2H40.7c-1 0-1.7-1.1-1.2-2l9-15.6c.5-.9 1.7-.9 2 0z" fill="#F97316" stroke="#C2410C" stroke-width="1.2" stroke-linejoin="round"/>
+      <path d="M49 18v5.2" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="49" cy="26.4" r="1.4" fill="#fff"/>
+    </symbol>
+    <symbol id="ic-warranty" viewBox="0 0 64 64">
+      <rect x="4" y="4" width="56" height="56" rx="16" fill="#EAF0FA"/>
+      <path d="M32 10l17 6v13.5c0 11.2-7.2 20.3-17 24.5-9.8-4.2-17-13.3-17-24.5V16z" fill="#fff" stroke="#0B2545" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M32 15.5l12 4.2v9.8c0 8-4.9 14.8-12 18.2" fill="#DCE6F5"/>
+      <circle cx="32" cy="31" r="7.2" fill="#F97316" stroke="#C2410C" stroke-width="1.2"/>
+      <circle cx="32" cy="31" r="2.8" fill="#fff"/>
+      <path d="M32 21.4v3M32 37.6v3M22.4 31h3M38.6 31h3M25.2 24.2l2.1 2.1M36.7 35.7l2.1 2.1M38.8 24.2l-2.1 2.1M27.3 35.7l-2.1 2.1" stroke="#C2410C" stroke-width="2.4" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="ic-roadside" viewBox="0 0 64 64">
+      <rect x="4" y="4" width="56" height="56" rx="16" fill="#EAF0FA"/>
+      <path d="M14 54c0-8 8-9 13-13s3-9 9-12 12-3 12-11" fill="none" stroke="#0B2545" stroke-width="7" stroke-linecap="round"/>
+      <path d="M14 54c0-8 8-9 13-13s3-9 9-12 12-3 12-11" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="3 4"/>
+      <path d="M46 8.5a7 7 0 0 0-7 7c0 5.3 7 11.5 7 11.5s7-6.2 7-11.5a7 7 0 0 0-7-7z" fill="#F97316" stroke="#C2410C" stroke-width="1.2"/>
+      <path d="M46 12.3v6.4M42.8 15.5h6.4" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header id="hdr">
+  <div class="wrap">
+    <nav>
+      <a href="/" class="logo" aria-label="MyDriveShield home">
+        <svg class="mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MyDriveShield"><circle cx="24" cy="24" r="21" fill="#F97316"/><circle cx="24" cy="24" r="17.5" stroke="#0B2545" stroke-width="1.3" opacity=".5"/><path d="M10 33c9-2.5 19-2.5 28 0" stroke="#0B2545" stroke-width="2" stroke-linecap="round" opacity=".8"/><path d="M19 33c1.2-7.5 3-13.5 5-19 2 5.5 3.8 11.5 5 19" stroke="#0B2545" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 20v2.6M24 27v2.6" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <b>MyDrive<span class="o">Shield</span><span class="tm" aria-hidden="true" style="font-family:Arial,Helvetica,sans-serif;font-size:.45em;font-weight:500;line-height:1;vertical-align:top;margin-left:2px;letter-spacing:0">™</span></b>
+      </a>
+      <div class="menu" id="menu">
+        <a href="/extended-car-warranty/">Warranty</a>
+        <a href="/roadside-assistance/">Roadside</a>
+        <a href="/private-sale-car-warranty/">Private sale</a>
+        <a href="/faq/">FAQ</a>
+        <a href="/partners">Partners</a>
+        <a href="/#contact">Contact</a>
+      </div>
+      <div class="nav-cta">
+        <a href="/?start=warranty#quote" class="btn btn-primary btn-pill">Get my price</a>
+        <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/extended-car-warranty/">Extended car warranty</a> / <span aria-current="page">Statutory warranty</span></nav>
+    <h1>Statutory warranty on a used car: what each state gives you, and what it doesn't</h1>
+    <p>Every state makes a licensed dealer stand behind a used car for a short period. The period is short, the exclusions are long, and private sales get nothing. Here is the rule in each state, in one table, and what an extended warranty adds on top.</p>
+    <div class="hx-actions"><a href="/?start=warranty#quote" class="btn btn-primary btn-lg">See my price, no phone number needed</a></div>
+  </div>
+</section>
+<div class="doc">
+<picture><source type="image/webp" srcset="/img/hero/commodore-640.webp 640w, /img/hero/commodore-960.webp 960w, /img/hero/commodore-1440.webp 1440w" sizes="(max-width:900px) 100vw, 860px"><img src="/img/hero/commodore-1920.jpg" alt="A white 2008 Holden Commodore sedan parked on a country-town main street at sunset" width="1920" height="1086" fetchpriority="high" decoding="async" style="width:100%;height:auto;border-radius:16px;margin:4px 0 20px;display:block"></picture>
+<p>A statutory warranty (NSW calls it a dealer guarantee) is a repair obligation the law puts on a licensed motor dealer when they sell a used car that is young enough and has done few enough kilometres. The dealer must fix covered defects so the car is in reasonable condition for its age. It is not insurance, it does not pay you money, and it is over in about three months. Everything after that rests on the Australian Consumer Law and, if you buy one, an extended warranty.</p>
+
+<div class="toc"><b>On this page</b><ul><li><a href="#table">The rule in each state</a></li><li><a href="#covers">What the statutory warranty covers</a></li><li><a href="#private">Private sales: nothing</a></li><li><a href="#after">After the statutory warranty ends</a></li><li><a href="#extended">What an extended warranty adds</a></li><li><a href="#prices">What it costs</a></li><li><a href="#faq">Common questions</a></li></ul></div>
+
+<h2 id="table">The rule in each state</h2>
+<p>The dealer's obligation depends on the car's age and odometer on the day of sale, and in WA and SA on the price as well. "Whichever comes first" means a car driven 5,000 km in six weeks is out of warranty in six weeks.</p>
+<table class="cmp">
+<thead><tr><th scope="col">State</th><th scope="col">Car qualifies if</th><th scope="col">Dealer must repair for</th><th scope="col">Cars outside that</th><th scope="col">Source</th></tr></thead>
+<tbody><tr><th scope="row"><a href="/used-car-warranty-nsw/">New South Wales</a></th><td>Under 10 years and under 160,000 km</td><td>3 months or 5,000 km, whichever comes first</td><td>None (ACL guarantees only)</td><td><a href="https://www.nsw.gov.au/driving-boating-and-transport/buying-and-selling-vehicles/dealer-guarantees-and-warranties" rel="noopener">Government page</a></td></tr><tr><th scope="row"><a href="/used-car-warranty-vic/">Victoria</a></th><td>Not more than 10 years and under 160,000 km</td><td>3 months or 5,000 km, whichever comes first</td><td>None (ACL guarantees only)</td><td><a href="https://www.consumer.vic.gov.au/consumers-and-businesses/cars/buying-a-used-car/warranties" rel="noopener">Government page</a></td></tr><tr><th scope="row">Queensland</th><td>Class A: under 10 years and under 160,000 km</td><td>3 months or 5,000 km, whichever comes first</td><td>Class B: 1 month or 1,000 km</td><td><a href="https://www.qld.gov.au/law/your-rights/consumer-rights-complaints-and-scams/buying-products-and-services/buying-products/buying-a-car/buying-a-used-car/warranty-for-used-cars" rel="noopener">Government page</a></td></tr><tr><th scope="row"><a href="/used-car-warranty-wa/">Western Australia</a></th><td>Price $4,000 or more; up to 10 years and up to 150,000 km</td><td>3 months or 5,000 km, whichever comes first</td><td>Over 10 to 12 years and 150,000 to 180,000 km: 1 month or 1,500 km; older or further: none</td><td><a href="https://consumerprotection.wa.gov.au/car-warranties" rel="noopener">Government page</a></td></tr><tr><th scope="row">South Australia</th><td>Price over $6,000, under 15 years and under 200,000 km</td><td>3 months or 5,000 km, whichever comes first</td><td>Price $3,001 to $6,000: 2 months or 3,000 km; $3,000 or less: none</td><td><a href="https://cbs.sa.gov.au/campaigns/protecting-second-hand-vehicle-buyers" rel="noopener">Government page</a></td></tr><tr><th scope="row">ACT</th><td>Under 10 years and under 160,000 km</td><td>3 months or 5,000 km, whichever comes first</td><td>None</td><td><a href="https://www.accesscanberra.act.gov.au/" rel="noopener">Government page</a></td></tr></tbody></table>
+<p>Tasmania and the Northern Territory run their own schemes with different thresholds; check Consumer, Building and Occupational Services (Tasmania) or NT Consumer Affairs before relying on a figure. In every state, commercial vehicles, most motorcycles and cars sold at auction with a no-warranty notice are outside the scheme, and the Australian Consumer Law still applies to any dealer sale.</p>
+
+<h2 id="covers">What the statutory warranty covers</h2>
+<p>Defects that stop the car being in reasonable condition for its age and kilometres, repaired by the dealer at the dealer's cost. The common exclusions across the states: tyres and batteries, globes, paint and upholstery, radios and navigation, accessories you fitted, accident or misuse after delivery, and anything the dealer listed on a <b>defect notice</b> at the time of sale. That last one matters: in Victoria and NSW the dealer can write known faults onto the contract and exclude them, as long as the car is still safe, and buyers sign it without reading. The repair time is added to the warranty period, and arranging your own repair without the dealer's agreement can void it.</p>
+
+<h2 id="private">Private sales: nothing</h2>
+<p>No state gives a statutory warranty on a private sale, and the Australian Consumer Law guarantees apply to businesses, not to a person selling their own car. If the gearbox fails the week after you buy privately, that is your gearbox. The two things that change the picture are an independent pre-purchase inspection before you pay, and an extended warranty after. The warranty needs a vehicle condition report from a licensed mechanic before it can be lodged, so the inspection does both jobs; <a href="/private-sale-car-warranty/">how cover works after a private purchase</a>.</p>
+
+<h2 id="after">After the statutory warranty ends</h2>
+<p>For a dealer sale, the Australian Consumer Law guarantee of acceptable quality continues past the statutory period, and for a major failure it can mean a repair, refund or replacement. The catch is that "acceptable" is judged against the car's age, price and kilometres, the dealer decides whether to agree, and if they don't, you are in a tribunal arguing it. That works for a 2-year-old car with a failed engine; it rarely works for an 11-year-old car with a failed air-conditioning compressor. An extended warranty replaces that argument with a contract: a listed set of covered parts, a dollar cap per claim, and a claims line that pays the repairer.</p>
+
+<h2 id="extended">What an extended warranty adds</h2>
+<table class="cmp">
+<thead><tr><th scope="col"></th><th scope="col">Statutory warranty</th><th scope="col">Integrity Absolute Warranty</th></tr></thead>
+<tbody>
+<tr><th scope="row">Who provides it</th><td>The dealer, by law</td><td>Integrity Car Care, by contract</td></tr>
+<tr><th scope="row">Private sale</th><td>No</td><td>Yes, with a condition report</td></tr>
+<tr><th scope="row">How long</th><td>Usually 3 months or 5,000 km</td><td>1 to 5 years, your choice</td></tr>
+<tr><th scope="row">Car age limit</th><td>Usually 10 years and 160,000 km</td><td>Up to 15 years and 220,000 km (Endurance: no limit)</td></tr>
+<tr><th scope="row">What's covered</th><td>Defects, less a long exclusion list and the defect notice</td><td>Parts the manufacturer's warranty covered, less PDS exclusions</td></tr>
+<tr><th scope="row">Limit per repair</th><td>None stated; "reasonable condition for its age"</td><td>$2,000, $5,000, $8,000 or market value, by level</td></tr>
+<tr><th scope="row">Who repairs</th><td>The dealer, or who the dealer sends you to</td><td>Any licensed workshop Integrity approves; Integrity pays them</td></tr>
+<tr><th scope="row">Cost</th><td>Included in the dealer price</td><td>From $746 (Category 1, Level 1, 1 year)</td></tr>
+</tbody></table>
+<p>Two warranties can't overlap, so an extended warranty bought during the statutory period starts the day after it ends. The price is set by the car's age and kilometres on the day you buy, which is an argument for buying while the dealer warranty is still running rather than three months later.</p>
+
+<h2 id="prices">What it costs</h2>
+<p>Absolute Warranty prices for a Category 1 car (most Toyota, Mazda, Ford, Kia, Hyundai, Honda, Mitsubishi, Nissan, Subaru and Holden models). Categories 2 to 4 and the Endurance, Total Cover and EV products are on the <a href="/extended-car-warranty/">warranty page</a>; make guides for <a href="/toyota-extended-warranty/">Toyota</a>, <a href="/bmw-extended-warranty/">BMW</a> and <a href="/mercedes-extended-warranty/">Mercedes-Benz</a>.</p>
+<div class="ptable-wrap"><table class="ptable"><thead><tr><th scope="col">Absolute, Category 1</th><th scope="col">1 year</th><th scope="col">2 years</th><th scope="col">3 years</th><th scope="col">4 years</th><th scope="col">5 years</th></tr></thead><tbody><tr><td><strong>Level 1</strong><br><small>≤15 yrs · &lt;220,000 km · limit $2,000</small></td><td class="price">$746</td><td class="price">$916</td><td class="price">$1,103</td><td class="price">$1,291</td><td class="price">$1,478</td></tr><tr><td><strong>Level 2</strong><br><small>≤12 yrs · &lt;180,000 km · limit $5,000</small></td><td class="price">$1,032</td><td class="price">$1,255</td><td class="price">$1,478</td><td class="price">$1,657</td><td class="price">$1,835</td></tr><tr><td><strong>Level 3</strong><br><small>≤10 yrs · &lt;140,000 km · limit $8,000</small></td><td class="price">$1,353</td><td class="price">$1,567</td><td class="price">$1,782</td><td class="price">$2,005</td><td class="price">$2,192</td></tr><tr><td><strong>Level 4</strong><br><small>≤8 yrs · &lt;120,000 km · limit Market value of the vehicle</small></td><td class="price">$1,567</td><td class="price">$1,782</td><td class="price">$1,996</td><td class="price">$2,228</td><td class="price">$2,460</td></tr></tbody></table></div>
+<h2 id="faq">Common questions</h2>
+<div class="faq" style="margin:0"><div class="qa"><button aria-expanded="false">Do I get a statutory warranty on a private sale?<span class="plus">+</span></button><div class="ans"><p>No. In every state and territory the statutory warranty is a dealer obligation. A private seller owes you nothing once the car is paid for, except not to mislead you. The car's condition is yours to check before you hand over the money, which is why an independent inspection matters more on a private sale.</p></div></div><div class="qa"><button aria-expanded="false">Does the statutory warranty cover everything?<span class="plus">+</span></button><div class="ans"><p>No. Each state lists exclusions: tyres, batteries, globes, paint and upholstery, audio and navigation, defects the dealer listed on a defect notice, and damage from misuse after sale. The dealer repairs covered defects so the car is in reasonable condition for its age; it is not a new-car warranty.</p></div></div><div class="qa"><button aria-expanded="false">What happens after the 3 months or 5,000 km?<span class="plus">+</span></button><div class="ans"><p>The dealer's statutory obligation ends. The Australian Consumer Law guarantee of acceptable quality still applies to a dealer sale and can run longer, but what counts as acceptable depends on the car's age, price and kilometres, and you have to argue it. An extended warranty is a contract with fixed limits that does not depend on that argument.</p></div></div><div class="qa"><button aria-expanded="false">Does buying an extended warranty affect my consumer rights?<span class="plus">+</span></button><div class="ans"><p>No. Consumer guarantees under the Australian Consumer Law apply regardless of any dealer, manufacturer or extended warranty and cannot be excluded by contract. An extended warranty sits on top of them.</p></div></div><div class="qa"><button aria-expanded="false">Can I buy an extended warranty after the statutory warranty has ended?<span class="plus">+</span></button><div class="ans"><p>Yes. The Absolute Warranty accepts cars up to 15 years and 220,000 km; Endurance Option 1 has no limit at all. The price is set by the car's age and kilometres on the day you buy.</p></div></div></div>
+<div class="cta-row"><a href="/?start=warranty#quote" class="btn btn-primary btn-lg">See my price, no phone number needed</a></div>
+<p>Related guides: <a href="/extended-warranty-vs-consumer-rights/">how a warranty sits alongside your consumer rights</a>, <a href="/private-sale-car-warranty/">cover after a private purchase</a>, <a href="/what-extended-car-warranty-covers/">what a warranty covers and why claims get refused</a>, <a href="/high-kilometre-car-warranty/">older and high-kilometre cars</a>.</p>
+<p style="font-size:13.5px;color:var(--muted)">MyDriveShield gives factual information and arranges cover as Integrity Car Care's Authorised Representative. We don't give general or personal advice, and nothing here is legal advice. Statutory warranty rules are summarised from state government consumer sites current at the time of writing and can change; the linked government page is the authority. Read the PDS to decide whether a product suits you.</p>
+</div>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="f-top">
+      <div>
+        <a href="/" class="logo" aria-label="MyDriveShield home"><svg class="mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MyDriveShield"><circle cx="24" cy="24" r="21" fill="#F97316"/><circle cx="24" cy="24" r="17.5" stroke="#0B2545" stroke-width="1.3" opacity=".5"/><path d="M10 33c9-2.5 19-2.5 28 0" stroke="#0B2545" stroke-width="2" stroke-linecap="round" opacity=".8"/><path d="M19 33c1.2-7.5 3-13.5 5-19 2 5.5 3.8 11.5 5 19" stroke="#0B2545" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 20v2.6M24 27v2.6" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg><b>MyDrive<span class="o">Shield</span><span class="tm" aria-hidden="true" style="font-family:Arial,Helvetica,sans-serif;font-size:.45em;font-weight:500;line-height:1;vertical-align:top;margin-left:2px;letter-spacing:0">™</span></b></a>
+        <p class="f-about">Extended vehicle warranty and emergency roadside assistance for used-car owners across Australia. Backed by Integrity Car Care Pty Ltd.</p>
+      </div>
+      <div class="f-col"><h4>Protection</h4><a href="/extended-car-warranty/">Extended car warranty</a><a href="/roadside-assistance/">Roadside assistance</a><a href="/private-sale-car-warranty/">Private sale warranty</a><a href="/high-kilometre-car-warranty/">High-km &amp; older cars</a><a href="/hybrid-electric-car-warranty/">Hybrid &amp; EV warranty</a><a href="/what-extended-car-warranty-covers/">What a warranty covers</a><a href="/extended-warranty-vs-consumer-rights/">Warranty vs your rights</a><a href="/?start=warranty#quote">Get my price</a></div>
+        <div class="f-col"><h4>Help</h4><a href="/faq/">FAQ</a><a href="/faq/#forms">Transfers &amp; forms</a><a href="/docs/integrity-absolute-warranty-pds-v3.5.pdf">Absolute PDS</a><a href="/docs/integrity-endurance-warranty-terms.pdf">Endurance terms</a><a href="/partners">Partner portal</a></div>
+        <div class="f-col"><h4>Get in touch</h4><a href="tel:0485007300">0485 007 300</a><a href="mailto:quotes@mydriveshield.com.au">quotes@mydriveshield.com.au</a><a href="/contact/">Contact us</a><a href="/#contact">Request a callback</a><a href="tel:0391206666">Claims: Integrity 03 9120 6666</a></div>
+      </div>
+      <p class="f-legal">MyDriveShield provides information about vehicle warranty and roadside assistance products and facilitates quote requests. We give factual information only. We do not give general or personal financial product advice, or insurance or legal advice. Coverage, exclusions, eligibility, waiting periods, claim limits and terms depend on the relevant product documentation and provider approval. Warranty products are issued by Integrity Car Care Pty Ltd (PO Box 2122 Traralgon VIC 3844 · 03 9120 6666 · admin@integritywarranty.com.au). MyDriveShield (ABN 36 667 087 685), PO Box 1666, Potts Point NSW 1335, Authorised Representative No. 001323971 of Integrity Car Care Pty Ltd (ABN 58 056 621 893, AFSL 247069). All prices include GST. Cover is subject to the full terms and conditions of the relevant warranty product, available upon request. Pre-existing conditions are excluded. Vehicle category and eligibility are subject to approval. Please read the product terms before purchasing. All quotes are subject to assessment and approval.</p>
+    <div class="f-bottom"><span>© 2026 MyDriveShield. All rights reserved.</span><span><a href="/privacy.html">Privacy Policy</a> · <a href="/terms/">Terms of Use</a> · <a href="/complaints/">Complaints</a></span></div>
+  </div>
+</footer>
+<script>
+  const hdr=document.getElementById('hdr');
+  addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>10));
+  const burger=document.getElementById('burger'),menu=document.getElementById('menu');
+  burger.addEventListener('click',()=>menu.classList.toggle('open'));
+  document.querySelectorAll('.qa button').forEach(b=>b.addEventListener('click',()=>{
+    const qa=b.parentElement, open=qa.classList.contains('open');
+    document.querySelectorAll('.qa').forEach(x=>{x.classList.remove('open'); const bb=x.querySelector('button'); if(bb) bb.setAttribute('aria-expanded','false');});
+    if(!open){qa.classList.add('open'); b.setAttribute('aria-expanded','true');}
+  }));
+</script>
+<script src="/assets/chat.js?v=20261028" defer></script>
+</body>
+</html>
